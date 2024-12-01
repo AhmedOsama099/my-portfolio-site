@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 
@@ -22,6 +23,24 @@ const links = [
   },
 ];
 
+const socialMedia = [
+  {
+    link: "",
+    imageURL: "/facebook.png",
+    alt: "facebook",
+  },
+  {
+    link: "",
+    imageURL: "/github.png",
+    alt: "github",
+  },
+  {
+    link: "",
+    imageURL: "/linkedin.png",
+    alt: "linkedin",
+  },
+];
+
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
@@ -31,8 +50,17 @@ const Navbar = () => {
 
   return (
     <div className="h-full flex px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48 items-center justify-between">
+      {/* Links */}
+      <div className="hidden md:flex gap-4 w-1/3">
+        {links.map((link) => (
+          <Link key={link.title} href={link.url}>
+            {link.title}
+          </Link>
+        ))}
+      </div>
+
       {/* Logo */}
-      <div className="md:hidden">
+      <div className="md:hidden lg:flex justify-center w-1/3">
         <Link
           href={"/"}
           className="flex items-center p-1 justify-center font-semibold bg-black rounded-md text-sm"
@@ -43,6 +71,16 @@ const Navbar = () => {
           </span>
         </Link>
       </div>
+
+      {/* Social */}
+      <div className="hidden md:flex gap-4 w-1/3 justify-end">
+        {socialMedia.map((ele) => (
+          <Link key={ele.alt} href={ele.link}>
+            <Image src={ele.imageURL} alt={ele.alt} width={24} height={24} />
+          </Link>
+        ))}
+      </div>
+
       {/* Responsive Menu */}
       <div className="md:hidden">
         <button
