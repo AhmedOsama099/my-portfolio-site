@@ -12,8 +12,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <div className="w-screen h-screen bg-gradient-to-b from-blue-100 to-red-100">
-          <Navbar />
-          {children}
+          <div className="h-24">
+            <Navbar />
+          </div>
+          <div className="h-[calc(100vh - 96px)]">{children}</div>
         </div>
       </body>
     </html>
