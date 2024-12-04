@@ -1,7 +1,8 @@
+import MotionPageWrapper from "@/Components/motionPageWrapper";
 import React from "react";
 
 const PortfolioPage = () => {
-  return <div>PortfolioPage</div>;
+  return <MotionPageWrapper>PortfolioPage</MotionPageWrapper>;
 };
 
 export default PortfolioPage;

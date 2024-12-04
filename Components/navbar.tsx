@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NavLink from "./navLink";
 import { motion } from "framer-motion";
 
@@ -79,8 +79,32 @@ const Navbar = () => {
     },
   };
 
+  const listVariant = {
+    closed: {
+      x: "100vw",
+    },
+    opened: {
+      x: 0,
+      transition: {
+        when: "beforeChildren",
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const listItemVariant = {
+    closed: {
+      x: -10,
+      opacity: 0,
+    },
+    opened: {
+      x: 0,
+      opacity: 1,
+    },
+  };
+
   return (
-    <div className="h-full flex px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48 items-center justify-between">
+    <div className="h-full flex items-center justify-between  px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48 text-xl">
       {/* Links */}
       <div className="hidden md:flex gap-4 w-1/3 text-xl">
         {links.map((link) => (
@@ -134,13 +158,18 @@ const Navbar = () => {
         </button>
 
         {open && (
-          <div className="absolute bg-black text-white flex items-center justify-center gap-8 text-4xl h-screen w-screen flex-col top-0 start-0">
+          <motion.div
+            variants={listVariant}
+            initial="closed"
+            animate="opened"
+            className="absolute bg-black text-white flex items-center justify-center gap-8 text-4xl h-screen w-screen flex-col top-0 start-0 z-40 "
+          >
             {links.map((link) => (
-              <Link key={link.title} href={link.url}>
-                {link.title}
-              </Link>
+              <motion.div variants={listItemVariant} key={link.title}>
+                <Link href={link.url}>{link.title}</Link>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         )}
       </div>
     </div>
