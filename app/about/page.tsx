@@ -1,6 +1,6 @@
 "use client";
 
-import Brain from "@/Components/brain";
+import Brain from "@/Components/Brain";
 import MotionPageWrapper from "@/Components/motionPageWrapper";
 import { useScroll } from "framer-motion";
 import React, { useRef } from "react";
