@@ -7,7 +7,7 @@ const HomeImage = () => {
         src={"/hero.png"}
         alt="myProfile"
         fill
-        className="object-contain"
+        className="object-contain min-w-52"
         priority
       />
     </div>
