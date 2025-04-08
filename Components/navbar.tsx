@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import NavLink from "./navLink";
 import { motion } from "framer-motion";
 
@@ -27,17 +27,17 @@ const links = [
 
 const socialMedia = [
   {
-    link: "",
+    link: "https://www.facebook.com/share/181kSLpbfU/",
     imageURL: "/facebook.png",
     alt: "facebook",
   },
   {
-    link: "",
+    link: "https://github.com/AhmedOsama099",
     imageURL: "/github.png",
     alt: "github",
   },
   {
-    link: "",
+    link: "https://www.linkedin.com/in/ahmedosama099",
     imageURL: "/linkedin.png",
     alt: "linkedin",
   },
@@ -128,7 +128,12 @@ const Navbar = () => {
       {/* Social */}
       <div className="hidden md:flex gap-4 w-1/3 justify-end">
         {socialMedia.map((ele) => (
-          <Link key={ele.alt} href={ele.link}>
+          <Link
+            key={ele.alt}
+            href={ele.link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Image src={ele.imageURL} alt={ele.alt} width={24} height={24} />
           </Link>
         ))}
