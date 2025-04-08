@@ -5,6 +5,185 @@ import MotionPageWrapper from "@/Components/motionPageWrapper";
 import { useInView, useScroll } from "framer-motion";
 import React, { useRef } from "react";
 import { motion } from "framer-motion";
+
+const skillsList = [
+  { name: "HTML5", key: "html5" },
+  { name: "CSS3", key: "css3" },
+  { name: "JavaScript (ES6+)", key: "javascript" },
+  { name: "TypeScript", key: "typescript" },
+  { name: "React.js", key: "react" },
+  { name: "Redux", key: "redux" },
+  { name: "Redux Toolkit", key: "redux-toolkit" },
+  { name: "Zustand", key: "zustand" },
+  { name: "Tailwind CSS", key: "tailwind" },
+  { name: "Bootstrap", key: "bootstrap" },
+  { name: "ShadCN", key: "shadcn" },
+  { name: "DevExtreme", key: "devextreme" },
+  { name: "UI implementation from Figma", key: "figma-ui" },
+  { name: "Responsive Design", key: "responsive" },
+  { name: "Accessibility (a11y)", key: "accessibility" },
+  { name: "Next.js", key: "nextjs" },
+  { name: "Vite", key: "vite" },
+  { name: "Git", key: "git" },
+  { name: "Bitbucket", key: "bitbucket" },
+  { name: "RESTful APIs", key: "rest" },
+  { name: "GraphQL", key: "graphql" },
+  { name: "Apollo Client", key: "apollo" },
+  { name: "Docker", key: "docker" },
+  { name: "System Design", key: "system-design" },
+];
+
+const experienceList = [
+  {
+    title: "Senior Frontend Developer",
+    description: [
+      {
+        title: "SocialMedia Application",
+        description: [
+          "Participating in developing app features, code reviewing and refactoring",
+        ],
+        usedTech:
+          "ReactJS - Apollo Client - Zustand - Zod - React Hook Form - ShadCN",
+      },
+    ],
+    date: "06.2024: present",
+    company: "Bitbang,LLC",
+    side: "left",
+  },
+  {
+    title: "Software Engineer",
+    description: [
+      {
+        title: "Report Generator System",
+        description: [
+          "Developed an Admin Portal responsible for creating reports that require fulfillment on a monthly or quarterly basis.",
+          "Implemented functionalities allowing administrators to revise fulfilled reports and take actions such as approval, rejection, or deletion.",
+          "Implemented a User Portal to for seamless report fulfillment.",
+          "Integrated a notification system based on approval, rejection, or deletion actions. Contributed to 80% of total work.",
+        ],
+        usedTech: " ReactJS - SharePoint - PowerAutomate.",
+      },
+      {
+        title: "Project Management System",
+        description: [
+          "Implemented a Meetings Overview page to view details, categorize and filter meetings.",
+          "Developed a Projects Planning Page with automated project sections and customizable steps, allowing users to manipulate information, attach files, and add tasks to each section..",
+          "Enabled users to add, delete, and reorder project steps for enhanced project planning..",
+        ],
+        usedTech: " ReactJS - SharePoint.",
+      },
+      {
+        title: "SharePoint Framework support with Front End Components",
+        description: [
+          "Enhanced SharePoint functionality by adding UI custom components.",
+          "Provided support for existing custom components..",
+        ],
+        usedTech: " ReactJS.",
+      },
+      {
+        title: "Sites Migration",
+        description: [
+          "Played a role in the migration and revamping of two SharePoint sites.",
+        ],
+        usedTech: " PowerShell.",
+      },
+      {
+        title: "Documents Generator.",
+        description: [
+          "Developed a dynamic form for generating documents based on user inputs.",
+          "Integrated PowerAutomate to convert generated HTML to Word documents.",
+          "Enabled users to download the generated documents.",
+        ],
+        usedTech: " ReactJS - SharePoint - PowerAutomate.",
+      },
+    ],
+    date: "10.2021: 02.2022",
+    company: "_vois",
+    side: "right",
+  },
+  {
+    title: "Front End Developer",
+    description: [
+      {
+        title: "Frontend Library.",
+        description: [
+          "Spearheaded the development of a versatile Frontend Library comprising UI components tailored for integration across various company projects.",
+        ],
+        usedTech: " ReactJS.",
+      },
+      {
+        title: "Ras Al Khaimah Emirate Government System Support.",
+        description: [
+          "Provided ongoing support for the Ras Al Khaimah Emirate Government System.",
+          "Implemented diverse changes and introduced new features as per client requirements.",
+        ],
+        usedTech: " ReactJS - DevExpress.",
+      },
+    ],
+    date: "10.2021: 02.2022",
+    company: "AIS-WORKS",
+    side: "left",
+  },
+  {
+    title: "Full Stack Developer",
+    description: [
+      {
+        title: "Universities System.",
+        description: [
+          "Engineered a QR Limited Sign-in system and developed an interactive Quiz system for testing students.",
+        ],
+        usedTech: " ReactJS, DevExpress, .NET Core, Entity Framework, SQL.",
+      },
+      {
+        title: "Company Website Revamping.",
+        description: [
+          "Built company new website, contributing to 40% of total work.",
+        ],
+        usedTech: "ReactJS, DevExpress, .NET Core, Entity Framework, SQL.",
+      },
+      {
+        title: "Web-Based Accounting System Migration.",
+        description: [
+          "Converted already built desktop application sections to a web based application contributed to 25% of total work, and built approximately 20 web pages",
+        ],
+        usedTech: "ReactJS, DevExpress.",
+      },
+      {
+        title: "Company Legacy Website Support.",
+        description: [
+          "Implemented requested changes and updates to the legacy company website.",
+        ],
+        usedTech: ".NET Web Forms.",
+      },
+    ],
+    date: "10.11.2020: 10.2021",
+    company: "MedadSoftwareCairo",
+    side: "right",
+  },
+  {
+    title: "Intern Full Stack Developer",
+    description: [
+      {
+        title: "Transportation Company Responsive Landing Page.",
+        description: [
+          "Developed a responsive landing page to market transportation services.",
+        ],
+        usedTech: "HTML, CSS, JavaScript, .NET Framework, MySQL.",
+      },
+      {
+        title: "Service Map Application.",
+        description: [
+          "Implemented a Service Map Application to improve user experience and provide information about service locations, including proximity to nearby restaurants.",
+        ],
+        usedTech: "HTML, CSS, JavaScript, Google Maps JavaScript API.",
+      },
+    ],
+    date: "10.2020: 11.2020",
+    company: "Weelo Business.",
+    side: "left",
+  },
+];
+
 const AboutPage = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ container: containerRef });
@@ -28,14 +207,22 @@ const AboutPage = () => {
             <h1 className="font-bold text-2xl">Biography</h1>
             {/* Biography Description*/}
             <p className="text-gl ">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam
-              dolore accusantium quibusdam doloremque similique suscipit, quam
-              rerum pariatur optio blanditiis corporis laboriosam, dolor eaque
-              dolores aliquid placeat soluta necessitatibus recusandae.
+              I&apos;m Ahmed Osama El-Daoushy, a Senior Front-End Engineer with
+              over 4 years of experience building modern, scalable web
+              interfaces using React, TypeScript, and Tailwind CSS. I specialize
+              in transforming complex designs into clean, responsive, and
+              accessible user experiences with a strong focus on performance and
+              usability. I&apos;ve worked across startups and enterprise
+              environments, contributing to advanced dashboard systems, content
+              management platforms, and custom integrations with tools like
+              SharePoint and Apollo Client. I’m passionate about writing clean
+              code, building intuitive UIs, and continuously learning to stay
+              ahead in the front-end world.
             </p>
             {/* Biography Quote*/}
             <span className="italic">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+              Code is my craft, design is my language — together, they shape
+              digital stories that connect and inspire.
             </span>
             {/* Biography Sign SVG*/}
             <div className="self-end">
@@ -96,39 +283,14 @@ const AboutPage = () => {
               animate={isSkillRefInView ? { x: 0 } : {}}
               className="flex gap-4  flex-wrap"
             >
-              <div className="rounded p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Java Script
-              </div>
-              <div className="rounded p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                React
-              </div>
-              <div className="rounded p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Redux
-              </div>
-              <div className="rounded p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                CSS
-              </div>
-              <div className="rounded p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                HTML
-              </div>
-              <div className="rounded p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Redux
-              </div>
-              <div className="rounded p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Zod
-              </div>
-              <div className="rounded p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Zustand
-              </div>
-              <div className="rounded p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Apollo
-              </div>
-              <div className="rounded p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Next
-              </div>
-              <div className="rounded p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Java Script
-              </div>
+              {skillsList.map(({ name, key }) => (
+                <div
+                  key={key}
+                  className="rounded p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black"
+                >
+                  {name}
+                </div>
+              ))}
             </motion.div>
 
             {/* Biography Scroll*/}
@@ -174,104 +336,107 @@ const AboutPage = () => {
               initial={{ x: "-300px" }}
               animate={isExperienceRefInView ? { x: 0 } : {}}
             >
-              {/* Experience list item */}
-              <div className="flex justify-between h-48">
-                {/* Left */}
-                <div className="w-1/3 ">
-                  {/* Job Title */}
-                  <div className="bg-white p-3 font-semibold rounded-b-lg rounded-s-lg">
-                    Senior JavaScript Engineer
+              {/* Experience list items mapped from array */}
+              {experienceList.map((experience, index) => (
+                <div className="flex justify-between " key={index}>
+                  {/* Left */}
+                  <div className="w-1/3">
+                    {experience.side === "left" && (
+                      <>
+                        {/* Job Title */}
+                        <div className="bg-white p-3 font-semibold rounded-b-lg rounded-s-lg">
+                          {experience.title}
+                        </div>
+                        {/* Job Desc */}
+                        <ul className="p-3 text-sm italic">
+                          {experience.description?.map(
+                            ({ description, title, usedTech }, index) => (
+                              <span key={index}>
+                                <li className={"font-medium text-lg"}>
+                                  {title}
+                                </li>
+                                <ul className="list-disc pl-4 ps-8">
+                                  {description.map((desc, i) => (
+                                    <li key={i} className="">
+                                      {desc}
+                                    </li>
+                                  ))}
+                                </ul>
+                                <li>
+                                  <span className="font-medium">
+                                    Technologies used:
+                                  </span>{" "}
+                                  {usedTech}
+                                </li>
+                              </span>
+                            )
+                          )}
+                        </ul>
+                        {/* Job Date */}
+                        <div className="p-3 text-red-400 text-sm font-semibold">
+                          {experience.date}
+                        </div>
+                        {/* Job Company */}
+                        <div className="p-1 rounded bg-white text-sm font-semibold w-fit">
+                          {experience.company}
+                        </div>
+                      </>
+                    )}
                   </div>
-                  {/* Job Desc */}
-                  <div className="p-3 text-sm italic">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Praesentium voluptates dignissimos.
+                  {/* Center */}
+                  <div className="w-1/6">
+                    {/* Line */}
+                    <div className="w-1 h-full bg-gray-600 rounded relative">
+                      {/* Line Circle */}
+                      <div className="absolute w-5 h-5 rounded-full ring-4 ring-red-400 bg-white -left-2"></div>
+                    </div>
                   </div>
-                  {/* Job Date */}
-                  <div className="p-3 text-red-400 text-sm font-semibold">
-                    2024: present
-                  </div>
-                  {/* Job Company  */}
-                  <div className="p-1 rounded bg-white text-sm font-semibold w-fit">
-                    Apple
+                  {/* Right */}
+                  <div className="w-1/3">
+                    {experience.side === "right" && (
+                      <>
+                        {/* Job Title */}
+                        <div className="bg-white p-3 font-semibold rounded-b-lg rounded-s-lg">
+                          {experience.title}
+                        </div>
+                        {/* Job Desc */}
+                        <ul className="p-3 text-sm italic">
+                          {experience.description?.map(
+                            ({ description, title, usedTech }, index) => (
+                              <span key={index}>
+                                <li className={"font-medium text-lg"}>
+                                  {title}
+                                </li>
+                                <ul className="list-disc pl-4 ps-8">
+                                  {description.map((desc, i) => (
+                                    <li key={i} className="">
+                                      {desc}
+                                    </li>
+                                  ))}
+                                </ul>
+                                <li>
+                                  <span className="font-medium">
+                                    Technologies used:
+                                  </span>{" "}
+                                  {usedTech}
+                                </li>
+                              </span>
+                            )
+                          )}
+                        </ul>
+                        {/* Job Date */}
+                        <div className="p-3 text-red-400 text-sm font-semibold">
+                          {experience.date}
+                        </div>
+                        {/* Job Company */}
+                        <div className="p-1 rounded bg-white text-sm font-semibold w-fit">
+                          {experience.company}
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
-                {/* Center */}
-                <div className="w-1/6 ">
-                  {/* Line */}
-                  <div className="w-1 h-full bg-gray-600 rounded relative">
-                    {/* Line Circle */}
-                    <div className="absolute w-5 h-5 rounded-full ring-4 ring-red-400 bg-white -left-2"></div>
-                  </div>
-                </div>
-                {/* Right */}
-                <div className="w-1/3 "></div>
-              </div>
-              <div className="flex justify-between h-48">
-                {/* Left */}
-                <div className="w-1/3 "></div>
-
-                {/* Center */}
-                <div className="w-1/6 ">
-                  {/* Line */}
-                  <div className="w-1 h-full bg-gray-600 rounded relative">
-                    {/* Line Circle */}
-                    <div className="absolute w-5 h-5 rounded-full ring-4 ring-red-400 bg-white -left-2"></div>
-                  </div>
-                </div>
-                {/* Right */}
-                <div className="w-1/3 ">
-                  {/* Job Title */}
-                  <div className="bg-white p-3 font-semibold rounded-b-lg rounded-s-lg">
-                    Senior JavaScript Engineer
-                  </div>
-                  {/* Job Desc */}
-                  <div className="p-3 text-sm italic">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Praesentium voluptates dignissimos.
-                  </div>
-                  {/* Job Date */}
-                  <div className="p-3 text-red-400 text-sm font-semibold">
-                    2024: present
-                  </div>
-                  {/* Job Company  */}
-                  <div className="p-1 rounded bg-white text-sm font-semibold w-fit">
-                    Apple
-                  </div>
-                </div>
-              </div>
-              <div className="flex justify-between h-48">
-                {/* Left */}
-                <div className="w-1/3 ">
-                  {/* Job Title */}
-                  <div className="bg-white p-3 font-semibold rounded-b-lg rounded-s-lg">
-                    Senior JavaScript Engineer
-                  </div>
-                  {/* Job Desc */}
-                  <div className="p-3 text-sm italic">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Praesentium voluptates dignissimos.
-                  </div>
-                  {/* Job Date */}
-                  <div className="p-3 text-red-400 text-sm font-semibold">
-                    2024: present
-                  </div>
-                  {/* Job Company  */}
-                  <div className="p-1 rounded bg-white text-sm font-semibold w-fit">
-                    Apple
-                  </div>
-                </div>
-                {/* Center */}
-                <div className="w-1/6 ">
-                  {/* Line */}
-                  <div className="w-1 h-full bg-gray-600 rounded relative">
-                    {/* Line Circle */}
-                    <div className="absolute w-5 h-5 rounded-full ring-4 ring-red-400 bg-white -left-2"></div>
-                  </div>
-                </div>
-                {/* Right */}
-                <div className="w-1/3 "></div>
-              </div>
+              ))}
             </motion.div>
           </div>
         </div>
