@@ -1,7 +1,7 @@
 import HomeDescription from "@/Components/home/HomeDescription";
 import HomeImage from "@/Components/home/HomeImage";
 import MotionPageWrapper from "@/Components/motionPageWrapper";
-import { globalPX } from "./const";
+import { globalPX } from "./constants";
 
 export default function Home() {
   return (
