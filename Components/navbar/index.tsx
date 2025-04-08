@@ -5,7 +5,7 @@ import DesktopNavLinks from "./DesktopNavLinks";
 import NavLogo from "./NavLogo";
 import SocialMediaLinks from "./SocialMediaLinks";
 import MobileMenu from "./MobileMenu";
-import { links, socialMedia } from "./data";
+import { links, socialMedia } from "@/data/navbar";
 
 const Navbar: React.FC = () => {
   const [open, setOpen] = useState(false);
