@@ -1,11 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { SocialMediaType } from "./types";
-
-interface SocialMediaLinksProps {
-  socialMedia: SocialMediaType[];
-}
+import { SocialMediaLinksProps } from "@/types/navbar";
 
 const SocialMediaLinks: React.FC<SocialMediaLinksProps> = ({ socialMedia }) => (
   <div className="hidden md:flex gap-4 w-1/3 justify-end">

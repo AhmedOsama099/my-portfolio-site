@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { MenuButtonProps } from "./types";
 import { menuAnimations } from "./animations";
+import { MenuButtonProps } from "@/types/navbar";
 
 const MenuButton: React.FC<MenuButtonProps> = ({ open, toggleMenu }) => (
   <button

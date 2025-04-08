@@ -1,12 +1,8 @@
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { NavLinkType } from "./types";
 import { menuAnimations } from "./animations";
-
-interface MobileMenuContentProps {
-  links: NavLinkType[];
-}
+import { MobileMenuContentProps } from "@/types/navbar";
 
 const MobileMenuContent: React.FC<MobileMenuContentProps> = ({ links }) => (
   <motion.div

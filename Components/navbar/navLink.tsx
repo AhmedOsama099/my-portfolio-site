@@ -1,13 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-type NavLinkProps = {
-  link: {
-    url: string;
-    title: string;
-  };
-};
+import { NavLinkProps } from "@/types/navbar";
 
 const NavLink: React.FC<NavLinkProps> = ({ link }) => {
   const pathName = usePathname();

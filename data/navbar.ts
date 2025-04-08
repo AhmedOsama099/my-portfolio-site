@@ -1,4 +1,4 @@
-import { NavLinkType, SocialMediaType } from "@/Components/navbar/types";
+import { NavLinkType, SocialMediaType } from "@/types/navbar";
 
 // Navigation links data
 export const links: NavLinkType[] = [
