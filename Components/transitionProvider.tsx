@@ -10,8 +10,6 @@ const TransitionProvider: FC<{
 }> = ({ children }) => {
   const pathName = usePathname();
 
-  console.log(pathName);
-
   return (
     <AnimatePresence mode="wait">
       <div
