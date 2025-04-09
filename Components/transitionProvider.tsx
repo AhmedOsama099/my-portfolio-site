@@ -63,10 +63,10 @@ const TransitionProvider: FC<{
           }}
         />
 
-        <div className="h-24">
+        <div className="h-28">
           <Navbar />
         </div>
-        <div className="h-[calc(100vh-96px)]">{children}</div>
+        <div className="h-[calc(100vh-112px)]">{children}</div>
       </div>
     </AnimatePresence>
   );
