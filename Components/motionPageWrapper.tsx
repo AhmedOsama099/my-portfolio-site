@@ -7,7 +7,7 @@ const MotionPageWrapper: FC<{
 }> = ({ children }) => {
   return (
     <motion.div
-      className="h-full"
+      className="h-full pt-8"
       initial={{
         y: "-200vh",
       }}
