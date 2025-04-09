@@ -1,446 +1,46 @@
 "use client";
 
+import React, { useRef } from "react";
+import { useInView, useScroll } from "framer-motion";
 import Brain from "@/Components/Brain";
 import MotionPageWrapper from "@/Components/motionPageWrapper";
-import { useInView, useScroll } from "framer-motion";
-import React, { useRef } from "react";
-import { motion } from "framer-motion";
+import Biography from "@/Components/about/Biography";
+import Skills from "@/Components/about/Skills";
+import Experience from "@/Components/about/Experience";
+import { skillsList, experienceList } from "@/data/about";
 
-const skillsList = [
-  { name: "HTML5", key: "html5" },
-  { name: "CSS3", key: "css3" },
-  { name: "JavaScript (ES6+)", key: "javascript" },
-  { name: "TypeScript", key: "typescript" },
-  { name: "React.js", key: "react" },
-  { name: "Redux", key: "redux" },
-  { name: "Redux Toolkit", key: "redux-toolkit" },
-  { name: "Zustand", key: "zustand" },
-  { name: "Tailwind CSS", key: "tailwind" },
-  { name: "Bootstrap", key: "bootstrap" },
-  { name: "ShadCN", key: "shadcn" },
-  { name: "DevExtreme", key: "devextreme" },
-  { name: "UI implementation from Figma", key: "figma-ui" },
-  { name: "Responsive Design", key: "responsive" },
-  { name: "Accessibility (a11y)", key: "accessibility" },
-  { name: "Next.js", key: "nextjs" },
-  { name: "Vite", key: "vite" },
-  { name: "Git", key: "git" },
-  { name: "Bitbucket", key: "bitbucket" },
-  { name: "RESTful APIs", key: "rest" },
-  { name: "GraphQL", key: "graphql" },
-  { name: "Apollo Client", key: "apollo" },
-  { name: "Docker", key: "docker" },
-  { name: "System Design", key: "system-design" },
-];
-
-const experienceList = [
-  {
-    title: "Senior Frontend Developer",
-    description: [
-      {
-        title: "SocialMedia Application",
-        description: [
-          "Participating in developing app features, code reviewing and refactoring",
-        ],
-        usedTech:
-          "ReactJS - Apollo Client - Zustand - Zod - React Hook Form - ShadCN",
-      },
-    ],
-    date: "06.2024: present",
-    company: "Bitbang,LLC",
-    side: "left",
-  },
-  {
-    title: "Software Engineer",
-    description: [
-      {
-        title: "Report Generator System",
-        description: [
-          "Developed an Admin Portal responsible for creating reports that require fulfillment on a monthly or quarterly basis.",
-          "Implemented functionalities allowing administrators to revise fulfilled reports and take actions such as approval, rejection, or deletion.",
-          "Implemented a User Portal to for seamless report fulfillment.",
-          "Integrated a notification system based on approval, rejection, or deletion actions. Contributed to 80% of total work.",
-        ],
-        usedTech: " ReactJS - SharePoint - PowerAutomate.",
-      },
-      {
-        title: "Project Management System",
-        description: [
-          "Implemented a Meetings Overview page to view details, categorize and filter meetings.",
-          "Developed a Projects Planning Page with automated project sections and customizable steps, allowing users to manipulate information, attach files, and add tasks to each section..",
-          "Enabled users to add, delete, and reorder project steps for enhanced project planning..",
-        ],
-        usedTech: " ReactJS - SharePoint.",
-      },
-      {
-        title: "SharePoint Framework support with Front End Components",
-        description: [
-          "Enhanced SharePoint functionality by adding UI custom components.",
-          "Provided support for existing custom components..",
-        ],
-        usedTech: " ReactJS.",
-      },
-      {
-        title: "Sites Migration",
-        description: [
-          "Played a role in the migration and revamping of two SharePoint sites.",
-        ],
-        usedTech: " PowerShell.",
-      },
-      {
-        title: "Documents Generator.",
-        description: [
-          "Developed a dynamic form for generating documents based on user inputs.",
-          "Integrated PowerAutomate to convert generated HTML to Word documents.",
-          "Enabled users to download the generated documents.",
-        ],
-        usedTech: " ReactJS - SharePoint - PowerAutomate.",
-      },
-    ],
-    date: "10.2021: 02.2022",
-    company: "_vois",
-    side: "right",
-  },
-  {
-    title: "Front End Developer",
-    description: [
-      {
-        title: "Frontend Library.",
-        description: [
-          "Spearheaded the development of a versatile Frontend Library comprising UI components tailored for integration across various company projects.",
-        ],
-        usedTech: " ReactJS.",
-      },
-      {
-        title: "Ras Al Khaimah Emirate Government System Support.",
-        description: [
-          "Provided ongoing support for the Ras Al Khaimah Emirate Government System.",
-          "Implemented diverse changes and introduced new features as per client requirements.",
-        ],
-        usedTech: " ReactJS - DevExpress.",
-      },
-    ],
-    date: "10.2021: 02.2022",
-    company: "AIS-WORKS",
-    side: "left",
-  },
-  {
-    title: "Full Stack Developer",
-    description: [
-      {
-        title: "Universities System.",
-        description: [
-          "Engineered a QR Limited Sign-in system and developed an interactive Quiz system for testing students.",
-        ],
-        usedTech: " ReactJS, DevExpress, .NET Core, Entity Framework, SQL.",
-      },
-      {
-        title: "Company Website Revamping.",
-        description: [
-          "Built company new website, contributing to 40% of total work.",
-        ],
-        usedTech: "ReactJS, DevExpress, .NET Core, Entity Framework, SQL.",
-      },
-      {
-        title: "Web-Based Accounting System Migration.",
-        description: [
-          "Converted already built desktop application sections to a web based application contributed to 25% of total work, and built approximately 20 web pages",
-        ],
-        usedTech: "ReactJS, DevExpress.",
-      },
-      {
-        title: "Company Legacy Website Support.",
-        description: [
-          "Implemented requested changes and updates to the legacy company website.",
-        ],
-        usedTech: ".NET Web Forms.",
-      },
-    ],
-    date: "10.11.2020: 10.2021",
-    company: "MedadSoftwareCairo",
-    side: "right",
-  },
-  {
-    title: "Intern Full Stack Developer",
-    description: [
-      {
-        title: "Transportation Company Responsive Landing Page.",
-        description: [
-          "Developed a responsive landing page to market transportation services.",
-        ],
-        usedTech: "HTML, CSS, JavaScript, .NET Framework, MySQL.",
-      },
-      {
-        title: "Service Map Application.",
-        description: [
-          "Implemented a Service Map Application to improve user experience and provide information about service locations, including proximity to nearby restaurants.",
-        ],
-        usedTech: "HTML, CSS, JavaScript, Google Maps JavaScript API.",
-      },
-    ],
-    date: "10.2020: 11.2020",
-    company: "Weelo Business.",
-    side: "left",
-  },
-];
-
-const AboutPage = () => {
+const AboutPage: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ container: containerRef });
   const skillRef = useRef<HTMLDivElement>(null);
   const experienceRef = useRef<HTMLDivElement>(null);
-  // const isSkillRefInView = useInView(skillRef, {
-  //   once: true,
-  //   margin: "-100px",
-  // });
   const isSkillRefInView = useInView(skillRef);
   const isExperienceRefInView = useInView(experienceRef);
+
   return (
     <MotionPageWrapper>
       {/* Container */}
       <div className="h-full overflow-auto lg:flex" ref={containerRef}>
         {/* Text Container*/}
-        <div className="p-4 sm:p-8 md:p-12 lg:p-20 xl:p-48 flex flex-col gap-24 md:gap-32 lg:gap-48 xl:gap-64 lg:w-2/3  xl:w-1/2">
+        <div className="p-4 sm:p-8 md:p-12 lg:p-20 xl:p-48 flex flex-col gap-24 md:gap-32 lg:gap-48 xl:gap-64 lg:w-2/3 xl:w-1/2">
           {/* Biography Container*/}
-          <div className="flex flex-col gap-12 justify-center">
-            {/* Biography Title*/}
-            <h1 className="font-bold text-2xl">Biography</h1>
-            {/* Biography Description*/}
-            <p className="text-gl ">
-              I&apos;m Ahmed Osama El-Daoushy, a Senior Front-End Engineer with
-              over 4 years of experience building modern, scalable web
-              interfaces using React, TypeScript, and Tailwind CSS. I specialize
-              in transforming complex designs into clean, responsive, and
-              accessible user experiences with a strong focus on performance and
-              usability. I&apos;ve worked across startups and enterprise
-              environments, contributing to advanced dashboard systems, content
-              management platforms, and custom integrations with tools like
-              SharePoint and Apollo Client. I’m passionate about writing clean
-              code, building intuitive UIs, and continuously learning to stay
-              ahead in the front-end world.
-            </p>
-            {/* Biography Quote*/}
-            <span className="italic">
-              Code is my craft, design is my language — together, they shape
-              digital stories that connect and inspire.
-            </span>
-            {/* Biography Sign SVG*/}
-            <div className="self-end">
-              <svg
-                width="237"
-                height="166"
-                viewBox="0 0 237 166"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M198.862 30.2269C200.259 25.38 201.811 20.6266 203.886 16.0204C204.718 14.1719 205.478 11.0969 205.995 14.6708C208.439 31.5782 211.159 48.4519 212.844 65.4589C214.035 77.491 215.222 91.1849 210.9 102.774C209.801 105.724 208.138 108.416 207.488 111.535C207.233 112.759 209.296 109.804 210.142 108.883C214.665 103.958 219.268 98.9494 224.55 94.8188C226.478 93.3117 230.723 89.4713 233.626 89.9176C234.685 90.0803 234.768 91.9411 234.859 92.6642C235.508 97.855 233.819 102.867 231.849 107.605C228.142 116.519 221.994 125.024 219.432 134.36C218.793 136.688 227.126 133.262 228.2 132.845C229.595 132.303 226.873 135.584 225.83 136.657C221.644 140.963 216.551 144.317 211.493 147.501C209.779 148.58 207.398 150.512 205.166 149.798C203.749 149.345 203.267 148.879 202.369 147.501C199.456 143.03 197.875 137.312 196.208 132.324C191.267 117.538 187.162 101.834 186.918 86.1529C186.845 81.4414 185.544 88.9122 185.307 89.5151C179.914 103.255 172.402 116.084 163.79 128.038C154.978 140.269 145.543 151.892 132.888 160.287C132.003 160.874 127.164 164.841 125.731 163.838C125.221 163.481 125.494 162.055 125.494 161.494M134.452 72.42C139.478 66.3944 143.678 58.7046 146.51 50.741M146.51 50.741C148.29 45.735 149.529 40.6208 150.092 35.7437C150.302 33.932 150.645 28.4972 150.235 30.2742C149.526 33.3399 149.274 36.7598 148.718 39.8162C148.052 43.4747 147.307 47.1135 146.51 50.741ZM146.51 50.741C145.652 54.6464 144.733 58.5387 143.789 62.4281C139.808 78.8219 135.356 95.0896 130.85 111.346C129.202 117.289 125.99 125.054 125.305 131.424C125.096 133.362 128.22 128.83 129.594 127.446C134.485 122.521 139.883 118.103 144.642 113.05C145.331 112.319 146.878 109.879 146.727 110.872C146.575 111.878 145.966 112.763 145.495 113.666C143.319 117.839 140.943 121.919 137.864 125.505C130.516 134.062 120.253 139.49 109.996 143.76C102.65 146.818 94.9415 149.624 86.9145 149.987C83.4633 150.143 82.6302 150.074 82.0802 146.53C80.7568 138.004 80.1542 129.291 79.4498 120.698C78.359 107.393 76.8704 94.1103 75.8714 80.8018C75.2555 72.5969 75.1605 64.3994 75.1605 56.1773M75.1605 56.1773V63.0438M75.1605 56.1773V55.0408M96.4884 95.4345C96.2874 99.1495 95.3612 102.016 92.7204 104.763C91.5016 106.031 85.4234 112.266 87.2226 106.942C87.6089 105.799 88.5694 103.563 89.3115 101.935M89.3115 101.935C90.0275 100.365 90.5401 99.3618 90.1374 100.454C89.9548 100.949 89.6661 101.447 89.3115 101.935ZM89.3115 101.935C88.1364 103.553 86.2366 105.069 85.0661 106.066C79.8758 110.483 74.18 114.286 68.4304 117.928C57.0114 125.16 45.6878 132.298 34.6613 140.137C30.8812 142.825 27.0811 145.463 23.2628 148.093C22.5861 148.559 21.7721 149.069 21.2722 149.75C20.5627 150.717 20.6371 152.878 20.4664 153.965C20.051 156.611 19.7081 159.24 19.7081 161.921M24.4002 141.463C24.4771 140.414 25.9568 133.377 25.5377 133.602C22.0979 135.449 19.0968 138.861 16.0587 141.274C14.4795 142.528 10.6778 146.315 10.8215 144.305C10.8924 143.313 12.9787 138.809 12.3619 139.167C9.68779 140.718 7.31625 142.87 4.80233 144.66C3.5503 145.551 0.00309753 147.316 3.49896 146.151M184.786 2.09812C184.425 1.25643 181.02 6.05128 181.895 8.01748C182.692 9.81022 188.43 8.33009 189.525 8.11219C193.616 7.29785 197.961 5.98461 201.564 3.8029C202.371 3.31407 201.4 5.39097 201.303 5.67341C199.307 11.4554 195.334 16.9463 192.132 22.1055C189.982 25.5697 187.333 28.8445 185.591 32.5473C184.876 34.0684 185.924 33.494 186.918 33.2102M142.983 17.4411C140.618 17.4411 138.189 18.0767 137.343 20.6139C136.165 24.1456 141.874 22.8272 143.86 22.5554C144.993 22.4004 147.736 20.8707 147.225 21.8924C146.46 23.4208 144.151 25.177 142.983 26.3438C138.317 31.0059 134.015 35.5266 130.186 40.8817"
-                  stroke="black"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </div>
-            {/* BIOGRAPHY SCROLL SVG */}
-            <motion.svg
-              initial={{ opacity: 0.2, y: 0 }}
-              animate={{ opacity: 1, y: "10px" }}
-              transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              width={50}
-              height={50}
-            >
-              <path
-                d="M5 15C5 16.8565 5.73754 18.6371 7.05029 19.9498C8.36305 21.2626 10.1435 21.9999 12 21.9999C13.8565 21.9999 15.637 21.2626 16.9498 19.9498C18.2625 18.6371 19 16.8565 19 15V9C19 7.14348 18.2625 5.36305 16.9498 4.05029C15.637 2.73754 13.8565 2 12 2C10.1435 2 8.36305 2.73754 7.05029 4.05029C5.73754 5.36305 5 7.14348 5 9V15Z"
-                stroke="#000000"
-                strokeWidth="1"
-              ></path>
-              <path d="M12 6V14" stroke="#000000" strokeWidth="1"></path>
-              <path
-                d="M15 11L12 14L9 11"
-                stroke="#000000"
-                strokeWidth="1"
-              ></path>
-            </motion.svg>
+          <Biography />
+
+          {/* Skills Container*/}
+          <div ref={skillRef}>
+            <Skills skills={skillsList} isInView={isSkillRefInView} />
           </div>
 
-          {/* SKill Container*/}
-          <div className="flex flex-col gap-12 justify-center" ref={skillRef}>
-            {/* SKill Title */}
-            <motion.h1
-              initial={{ x: "-300px" }}
-              animate={isSkillRefInView ? { x: 0 } : {}}
-              transition={{ delay: 0.2 }}
-              className="font-bold text-2xl"
-            >
-              Skills
-            </motion.h1>
-            {/* Skill List */}
-            <motion.div
-              initial={{ x: "-300px" }}
-              animate={isSkillRefInView ? { x: 0 } : {}}
-              className="flex gap-4  flex-wrap"
-            >
-              {skillsList.map(({ name, key }) => (
-                <div
-                  key={key}
-                  className="rounded p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black"
-                >
-                  {name}
-                </div>
-              ))}
-            </motion.div>
-
-            {/* Biography Scroll*/}
-            <motion.svg
-              initial={{ opacity: 0.2, y: 0 }}
-              animate={{ opacity: 1, y: "10px" }}
-              transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              width={50}
-              height={50}
-            >
-              <path
-                d="M5 15C5 16.8565 5.73754 18.6371 7.05029 19.9498C8.36305 21.2626 10.1435 21.9999 12 21.9999C13.8565 21.9999 15.637 21.2626 16.9498 19.9498C18.2625 18.6371 19 16.8565 19 15V9C19 7.14348 18.2625 5.36305 16.9498 4.05029C15.637 2.73754 13.8565 2 12 2C10.1435 2 8.36305 2.73754 7.05029 4.05029C5.73754 5.36305 5 7.14348 5 9V15Z"
-                stroke="#000000"
-                strokeWidth="1"
-              ></path>
-              <path d="M12 6V14" stroke="#000000" strokeWidth="1"></path>
-              <path
-                d="M15 11L12 14L9 11"
-                stroke="#000000"
-                strokeWidth="1"
-              ></path>
-            </motion.svg>
-          </div>
-          {/* Experience */}
-          <div
-            className="flex flex-col gap-12 justify-center"
-            ref={experienceRef}
-          >
-            {/* Experience title */}
-            <motion.h1
-              initial={{ x: "-300px" }}
-              animate={isExperienceRefInView ? { x: 0 } : {}}
-              transition={{ delay: 0.2 }}
-              className="font-bold text-2xl"
-            >
-              Experience
-            </motion.h1>
-            {/* Experience list */}
-            <motion.div
-              initial={{ x: "-300px" }}
-              animate={isExperienceRefInView ? { x: 0 } : {}}
-            >
-              {/* Experience list items mapped from array */}
-              {experienceList.map((experience, index) => (
-                <div className="flex justify-between " key={index}>
-                  {/* Left */}
-                  <div className="w-1/3">
-                    {experience.side === "left" && (
-                      <>
-                        {/* Job Title */}
-                        <div className="bg-white p-3 font-semibold rounded-b-lg rounded-s-lg">
-                          {experience.title}
-                        </div>
-                        {/* Job Desc */}
-                        <ul className="p-3 text-sm italic">
-                          {experience.description?.map(
-                            ({ description, title, usedTech }, index) => (
-                              <span key={index}>
-                                <li className={"font-medium text-lg"}>
-                                  {title}
-                                </li>
-                                <ul className="list-disc pl-4 ps-8">
-                                  {description.map((desc, i) => (
-                                    <li key={i} className="">
-                                      {desc}
-                                    </li>
-                                  ))}
-                                </ul>
-                                <li>
-                                  <span className="font-medium">
-                                    Technologies used:
-                                  </span>{" "}
-                                  {usedTech}
-                                </li>
-                              </span>
-                            )
-                          )}
-                        </ul>
-                        {/* Job Date */}
-                        <div className="p-3 text-red-400 text-sm font-semibold">
-                          {experience.date}
-                        </div>
-                        {/* Job Company */}
-                        <div className="p-1 rounded bg-white text-sm font-semibold w-fit">
-                          {experience.company}
-                        </div>
-                      </>
-                    )}
-                  </div>
-                  {/* Center */}
-                  <div className="w-1/6">
-                    {/* Line */}
-                    <div className="w-1 h-full bg-gray-600 rounded relative">
-                      {/* Line Circle */}
-                      <div className="absolute w-5 h-5 rounded-full ring-4 ring-red-400 bg-white -left-2"></div>
-                    </div>
-                  </div>
-                  {/* Right */}
-                  <div className="w-1/3">
-                    {experience.side === "right" && (
-                      <>
-                        {/* Job Title */}
-                        <div className="bg-white p-3 font-semibold rounded-b-lg rounded-s-lg">
-                          {experience.title}
-                        </div>
-                        {/* Job Desc */}
-                        <ul className="p-3 text-sm italic">
-                          {experience.description?.map(
-                            ({ description, title, usedTech }, index) => (
-                              <span key={index}>
-                                <li className={"font-medium text-lg"}>
-                                  {title}
-                                </li>
-                                <ul className="list-disc pl-4 ps-8">
-                                  {description.map((desc, i) => (
-                                    <li key={i} className="">
-                                      {desc}
-                                    </li>
-                                  ))}
-                                </ul>
-                                <li>
-                                  <span className="font-medium">
-                                    Technologies used:
-                                  </span>{" "}
-                                  {usedTech}
-                                </li>
-                              </span>
-                            )
-                          )}
-                        </ul>
-                        {/* Job Date */}
-                        <div className="p-3 text-red-400 text-sm font-semibold">
-                          {experience.date}
-                        </div>
-                        {/* Job Company */}
-                        <div className="p-1 rounded bg-white text-sm font-semibold w-fit">
-                          {experience.company}
-                        </div>
-                      </>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </motion.div>
+          {/* Experience Container */}
+          <div ref={experienceRef}>
+            <Experience
+              experiences={experienceList}
+              isInView={isExperienceRefInView}
+            />
           </div>
         </div>
-        {/* SBG Container */}
+
+        {/* SVG Container */}
         <div className="hidden lg:block w-1/3 xl:w-1/2 sticky top-0">
           <Brain scrollYProgress={scrollYProgress} />
         </div>
