@@ -21,7 +21,10 @@ const Navbar: React.FC = () => {
       <NavLogo />
 
       {/* Social Media Links */}
-      <SocialMediaLinks socialMedia={socialMedia} />
+      <SocialMediaLinks
+        socialMedia={socialMedia}
+        className="hidden min-[900px]:flex justify-end"
+      />
 
       {/* Mobile Menu */}
       <MobileMenu open={open} toggleMenu={toggleMenu} links={links} />

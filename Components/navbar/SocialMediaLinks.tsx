@@ -2,9 +2,13 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { SocialMediaLinksProps } from "@/types/navbar";
+import { cn } from "@/lib/tailwind";
 
-const SocialMediaLinks: React.FC<SocialMediaLinksProps> = ({ socialMedia }) => (
-  <div className="hidden min-[900px]:flex gap-4 w-1/3 justify-end">
+const SocialMediaLinks: React.FC<SocialMediaLinksProps> = ({
+  socialMedia,
+  className,
+}) => (
+  <div className={cn("gap-4 w-1/3 ", className)}>
     {socialMedia.map((item) => (
       <Link
         key={item.alt}

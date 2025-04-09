@@ -37,6 +37,7 @@ export type NavLinkProps = {
 
 export interface SocialMediaLinksProps {
   socialMedia: SocialMediaType[];
+  className?: string;
 }
 
 export interface MobileMenuContentProps {
