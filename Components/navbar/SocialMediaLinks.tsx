@@ -4,7 +4,7 @@ import Link from "next/link";
 import { SocialMediaLinksProps } from "@/types/navbar";
 
 const SocialMediaLinks: React.FC<SocialMediaLinksProps> = ({ socialMedia }) => (
-  <div className="hidden md:flex gap-4 w-1/3 justify-end">
+  <div className="hidden min-[900px]:flex gap-4 w-1/3 justify-end">
     {socialMedia.map((item) => (
       <Link
         key={item.alt}
