@@ -18,6 +18,7 @@ const TransitionProvider: FC<{
       >
         <motion.div
           className="w-screen h-screen fixed bg-black rounded-b-[100px] z-40"
+          initial={{ height: "100vh" }}
           animate={{
             height: "0vh",
           }}
@@ -25,7 +26,7 @@ const TransitionProvider: FC<{
             height: "140vh",
           }}
           transition={{
-            duration: 0.5,
+            duration: 0.3,
             ease: "easeOut",
           }}
         />
@@ -42,10 +43,10 @@ const TransitionProvider: FC<{
           }}
           transition={{
             ease: "easeOut",
-            duration: 0.8,
+            duration: 0.5,
           }}
         >
-          {pathName.substring(1)}
+          {pathName === "/" ? "home" : pathName.substring(1)}
         </motion.div>
 
         <motion.div
@@ -56,7 +57,8 @@ const TransitionProvider: FC<{
           animate={{
             height: "0vh",
             transition: {
-              delay: 0.5,
+              delay: 0.3,
+              duration: 0.3,
             },
           }}
         />
