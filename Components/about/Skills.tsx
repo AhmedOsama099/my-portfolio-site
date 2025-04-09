@@ -1,6 +1,5 @@
 import React from "react";
 import { motion } from "framer-motion";
-import ScrollIndicator from "./ScrollIndicator";
 import { SkillItem } from "@/types/about";
 
 interface SkillsProps {
@@ -36,9 +35,6 @@ const Skills: React.FC<SkillsProps> = ({ skills, isInView }) => {
           </div>
         ))}
       </motion.div>
-
-      {/* Scroll Indicator */}
-      <ScrollIndicator />
     </div>
   );
 };

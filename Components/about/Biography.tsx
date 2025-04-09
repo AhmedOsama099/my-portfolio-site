@@ -1,5 +1,4 @@
 import React from "react";
-import ScrollIndicator from "./ScrollIndicator";
 import signature from "@/public/signature.svg";
 import Image from "next/image";
 const Biography: React.FC = () => {
@@ -39,9 +38,6 @@ const Biography: React.FC = () => {
           height={200}
         />
       </div>
-
-      {/* BIOGRAPHY SCROLL SVG */}
-      <ScrollIndicator />
     </div>
   );
 };
