@@ -9,7 +9,7 @@ interface SkillsProps {
 
 const Skills: React.FC<SkillsProps> = ({ skills, isInView }) => {
   return (
-    <div className="flex flex-col gap-12 justify-center">
+    <div className="flex flex-col gap-12 justify-center xl:pe-12">
       {/* Skills Title */}
       <motion.h1
         initial={{ x: "-300px" }}

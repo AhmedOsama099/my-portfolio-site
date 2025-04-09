@@ -3,7 +3,7 @@ import signature from "@/public/signature.svg";
 import Image from "next/image";
 const Biography: React.FC = () => {
   return (
-    <div className="flex flex-col gap-4 justify-center">
+    <div className="flex flex-col gap-4 justify-center xl:pe-12">
       {/* Biography Title*/}
       <h1 className="font-bold text-2xl">Biography</h1>
 

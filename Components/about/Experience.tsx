@@ -10,7 +10,7 @@ interface ExperienceProps {
 
 const Experience: React.FC<ExperienceProps> = ({ experiences, isInView }) => {
   return (
-    <div className="flex flex-col gap-12 justify-center">
+    <div className="flex flex-col gap-12 justify-center ">
       {/* Experience title */}
       <motion.h1
         initial={{ x: "-300px" }}
@@ -27,14 +27,14 @@ const Experience: React.FC<ExperienceProps> = ({ experiences, isInView }) => {
         {experiences.map((experience, index) => (
           <div className="flex justify-between" key={index}>
             {/* Left */}
-            <div className="w-1/3">
+            <div className="w-[45%] mb-16">
               {experience.side === "left" && (
                 <ExperienceCard experience={experience} />
               )}
             </div>
 
             {/* Center */}
-            <div className="w-1/6">
+            <div className=" flex justify-center">
               {/* Line */}
               <div className="w-1 h-full bg-gray-600 rounded relative">
                 {/* Line Circle */}
@@ -43,7 +43,7 @@ const Experience: React.FC<ExperienceProps> = ({ experiences, isInView }) => {
             </div>
 
             {/* Right */}
-            <div className="w-1/3">
+            <div className="w-[45%] mb-16">
               {experience.side === "right" && (
                 <ExperienceCard experience={experience} />
               )}
