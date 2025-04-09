@@ -85,13 +85,12 @@ const ContactForm = () => {
         required
       />
 
-      <FormInput
-        label="Your Name"
-        name="user_name"
-        placeholder="John Doe"
-      />
+      <FormInput label="Your Name" name="user_name" placeholder="Ahmed Osama" />
 
-      <SubmitButton isDisabled={!isValidMessage || loading} isLoading={loading} />
+      <SubmitButton
+        isDisabled={!isValidMessage || loading}
+        isLoading={loading}
+      />
 
       {success && (
         <StatusMessage
