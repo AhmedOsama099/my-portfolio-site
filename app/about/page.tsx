@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import { useInView, useScroll } from "framer-motion";
-import Brain from "@/Components/Brain";
+import Brain from "@/Components/about/Brain";
 import MotionPageWrapper from "@/Components/motionPageWrapper";
 import Biography from "@/Components/about/Biography";
 import Skills from "@/Components/about/Skills";
