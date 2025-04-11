@@ -1,13 +1,15 @@
 import { MotionValue } from "framer-motion";
+import { StaticImageData } from "next/image";
 
 export interface Project {
   id: number;
   title: string;
   category: string;
   description: string;
-  image: string;
+  image: StaticImageData | string;
   technologies: string[];
-  demoLink: string;
+  siteLink: string;
+  videoLink: string;
   codeLink: string;
 }
 

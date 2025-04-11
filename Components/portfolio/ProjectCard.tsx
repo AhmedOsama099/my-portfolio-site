@@ -21,7 +21,7 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
             src={project.image}
             alt={project.title}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-contain transition-transform duration-500 group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </div>
@@ -50,20 +50,33 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
         <h3 className="text-2xl md:text-3xl font-bold mb-4">{project.title}</h3>
         <p className="text-gray-600 mb-6">{project.description}</p>
         <div className="flex gap-4">
-          <Link
-            href={project.demoLink}
-            className="px-6 py-2 bg-[#565FA1] text-white rounded-lg hover:bg-[#4A5290] transition-colors"
-            target="_blank"
-          >
-            Live Demo
-          </Link>
-          <Link
-            href={project.codeLink}
-            className="px-6 py-2 border border-[#565FA1] text-[#565FA1] rounded-lg hover:bg-[#565FA1]/5 transition-colors"
-            target="_blank"
-          >
-            View Code
-          </Link>
+          {project.siteLink && (
+            <Link
+              href={project.siteLink}
+              className="px-6 py-2 bg-[#565FA1] text-white rounded-lg hover:bg-[#4A5290] transition-colors"
+              target="_blank"
+            >
+              Visit Site
+            </Link>
+          )}
+          {project.videoLink && (
+            <Link
+              href={project.videoLink}
+              className="px-6 py-2 bg-[#565FA1] text-white rounded-lg hover:bg-[#4A5290] transition-colors"
+              target="_blank"
+            >
+              Live Demo
+            </Link>
+          )}
+          {project.codeLink && (
+            <Link
+              href={project.codeLink}
+              className="px-6 py-2 border border-[#565FA1] text-[#565FA1] rounded-lg hover:bg-[#565FA1]/5 transition-colors"
+              target="_blank"
+            >
+              View Code
+            </Link>
+          )}
         </div>
       </div>
     </motion.div>
