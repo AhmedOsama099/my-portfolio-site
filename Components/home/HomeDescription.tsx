@@ -5,7 +5,7 @@ const HomeDescription = () => {
   return (
     <div className="h-1/2 lg:h-full lg:w-1/2 flex flex-col gap-8 justify-normal lg:justify-center lg:mt-0 mt-4">
       {/* Title */}
-      <h1 className="text-4xl md:text-5xl xl:text-6xl font-bold lg:text-start text-center bg-gradient-to-r from-[#3A4184] to-[#D01C32] bg-clip-text text-transparent">
+      <h1 className="text-4xl md:text-5xl lg:text-[45px] xl:text-[52px] font-bold lg:text-start text-center bg-gradient-to-r from-[#3A4184] to-[#D01C32] bg-clip-text text-transparent">
         Transforming Ideas into Interfaces, and Interfaces into Impact.
       </h1>
       {/* Desc */}
