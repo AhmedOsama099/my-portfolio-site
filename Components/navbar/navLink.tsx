@@ -7,14 +7,14 @@ const NavLink: React.FC<NavLinkProps> = ({ link }) => {
 
   const isActive =
     pathName === link.url
-      ? "bg-[#FCE0A2] text-[#565FA1] font-medium outline-2  outline-dashed  hover:outline-dotted transition-all duration-300"
+      ? "bg-[#FCE0A2] outline-2  outline-dashed  hover:outline-dotted transition-all duration-300"
       : "";
 
   const isHovered =
     "hover:bg-gradient-to-r from-transparent via-[#EE3E5430] to-transparent ";
   return (
     <button
-      className={`rounded p-2 relative ${isActive} ${isHovered}`}
+      className={`rounded font-medium p-2 text-[#3D4082] relative ${isActive} ${isHovered}`}
       key={link.title}
       onClick={() => (window.location.href = link.url)}
     >
