@@ -16,6 +16,7 @@ export interface Project {
 export interface ProjectCardProps {
   project: Project;
   index: number;
+  viewMode?: "grid" | "list"; // Optional prop with default grid view
 }
 
 export interface ProjectsSectionProps {
