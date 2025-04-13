@@ -25,4 +25,9 @@ export const socialMedia: SocialMediaType[] = [
     imageURL: "/linkedin.svg",
     alt: "linkedin",
   },
+  {
+    link: "https://wa.me/201011494459",
+    imageURL: "/whatsapp.svg",
+    alt: "WhatsApp",
+  },
 ];
