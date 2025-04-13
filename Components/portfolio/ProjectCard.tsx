@@ -61,14 +61,14 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
         <p className="text-gray-600 mb-6 leading-relaxed">
           {project.description}
         </p>
-        <div className="flex gap-4">
+        <div className="flex flex-wrap gap-4">
           {project.siteLink && (
             <Link
               href={project.siteLink}
               className="px-6 py-2  bg-[#565FA1]  text-white rounded-lg hover:shadow-md transition-all duration-300 hover:-translate-y-1"
               target="_blank"
             >
-              Live Demo
+              Site Link
             </Link>
           )}
           {project.videoLink && (

@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 const ContactPage = () => {
   return (
     <MotionPageWrapper>
-      <div className="h-full  flex gap-48 lg:gap-0 flex-col lg:flex-row px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48">
+      <div className="h-full  flex gap-48 lg:gap-0 flex-col lg:flex-row px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48 ">
         {/* Text Container */}
         <div className="h-1/2 lg:h-full lg:w-1/2 flex items-center justify-center">
           <div className="relative">
@@ -25,15 +25,15 @@ const ContactPage = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.8 }}
             >
-              I&apos;m always interested in hearing about new projects and
-              opportunities.
+              Need a skilled engineer to bring your vision to life? let’s team
+              up and build something exceptional. Reach out and let’s talk!
             </motion.div>
           </div>
         </div>
 
         {/* FORM CONTAINER */}
         <motion.div
-          className="h-1/2 lg:h-full lg:w-1/2 flex items-center justify-center py-8"
+          className="h-1/2 lg:h-full lg:w-1/2 flex items-center justify-center py-8 "
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
