@@ -9,7 +9,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       {/* suppressHydrationWarning prop prevents React hydration warnings that occur when server and client content don't match exactly */}
-      <body>
+      <body suppressHydrationWarning>
         <TransitionProvider>{children}</TransitionProvider>
       </body>
     </html>
