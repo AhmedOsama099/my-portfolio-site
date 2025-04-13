@@ -1,6 +1,9 @@
+"use client";
+
 import React from "react";
 import { usePathname } from "next/navigation";
 import { NavLinkProps } from "@/types/navbar";
+import Link from "next/link";
 
 const NavLink: React.FC<NavLinkProps> = ({ link }) => {
   const pathName = usePathname();
@@ -13,10 +16,10 @@ const NavLink: React.FC<NavLinkProps> = ({ link }) => {
   const isHovered =
     "hover:bg-gradient-to-r from-transparent via-[#EE3E5430] to-transparent ";
   return (
-    <button
+    <Link
       className={`rounded font-medium p-2 text-[#3D4082] relative ${isActive} ${isHovered}`}
       key={link.title}
-      onClick={() => (window.location.href = link.url)}
+      href={link.url}
     >
       {isActive && (
         <div className="z-20">
@@ -31,7 +34,7 @@ const NavLink: React.FC<NavLinkProps> = ({ link }) => {
         </div>
       )}
       {link.title}
-    </button>
+    </Link>
   );
 };
 

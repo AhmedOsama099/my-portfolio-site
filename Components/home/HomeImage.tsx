@@ -9,6 +9,7 @@ const HomeImage = () => {
         fill
         className="object-contain min-w-52"
         priority
+        sizes={"100%"}
       />
     </div>
   );
