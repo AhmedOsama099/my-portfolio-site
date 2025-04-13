@@ -5,7 +5,7 @@ const Biography: React.FC = () => {
   return (
     <div className="flex flex-col gap-4 justify-center xl:pe-12">
       {/* Biography Title*/}
-      <h1 className="font-bold text-2xl">Biography</h1>
+      <h1 className="font-bold text-2xl ">Biography</h1>
 
       {/* Biography Description*/}
       <p className="text-gl">

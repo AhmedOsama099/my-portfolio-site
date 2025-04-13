@@ -18,7 +18,9 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience }) => {
         {experience.description?.map(
           ({ description, title, usedTech }, index) => (
             <span key={index}>
-              <li className={"font-medium text-lg"}>{title}</li>
+              <li className={"font-semibold text-lg text-[#3D4082]"}>
+                {title}
+              </li>
               <ul className="list-disc pl-4 ps-8">
                 {description.map((desc, i) => (
                   <li key={i} className="">
@@ -27,7 +29,9 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience }) => {
                 ))}
               </ul>
               <li>
-                <span className="font-medium">Technologies used:</span>{" "}
+                <span className="font-semibold text-[#3D4082]">
+                  Technologies used:
+                </span>{" "}
                 {usedTech}
               </li>
             </span>

@@ -29,7 +29,7 @@ const Skills: React.FC<SkillsProps> = ({ skills, isInView }) => {
         {skills.map(({ name, key }) => (
           <div
             key={key}
-            className="rounded p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black"
+            className="rounded p-2 text-sm cursor-pointer bg-[#3D4082] text-white hover:bg-white hover:text-black"
           >
             {name}
           </div>
