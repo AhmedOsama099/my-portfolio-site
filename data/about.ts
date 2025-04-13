@@ -5,8 +5,8 @@ export const skillsList: SkillItem[] = [
   { name: "CSS3", key: "css3" },
   { name: "JavaScript (ES6+)", key: "javascript" },
   { name: "TypeScript", key: "typescript" },
-  { name: "React.js", key: "react" },
-  { name: "Redux", key: "redux" },
+  { name: "ReactJS", key: "react" },
+  { name: "ReduxJS", key: "redux" },
   { name: "Redux Toolkit", key: "redux-toolkit" },
   { name: "Zustand", key: "zustand" },
   { name: "Tailwind CSS", key: "tailwind" },
@@ -14,9 +14,9 @@ export const skillsList: SkillItem[] = [
   { name: "ShadCN", key: "shadcn" },
   { name: "DevExtreme", key: "devextreme" },
   { name: "UI implementation from Figma", key: "figma-ui" },
+  { name: "UI implementation from Framer", key: "framer-ui" },
   { name: "Responsive Design", key: "responsive" },
-  { name: "Accessibility (a11y)", key: "accessibility" },
-  { name: "Next.js", key: "nextjs" },
+  { name: "NextJS", key: "nextjs" },
   { name: "Vite", key: "vite" },
   { name: "Git", key: "git" },
   { name: "Bitbucket", key: "bitbucket" },
@@ -25,6 +25,7 @@ export const skillsList: SkillItem[] = [
   { name: "Apollo Client", key: "apollo" },
   { name: "Docker", key: "docker" },
   { name: "System Design", key: "system-design" },
+  { name: "Photoshop", key: "photoshop" },
 ];
 
 export const experienceList: ExperienceItem[] = [
