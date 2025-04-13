@@ -3,7 +3,7 @@ import NavLink from "./navLink";
 import { DesktopNavLinksProps } from "@/types/navbar";
 
 const DesktopNavLinks: React.FC<DesktopNavLinksProps> = ({ links }) => (
-  <div className="hidden min-[900px]:flex items-center gap-4 w-1/3 text-xl">
+  <div className="hidden min-[980px]:flex items-center gap-4 w-1/3 text-xl">
     {links.map((link) => (
       <NavLink link={link} key={link.title} />
     ))}

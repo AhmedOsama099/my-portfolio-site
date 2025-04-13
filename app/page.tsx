@@ -15,7 +15,7 @@ export default function Home() {
         {/* Social Media Links */}
         <SocialMediaLinks
           socialMedia={socialMedia}
-          className="flex min-[900px]:hidden items-center justify-center w-full my-2"
+          className="flex min-[980px]:hidden items-center justify-center w-full my-2"
         />
 
         {/* Text  Container */}

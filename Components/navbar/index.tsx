@@ -23,7 +23,7 @@ const Navbar: React.FC = () => {
       {/* Social Media Links */}
       <SocialMediaLinks
         socialMedia={socialMedia}
-        className="hidden min-[900px]:flex justify-end"
+        className="hidden min-[980px]:flex justify-end"
       />
 
       {/* Mobile Menu */}
