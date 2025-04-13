@@ -5,6 +5,7 @@ import quiz from "@/public/projects/quiz.png";
 import erp from "@/public/projects/erp.jpg";
 import twitterClone from "@/public/projects/twitter-clone.png";
 import alushibi from "@/public/projects/alushibi.png";
+import wizardApp from "@/public/projects/wizard-app.png";
 
 export const projects: Project[] = [
   {
@@ -98,5 +99,24 @@ export const projects: Project[] = [
     siteLink: "https://alushibe.com/",
     videoLink: "",
     codeLink: "",
+  },
+  {
+    id: 7,
+    title: "Multi-Step Chapters Selection",
+    category: "Multi Steps Wizard Exercise",
+    description:
+      "Built a multi-step form flow allowing users to select genres, choose corresponding books, then pick chapters before final submission. Upon completion, the app generates and displays a printable receipt. I also implemented a fake storage layer to simulate data persistence throughout the process, enhancing the user experience without a backend.",
+    image: wizardApp,
+    technologies: [
+      "ReactJS",
+      "ReduxJS",
+      "TypeScript",
+      "Material UI",
+      "gh-pages",
+      "msw",
+    ],
+    siteLink: "https://ahmedosama099.github.io/Mcledger-Task/",
+    videoLink: "",
+    codeLink: "https://github.com/AhmedOsama099/Mcledger-Task",
   },
 ];
