@@ -62,20 +62,33 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
           {project.description}
         </p>
         <div className="flex gap-4">
-          <Link
-            href={project.siteLink}
-            className="px-6 py-2 bg-gradient-to-r from-[#565FA1] to-[#6A73B5] text-white rounded-lg hover:shadow-md transition-all duration-300 hover:-translate-y-1"
-            target="_blank"
-          >
-            Live Demo
-          </Link>
-          <Link
-            href={project.codeLink}
-            className="px-6 py-2 border border-[#565FA1] text-[#565FA1] rounded-lg hover:bg-[#565FA1]/5 transition-all duration-300 hover:-translate-y-1"
-            target="_blank"
-          >
-            View Code
-          </Link>
+          {project.siteLink && (
+            <Link
+              href={project.siteLink}
+              className="px-6 py-2  bg-[#565FA1]  text-white rounded-lg hover:shadow-md transition-all duration-300 hover:-translate-y-1"
+              target="_blank"
+            >
+              Live Demo
+            </Link>
+          )}
+          {project.videoLink && (
+            <Link
+              href={project.videoLink}
+              className="px-6 py-2  text-white bg-[#CF4664] rounded-lg hover:shadow-md transition-all duration-300 hover:-translate-y-1"
+              target="_blank"
+            >
+              Watch Video
+            </Link>
+          )}
+          {project.codeLink && (
+            <Link
+              href={project.codeLink}
+              className="px-6 py-2 border bg-[#FBDDA0]  text-white rounded-lg  transition-all duration-300 hover:-translate-y-1"
+              target="_blank"
+            >
+              View Code
+            </Link>
+          )}
         </div>
       </div>
     </motion.div>
