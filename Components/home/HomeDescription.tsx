@@ -17,7 +17,7 @@ const HomeDescription = () => {
         needs through thoughtful design and clean code.
       </p>
       {/* Buttons */}
-      <div className="w-full flex flex-col sm:flex-row gap-4  ">
+      <div className="w-full flex flex-col sm:flex-row gap-4 pb-4 ">
         <Link
           href="/portfolio"
           className="p-4 flex-1  rounded-lg ring-1 ring-black bg-black text-white text-center"
@@ -26,7 +26,7 @@ const HomeDescription = () => {
         </Link>
         <Link
           href="/contact"
-          className="p-4 flex-1 rounded-lg ring-1 ring-black sm:mb-0 mb-4 text-center"
+          className="p-4 flex-1 rounded-lg ring-1 ring-black sm:mb-0  text-center"
         >
           Contact Me
         </Link>

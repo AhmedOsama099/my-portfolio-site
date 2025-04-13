@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NavLinkProps } from "@/types/navbar";
 
@@ -14,10 +13,10 @@ const NavLink: React.FC<NavLinkProps> = ({ link }) => {
   const isHovered =
     "hover:bg-gradient-to-r from-transparent via-[#EE3E5430] to-transparent ";
   return (
-    <Link
+    <button
       className={`rounded p-2 relative ${isActive} ${isHovered}`}
       key={link.title}
-      href={link.url}
+      onClick={() => (window.location.href = link.url)}
     >
       {isActive && (
         <div className="z-20">
@@ -32,7 +31,7 @@ const NavLink: React.FC<NavLinkProps> = ({ link }) => {
         </div>
       )}
       {link.title}
-    </Link>
+    </button>
   );
 };
 
