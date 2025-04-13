@@ -1,5 +1,11 @@
+import { Metadata } from "next";
 import "./globals.css";
 import TransitionProvider from "@/Components/transitionProvider";
+
+export const metadata: Metadata = {
+  title: "Ahmed Osama - Portfolio",
+  description: "Portfolio website showcasing my work and skills",
+};
 
 export default function RootLayout({
   children,
