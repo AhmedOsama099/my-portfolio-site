@@ -1,9 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "standalone",
+  output: "export",
   images: {
     unoptimized: true, // Set to true to ensure images work on Vercel
-    domains: ["localhost", "your-vercel-app-name.vercel.app"],
+    domains: ["localhost", "ahmed-osama-portfolio-nine.vercel.app"],
+    loader: "custom",
+    loaderFile: "./imageLoader.ts",
     remotePatterns: [
       {
         protocol: "https",
