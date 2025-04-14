@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ProjectCardProps } from "@/types/portfolio";
-import myImageLoader from "@/imageLoader";
 
 const ProjectCard = ({ project, index }: ProjectCardProps) => {
   return (
@@ -25,7 +24,6 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
           <div className="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-[#565FA1] rounded-br-xl z-10"></div>
 
           <Image
-            loader={myImageLoader}
             src={project.image}
             alt={project.title}
             fill

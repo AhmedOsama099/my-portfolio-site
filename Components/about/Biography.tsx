@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import myImageLoader from "@/imageLoader";
 const Biography: React.FC = () => {
   return (
     <div className="flex flex-col gap-4 justify-center xl:pe-12">
@@ -28,7 +27,6 @@ const Biography: React.FC = () => {
       {/* Biography Sign SVG*/}
       <div className="self-end">
         <Image
-          loader={myImageLoader}
           priority
           blurDataURL={"/images/signature.svg"}
           src={"/images/signature.svg"}
