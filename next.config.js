@@ -2,7 +2,7 @@
 const nextConfig = {
   output: "standalone",
   images: {
-    unoptimized: process.env.NODE_ENV !== "production",
+    unoptimized: true, // Set to true to ensure images work on Vercel
   },
   // Ensure trailing slashes are handled correctly
   trailingSlash: false,
