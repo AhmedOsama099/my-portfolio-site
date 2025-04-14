@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { SocialMediaLinksProps } from "@/types/navbar";
 import { cn } from "@/lib/tailwind";
+import myImageLoader from "@/imageLoader";
 
 const SocialMediaLinks: React.FC<SocialMediaLinksProps> = ({
   socialMedia,
@@ -19,6 +20,7 @@ const SocialMediaLinks: React.FC<SocialMediaLinksProps> = ({
         rel="noopener noreferrer"
       >
         <Image
+          loader={myImageLoader}
           src={item.imageURL}
           alt={item.alt}
           width={70}

@@ -9,7 +9,16 @@ export default function myImageLoader({
   width: number;
   quality?: number;
 }) {
-  return `https://ahmed-osama-portfolio-nine.vercel.app/${src}?w=${width}&q=${
+  // Check if src already contains a domain
+  if (src.startsWith("http")) {
+    return src;
+  }
+
+  // Remove leading slash if present
+  const cleanSrc = src.startsWith("/") ? src.slice(1) : src;
+
+  // Return the full URL with width and quality parameters
+  return `https://ahmed-osama-portfolio-nine.vercel.app/${cleanSrc}?w=${width}&q=${
     quality || 75
   }`;
 }
