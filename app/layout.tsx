@@ -1,5 +1,6 @@
-import { Metadata } from "next";
 import "./globals.css";
+
+import { Metadata } from "next";
 import TransitionProvider from "@/Components/transitionProvider";
 
 export const metadata: Metadata = {
