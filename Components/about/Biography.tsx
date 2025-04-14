@@ -1,5 +1,4 @@
 import React from "react";
-import signature from "@/public/signature.svg";
 import Image from "next/image";
 const Biography: React.FC = () => {
   return (
@@ -29,8 +28,8 @@ const Biography: React.FC = () => {
       <div className="self-end">
         <Image
           priority
-          blurDataURL={signature.src}
-          src={signature.src}
+          blurDataURL={"/images/signature.svg"}
+          src={"/images/signature.svg"}
           alt="Ahmed El-Daoushy signature"
           width={200}
           height={200}

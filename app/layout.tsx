@@ -1,4 +1,4 @@
-import "./globals.css";
+import "./globals.css"; // Make sure this path is correct
 
 import { Metadata } from "next";
 import TransitionProvider from "@/Components/transitionProvider";

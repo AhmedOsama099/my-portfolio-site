@@ -12,22 +12,22 @@ export const links: NavLinkType[] = [
 export const socialMedia: SocialMediaType[] = [
   {
     link: "https://www.facebook.com/share/181kSLpbfU/",
-    imageURL: "/facebook.svg",
+    imageURL: "/images/facebook.svg",
     alt: "facebook",
   },
   {
     link: "https://github.com/AhmedOsama099",
-    imageURL: "/github.svg",
+    imageURL: "/images/github.svg",
     alt: "github",
   },
   {
     link: "https://www.linkedin.com/in/ahmedosama099",
-    imageURL: "/linkedin.svg",
+    imageURL: "/images/linkedin.svg",
     alt: "linkedin",
   },
   {
     link: "https://wa.me/201011494459",
-    imageURL: "/whatsapp.svg",
+    imageURL: "/images/whatsapp.svg",
     alt: "WhatsApp",
   },
 ];
