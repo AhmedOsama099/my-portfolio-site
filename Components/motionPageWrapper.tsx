@@ -1,13 +1,15 @@
 "use client";
 import React, { FC } from "react";
 import { motion } from "framer-motion";
+import clsx from "clsx";
 
 const MotionPageWrapper: FC<{
   children: React.ReactNode;
-}> = ({ children }) => {
+  className?: string;
+}> = ({ children, className }) => {
   return (
     <motion.div
-      className="h-full pt-8"
+      className={clsx("h-full pt-8", className)}
       initial={{
         y: "-200vh",
       }}

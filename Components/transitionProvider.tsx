@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import React, { FC } from "react";
 import Navbar from "./navbar";
 import { usePathname } from "next/navigation";
+import clsx from "clsx";
 
 const TransitionProvider: FC<{
   children: React.ReactNode;
@@ -66,7 +67,7 @@ const TransitionProvider: FC<{
         <div className="h-28">
           <Navbar />
         </div>
-        <div className="h-[calc(100vh-112px)]">{children}</div>
+        <div className={clsx("h-[calc(100vh-112px)]")}>{children}</div>
       </div>
     </AnimatePresence>
   );
