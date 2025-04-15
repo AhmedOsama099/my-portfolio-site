@@ -18,7 +18,9 @@ const TransitionProvider: FC<{
         className="w-screen h-screen overflow-y-auto bg-gradient-to-b from-blue-100 to-red-100 min-w-56"
       >
         <motion.div
-          className="w-screen h-screen fixed bg-black rounded-b-[100px] z-40"
+          className={clsx(
+            "w-screen h-screen fixed bg-black rounded-b-[100px] z-40"
+          )}
           initial={{ height: "100vh" }}
           animate={{
             height: "0vh",
@@ -51,7 +53,9 @@ const TransitionProvider: FC<{
         </motion.div>
 
         <motion.div
-          className="w-screen h-screen fixed bg-black rounded-t-[100px] bottom-0 z-30"
+          className={clsx(
+            "w-screen h-screen fixed bg-black rounded-t-[100px] bottom-0 z-30"
+          )}
           initial={{
             height: "140vh",
           }}

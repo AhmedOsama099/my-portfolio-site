@@ -1,5 +1,6 @@
 import React from "react";
 import { ExperienceItem } from "@/types/about";
+import clsx from "clsx";
 
 interface ExperienceCardProps {
   experience: ExperienceItem;
@@ -18,7 +19,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience }) => {
         {experience.description?.map(
           ({ description, title, usedTech }, index) => (
             <span key={index}>
-              <li className={"font-semibold text-lg text-[#3D4082]"}>
+              <li className={clsx("font-semibold text-lg text-[#3D4082]")}>
                 {title}
               </li>
               <ul className="list-disc pl-4 ps-8">
@@ -29,7 +30,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience }) => {
                 ))}
               </ul>
               <li>
-                <span className="font-semibold text-[#3D4082]">
+                <span className={clsx("font-semibold text-[#3D4082]")}>
                   Technologies used:
                 </span>{" "}
                 {usedTech}

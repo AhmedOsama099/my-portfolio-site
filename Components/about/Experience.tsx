@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { ExperienceItem } from "@/types/about";
 import ExperienceCard from "./ExperienceCard";
+import clsx from "clsx";
 
 interface ExperienceProps {
   experiences: ExperienceItem[];
@@ -27,7 +28,7 @@ const Experience: React.FC<ExperienceProps> = ({ experiences, isInView }) => {
         {experiences.map((experience, index) => (
           <div className="flex justify-between" key={index}>
             {/* Left */}
-            <div className="w-[45%] mb-16">
+            <div className={clsx("w-[45%] mb-16")}>
               {experience.side === "left" && (
                 <ExperienceCard experience={experience} />
               )}
@@ -43,7 +44,7 @@ const Experience: React.FC<ExperienceProps> = ({ experiences, isInView }) => {
             </div>
 
             {/* Right */}
-            <div className="w-[45%] mb-16">
+            <div className={clsx("w-[45%] mb-16")}>
               {experience.side === "right" && (
                 <ExperienceCard experience={experience} />
               )}
