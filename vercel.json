@@ -1,16 +1,6 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/next",
-      "config": {
-        "env": {
-          "NPM_FLAGS": "--legacy-peer-deps"
-        }
-      }
-    }
-  ],
+
   "routes": [
     {
       "src": "/_next/static/(.*)",
