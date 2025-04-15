@@ -24,5 +24,10 @@
       "dest": "/$1",
       "check": true
     }
-  ]
+  ],
+  "build": {
+    "env": {
+      "NPM_FLAGS": "--legacy-peer-deps"
+    }
+  }
 }
