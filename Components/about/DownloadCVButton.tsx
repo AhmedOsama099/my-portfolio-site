@@ -24,11 +24,11 @@ const DownloadCVButton = () => {
           height: 45px;
           line-height: 45px;
           font-size: 16px;
-          background: linear-gradient(45deg, transparent 5%, #565fa1 5%);
+          background: linear-gradient(45deg, transparent 5%, #ee3e54 5%);
           border: 0;
           color: #fff;
           letter-spacing: 2px;
-          box-shadow: 6px 0px 0px #ee3e54;
+          box-shadow: 6px 0px 0px #565fa1;
           outline: transparent;
           position: relative;
           user-select: none;
@@ -60,7 +60,7 @@ const DownloadCVButton = () => {
             transparent 3%,
             #fce0a2 3%,
             #fce0a2 5%,
-            #565fa1 5%
+            #ee3e54 5%
           );
           text-shadow: -2px -2px 0px #8889b9, 2px 2px 0px #fce0a2;
           clip-path: var(--slice-0);
