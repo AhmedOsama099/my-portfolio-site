@@ -10,7 +10,7 @@ const MobileMenu: React.FC<ExtendedMobileMenuProps> = ({
 }) => (
   <div className="min-[980px]:hidden">
     <MenuButton open={open} toggleMenu={toggleMenu} />
-    {open && <MobileMenuContent links={links} />}
+    {open && <MobileMenuContent links={links} toggleMenu={toggleMenu} />}
   </div>
 );
 

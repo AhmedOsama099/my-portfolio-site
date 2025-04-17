@@ -6,7 +6,10 @@ import { motion } from "framer-motion";
 import { menuAnimations } from "./animations";
 import { MobileMenuContentProps } from "@/types/navbar";
 
-const MobileMenuContent: React.FC<MobileMenuContentProps> = ({ links }) => (
+const MobileMenuContent: React.FC<MobileMenuContentProps> = ({
+  links,
+  toggleMenu,
+}) => (
   <motion.div
     variants={menuAnimations.list}
     initial="closed"
@@ -15,7 +18,9 @@ const MobileMenuContent: React.FC<MobileMenuContentProps> = ({ links }) => (
   >
     {links.map((link) => (
       <motion.div variants={menuAnimations.listItem} key={link.title}>
-        <Link href={link.url}>{link.title}</Link>
+        <Link onClick={toggleMenu} href={link.url}>
+          {link.title}
+        </Link>
       </motion.div>
     ))}
   </motion.div>

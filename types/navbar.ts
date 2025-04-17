@@ -42,4 +42,5 @@ export interface SocialMediaLinksProps {
 
 export interface MobileMenuContentProps {
   links: NavLinkType[];
+  toggleMenu: () => void;
 }
