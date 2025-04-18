@@ -10,8 +10,8 @@ const HomeDescription = () => {
     const checkSize = () => {
       setSmallGap(
         window.innerHeight <= 650 &&
-          window.innerWidth > 1024 &&
-          window.innerWidth < 1145
+          window.innerWidth >= 1024 &&
+          window.innerWidth <= 1145
       );
     };
 
