@@ -6,6 +6,16 @@ import TransitionProvider from "@/Components/transitionProvider";
 export const metadata: Metadata = {
   title: "Ahmed Osama - Portfolio",
   description: "Portfolio website showcasing my work and skills",
+  openGraph: {
+    images: [
+      {
+        url: "/images/portfolio-preview.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Ahmed Osama Portfolio Preview",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
