@@ -1,11 +1,36 @@
 "use client";
 
 import Link from "next/link";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const HomeDescription = () => {
+  const [smallGap, setSmallGap] = useState(false);
+
+  useEffect(() => {
+    const checkSize = () => {
+      setSmallGap(
+        window.innerHeight <= 650 &&
+          window.innerWidth > 1024 &&
+          window.innerWidth < 1145
+      );
+    };
+
+    // Initial check
+    checkSize();
+
+    // Add resize listener
+    window.addEventListener("resize", checkSize);
+
+    // Cleanup
+    return () => window.removeEventListener("resize", checkSize);
+  }, []);
+
   return (
-    <div className="h-1/2 lg:h-full lg:w-1/2 flex flex-col gap-8 justify-normal lg:justify-center lg:mt-0 mt-4">
+    <div
+      className={`h-1/2 lg:h-full lg:w-1/2 flex flex-col justify-normal lg:justify-center lg:mt-0 mt-4 ${
+        smallGap ? "gap-2" : "gap-8"
+      }`}
+    >
       {/* Title */}
       <h1 className="text-4xl md:text-5xl lg:text-[45px] xl:text-[52px] font-bold lg:text-start text-center bg-gradient-to-r from-[#3A4184] to-[#D01C32] bg-clip-text text-transparent">
         Transforming Ideas into Interfaces, and Interfaces into Impact.
