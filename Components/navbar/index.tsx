@@ -13,7 +13,7 @@ const Navbar: React.FC = () => {
   const toggleMenu = () => setOpen((prev) => !prev);
 
   return (
-    <div className="h-full flex items-center justify-between px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48 text-xl">
+    <div className="h-full flex items-center justify-between px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48 text-xl border-[#EE3E54] border-b-[1px]">
       {/* Desktop Navigation Links */}
       <DesktopNavLinks links={links} />
 
