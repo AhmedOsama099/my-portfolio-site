@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 
 interface PortfolioModeSwitchProps {
   onToggle: (mode: "programmer" | "writer") => void;
@@ -15,8 +16,9 @@ const PortfolioModeSwitch = ({
   const [isAnimating, setIsAnimating] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [clickPosition, setClickPosition] = useState({ x: 0, y: 0 });
-
+  const { changeLanguage } = useAppTranslation();
   // Reset animation periodically to draw attention
+
   useEffect(() => {
     const interval = setInterval(() => {
       setIsAnimating(true);
@@ -48,7 +50,7 @@ const PortfolioModeSwitch = ({
   };
 
   return (
-    <>
+    <div onClick={() => changeLanguage()}>
       {/* Global Loader */}
       <AnimatePresence>
         {isLoading && (
@@ -136,7 +138,7 @@ const PortfolioModeSwitch = ({
           {currentMode === "programmer" ? "Writer Mode" : "Programmer Mode"}
         </span>
       </motion.div>
-    </>
+    </div>
   );
 };
 
