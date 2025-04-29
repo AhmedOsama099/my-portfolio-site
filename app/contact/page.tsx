@@ -4,8 +4,19 @@ import MotionPageWrapper from "@/Components/motionPageWrapper";
 import ContactForm from "@/Components/contact/ContactForm";
 import AnimatedHeading from "@/Components/contact/AnimatedHeading";
 import { motion } from "framer-motion";
+import { useTheme } from "@/context/ThemeContext";
 
 const ContactPage = () => {
+  const { isProgrammer } = useTheme();
+
+  const contactColors = isProgrammer
+    ? {
+        underline: "#EE3E54",
+      }
+    : {
+        underline: "#5a6c98",
+      };
+
   return (
     <MotionPageWrapper>
       <div className="h-full  flex gap-48 lg:gap-0 flex-col lg:flex-row px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48 ">
@@ -14,13 +25,14 @@ const ContactPage = () => {
           <div className="relative">
             <AnimatedHeading text="Say Hello" />
             <motion.div
-              className="absolute -bottom-6 left-0 w-1/2 h-1 bg-[#EE3E54]"
+              className="absolute -bottom-6 left-0 w-1/2 h-1"
+              style={{ backgroundColor: contactColors.underline }}
               initial={{ width: 0 }}
               animate={{ width: "50%" }}
               transition={{ duration: 0.8, delay: 0.5 }}
             />
             <motion.div
-              className="mt-12 text-lg text-gray-600 max-w-md"
+              className="mt-12 text-lg max-w-md"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.8 }}

@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/ThemeContext";
 import React from "react";
 
 interface SubmitButtonProps {
@@ -5,13 +6,26 @@ interface SubmitButtonProps {
   isLoading: boolean;
 }
 
-const SubmitButton: React.FC<SubmitButtonProps> = ({ isDisabled, isLoading }) => {
+const SubmitButton: React.FC<SubmitButtonProps> = ({
+  isDisabled,
+  isLoading,
+}) => {
+  const { isProgrammer } = useTheme();
+
+  const contactButton = isProgrammer
+    ? {
+        submitButton: "bg-[#565FA1] hover:bg-[#4A5290]",
+      }
+    : {
+        submitButton: "bg-[#5a6c98] hover:bg-[#5b6f90]",
+      };
+
   return (
     <button
       className={`w-full py-3 px-4 rounded-lg font-medium text-white transition-all ${
         isDisabled
           ? "bg-gray-400 cursor-not-allowed"
-          : "bg-[#565FA1] hover:bg-[#4A5290] active:transform active:scale-[0.98]"
+          : `${contactButton.submitButton} active:transform active:scale-[0.98]`
       }`}
       disabled={isDisabled}
     >

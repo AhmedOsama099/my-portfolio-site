@@ -5,17 +5,23 @@ import React, { FC } from "react";
 import Navbar from "./navbar";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import { useTheme } from "@/context/ThemeContext";
 
 const TransitionProvider: FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   const pathName = usePathname();
+  const { isProgrammer } = useTheme();
 
   return (
     <AnimatePresence mode="wait">
       <div
         key={pathName}
-        className="w-screen h-screen overflow-y-auto bg-gradient-to-b from-blue-100 to-red-100 min-w-56"
+        className={`w-screen h-screen overflow-y-auto bg-gradient-to-b ${
+          isProgrammer
+            ? "from-blue-100 to-red-100"
+            : "from-slate-50  to-fuchsia-200"
+        }  min-w-56`}
       >
         <motion.div
           className={clsx(

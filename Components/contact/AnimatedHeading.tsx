@@ -1,13 +1,25 @@
 import { motion } from "framer-motion";
+import { useTheme } from "@/context/ThemeContext";
 
 interface AnimatedHeadingProps {
   text: string;
 }
 
 const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({ text }) => {
+  const { isProgrammer } = useTheme();
+
+  const contactColors = isProgrammer
+    ? {
+        heading: "#565FA1",
+      }
+    : {
+        heading: "#5a6c98",
+      };
+
   return (
     <motion.div
-      className="text-6xl md:text-7xl font-bold text-[#565FA1]"
+      className="text-6xl md:text-7xl font-bold"
+      style={{ color: contactColors.heading }}
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}

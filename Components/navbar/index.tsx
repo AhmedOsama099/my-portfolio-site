@@ -6,14 +6,19 @@ import NavLogo from "./NavLogo";
 import SocialMediaLinks from "./SocialMediaLinks";
 import MobileMenu from "./MobileMenu";
 import { links, socialMedia } from "@/data/navbar";
+import { useTheme } from "@/context/ThemeContext";
 
 const Navbar: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const { isProgrammer } = useTheme();
 
   const toggleMenu = () => setOpen((prev) => !prev);
 
+  const borderColor = isProgrammer ? "border-[#EE3E54]" : "border-[#5C00AA]";
   return (
-    <div className="h-full flex items-center justify-between px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48 text-xl border-[#EE3E54] border-b-[1px]">
+    <div
+      className={`h-full flex items-center justify-between px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48 text-xl  border-b-[1px] ${borderColor}`}
+    >
       {/* Desktop Navigation Links */}
       <DesktopNavLinks links={links} />
 

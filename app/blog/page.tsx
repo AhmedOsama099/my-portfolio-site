@@ -62,7 +62,7 @@ const BlogPage = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-[#3A4184] to-[#D01C32] bg-clip-text text-transparent mb-6">
+          <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-[#565FA1] to-slate-300 bg-clip-text text-transparent mb-6">
             Literary Works
           </h1>
           <p className="text-xl text-gray-700 max-w-3xl mx-auto">
@@ -82,7 +82,7 @@ const BlogPage = () => {
             <motion.div
               key={piece.id}
               variants={item}
-              className="prose prose-lg max-w-none bg-white rounded-lg shadow-md p-8 border-l-4 border-[#3A4184]"
+              className="prose prose-lg max-w-none bg-white rounded-lg shadow-md p-8 border-l-4 border-[#565FA1]"
             >
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-6">
                 <h2 className="text-2xl md:text-3xl font-bold text-gray-900 m-0">

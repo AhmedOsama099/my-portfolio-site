@@ -3,6 +3,7 @@ import "./globals.css"; // Make sure this path is correct
 import { Metadata } from "next";
 import TransitionProvider from "@/Components/transitionProvider";
 import TranslationProvider from "@/Components/TranslationProvider";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 export const metadata: Metadata = {
   title: "Ahmed Osama - Portfolio",
@@ -28,9 +29,11 @@ export default function RootLayout({
     <html lang={"en"}>
       {/* suppressHydrationWarning prop prevents React hydration warnings that occur when server and client content don't match exactly */}
       <body suppressHydrationWarning>
-        <TranslationProvider>
-          <TransitionProvider>{children}</TransitionProvider>
-        </TranslationProvider>
+        <ThemeProvider>
+          <TranslationProvider>
+            <TransitionProvider>{children}</TransitionProvider>
+          </TranslationProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

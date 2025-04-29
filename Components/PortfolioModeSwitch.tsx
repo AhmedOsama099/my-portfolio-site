@@ -3,20 +3,14 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
+import { useTheme } from "@/context/ThemeContext"; // Import the useTheme hook
 
-interface PortfolioModeSwitchProps {
-  onToggle: (mode: "programmer" | "writer") => void;
-  currentMode: "programmer" | "writer";
-}
-
-const PortfolioModeSwitch = ({
-  onToggle,
-  currentMode = "programmer",
-}: PortfolioModeSwitchProps) => {
+const PortfolioModeSwitch = () => {
   const [isAnimating, setIsAnimating] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [clickPosition, setClickPosition] = useState({ x: 0, y: 0 });
   const { changeLanguage } = useAppTranslation();
+  const { toggleMode, mode } = useTheme(); // Get the toggleTheme function from context
   // Reset animation periodically to draw attention
 
   useEffect(() => {
@@ -41,7 +35,6 @@ const PortfolioModeSwitch = ({
 
     // After animation completes, toggle the mode
     setTimeout(() => {
-      onToggle(currentMode === "programmer" ? "writer" : "programmer");
       // Hide loader after mode change
       setTimeout(() => {
         setIsLoading(false);
@@ -50,7 +43,12 @@ const PortfolioModeSwitch = ({
   };
 
   return (
-    <div onClick={() => changeLanguage()}>
+    <div
+      onClick={() => {
+        toggleMode(); // Use the toggleTheme function from context
+        changeLanguage();
+      }}
+    >
       {/* Global Loader */}
       <AnimatePresence>
         {isLoading && (
@@ -62,7 +60,7 @@ const PortfolioModeSwitch = ({
           >
             <motion.div
               className={`absolute rounded-full ${
-                currentMode === "programmer" ? "bg-blue-500" : "bg-purple-500"
+                mode === "programmer" ? "bg-blue-500" : "bg-purple-500"
               }`}
               style={{
                 left: clickPosition.x,
@@ -116,7 +114,7 @@ const PortfolioModeSwitch = ({
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className={`h-5 w-5 ${
-              currentMode === "programmer" ? "text-purple-500" : "text-blue-500"
+              mode === "programmer" ? "text-purple-500" : "text-blue-500"
             }`}
             fill="none"
             viewBox="0 0 24 24"
@@ -127,7 +125,7 @@ const PortfolioModeSwitch = ({
               strokeLinejoin="round"
               strokeWidth={2}
               d={
-                currentMode === "programmer"
+                mode === "programmer"
                   ? "M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
                   : "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
               }
@@ -135,7 +133,7 @@ const PortfolioModeSwitch = ({
           </svg>
         </div>
         <span className="text-sm md:text-base pr-1">
-          {currentMode === "programmer" ? "Writer Mode" : "Programmer Mode"}
+          {mode === "programmer" ? "Writer Mode" : "Programmer Mode"}
         </span>
       </motion.div>
     </div>

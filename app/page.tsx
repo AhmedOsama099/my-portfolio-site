@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import HomeDescription from "@/Components/home/HomeDescription";
 import HomeImage from "@/Components/home/HomeImage";
 import MotionPageWrapper from "@/Components/motionPageWrapper";
@@ -10,14 +9,6 @@ import { socialMedia } from "@/data/navbar";
 import PortfolioModeSwitch from "@/Components/PortfolioModeSwitch";
 
 export default function Home() {
-  const [portfolioMode, setPortfolioMode] = useState<"programmer" | "writer">(
-    "programmer"
-  );
-
-  const handleModeToggle = (mode: "programmer" | "writer") => {
-    setPortfolioMode(mode);
-  };
-
   return (
     <MotionPageWrapper>
       <div
@@ -36,10 +27,7 @@ export default function Home() {
         <HomeDescription />
 
         {/* Portfolio Mode Switch Button */}
-        <PortfolioModeSwitch
-          onToggle={handleModeToggle}
-          currentMode={portfolioMode}
-        />
+        <PortfolioModeSwitch />
       </div>
     </MotionPageWrapper>
   );
