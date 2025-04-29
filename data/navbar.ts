@@ -1,10 +1,14 @@
 import { NavLinkType, SocialMediaType } from "@/types/navbar";
 
 // Navigation links data
-export const links: NavLinkType[] = [
+export const programmerLinks: NavLinkType[] = [
   { url: "/", title: "Home" },
   { url: "/about", title: "About" },
   { url: "/portfolio", title: "Portfolio" },
+  { url: "/contact", title: "Contact" },
+];
+export const writerLinks: NavLinkType[] = [
+  { url: "/", title: "Home" },
   { url: "/blog", title: "Blog" },
   { url: "/contact", title: "Contact" },
 ];
