@@ -19,7 +19,7 @@ const NavLink: React.FC<NavLinkProps> = ({ link }) => {
 
   const isHovered = isProgrammer
     ? "hover:bg-gradient-to-r from-transparent via-[#EE3E5430] to-transparent"
-    : "hover:bg-gradient-to-r from-transparent via-[#5C00AA20] to-transparent";
+    : "hover:bg-gradient-to-r from-transparent via-[#7881B320] to-transparent";
 
   const dotsColors = isProgrammer
     ? {
@@ -29,8 +29,8 @@ const NavLink: React.FC<NavLinkProps> = ({ link }) => {
         four4: "bg-[#8889B9]",
       }
     : {
-        one1: "bg-[#83820e]",
-        two2: "bg-[#ebb25d]",
+        one1: "bg-[#ff0000]",
+        two2: "bg-[#6E8B3D]",
         three3: "bg-white",
         four4: "bg-[#5000a8]",
       };

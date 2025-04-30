@@ -14,7 +14,7 @@ const Navbar: React.FC = () => {
 
   const toggleMenu = () => setOpen((prev) => !prev);
 
-  const borderColor = isProgrammer ? "border-[#EE3E54]" : "border-[#5C00AA]";
+  const borderColor = isProgrammer ? "border-[#EE3E54]" : "border-[#7881B3]";
   const links = isProgrammer ? programmerLinks : writerLinks;
   return (
     <div
