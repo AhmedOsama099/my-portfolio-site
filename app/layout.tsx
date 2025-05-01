@@ -1,5 +1,11 @@
 import "./globals.css"; // Make sure this path is correct
+import { Cairo } from "next/font/google";
 
+const cairo = Cairo({
+  weight: ["400", "700"],
+  subsets: ["arabic"],
+  display: "swap",
+});
 import { Metadata } from "next";
 import TransitionProvider from "@/Components/transitionProvider";
 import TranslationProvider from "@/Components/TranslationProvider";
@@ -28,7 +34,7 @@ export default function RootLayout({
   return (
     <html>
       {/* suppressHydrationWarning prop prevents React hydration warnings that occur when server and client content don't match exactly */}
-      <body suppressHydrationWarning>
+      <body suppressHydrationWarning className={`${cairo.className}`}>
         <ThemeProvider>
           <TranslationProvider>
             <TransitionProvider>{children}</TransitionProvider>
