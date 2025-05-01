@@ -57,17 +57,17 @@ const BlogPage = () => {
       <div className="min-h-screen py-12 px-4 sm:px-8 md:px-12 max-w-4xl mx-auto">
         {/* Page Header */}
         <motion.div
-          className="mb-16 text-center"
+          className="mb-8 text-center"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-[#565FA1] to-slate-300 bg-clip-text text-transparent mb-6">
-            Literary Works
+          <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r  from-[#565FA1] to-slate-300 bg-clip-text text-transparent mb-6 md:leading-[90px] leading-[70px]">
+            نصوص
           </h1>
           <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            A collection of thoughts, stories, and reflections exploring the
-            human experience through words.
+            قد تلاقيني في طيّات الكلمات والحروف، فسلامٌ عليك إن ألقيت أو لم تلقِ
+            السلام.
           </p>
         </motion.div>
 
@@ -82,19 +82,12 @@ const BlogPage = () => {
             <motion.div
               key={piece.id}
               variants={item}
-              className="prose prose-lg max-w-none bg-white rounded-lg shadow-md p-8 border-l-4 border-[#565FA1]"
+              className="prose prose-lg max-w-none bg-white rounded-lg shadow-md p-8 border-r-4 border-[#565FA1]"
             >
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-6">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-2 mb-6">
                 <h2 className="text-2xl md:text-3xl font-bold text-gray-900 m-0">
                   {piece.title}
                 </h2>
-                <div className="text-sm text-gray-500">
-                  {new Date(piece.date).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </div>
               </div>
 
               <div className="text-gray-700 leading-relaxed">
