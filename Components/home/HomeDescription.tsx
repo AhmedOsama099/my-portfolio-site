@@ -25,7 +25,7 @@ const HomeDescription = () => {
     >
       {/* Title */}
       <h1
-        className={`text-4xl md:text-5xl lg:text-[45px] xl:text-[52px] font-bold lg:text-start text-center bg-gradient-to-r ${titleGradient} bg-clip-text text-transparent rtl:leading-[70px]`}
+        className={`text-4xl md:text-5xl lg:text-[45px] xl:text-[52px] font-bold lg:text-start text-center bg-gradient-to-r ${titleGradient} bg-clip-text text-transparent rtl:leading-[60px] rtl:xl:leading-[70px]`}
       >
         {t("home.title")}
       </h1>

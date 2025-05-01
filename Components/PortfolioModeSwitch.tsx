@@ -10,7 +10,7 @@ const PortfolioModeSwitch = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [clickPosition, setClickPosition] = useState({ x: 0, y: 0 });
   const { changeLanguage } = useAppTranslation();
-  const { toggleMode, mode } = useTheme(); // Get the toggleTheme function from context
+  const { toggleMode, isProgrammer } = useTheme(); // Get the toggleTheme function from context
   // Reset animation periodically to draw attention
 
   useEffect(() => {
@@ -60,7 +60,7 @@ const PortfolioModeSwitch = () => {
           >
             <motion.div
               className={`absolute rounded-full ${
-                mode === "programmer" ? "bg-blue-500" : "bg-purple-500"
+                isProgrammer ? "bg-blue-500" : "bg-purple-500"
               }`}
               style={{
                 left: clickPosition.x,
@@ -93,7 +93,7 @@ const PortfolioModeSwitch = () => {
       {/* Mode Switch Button */}
       <motion.div
         onClick={handleModeToggle}
-        className="fixed bottom-6 right-6 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-bold py-2 px-4 rounded-3xl shadow-lg z-50 flex items-center gap-2 cursor-pointer border-2 border-white"
+        className="md:top-[5%] md:start-[5%] top-2 start-2  h-min w-max bottom-6 absolute right-6 bg-gradient-to-r from-purple-500 rtl:to-slate-100 to-blue-500 hover:from-purple-600 rtl:hover:to-slate-400 hover:to-blue-600 text-white font-bold py-2 px-4 rounded-3xl shadow-lg z-50 flex items-center gap-2 cursor-pointer border-2 border-white"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         animate={
@@ -114,7 +114,9 @@ const PortfolioModeSwitch = () => {
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className={`h-5 w-5 ${
-              mode === "programmer" ? "text-purple-500" : "text-blue-500"
+              isProgrammer
+                ? "text-purple-500"
+                : "text-blue-500 rtl:text-slate-400"
             }`}
             fill="none"
             viewBox="0 0 24 24"
@@ -125,15 +127,15 @@ const PortfolioModeSwitch = () => {
               strokeLinejoin="round"
               strokeWidth={2}
               d={
-                mode === "programmer"
+                isProgrammer
                   ? "M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
                   : "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
               }
             />
           </svg>
         </div>
-        <span className="text-sm md:text-base pr-1">
-          {mode === "programmer" ? "Writer Mode" : "Programmer Mode"}
+        <span className="text-sm md:text-base pr-1 sm:block hidden">
+          {isProgrammer ? "Writer Mode" : "Programmer Mode"}
         </span>
       </motion.div>
     </div>

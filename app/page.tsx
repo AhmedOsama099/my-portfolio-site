@@ -7,8 +7,15 @@ import { globalPX } from "./constants";
 import SocialMediaLinks from "@/Components/navbar/SocialMediaLinks";
 import { socialMedia } from "@/data/navbar";
 import PortfolioModeSwitch from "@/Components/PortfolioModeSwitch";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function Home() {
+  const { isProgrammer } = useTheme();
+
+  const socialLinks = isProgrammer
+    ? socialMedia
+    : socialMedia.filter((link) => link.alt !== "github");
+
   return (
     <MotionPageWrapper>
       <div
@@ -19,7 +26,7 @@ export default function Home() {
 
         {/* Social Media Links */}
         <SocialMediaLinks
-          socialMedia={socialMedia}
+          socialMedia={socialLinks}
           className="flex min-[980px]:hidden items-center justify-center w-full my-2"
         />
 

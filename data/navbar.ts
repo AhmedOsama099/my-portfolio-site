@@ -36,3 +36,5 @@ export const socialMedia: SocialMediaType[] = [
     alt: "WhatsApp",
   },
 ];
+
+

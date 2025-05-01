@@ -12,6 +12,10 @@ const Navbar: React.FC = () => {
   const [open, setOpen] = useState(false);
   const { isProgrammer } = useTheme();
 
+  const socialLinks = isProgrammer
+    ? socialMedia
+    : socialMedia.filter((link) => link.alt !== "github");
+
   const toggleMenu = () => setOpen((prev) => !prev);
 
   const borderColor = isProgrammer ? "border-[#EE3E54]" : "border-[#7881B3]";
@@ -28,7 +32,7 @@ const Navbar: React.FC = () => {
 
       {/* Social Media Links */}
       <SocialMediaLinks
-        socialMedia={socialMedia}
+        socialMedia={socialLinks}
         className="hidden min-[980px]:flex justify-end"
       />
 
