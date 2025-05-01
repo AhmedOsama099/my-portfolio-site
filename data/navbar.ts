@@ -8,9 +8,9 @@ export const programmerLinks: NavLinkType[] = [
   { url: "/contact", title: "Contact" },
 ];
 export const writerLinks: NavLinkType[] = [
-  { url: "/", title: "Home" },
-  { url: "/blog", title: "Blog" },
-  { url: "/contact", title: "Contact" },
+  { url: "/", title: "الرئيسية" },
+  { url: "/blog", title: "المدونة" },
+  { url: "/contact", title: "التواصل" },
 ];
 
 // Social media links data
