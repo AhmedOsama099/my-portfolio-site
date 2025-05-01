@@ -15,7 +15,9 @@ const HomeDescription = () => {
 
   const secondaryButton = isProgrammer
     ? "border-[#3A4184] text-[#3A4184] "
-    : "border-[#5c00aa] text-black ";
+    : "border-[#5c00aa] text-[#5c00aa] ";
+
+  const primaryButtonHRef = isProgrammer ? "/portfolio" : "/blog";
 
   return (
     <div
@@ -34,14 +36,14 @@ const HomeDescription = () => {
       {/* Buttons */}
       <div className="w-full flex flex-col sm:flex-row gap-4 pb-4">
         <Link
-          href="/portfolio"
-          className={`p-4 flex-1 rounded-lg  ${primaryButton}  text-white text-center shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1`}
+          href={primaryButtonHRef}
+          className={`p-4 text-lg flex-1 rounded-lg  ${primaryButton}  text-white text-center shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1`}
         >
           {t("home.viewMyWork")}
         </Link>
         <Link
           href="/contact"
-          className={`p-4 flex-1 rounded-lg border-2  sm:mb-0 text-center ${secondaryButton}  transition-all duration-300 hover:-translate-y-1`}
+          className={`p-4 flex-1  rounded-lg text-lg border-2  sm:mb-0 text-center ${secondaryButton}  transition-all duration-300 hover:-translate-y-1`}
         >
           {t("home.contactMe")}
         </Link>
