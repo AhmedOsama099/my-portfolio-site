@@ -9,10 +9,7 @@ const MotionPageWrapper: FC<{
 }> = ({ children, className }) => {
   return (
     <motion.div
-      className={clsx(
-        "h-full overflow-y-auto pt-8 custom-scrollbar",
-        className
-      )}
+      className={clsx("h-full overflow-y-auto  custom-scrollbar", className)}
       initial={{
         y: "-200vh",
       }}

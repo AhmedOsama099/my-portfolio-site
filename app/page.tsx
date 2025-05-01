@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <MotionPageWrapper>
       <div
-        className={`h-full min-h-screen flex flex-col  lg:flex-row  px-4 ${globalPX}`}
+        className={`flex flex-col  lg:items-center lg:flex-row  px-4 ${globalPX}`}
       >
         {/* Image Container */}
         <HomeImage />
