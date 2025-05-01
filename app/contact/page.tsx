@@ -5,9 +5,11 @@ import ContactForm from "@/Components/contact/ContactForm";
 import AnimatedHeading from "@/Components/contact/AnimatedHeading";
 import { motion } from "framer-motion";
 import { useTheme } from "@/context/ThemeContext";
+import { useTranslation } from "react-i18next";
 
 const ContactPage = () => {
   const { isProgrammer } = useTheme();
+  const { t } = useTranslation();
 
   const contactColors = isProgrammer
     ? {
@@ -23,9 +25,9 @@ const ContactPage = () => {
         {/* Text Container */}
         <div className="h-1/2 lg:h-full lg:w-1/2 flex items-center justify-center">
           <div className="relative">
-            <AnimatedHeading text="Say Hello" />
+            <AnimatedHeading text={t("contact.sayHello")} />
             <motion.div
-              className="absolute -bottom-6 left-0 w-1/2 h-1"
+              className="absolute -bottom-6 start-0 w-1/2 h-1"
               style={{ backgroundColor: contactColors.underline }}
               initial={{ width: 0 }}
               animate={{ width: "50%" }}
@@ -37,8 +39,7 @@ const ContactPage = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.8 }}
             >
-              Need a skilled engineer to bring your vision to life? let’s team
-              up and build something exceptional. Reach out and let’s talk!
+              {t("contact.desc")}
             </motion.div>
           </div>
         </div>

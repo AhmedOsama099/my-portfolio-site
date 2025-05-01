@@ -7,6 +7,7 @@ import MessageTextarea from "./MessageTextarea";
 import SubmitButton from "./SubmitButton";
 import StatusMessage from "./StatusMessage";
 import { useTheme } from "@/context/ThemeContext";
+import { useTranslation } from "react-i18next";
 
 const ContactForm = () => {
   const [success, setSuccess] = useState(false);
@@ -16,6 +17,7 @@ const ContactForm = () => {
   const [isValidMessage, setIsValidMessage] = useState(false);
 
   const { isProgrammer } = useTheme();
+  const { t } = useTranslation();
 
   const contactForm = isProgrammer
     ? {
@@ -93,7 +95,7 @@ const ContactForm = () => {
       <h2
         className={`text-2xl lg:text-3xl font-bold mb-6 lg:mb-8 ${contactForm.title}`}
       >
-        Get in Touch
+        {t("contact.getInTouch")}
       </h2>
 
       <MessageTextarea
@@ -103,14 +105,18 @@ const ContactForm = () => {
       />
 
       <FormInput
-        label="Your Email"
+        label={t("contact.yourEmail")}
         name="user_email"
         type="email"
         placeholder="email@example.com"
         required
       />
 
-      <FormInput label="Your Name" name="user_name" placeholder="Ahmed Osama" />
+      <FormInput
+        label={t("contact.yourName")}
+        name="user_name"
+        placeholder={t("contact.yourNamePlaceholder")}
+      />
 
       <SubmitButton
         isDisabled={!isValidMessage || loading}
@@ -118,17 +124,11 @@ const ContactForm = () => {
       />
 
       {success && (
-        <StatusMessage
-          type="success"
-          message="Your message has been sent successfully! I'll get back to you soon."
-        />
+        <StatusMessage type="success" message={t("contact.successMessage")} />
       )}
 
       {error && (
-        <StatusMessage
-          type="error"
-          message="Something went wrong! Please try again later."
-        />
+        <StatusMessage type="error" message={t("contact.sendErrorMessage")} />
       )}
     </form>
   );
