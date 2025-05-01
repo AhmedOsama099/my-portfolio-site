@@ -32,7 +32,9 @@ const LiteratureItem: React.FC<LiteratureItemProps> = ({ piece }) => {
       <div className="text-gray-700 leading-relaxed">
         <div
           ref={contentRef}
-          className={`${!expanded ? "line-clamp-5" : ""} overflow-hidden`}
+          className={`${
+            !expanded ? "line-clamp-5" : ""
+          } overflow-hidden text-lg leading-10`}
         >
           <p>{piece.content}</p>
         </div>
