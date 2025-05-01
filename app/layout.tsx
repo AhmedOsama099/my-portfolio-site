@@ -26,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang={"en"}>
+    <html>
       {/* suppressHydrationWarning prop prevents React hydration warnings that occur when server and client content don't match exactly */}
       <body suppressHydrationWarning>
         <ThemeProvider>

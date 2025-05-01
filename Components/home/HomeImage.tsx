@@ -5,7 +5,7 @@ const HomeImage = () => {
   const { isProgrammer } = useTheme();
 
   return (
-    <div className="h-1/2 lg:h-full lg:w-1/2 relative">
+    <div className="h-1/2 lg:h-full lg:w-1/2 relative rtl:transform rtl:lg:scale-x-[-1]">
       <Image
         src={`/images/${isProgrammer ? "hero1.png" : "hero.png"}`}
         alt="myProfile"

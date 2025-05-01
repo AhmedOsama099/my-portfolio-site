@@ -1,5 +1,8 @@
 {
   "home": {
-    "title": "Hello"
+    "title": "Transforming Ideas into Interfaces, and Interfaces into Impact.",
+    "desc": "With over 4 years of experience as a software engineer, I craft intuitive, performant, and accessible digital experiences that serve real-world needs. Whether building enterprise-grade dashboards or dynamic social platforms, I merge technical depth with a keen eye for design—bridging business goals and user expectations through clean, scalable, and maintainable code.",
+    "contactMe": "Contact Me",
+    "viewMyWork": "View My Work"
   }
 }
