@@ -1,6 +1,7 @@
 "use client";
 
-import React, { createContext, useContext, useState } from "react";
+import { useAppTranslation } from "@/hooks/useAppTranslation";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 // Create context with default value
 interface ThemeContextType {
@@ -19,16 +20,36 @@ const ThemeContext = createContext<ThemeContextType>({
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const { setLanguage, changeCurrentDirection } = useAppTranslation();
+  // Initialize with default values
   const [mode, setMode] = useState<"programmer" | "writer">("programmer");
   const [isProgrammer, setIsProgrammer] = useState<boolean>(true);
 
-  const toggleMode = () => {
-    if (mode === "programmer") {
-      setIsProgrammer(false);
+  // Load saved mode from localStorage only on client-side
+  useEffect(() => {
+    // This code only runs in the browser, after component mounts
+    const savedMode = localStorage.getItem("portfolioMode");
+
+    if (!savedMode) {
+      localStorage.setItem("portfolioMode", "programmer");
+      setLanguage("en");
+      changeCurrentDirection("ltr");
+    } else if (savedMode === "writer") {
       setMode("writer");
-    } else {
-      setIsProgrammer(true);
-      setMode("programmer");
+      setIsProgrammer(false);
+      setLanguage("ar");
+      changeCurrentDirection("rtl");
+    }
+  }, []);
+
+  const toggleMode = () => {
+    const newMode = mode === "programmer" ? "writer" : "programmer";
+    setMode(newMode);
+    setIsProgrammer(newMode === "programmer");
+
+    // Only access localStorage on the client
+    if (typeof window !== "undefined") {
+      localStorage.setItem("portfolioMode", newMode);
     }
   };
 

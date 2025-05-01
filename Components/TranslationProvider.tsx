@@ -11,6 +11,7 @@ export default function TranslationProvider({
   children: ReactNode;
 }) {
   const { currentLanguage, currentDirection } = useAppTranslation();
+
   return (
     <I18nextProvider i18n={i18n}>
       <div lang={currentLanguage} dir={currentDirection}>

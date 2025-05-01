@@ -35,11 +35,11 @@ export default function RootLayout({
     <html>
       {/* suppressHydrationWarning prop prevents React hydration warnings that occur when server and client content don't match exactly */}
       <body suppressHydrationWarning className={`${cairo.className}`}>
-        <ThemeProvider>
-          <TranslationProvider>
+        <TranslationProvider>
+          <ThemeProvider>
             <TransitionProvider>{children}</TransitionProvider>
-          </TranslationProvider>
-        </ThemeProvider>
+          </ThemeProvider>
+        </TranslationProvider>
       </body>
     </html>
   );
