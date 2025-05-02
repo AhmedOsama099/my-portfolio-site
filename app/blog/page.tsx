@@ -48,13 +48,25 @@ const BlogPage = () => {
         {/* Page Header */}
         <BlogHeader />
 
-        {/* Search Input */}
-        <SearchInput
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-          filteredCount={filteredContent.length}
-          debouncedSearchTerm={debouncedSearchTerm}
-        />
+        {/* Search Input with attached counter badge */}
+        <div className="relative max-w-md mx-auto mb-8">
+          <SearchInput
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            filteredCount={filteredContent.length}
+            debouncedSearchTerm={debouncedSearchTerm}
+          />
+          <div className="absolute top-[95%] -z-10 right-0 inline-flex items-center bg-[#565FA1] px-2 py-1 shadow-sm border border-[#565FA1]/30 border-t-transparent rounded-l-lg rounded-br-lg">
+            <span className="text-white font-semibold mr-1 text-xs">عدد</span>
+
+            <span className="text-white font-bold  py-0.5 rounded-full min-w-[1.5rem] text-center text-xs">
+              {filteredContent.length}
+            </span>
+            <span className="text-white font-semibold mr-1 text-xs">
+              من النصوص
+            </span>
+          </div>
+        </div>
 
         {/* Literature Content */}
         <LiteratureList

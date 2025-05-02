@@ -27,18 +27,23 @@ const LiteratureList: React.FC<LiteratureListProps> = ({
   return (
     <>
       {filteredContent.length > 0 ? (
-        <motion.div
-          variants={container}
-          initial="hidden"
-          animate="show"
-          className="space-y-12"
-        >
-          {filteredContent.map((piece, key) => (
-            <motion.div key={key} variants={item}>
-              <LiteratureItem piece={piece} />
-            </motion.div>
-          ))}
-        </motion.div>
+        <>
+          <motion.div
+            variants={container}
+            initial="hidden"
+            animate="show"
+            className="space-y-12"
+          >
+            {filteredContent.map((piece, key) => (
+              <motion.div key={key} variants={item}>
+                <div className="text-sm text-gray-500 mb-2 text-right">
+                  {piece.date}
+                </div>
+                <LiteratureItem piece={piece} />
+              </motion.div>
+            ))}
+          </motion.div>
+        </>
       ) : (
         <motion.div
           initial={{ opacity: 0 }}
@@ -49,6 +54,7 @@ const LiteratureList: React.FC<LiteratureListProps> = ({
           <p className="text-xl text-gray-600 mb-4">
             لم يتم العثور على نصوص مطابقة لبحثك.
           </p>
+
           <button
             onClick={handleClearSearch}
             className="px-4 py-2 bg-[#565FA1] text-white rounded-md hover:bg-[#4A5390] transition-colors"
