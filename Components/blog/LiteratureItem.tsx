@@ -21,6 +21,8 @@ const LiteratureItem: React.FC<LiteratureItemProps> = ({ piece }) => {
     }
   }, [piece.content]);
 
+  const replacedContent = piece.content.replace(/\./g, ". <br/>");
+
   return (
     <motion.div className="prose prose-lg max-w-none bg-white rounded-lg shadow-md p-8 border-r-4 border-[#565FA1]">
       <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-2 mb-6">
@@ -36,7 +38,11 @@ const LiteratureItem: React.FC<LiteratureItemProps> = ({ piece }) => {
             !expanded ? "line-clamp-5" : ""
           } overflow-hidden text-lg leading-10`}
         >
-          <p>{piece.content}</p>
+          <p
+            dangerouslySetInnerHTML={{
+              __html: replacedContent,
+            }}
+          ></p>
         </div>
 
         {showButton && (
