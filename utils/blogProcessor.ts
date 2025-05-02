@@ -1,6 +1,6 @@
-import fs from 'fs';
-import path from 'path';
-import { literatureContent } from '../data/blog.ts';
+import fs from "fs";
+import path from "path";
+import { literatureContent } from "../data/blog";
 
 /**
  * Extracts the best content from literature data based on content length and generates a released.js file
@@ -32,9 +32,9 @@ export function getAllReleasedContent() {
 `;
 
   // Write to the released.js file
-  const filePath = path.join(process.cwd(), 'data', 'released.js');
-  fs.writeFileSync(filePath, releasedData, 'utf8');
-  
+  const filePath = path.join(process.cwd(), "data", "released.js");
+  fs.writeFileSync(filePath, releasedData, "utf8");
+
   console.log(`Released content generated successfully at ${filePath}`);
   return bestContent;
 }
