@@ -1,6 +1,7 @@
 import "./globals.css"; // Make sure this path is correct
 import { Cairo } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const cairo = Cairo({
   weight: ["400", "700"],
@@ -42,6 +43,7 @@ export default function RootLayout({
           </ThemeProvider>
         </TranslationProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
