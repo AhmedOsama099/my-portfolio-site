@@ -26,7 +26,7 @@ const LiteratureItem: React.FC<LiteratureItemProps> = ({ piece }) => {
   return (
     <motion.div className="prose prose-lg max-w-none bg-white rounded-lg shadow-md p-8 border-r-4 border-[#565FA1]">
       <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-2 mb-6">
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 m-0">
+        <h2 className={`text-2xl md:text-3xl font-bold text-gray-900 m-0 `}>
           {piece.title}
         </h2>
       </div>
