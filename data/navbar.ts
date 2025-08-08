@@ -6,6 +6,7 @@ export const programmerLinks: NavLinkType[] = [
   { url: "/about", title: "About" },
   { url: "/portfolio", title: "Portfolio" },
   { url: "/contact", title: "Contact" },
+  { url: "/tech-blog", title: "Blog" },
 ];
 export const writerLinks: NavLinkType[] = [
   { url: "/", title: "الرئيسية" },
@@ -36,5 +37,3 @@ export const socialMedia: SocialMediaType[] = [
     alt: "WhatsApp",
   },
 ];
-
-
