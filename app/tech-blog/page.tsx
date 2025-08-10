@@ -12,7 +12,7 @@ const technologies = [
 
 const TechBlogPage = () => {
   return (
-    <MotionPageWrapper className="flex flex-wrap gap-2  justify-center items-center">
+    <MotionPageWrapper className="flex flex-wrap gap-2  justify-center items-center  ">
       {technologies.map((techItem, index) => (
         <Link
           key={index}

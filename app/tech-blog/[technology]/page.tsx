@@ -8,7 +8,7 @@ export default async function TechnologyDocsPage({
   const { technology } = await params;
 
   return (
-    <MotionPageWrapper className="max-w-4xl mx-auto relative">
+    <MotionPageWrapper className="max-w-4xl mx-auto relative max-[980px]:mt-16">
       {/* Page Header */}
       <header className="mb-8">
         <h1 className="text-4xl font-bold text-gray-900 mb-4">

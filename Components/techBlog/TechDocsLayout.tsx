@@ -1,26 +1,18 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import ToggleButton from "./toggleButton";
 import MobileOverlay from "./mobileOverlay";
 import ContentWrapper from "./ContentWrapper";
 import SideNav from "./SideNav";
-import { useAppTranslation } from "@/hooks/useAppTranslation";
-
-interface TechDocsLayoutProps {
-  children: React.ReactNode;
-}
+import LanguageSwitchButton from "./LanguageSwitchButton";
+import { TechDocsLayoutProps } from "@/types/techBlog";
+import { useMobileResize } from "@/hooks/techBlog/useMobileResize";
 
 export default function TechDocsLayout({ children }: TechDocsLayoutProps) {
   const [isNavOpen, setIsNavOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
 
-  useEffect(() => {
-    const checkIsMobile = () => setIsMobile(window.innerWidth < 768);
-    checkIsMobile();
-    window.addEventListener("resize", checkIsMobile);
-    return () => window.removeEventListener("resize", checkIsMobile);
-  }, []);
+  const { isMobile } = useMobileResize();
 
   const handleToggleNav = () => {
     setIsNavOpen((prev) => !prev);
@@ -30,23 +22,18 @@ export default function TechDocsLayout({ children }: TechDocsLayoutProps) {
     setIsNavOpen(state);
   };
 
-  const { changeLanguage, currentLanguage } = useAppTranslation();
-
   return (
     <div className="relative flex h-screen bg-gray-50 overflow-hidden">
       {/* Language Switch Button */}
-      <button
-        onClick={changeLanguage}
-        className="fixed top-4 end-4 z-50 p-2 bg-gray-800 text-white rounded shadow hover:bg-gray-700 transition"
-      >
-        {currentLanguage === "ar" ? "English" : "العربية"}
-      </button>
+      <LanguageSwitchButton />
+
       {/* Toggle button */}
       <ToggleButton
         isNavOpen={isNavOpen}
         isMobile={isMobile}
         handleToggleNav={handleToggleNav}
       />
+
       {/* Side Navigation */}
       <SideNav
         isNavOpen={isNavOpen}

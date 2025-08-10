@@ -8,8 +8,8 @@ export default function ToggleButton({
   return (
     <button
       onClick={() => handleToggleNav()}
-      className={`fixed top-4 z-50 p-3 bg-blue-600 text-white rounded-lg shadow-lg hover:bg-blue-700 transition
-       ${isNavOpen && !isMobile ? "start-[19rem]" : "start-[1rem]"} 
+      className={`fixed top-32 z-10 p-3 bg-blue-600 text-white rounded-e-lg shadow-lg hover:bg-blue-700 transition
+       ${isNavOpen && !isMobile ? "start-[18rem]" : "start-0"} 
 
         `}
       aria-label="Toggle navigation"

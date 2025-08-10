@@ -31,3 +31,7 @@ export interface SectionProps {
   isMobile: boolean;
   handleChangeNavState: (state: boolean) => void;
 }
+
+export interface TechDocsLayoutProps {
+  children: React.ReactNode;
+}
