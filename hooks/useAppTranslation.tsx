@@ -5,7 +5,7 @@ export const useAppTranslation = () => {
   const { t, i18n } = useTranslation();
 
   const [currentDirection, setCurrentDirection] = useState<string>("ltr");
-  const isLTR = useRef(false);
+  const isLTR = useRef(true);
   useEffect(() => {
     if (i18n.language === "ar") {
       setCurrentDirection("rtl");

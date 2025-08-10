@@ -15,11 +15,13 @@ export default function SideNav({
 
   return (
     <aside
-      dir={currentDirection} // <-- Apply direction
-      className={`fixed inset-y-0 start-0 z-40 w-72 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out ${
+      dir={currentDirection}
+      className={`fixed inset-y-0 start-0 ebd z-40 w-72 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out  ${
         isNavOpen
           ? "translate-x-0"
-          : `${isLTR ? "-translate-x-full" : "translate-x-full"}`
+          : isLTR
+          ? "-translate-x-full"
+          : "translate-x-full"
       }`}
       aria-hidden={!isNavOpen && isMobile}
     >
