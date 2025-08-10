@@ -1,6 +1,5 @@
 import React from "react";
 import TechDocsLayout from "../../../Components/techBlog/TechDocsLayout";
-import TranslationProvider from "../../../Components/TranslationProvider";
 
 export default function TechnologyLayout({
   children,
@@ -8,9 +7,5 @@ export default function TechnologyLayout({
   children: React.ReactNode;
   params: { technology: string };
 }) {
-  return (
-    <TranslationProvider>
-      <TechDocsLayout>{children}</TechDocsLayout>
-    </TranslationProvider>
-  );
+  return <TechDocsLayout>{children}</TechDocsLayout>;
 }

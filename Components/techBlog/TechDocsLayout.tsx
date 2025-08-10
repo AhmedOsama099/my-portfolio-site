@@ -23,7 +23,7 @@ export default function TechDocsLayout({ children }: TechDocsLayoutProps) {
   };
 
   return (
-    <div className="relative flex h-screen bg-gray-50 overflow-hidden">
+    <div className="relative flex h-full bg-gray-50 overflow-hidden">
       {/* Language Switch Button */}
       <LanguageSwitchButton />
 

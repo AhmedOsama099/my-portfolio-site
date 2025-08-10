@@ -12,6 +12,7 @@ import { Metadata } from "next";
 import TransitionProvider from "@/Components/transitionProvider";
 import TranslationProvider from "@/Components/TranslationProvider";
 import { ThemeProvider } from "@/context/ThemeContext";
+import OutsideTechBlogStateHandler from "@/Components/OutsideTechBlogStateHandler";
 
 export const metadata: Metadata = {
   title: "Ahmed Osama - Portfolio",
@@ -39,7 +40,9 @@ export default function RootLayout({
       <body suppressHydrationWarning className={`${cairo.className}`}>
         <TranslationProvider>
           <ThemeProvider>
-            <TransitionProvider>{children}</TransitionProvider>
+            <OutsideTechBlogStateHandler>
+              <TransitionProvider>{children}</TransitionProvider>
+            </OutsideTechBlogStateHandler>
           </ThemeProvider>
         </TranslationProvider>
         <Analytics />
