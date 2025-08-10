@@ -1,15 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 export const useAppTranslation = () => {
   const { t, i18n } = useTranslation();
 
   const [currentDirection, setCurrentDirection] = useState<string>("ltr");
+  const isLTR = useRef(false);
   useEffect(() => {
     if (i18n.language === "ar") {
       setCurrentDirection("rtl");
+      isLTR.current = false;
     } else {
       setCurrentDirection("ltr");
+      isLTR.current = true;
     }
   }, [i18n.language]);
 
@@ -20,6 +23,7 @@ export const useAppTranslation = () => {
   return {
     currentLanguage: i18n.language,
     currentDirection: currentDirection,
+    isLTR: isLTR.current,
     changeCurrentDirection: (dir: "ltr" | "rtl") => changeCurrentDirection(dir),
     setLanguage: (lang: string) => i18n.changeLanguage(lang),
     changeLanguage: () =>

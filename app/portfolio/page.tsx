@@ -13,7 +13,7 @@ const PortfolioPage = () => {
 
   return (
     <MotionPageWrapper>
-      <div className="relative min-h-screen ">
+      <div className="relative min-h-screen">
         {/* Hero Section */}
         <HeroSection />
 
