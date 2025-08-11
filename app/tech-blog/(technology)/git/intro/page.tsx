@@ -1,18 +1,14 @@
 import MotionPageWrapper from "@/Components/motionPageWrapper";
 
-export default async function TechnologyDocsPage({
-  params,
-}: {
-  params: Promise<{ technology: string }>;
-}) {
-  const { technology } = await params;
+export default async function TechnologyDocsPage() {
+  const technology = "GIT";
 
   return (
     <MotionPageWrapper className="max-w-4xl mx-auto relative max-[980px]:mt-16  ">
       {/* Page Header */}
       <header className="mb-8">
         <h1 className="text-4xl font-bold text-gray-900 mb-4">
-          {technology.charAt(0).toUpperCase() + technology.slice(1)}{" "}
+          {technology?.charAt(0).toUpperCase() + technology?.slice(1)}{" "}
           Documentation
         </h1>
         <p className="text-lg text-gray-600">
@@ -57,9 +53,9 @@ export default async function TechnologyDocsPage({
             </p>
             <div className="bg-gray-100 rounded-lg p-4">
               <pre className="text-sm text-gray-800">
-                <code>{`npm install ${technology.toLowerCase()}
+                <code>{`npm install ${technology?.toLowerCase()}
 # or
-yarn add ${technology.toLowerCase()}`}</code>
+yarn add ${technology?.toLowerCase()}`}</code>
               </pre>
             </div>
           </div>
@@ -76,7 +72,7 @@ yarn add ${technology.toLowerCase()}`}</code>
             </p>
             <div className="bg-gray-100 rounded-lg p-4">
               <pre className="text-sm text-gray-800">
-                <code>{`// ${technology.toLowerCase()}.config.js
+                <code>{`// ${technology?.toLowerCase()}.config.js
 module.exports = {
   // Configuration options
   option1: 'value1',
@@ -127,7 +123,7 @@ module.exports = {
                 </h3>
                 <div className="bg-gray-100 rounded-lg p-4">
                   <pre className="text-sm text-gray-800">
-                    <code>{`import ${technology} from '${technology.toLowerCase()}';
+                    <code>{`import ${technology} from '${technology?.toLowerCase()}';
 
 const example = new ${technology}({
   // Basic configuration

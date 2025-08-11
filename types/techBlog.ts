@@ -35,3 +35,9 @@ export interface SectionProps {
 export interface TechDocsLayoutProps {
   children: React.ReactNode;
 }
+
+export type TechnologyLinkItemProps = {
+  pageURL: string;
+  imageURL: string;
+  alt: string;
+};
