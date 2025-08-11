@@ -5,7 +5,6 @@ export default function TechnologyLayout({
   children,
 }: {
   children: React.ReactNode;
-  params: { technology: string };
 }) {
   return <TechDocsLayout>{children}</TechDocsLayout>;
 }
