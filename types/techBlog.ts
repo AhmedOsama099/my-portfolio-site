@@ -1,10 +1,10 @@
+import { logoMap } from "@/data/techBlog";
 import { ReactNode } from "react";
 
 // General
 
-interface ITitleClassName {
-  title: string;
-  className?: string;
+interface IChildren {
+  children?: ReactNode;
 }
 
 interface IChildrenClassName {
@@ -46,9 +46,7 @@ export interface SectionProps {
   handleChangeNavState: (state: boolean) => void;
 }
 
-export interface TechDocsLayoutProps {
-  children: React.ReactNode;
-}
+export type TechDocsLayoutProps = IChildren;
 
 export type TechnologyLinkItemProps = {
   pageURL: string;
@@ -58,7 +56,7 @@ export type TechnologyLinkItemProps = {
 
 export type PageHeaderProps = IChildrenClassName;
 
-export type HeaderTitleProps = ITitleClassName;
+export type HeaderTitleProps = IChildrenClassName;
 
 export type HeaderDescriptionProps = {
   description: string;
@@ -72,7 +70,7 @@ export type TechDocsReferenceProps = {
   textClassName?: string;
 };
 
-export type SectionTitleProps = ITitleClassName;
+export type SectionTitleProps = IChildrenClassName;
 
 export type SectionWrapperProps = {
   children: ReactNode;
@@ -81,3 +79,23 @@ export type SectionWrapperProps = {
 };
 
 export type ContentSimpleParagraphProps = IChildrenClassName;
+
+export interface DocsImageProps {
+  src: string;
+  className?: string;
+}
+
+export type SectionListProps = {
+  children: ReactNode[];
+  listContainerClassName?: string;
+  listItemClassName?: string;
+};
+
+export type Resource = {
+  name: keyof typeof logoMap;
+  url: string;
+};
+
+export interface ResourcesProps {
+  items: Resource[];
+}

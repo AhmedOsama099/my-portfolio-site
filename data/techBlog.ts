@@ -8,3 +8,9 @@ export const navItems = [
   { id: "advanced", title: "Advanced Topics", href: "#advanced" },
   { id: "migration", title: "Migration Guide", href: "#migration" },
 ];
+
+export const logoMap: Record<string, string> = {
+  git: "/images/tech-blog/logos/git.svg",
+  gitLab: "/images/tech-blog/logos/git-lab.svg",
+  freeCodeCamp: "/images/tech-blog/logos/free-code-camp.svg",
+};
