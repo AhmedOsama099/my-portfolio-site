@@ -12,7 +12,7 @@ import { Metadata } from "next";
 import TransitionProvider from "@/Components/transitionProvider";
 import TranslationProvider from "@/Components/TranslationProvider";
 import { ThemeProvider } from "@/context/ThemeContext";
-import OutsideTechBlogStateHandler from "@/Components/OutsideTechBlogStateHandler";
+import OutsideTechBlogStateHandler from "@/Components/PagesLanguagesStateHandler";
 
 export const metadata: Metadata = {
   title: "Ahmed Osama - Portfolio",

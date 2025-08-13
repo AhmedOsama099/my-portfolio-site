@@ -14,7 +14,7 @@ export default async function TechnologyDocsPage() {
     <MotionPageWrapper className="max-w-4xl mx-auto relative max-[980px]:mt-16  ">
       {/* Page Header */}
       <PageHeader>
-        <HeaderTitle title="GIT Documentation" />
+        <HeaderTitle title={"What is GIT?"} />
         <HeaderDescription description="  Complete guide and reference for git development" />
       </PageHeader>
 

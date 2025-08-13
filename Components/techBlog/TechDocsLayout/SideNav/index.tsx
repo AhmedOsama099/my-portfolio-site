@@ -4,6 +4,7 @@ import SideNavHeader from "./SideNavHeader";
 import SideNavSection from "./SideNavSection";
 import SideNavResources from "./SideNavResources";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
+import { useFirstRender } from "@/hooks/useFirstRender";
 
 export default function SideNav({
   isMobile,
@@ -12,6 +13,9 @@ export default function SideNav({
   handleChangeNavState,
 }: SideNavProps) {
   const { currentDirection, isLTR } = useAppTranslation();
+  const { is50MSAfterFirstRender } = useFirstRender();
+
+  if (!is50MSAfterFirstRender) return null;
 
   return (
     <aside

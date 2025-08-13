@@ -5,7 +5,7 @@ const technologies = [
   {
     imageURL: "/images/techLogos/git.svg",
     alt: "git-logo",
-    pageURL: "/tech-blog/git/intro",
+    pageURL: "/tech-blog/git/what-is-git",
   },
 ];
 

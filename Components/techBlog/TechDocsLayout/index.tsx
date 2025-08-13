@@ -11,7 +11,6 @@ import { useMobileResize } from "@/hooks/techBlog/useMobileResize";
 
 export default function TechDocsLayout({ children }: TechDocsLayoutProps) {
   const [isNavOpen, setIsNavOpen] = useState(false);
-
   const { isMobile } = useMobileResize();
 
   const handleToggleNav = () => {
