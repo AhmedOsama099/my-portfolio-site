@@ -10,7 +10,7 @@ import SectionWrapper from "@/Components/techBlog/DocsUtils/SectionWrapper";
 
 export default async function TechnologyDocsPage() {
   return (
-    <MotionPageWrapper className="max-w-4xl mx-auto relative max-[980px]:mt-16  ">
+    <MotionPageWrapper className="max-w-4xl mx-auto relative max-[980px]:mt-16 px-2">
       {/* Page Header */}
       <PageHeader>
         <HeaderTitle>ما هو GIT</HeaderTitle>
