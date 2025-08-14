@@ -5,7 +5,7 @@ import React from "react";
 
 export default function Resources({ items }: ResourcesProps) {
   return (
-    <div className="flex items-center gap-3 mt-4">
+    <div className="flex items-center gap-3 mb-20">
       <span className="font-semibold text-lg text-[#3D4082]">- المصادر:</span>
       <div className="flex gap-2">
         {items.map((item, index) => (

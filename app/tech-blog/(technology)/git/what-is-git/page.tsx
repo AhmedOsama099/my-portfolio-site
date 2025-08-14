@@ -32,10 +32,7 @@ export default async function TechnologyDocsPage() {
             التعديلات معًا دون فقدان أي جزء منها، بحيث يمتلك كل عضو في الفريق
             نسخة كاملة من المشروع.
           </span>
-          <DocsImage
-            src="/images/tech-blog/git/what-is-git-ar-1.svg"
-            className="w-1/2"
-          />
+          <DocsImage src="/images/tech-blog/git/what-is-git-ar-1.svg" />
         </ContentSimpleParagraph>
         {/* Why git is a Version Control? */}
         <SectionTitle>ليه GIT يعتبر Version Control</SectionTitle>
@@ -61,10 +58,7 @@ export default async function TechnologyDocsPage() {
             أنظمة التحكم في الإصدارات، ومنها Git، تقدر تعمل ده لأي نوع من
             الملفات، سواء كانت سطور برمجية، صور، أو بيانات أخرى.
           </span>
-          <DocsImage
-            src="/images/tech-blog/git/what-is-git-ar-2.svg"
-            className="w-1/2"
-          />
+          <DocsImage src="/images/tech-blog/git/what-is-git-ar-2.svg" />
         </ContentSimpleParagraph>
 
         {/* Why git is a Distributed? */}
@@ -107,10 +101,7 @@ export default async function TechnologyDocsPage() {
               </span>
             </SectionList>
           </span>
-          <DocsImage
-            src="/images/tech-blog/git/what-is-git-ar-3.svg"
-            className="w-1/2"
-          />
+          <DocsImage src="/images/tech-blog/git/what-is-git-ar-3.svg" />
         </ContentSimpleParagraph>
       </SectionWrapper>
 
