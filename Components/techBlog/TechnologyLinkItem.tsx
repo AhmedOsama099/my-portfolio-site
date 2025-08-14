@@ -16,12 +16,12 @@ export default function TechnologyLinkItem({
           duration-300"
       href={pageURL}
     >
-      <span
+      {/* <span
         className="absolute top-0 right-0 bg-yellow-500 text-white text-xs font-bold py-1 px-2 rounded-full"
         style={{ transform: "translate(50%, -50%) rotate(10deg)" }}
       >
         Soon
-      </span>
+      </span> */}
       <Image src={imageURL} alt={alt} width={150} height={150} />
     </Link>
   );

@@ -2,7 +2,6 @@ import { navItems } from "@/data/techBlog";
 import { SideNavProps } from "@/types/techBlog";
 import SideNavHeader from "./SideNavHeader";
 import SideNavSection from "./SideNavSection";
-import SideNavResources from "./SideNavResources";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { usePostponeOnRender } from "@/hooks/usePostponeOnRender";
 
@@ -32,32 +31,17 @@ export default function SideNav({
       <div className="absolute inset-0 bg-white/95 backdrop-blur-sm md:bg-white"></div>
       <div className="relative flex flex-col h-full">
         <SideNavHeader handleToggleNav={handleToggleNav} />
+
         <div className="flex-1 overflow-y-auto p-6 custom-scrollbar">
           <nav className="space-y-3">
             <SideNavSection
               title="Getting Started"
-              items={navItems.slice(0, 3)}
+              items={navItems}
               color="blue"
-              activeIndex={0}
-              isMobile={isMobile}
-              handleChangeNavState={handleChangeNavState}
-            />
-            <SideNavSection
-              title="Reference"
-              items={navItems.slice(3, 6)}
-              color="green"
-              isMobile={isMobile}
-              handleChangeNavState={handleChangeNavState}
-            />
-            <SideNavSection
-              title="Advanced"
-              items={navItems.slice(6)}
-              color="purple"
               isMobile={isMobile}
               handleChangeNavState={handleChangeNavState}
             />
           </nav>
-          <SideNavResources />
         </div>
       </div>
     </aside>

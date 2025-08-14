@@ -41,7 +41,6 @@ export interface SectionProps {
   title: string;
   items: Array<{ id: string; href: string; title: string }>;
   color: string;
-  activeIndex?: number;
   isMobile: boolean;
   handleChangeNavState: (state: boolean) => void;
 }
