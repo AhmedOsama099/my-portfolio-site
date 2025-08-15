@@ -1,28 +1,36 @@
 // lib/i18n-server.ts
 import i18n from "i18next";
-import Backend from "i18next-fs-backend";
-import path from "path";
+
+// Import your translations directly
+import commonEn from "../../server-locales/en/common.json";
+import commonAr from "../../server-locales//ar/common.json";
+import whatIsGitEn from "../../server-locales/en/what-is-git.json";
+import whatIsGitAr from "../../server-locales//ar/what-is-git.json";
+
+// Map all translations by language and namespace
+const translations: Record<string, Record<string, unknown>> = {
+  en: {
+    common: commonEn,
+    "what-is-git": whatIsGitEn,
+  },
+  ar: {
+    common: commonAr,
+    "what-is-git": whatIsGitAr,
+  },
+};
 
 export async function initServerI18n(lang: string, ns: string) {
   if (!i18n.isInitialized) {
-    await i18n.use(Backend).init({
+    await i18n.init<"translation">({
       lng: lang,
+      fallbackLng: "en",
+      resources: translations as Record<string, Record<string, string>>,
       ns: [ns],
       defaultNS: ns,
-      fallbackLng: "en",
       interpolation: { escapeValue: false },
-      backend: {
-        loadPath: path.resolve(
-          process.cwd(),
-          "public/locales/server-side/{{lng}}/{{ns}}.json"
-        ),
-      },
     });
   } else {
-    await i18n.changeLanguage(lang);
-    if (!i18n.hasResourceBundle(lang, ns)) {
-      await i18n.loadNamespaces(ns);
-    }
+    i18n.changeLanguage(lang);
   }
 
   return i18n;
