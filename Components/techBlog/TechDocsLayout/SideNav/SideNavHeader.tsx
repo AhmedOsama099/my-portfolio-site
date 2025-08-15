@@ -1,13 +1,20 @@
+import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { SideNavProps } from "@/types/techBlog";
 
 export default function SideNavHeader({
   handleToggleNav,
 }: Pick<SideNavProps, "handleToggleNav">) {
+  const { t } = useAppTranslation();
+
   return (
     <div className="flex items-center border-[#EE3E54] justify-between p-6 border-b bg-gradient-to-r from-blue-50 to-indigo-50 h-[112px]">
       <div>
-        <h2 className="text-xl font-bold text-gray-800">Documentation</h2>
-        <p className="text-sm text-gray-600 mt-1">Navigate through topics</p>
+        <h2 className="text-xl font-bold text-gray-800">
+          {t("tech-blog.sideNavTitle")}
+        </h2>
+        <p className="text-sm text-gray-600 mt-1">
+          {t("tech-blog.sideNavDescription")}
+        </p>
       </div>
       <button
         onClick={handleToggleNav}

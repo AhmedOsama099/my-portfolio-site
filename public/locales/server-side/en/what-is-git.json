@@ -1,0 +1,28 @@
+{
+  "title": "What is GIT",
+
+  "whatIsGit": {
+    "p1": "<span><strong>Git</strong> is the most popular open-source <strong>Distributed Version Control System</strong> today. It helps teams manage projects of all sizes with ease and speed while maintaining consistency across the team’s work.</span>",
+    "p2": "<span>It does this by tracking all changes made to files and recording them, enabling developers—through various merging methods—to reconcile these changes without losing any part of them, so that each team member has a complete copy of the project.</span>"
+  },
+
+  "whyVersionControl": {
+    "title": "Why Git is a Version Control System",
+    "p1": "<span>Every developer has specific roles and tasks in a project, which requires them to write appropriate code in different files, merge it with other developers’ work, then later modify the same files or add new ones according to the task sequence.</span>",
+    "p2": "<span>This means that when a file is first created and modified, that’s the first version of the file. When it’s modified again, that’s the second version, and so on as changes continue.</span>",
+    "p3": "<span>Here, <strong>Git</strong> plays its role as a <strong>Version Control System</strong> by organizing the differences between versions and keeping them in chronological order. Through this, a developer can edit or add easily, compare differences, and revert to a previous version if needed.</span>",
+    "p4": "<span>Version control systems, including Git, can do this for any type of file—whether code, images, or other data.</span>"
+  },
+
+  "whyDistributed": {
+    "title": "Why Git is Distributed",
+    "p1": "<span>Every project has two types of storage locations for its code versions: the first on the <strong>Server</strong>, and the second on each developer’s personal computer. Between them, different operations take place, such as merging and syncing files.</span>",
+    "p2": "<span>From this, we understand that <strong>Git</strong> is a <strong>Distributed System</strong> because it simply provides multiple copies of the same project in different locations—from the <strong>Server</strong> to the copies on each developer’s machine, which are complete as long as synchronization continues with the <strong>Server</strong>.</span>",
+    "p3": "<span>This leads us to recognize some key advantages of <strong>Distributed Systems</strong>:</span>",
+    "list": {
+      "speed": "<span><strong>Speed:</strong> Every developer has their own copy that they can modify directly on their computer.</span>",
+      "reliability": "<span><strong>Reliability:</strong> If the server copy fails, it can easily be replaced with the latest updated copy from any developer’s machine.</span>",
+      "collaboration": "<span><strong>Collaboration:</strong> Developers can work together by working on their own copies and merging them when needed.</span>"
+    }
+  }
+}

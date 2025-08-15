@@ -38,11 +38,11 @@ export type SideNavProps = {
 };
 
 export interface SectionProps {
-  title: string;
   items: Array<{ id: string; href: string; title: string }>;
   color: string;
   isMobile: boolean;
   handleChangeNavState: (state: boolean) => void;
+  title?: string;
 }
 
 export type TechDocsLayoutProps = IChildren;
@@ -98,3 +98,13 @@ export type Resource = {
 export interface ResourcesProps {
   items: Resource[];
 }
+
+export type TechNavItemProps = {
+  id: string;
+  title: string;
+  href: string;
+};
+
+export type NavItemsMapperProps = {
+  [key: string]: TechNavItemProps[];
+};

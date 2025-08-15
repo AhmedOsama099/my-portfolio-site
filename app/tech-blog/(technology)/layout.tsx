@@ -1,7 +1,7 @@
 import React from "react";
 import TechDocsLayout from "../../../Components/techBlog/TechDocsLayout";
 
-export default function TechnologyLayout({
+export default async function TechnologyLayout({
   children,
 }: {
   children: React.ReactNode;

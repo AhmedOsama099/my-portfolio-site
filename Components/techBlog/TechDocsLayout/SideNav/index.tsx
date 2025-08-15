@@ -1,9 +1,10 @@
-import { navItems } from "@/data/techBlog";
+import { navItemsMapper } from "@/data/techBlog";
 import { SideNavProps } from "@/types/techBlog";
 import SideNavHeader from "./SideNavHeader";
 import SideNavSection from "./SideNavSection";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { usePostponeOnRender } from "@/hooks/usePostponeOnRender";
+import { usePathname } from "next/navigation";
 
 export default function SideNav({
   isMobile,
@@ -13,6 +14,10 @@ export default function SideNav({
 }: SideNavProps) {
   const { currentDirection, isLTR } = useAppTranslation();
   const { is50MSAfterRender } = usePostponeOnRender();
+  const { t } = useAppTranslation();
+  const pathname = usePathname();
+  const tech = pathname.split("/")[2];
+  const navItems = navItemsMapper(t)[tech];
 
   if (!is50MSAfterRender) return null;
 
@@ -35,7 +40,6 @@ export default function SideNav({
         <div className="flex-1 overflow-y-auto p-6 custom-scrollbar">
           <nav className="space-y-3">
             <SideNavSection
-              title="Getting Started"
               items={navItems}
               color="blue"
               isMobile={isMobile}

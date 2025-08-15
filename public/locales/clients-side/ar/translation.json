@@ -19,5 +19,12 @@
     "sendErrorMessage": "حدث خطأ ما، من فضلك حاول في وقت لاحق.",
     "sendMessage": "إرسال الرسالة",
     "sending": "إرسال..."
+  },
+  "tech-blog": {
+    "sideNavTitle": "المستندات",
+    "sideNavDescription": "تنقل خلال المواضيع",
+    "git": {
+      "what-is-git": "ما هو GIT"
+    }
   }
 }

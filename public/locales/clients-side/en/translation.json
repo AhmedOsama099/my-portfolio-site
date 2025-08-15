@@ -19,5 +19,12 @@
     "sendErrorMessage": "Something went wrong! Please try again later.",
     "sendMessage": "Send Message",
     "sending": "Sending..."
+  },
+  "tech-blog": {
+    "sideNavTitle": "Documentations",
+    "sideNavDescription": "Navigate through topics",
+    "git": {
+      "what-is-git": "What is GIT"
+    }
   }
 }
