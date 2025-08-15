@@ -9,6 +9,11 @@ const gitNavItems = (
     title: t("tech-blog.git.what-is-git"),
     href: "what-is-git",
   },
+  {
+    id: "online-offline-git",
+    title: t("tech-blog.git.online-offline-git"),
+    href: "online-offline-git",
+  },
 ];
 
 export const navItemsMapper = (

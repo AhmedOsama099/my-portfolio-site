@@ -24,7 +24,8 @@
     "sideNavTitle": "Documentations",
     "sideNavDescription": "Navigate through topics",
     "git": {
-      "what-is-git": "What is GIT"
+      "what-is-git": "What is GIT",
+      "online-offline-git": "Does GIT need the Internet"
     }
   }
 }

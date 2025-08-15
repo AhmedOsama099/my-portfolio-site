@@ -24,7 +24,8 @@
     "sideNavTitle": "المستندات",
     "sideNavDescription": "تنقل خلال المواضيع",
     "git": {
-      "what-is-git": "ما هو GIT"
+      "what-is-git": "ما هو GIT",
+      "online-offline-git": "هل يحتاج Git إلى إنترنت"
     }
   }
 }

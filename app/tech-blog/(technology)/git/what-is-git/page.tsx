@@ -1,4 +1,3 @@
-import MotionPageWrapper from "@/Components/motionPageWrapper";
 import ContentSimpleParagraph from "@/Components/techBlog/DocsUtils/ContentSimpleParagraph";
 import DocsImage from "@/Components/techBlog/DocsUtils/DocsImage";
 import HeaderTitle from "@/Components/techBlog/DocsUtils/HeaderTitle";
@@ -9,11 +8,11 @@ import SectionTitle from "@/Components/techBlog/DocsUtils/SectionTitle";
 import SectionWrapper from "@/Components/techBlog/DocsUtils/SectionWrapper";
 import { getServerTranslation } from "@/utils/getServerTranslation";
 import parse from "html-react-parser";
-export default async function TechnologyDocsPage() {
+export default async function WhatIsGITPage() {
   const { t, lang } = await getServerTranslation("what-is-git");
 
   return (
-    <MotionPageWrapper className="max-w-4xl mx-auto relative max-[980px]:mt-16 px-2">
+    <>
       {/* Page Header */}
       <PageHeader>
         <HeaderTitle>{t("title")}</HeaderTitle>
@@ -75,6 +74,6 @@ export default async function TechnologyDocsPage() {
           },
         ]}
       />
-    </MotionPageWrapper>
+    </>
   );
 }
