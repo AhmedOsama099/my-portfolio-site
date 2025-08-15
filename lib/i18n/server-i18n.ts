@@ -12,10 +12,7 @@ export async function initServerI18n(lang: string, ns: string) {
       fallbackLng: "en",
       interpolation: { escapeValue: false },
       backend: {
-        loadPath: path.join(
-          process.cwd(),
-          "/locales/server-side/{{lng}}/{{ns}}.json"
-        ),
+        loadPath: path.resolve("/locales/server-side/{{lng}}/{{ns}}.json"),
       },
     });
   } else {
