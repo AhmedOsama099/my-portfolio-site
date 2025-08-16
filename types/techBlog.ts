@@ -85,7 +85,7 @@ export interface DocsImageProps {
 }
 
 export type SectionListProps = {
-  children: ReactNode[];
+  children: ReactNode[] | ReactNode;
   listContainerClassName?: string;
   listItemClassName?: string;
 };

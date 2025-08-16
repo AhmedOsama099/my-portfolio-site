@@ -12,7 +12,7 @@ export default async function Resources({ items }: ResourcesProps) {
       <span className="font-semibold text-lg text-[#3D4082]">
         - {t("resources")}:
       </span>
-      <div className="flex gap-2">
+      <div className="flex items-center gap-2">
         {items.map((item, index) => (
           <a
             key={index}

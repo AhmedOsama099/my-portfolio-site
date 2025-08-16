@@ -1,0 +1,45 @@
+{
+  "doesGitNeedInternet": {
+    "title": "هل يحتاج Git إلى Internet",
+
+    "intro": {
+      "p1": "<span>ناس كتير بتخلط بين <strong>Git</strong> و <strong>GitHub</strong> كأنهم شيء واحد، لكن الحقيقة إن <strong>GitHub</strong> ما هو إلا خدمة مبنية على تكنولوجيا <strong>Git</strong>.</span>",
+      "p2": "<span>وده يخلينا نسأل سؤال مهم:</span>"
+    },
+
+    "question": {
+      "title": "هل GIT لازم يشتغل Online من خلال تطبيق على الإنترنت؟",
+      "p1": "<span><b>الإجابة باختصار هي لأ.</b></span>",
+      "p2": "<span><strong>Git</strong> في الأساس هو نظام مفتوح المصدر للتحكم في الإصدارات <strong>Distributed Version Control System</strong> زي ما وضحنا <a href='/tech-blog/git/what-is-git'>هنا</a> يعني بيشتغل <strong>Offline 100%</strong>، وتقدر تدير كل عملياته الأساسية زي init, commit, branch, merge بدون ما تحتاج لأي اتصال بالـ Internet. لكن، الـ Internet أو الشبكات بتظهر أهميتها لما تحب تشارك شغلك أو تشتغل مع فريق.</span>",
+      "p3": "<span>وهنا يجي دور الـ Protocols.</span>"
+    },
+
+    "protocolsDefinition": {
+      "title": "يعني إيه Protocols؟",
+      "p1": "<span>الـ <strong>Protocols</strong> هنا ببساطة هي طرق الاتصال اللي <strong>Git</strong> بيستخدمها علشان ينقل البيانات بين المستودع المحلي <strong>Local Repository</strong> وبين المستودع البعيد <strong>Remote Repository</strong>. كل Protocol له طريقة مختلفة في الاتصال والمشاركة.</span>"
+    },
+
+    "protocolsTypes": {
+      "title": "ما هي أنواع الـ Protocols اللي GIT بيستخدمها؟",
+      "p1": "<span><strong>Git</strong> بيدعم 4 Protocols رئيسية: <strong>Local Protocol, HTTP Protocol, SSH Protocol, Git Protocol</strong> واللي نقدر نقسمهم في سياق كلامنا عن ضرورة الاتصال بالـ Internet -ودي تقسيمة غير رسمية- لمجموعتين:</span>",
+      "list": {
+        "group1": "<span>- أول مجموعة هتحتوي على نوع واحد بس وهو <strong>Local Protocol</strong>.</span>",
+        "group2": "<span>- تاني مجموعة هتحتوي على باقي الأنواع وهم <strong>HTTP Protocol, SSH Protocol, Git Protocol</strong>.</span>"
+      }
+    },
+
+    "protocolsDifference": {
+      "title": "ماهو الفرق بين GIT Protocols المختلفة؟",
+      "p1": "<span>في فروق كتير ومختلفة بين أنواع الـ <strong>Protocols</strong> المذكورة، تقدر تعرف عنها أكتر من خلال المصادر بالأسفل، لكن خلينا هنا نوضح الفرق في إطار فكرة ضرورة الاتصال بالإنترنت فقط من عدمها:</span>",
+      "list": {
+        "local": "<span><strong>Local Protocol:</strong> أبسط نوع من الـ Protocols ومش بيحتاج اتصال بالإنترنت خالص، وبيتطلب إنه يشتغل من خلال <strong>File System</strong> مشترك سواء على نفس الجهاز أو على مساحة مشتركة من خلال نظام ملفات الشبكة <strong>Network File System NFS</strong>. وبيتم التواصل مع الخادم <strong>Server</strong> باستخدام الأوامر المختلفة المعروفة لكنه في حالتنا دي هيكون بيكلم <strong>Path</strong> مش <strong>URL</strong>.</span>",
+        "others": "<span><strong>HTTP, SSH, Git Protocols:</strong> دول باقي أنواع الـ Protocols المستخدمة في التعامل مع <strong>Git</strong>، أشهرها وأكثرها استخدامًا <strong>HTTP Protocol</strong>. كل الأنواع دي ممكن تشتغل عن طريق الـ Internet من خلال استضافة سحابية <strong>Cloud Hosting</strong> من خلال تطبيقات كتير زي <strong>GitHub, GitLab, Bitbucket</strong>، وممكن تشتغل عن طريق خادم داخلي <strong>Local Server</strong> داخل الشبكة <strong>LAN</strong> بدون اتصال بالإنترنت، وهنتواصل مع المستودع البعيد <strong>Remote Repo</strong> عن طريق <strong>URL</strong>.</span>"
+      }
+    },
+
+    "relatedQuestions": {
+      "q1": "متى نستخدم كل بروتوكول؟",
+      "q2": "كيف تطور استخدام HTTP Protocol مع GIT؟"
+    }
+  }
+}

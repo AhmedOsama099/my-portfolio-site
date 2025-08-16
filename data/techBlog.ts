@@ -26,4 +26,6 @@ export const logoMap: Record<string, string> = {
   git: "/images/tech-blog/logos/git.svg",
   gitLab: "/images/tech-blog/logos/git-lab.svg",
   freeCodeCamp: "/images/tech-blog/logos/free-code-camp.svg",
+  gitScripts: "/images/tech-blog/logos/git-scripts.webp",
+  tutorialsPoint: "/images/tech-blog/logos/tutorials-point.svg",
 };
