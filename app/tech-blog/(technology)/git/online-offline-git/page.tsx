@@ -1,6 +1,7 @@
 import ContentSimpleParagraph from "@/Components/techBlog/DocsUtils/ContentSimpleParagraph";
 import HeaderTitle from "@/Components/techBlog/DocsUtils/HeaderTitle";
 import PageHeader from "@/Components/techBlog/DocsUtils/PageHeaderWrapper";
+import Resources from "@/Components/techBlog/DocsUtils/Resources";
 import SectionTitle from "@/Components/techBlog/DocsUtils/SectionTitle";
 import SectionWrapper from "@/Components/techBlog/DocsUtils/SectionWrapper";
 // import { getServerTranslation } from "@/utils/getServerTranslation";
@@ -47,6 +48,15 @@ export default async function OnlineOfflineGITPage() {
       <SectionWrapper id="what-protocols-does-git-work-on">
         <SectionTitle>ما هي البروتوكولات اللي بيعمل عليها GIT؟</SectionTitle>
       </SectionWrapper>
+
+      <Resources
+        items={[
+          {
+            name: "git",
+            url: "https://git-scm.com/book/ms/v2/Git-on-the-Server-The-Protocols",
+          },
+        ]}
+      />
     </>
   );
 }
