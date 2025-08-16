@@ -38,7 +38,7 @@
     },
 
     "relatedQuestions": {
-      "q1": "متى نستخدم كل بروتوكول؟",
+      "q1": "متى نستخدم كل Protocol؟",
       "q2": "كيف تطور استخدام HTTP Protocol مع GIT؟"
     }
   }

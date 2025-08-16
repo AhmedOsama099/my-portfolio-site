@@ -8,7 +8,7 @@ interface RelatedQuestionsProps {
 }
 
 export default async function RelatedQuestions({
-  title = "Related Questions",
+  title = "common:relatedQuestions",
   questions,
   className,
 }: RelatedQuestionsProps) {
@@ -16,11 +16,11 @@ export default async function RelatedQuestions({
 
   return (
     <aside className={cn("related-questions my-8", className)}>
-      <h2 className="text-2xl font-bold">{t(title)}</h2>
+      <h2 className="text-2xl font-bold mb-2 text-[#B12343] ">{t(title)}</h2>
 
       <ul>
         {questions.map((ele, index) => (
-          <li key={index} className="text-[#B12343] text-lg list-disc ms-6">
+          <li key={index} className="text-xl list-disc ms-6 font-medium">
             {t(ele)}
           </li>
         ))}
