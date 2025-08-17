@@ -1,4 +1,7 @@
 {
+  "myName": "Ahmed Osama El-Daoushy",
   "resources": "Resources",
-  "relatedQuestions": "Related Questions"
+  "relatedQuestions": "Related Questions",
+  "preparedBy": "Prepared by",
+  "releaseDate": "Release Date"
 }

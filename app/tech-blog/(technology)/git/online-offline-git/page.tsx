@@ -1,4 +1,3 @@
-// import CodeSpace from "@/Components/techBlog/DocsUtils/CodeSpace";
 import CodeSpace from "@/Components/techBlog/DocsUtils/CodeSpace";
 import ContentSimpleParagraph from "@/Components/techBlog/DocsUtils/ContentSimpleParagraph";
 import HeaderTitle from "@/Components/techBlog/DocsUtils/HeaderTitle";
@@ -8,12 +7,14 @@ import Resources from "@/Components/techBlog/DocsUtils/Resources";
 import SectionList from "@/Components/techBlog/DocsUtils/SectionList";
 import SectionTitle from "@/Components/techBlog/DocsUtils/SectionTitle";
 import SectionWrapper from "@/Components/techBlog/DocsUtils/SectionWrapper";
+import WriterDate from "@/Components/techBlog/DocsUtils/Writer&Date";
 import { parseWithSpacing } from "@/utils/fixPunctuationSpacing";
+import { formatDateLang } from "@/utils/formatDateLang";
 
 import { getServerTranslation } from "@/utils/getServerTranslation";
 
 export default async function OnlineOfflineGITPage() {
-  const { t } = await getServerTranslation("online-offline-git");
+  const { t, lang } = await getServerTranslation("online-offline-git");
 
   return (
     <>
@@ -73,33 +74,34 @@ export default async function OnlineOfflineGITPage() {
         </SectionTitle>
         <ContentSimpleParagraph>
           {parseWithSpacing(t("doesGitNeedInternet.protocolsDifference.p1"))}
-          <SectionList>
-            {parseWithSpacing(
-              t("doesGitNeedInternet.protocolsDifference.list.local")
-            )}
-          </SectionList>
-          <CodeSpace
-            language="bash"
-            codeBlocks={[
-              `git clone "path"`,
-              `git remote add origin "path"`,
-              `git push "path"`,
-            ]}
-          />
-          <SectionList>
-            {parseWithSpacing(
-              t("doesGitNeedInternet.protocolsDifference.list.others")
-            )}
-          </SectionList>
-          <CodeSpace
-            language="bash"
-            codeBlocks={[
-              `git clone "url"`,
-              `git remote add origin "url"`,
-              `git push "url"`,
-            ]}
-          />
         </ContentSimpleParagraph>
+
+        <SectionList>
+          {parseWithSpacing(
+            t("doesGitNeedInternet.protocolsDifference.list.local")
+          )}
+        </SectionList>
+        <CodeSpace
+          language="bash"
+          codeBlocks={[
+            `git clone "path"`,
+            `git remote add origin "path"`,
+            `git push "path"`,
+          ]}
+        />
+        <SectionList>
+          {parseWithSpacing(
+            t("doesGitNeedInternet.protocolsDifference.list.others")
+          )}
+        </SectionList>
+        <CodeSpace
+          language="bash"
+          codeBlocks={[
+            `git clone "url"`,
+            `git remote add origin "url"`,
+            `git push "url"`,
+          ]}
+        />
       </SectionWrapper>
 
       <RelatedQuestions
@@ -125,6 +127,7 @@ export default async function OnlineOfflineGITPage() {
           },
         ]}
       />
+      <WriterDate releaseDate={formatDateLang("August 18, 2025", lang)} />
     </>
   );
 }

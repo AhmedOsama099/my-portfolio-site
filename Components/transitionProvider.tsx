@@ -40,7 +40,7 @@ const TransitionProvider: FC<{
           }}
         />
         <motion.div
-          className="fixed m-auto top-0  bottom-0 left-0 right-0 text-white text-8xl cursor-default z-50 w-fit h-fit pointer-events-none"
+          className="fixed m-auto top-0  bottom-0 left-0 right-0 text-white text-8xl cursor-default z-50 w-fit h-fit pointer-events-none text-center"
           initial={{
             opacity: 1,
           }}
@@ -55,7 +55,7 @@ const TransitionProvider: FC<{
             duration: 0.5,
           }}
         >
-          {pathName === "/" ? "home" : pathName.substring(1)}
+          {pathName === "/" ? "home" : pathName.split("/").pop()}
         </motion.div>
 
         <motion.div

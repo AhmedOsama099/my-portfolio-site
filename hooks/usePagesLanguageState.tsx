@@ -1,9 +1,11 @@
 import { useTheme } from "@/context/ThemeContext";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useAppTranslation } from "./useAppTranslation";
 
 export const usePagesLanguageState = () => {
+  const router = useRouter();
+
   const {
     currentLanguage,
     changeCurrentDirection,
@@ -17,6 +19,8 @@ export const usePagesLanguageState = () => {
   useEffect(() => {
     if (pathname.includes("/tech-blog")) {
       setLanguage("ar");
+      router.refresh(); // re-fetch SSR page with new lang
+
       changeCurrentDirection("rtl");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

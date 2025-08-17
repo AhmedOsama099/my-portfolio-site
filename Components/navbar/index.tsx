@@ -22,7 +22,7 @@ const Navbar: React.FC = () => {
   const links = isProgrammer ? programmerLinks : writerLinks;
   return (
     <div
-      className={`h-full flex items-center justify-between px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48 text-xl  border-b-[1px] ${borderColor}`}
+      className={`h-full flex items-center justify-between px-4 sm:px-8 md:px-12 text-xl  border-b-[1px] ${borderColor} min-[980px]:px-3  min-[1024px]:px-3 min-[1350px]:px-48`}
     >
       {/* Desktop Navigation Links */}
       <DesktopNavLinks links={links} />

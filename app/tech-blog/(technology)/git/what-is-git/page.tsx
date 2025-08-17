@@ -6,6 +6,8 @@ import Resources from "@/Components/techBlog/DocsUtils/Resources";
 import SectionList from "@/Components/techBlog/DocsUtils/SectionList";
 import SectionTitle from "@/Components/techBlog/DocsUtils/SectionTitle";
 import SectionWrapper from "@/Components/techBlog/DocsUtils/SectionWrapper";
+import WriterDate from "@/Components/techBlog/DocsUtils/Writer&Date";
+import { formatDateLang } from "@/utils/formatDateLang";
 import { getServerTranslation } from "@/utils/getServerTranslation";
 import parse from "html-react-parser";
 export default async function WhatIsGITPage() {
@@ -24,8 +26,8 @@ export default async function WhatIsGITPage() {
         <ContentSimpleParagraph>
           {parse(t("whatIsGit.p1"))}
           {parse(t("whatIsGit.p2"))}
-          <DocsImage src={`/images/tech-blog/git/what-is-git-${lang}-1.svg`} />
         </ContentSimpleParagraph>
+        <DocsImage src={`/images/tech-blog/git/what-is-git-${lang}-1.svg`} />
       </SectionWrapper>
       {/* Why git is a Version Control? */}
       <SectionWrapper id="why-version-control">
@@ -35,8 +37,8 @@ export default async function WhatIsGITPage() {
           {parse(t("whyVersionControl.p2"))}
           {parse(t("whyVersionControl.p3"))}
           {parse(t("whyVersionControl.p4"))}
-          <DocsImage src={`/images/tech-blog/git/what-is-git-${lang}-2.svg`} />
         </ContentSimpleParagraph>
+        <DocsImage src={`/images/tech-blog/git/what-is-git-${lang}-2.svg`} />
       </SectionWrapper>
 
       {/* Why git is a Distributed? */}
@@ -45,16 +47,14 @@ export default async function WhatIsGITPage() {
         <ContentSimpleParagraph>
           {parse(t("whyDistributed.p1"))}
           {parse(t("whyDistributed.p2"))}
-          <span>
-            {parse(t("whyDistributed.p3"))}
-            <SectionList>
-              {parse(t("whyDistributed.list.speed"))}
-              {parse(t("whyDistributed.list.reliability"))}
-              {parse(t("whyDistributed.list.collaboration"))}
-            </SectionList>
-          </span>
-          <DocsImage src={`/images/tech-blog/git/what-is-git-${lang}-3.svg`} />
+          {parse(t("whyDistributed.p3"))}
         </ContentSimpleParagraph>
+        <SectionList>
+          {parse(t("whyDistributed.list.speed"))}
+          {parse(t("whyDistributed.list.reliability"))}
+          {parse(t("whyDistributed.list.collaboration"))}
+        </SectionList>
+        <DocsImage src={`/images/tech-blog/git/what-is-git-${lang}-3.svg`} />
       </SectionWrapper>
 
       <Resources
@@ -74,6 +74,7 @@ export default async function WhatIsGITPage() {
           },
         ]}
       />
+      <WriterDate releaseDate={formatDateLang("August 18, 2025", lang)} />
     </>
   );
 }
