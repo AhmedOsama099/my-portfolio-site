@@ -12,16 +12,18 @@ export const usePagesLanguageState = () => {
   } = useAppTranslation();
 
   const pathname = usePathname();
-  const { isProgrammer } = useTheme();
+  const { toggleMode, isProgrammer } = useTheme();
 
   useEffect(() => {
     if (pathname.includes("/tech-blog")) {
       setLanguage("ar");
-
+      if (!isProgrammer) {
+        toggleMode();
+      }
       changeCurrentDirection("rtl");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  }, [pathname, isProgrammer]);
 
   useEffect(() => {
     if (!pathname.includes("/tech-blog") && isProgrammer) {
