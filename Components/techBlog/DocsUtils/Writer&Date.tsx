@@ -12,7 +12,7 @@ const WriterDate: React.FC<WriterDateProps> = async ({
   const { t } = await getServerTranslation();
 
   return (
-    <footer className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 text-[15px] tracking-wide mb-8 border-t pt-4 dark:border-gray-800">
+    <footer className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 text-[15px] tracking-wide mb-24 md:mb-8 border-t pt-4 dark:border-gray-800">
       <address className="not-italic flex items-center gap-2">
         <span className="font-medium text-gray-500 dark:text-gray-400">
           {t("preparedBy")}:
