@@ -21,6 +21,7 @@ const WriterDate: React.FC<WriterDateProps> = async ({
           {writer ?? t("myName")}
         </span>
       </address>
+      <span>-</span>
       <div className="flex items-center gap-2">
         <span className="font-medium text-gray-500 dark:text-gray-400">
           {t("releaseDate")}:
