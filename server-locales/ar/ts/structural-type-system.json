@@ -1,1 +1,127 @@
-{}
+{
+  "structuralTypeSystem": {
+    "title": "نظام الأنواع الهيكلي",
+
+    "gettingStarted": {
+      "p1": "<span>لو قابلت أكتر من لغة برمجة في حياتك البرمجية، ومن ضمنهم <strong>JavaScript</strong>، فغالبًا هتلاحظ الاختلاف الكبير بينها وبين اللغات التانية. فهي أكثر <strong>مرونة Flexibility</strong> و<strong>ديناميكية Dynamic</strong>، ومش بتقيدك بنفس الكم من القوانين والمحددات الموجودة في لغات برمجة تانية.</span>",
+      "p2": "<span>لكن المرونة الكبيرة دي بتفتح الباب أمام احتمالات أكبر للأخطاء، وسلوك غير متوقع للكود. حتى إن بعض المبرمجين في بدايات تعاملهم مع <strong>JavaScript</strong> بيشكوا إن الكود بيتصرف بطريقة غريبة، وقد يظنوا إن المشكلة في اللغة نفسها، لكن في الحقيقة السبب هو <strong>القواعد الديناميكية Dynamic Rules</strong> الموجودة داخل اللغة، واللي قد لا يكونوا مدركينها بعد.</span>",
+      "p3": "<span>وبناءً عليه ظهرت الحاجة لنظام أكثر صرامة في التعامل مع الأنواع <strong>Stricter Type Control</strong> في <strong>JavaScript</strong>، ليتيح <strong>التحقق من أنواع المتغيرات Type Checking</strong> قبل تشغيل الكود. ومن هنا ظهر <strong>TypeScript</strong> ليقدّم  <strong>نظام أنواع Type System</strong> أقوى ومبني فوق <strong>JavaScript</strong> نفسها.</span>",
+      "p4": "<span>لكن قبل ما نتعمق أكتر، خلينا نسأل بعض الأسئلة المتعلقة:</span>",
+      "questions": {
+        "q1": "<span>ما هو <strong>النوع Type</strong> أصلًا؟</span>",
+        "q2": "<span>وما المقصود بوجود <strong>نظام أنواع Type System</strong>، وما دوره؟</span>",
+        "q3": "<span>وليه اختارت <strong>TypeScript</strong> تحديدًا <strong>النظام الهيكلي Structural Type System</strong> ليكون الأساس اللي تعتمد عليه في التحقق من الأنواع داخل <strong>JavaScript</strong>؟</span>",
+        "q4": "<span>وإزاي بترتبط طبيعة <strong>JavaScript</strong> الديناميكية بالأفكار اللي خلت البعض يظن أن سلوك الكود فيها غير منطقي أحيانًا؟</span>"
+      }
+    },
+
+    "whatIsType": {
+      "title": "ما هو النوع Type؟",
+      "p1": "<span>الـ <strong>Type</strong> في لغة البرمجة هو ببساطة دلالة بتوضح نوع البيانات اللي بيتعامل معاها المتغير.</span>",
+      "p2": "<span>يعني لو اتفقنا إن في متغير رقمي من نوع <strong>Number</strong>، فده معناه إننا متفقين ضمنيًا إنه هيخزن أرقام فقط، ومش ممكن يبقى نصّي <strong>String</strong> مثلًا، والعكس صحيح.</span>",
+      "p3": "<span>ومع اختلاف لغات البرمجة، ممكن نلاقي أنواع بيانات مختلفة أو تسميات أكتر للـ <strong>Types</strong> اللي بتدعمها كل لغة، وفي لغات تانية بتسمح كمان إنك تعرّف <strong>أنواعك الخاصة Custom Types</strong> اللي بتجمع أكتر من نوع أو شكل للبيانات في <strong>Type</strong> واحد.</span>",
+      "p4": "<span>ومن هنا بييجي دور <strong>نظام الأنواع Type System</strong>، اللي بينظّم العلاقة بين الأنواع المختلفة وهنتكلم عنه في الفقرة الجاية:</span>"
+    },
+
+    "whatIsTypeSystem": {
+      "title": "ما هو نظام الأنواع Type System؟",
+      "p1": "<span>كل لغة برمجة بيكون عندها مجموعة من <strong>الأنواع Types</strong> الخاصة بيها، وبتحط كمان قواعد بتحدّد إزاي الأنواع دي تتفاعل مع بعض، وإيه العمليات اللي ممكن تتم على كل نوع من غير ما يحصل خطأ.</span>",
+      "p2": "<span>القواعد دي هي اللي بتخلي اللغة تمنع عمليات غير منطقية على أنواع معينة، فلو حاولنا نجمع قيمة رقمية مع قيمة نصية مثلًا، ممكن نواجه <strong>Code Error</strong> بيقول إن العملية دي غير مسموحة.</span>",
+      "p3": "<span>لكن مش كل اللغات بتتعامل بنفس الصرامة. في لغات مرنة زي <strong>JavaScript</strong>، ممكن تجمع متغيرين من نوعين مختلفين، وده بيحصل من خلال خاصية اسمها <strong>Coercion التحويل التلقائي للأنواع</strong>، واللي بتحاول فيها <strong>JavaScript</strong> تغيّر نوع أحد الأطراف علشان العملية تبقى منطقية — يعني مثلًا لما تجمع رقم مع نص، بتحوّل الرقم لنص وتكمّل العملية عادي.</span>",
+      "p4": "<span>أما لغات تانية زي <strong>Python</strong>، فهي أكتر صرامة، ومش هتسمح بالعملية دي إلا لما تحوّل كل المتغيرات بنفسك للأرقام، وإلا هتواجه <strong>Code Error</strong> واضح بيقولك إن الأنواع غير متوافقة.</span>",
+      "p5": "<span>وده ياخدنا للنقطة اللي بعد كده واللي تقريبًا بدأنا نتكلم عنها في السطور اللي فاتيي وهي إن: ليه بنقول إن <strong>JavaScript</strong> <strong>لغة ديناميكية وضعيفة الأنواع Weekly Dynamic Language</strong>؟</span>"
+    },
+
+    "whyJsDynamic": {
+      "title": "ليه بنقول إن JavaScript لغة ديناميكية وضعيفة الأنواع Weekly Dynamic Language؟",
+      "p1": "<span>لغة <strong>JavaScript</strong> تعتبر <strong>ديناميكية Dynamic Language</strong>، وده معناه إن <strong>المتغيرات Variables</strong> فيها ممكن تحتوي على قيم من أنواع مختلفة أثناء <strong>التشغيل Run Time</strong>. بالتالي، نفس المتغير اللي بدأ مثلًا بقيمة رقمية <strong>Number</strong>، ممكن ياخد بعد كده قيمة نصية <strong>String</strong> أو حتى نوع تاني تمامًا.</span>",
+      "code1": {
+        "line1": "let x = 5; // قيمة رقمية",
+        "line2": "x = \"Hello\"; // قيمة نصية",
+        "line3": "let x = [1,2]; // Array"
+      },
+      "p2": "<span>أما عن كونها <strong>ضعيفة الأنواع Weakly Typed Language</strong>، فده لأن <strong>نظام الأنواع Type System</strong> فيها بيسمحلك كمطوّر إنك تنفّذ عمليات بين متغيرات من أنواع مختلفة، من غير ما تكون مضطر تغيّر الأنواع بنفسك. اللغة نفسها بتقوم بالتحويل تلقائيًا علشان تخلي الأنواع متوافقة مع العملية المطلوبة، وده بيتم ضمنيًا من خلال خاصية اسمها <strong>Coercion التحويل الضمني للأنواع</strong>. التحويل ده بيتم وفقًا لمجموعة من القواعد والأولويات اللي محددها محرك <strong>JavaScript</strong> نفسه.</span>",
+      "code2": {
+        "line1": "let num = 5; // قيمة رقمية",
+        "line2": "let str = \"10\" // قيمة نصية",
+        "line3": "let result = num + str; // Implicit Coercion تحويل ضمني",
+        "line4": "console.log(result); // Output: \"510\""
+      },
+      "code3": {
+        "line1": "let num = 2; // قيمة رقمية",
+        "line2": "let bool = true; // قيمة منطقية",
+        "line3": "let result = bool + num; // Implicit Coercion تحويل ضمني",
+        "line4": "console.log(result); // Output: 3"
+      },
+      "p3": "<span>ومع كل المرونة دي في <strong>JavaScript</strong>، بدأ يظهر جانب تاني من القصة — اللي هو صعوبة التنبؤ بسلوك الكود وارتفاع احتمالية الأخطاء الناتجة عن ضعف <strong>نظام الأنواع Type System</strong> فيها. ومن هنا بدأت الحاجة لأداة تساعد المطورين يسيطروا أكتر على <strong>الأنواع Types</strong>، ويكتشفوا الأخطاء مبكرًا قبل ما الكود يتشغّل.</span>",
+      "p4": "<span>وده بالضبط الهدف اللي ظهرت <strong>TypeScript</strong> علشانه، بل واختارت كمان إنها تستخدم <strong>نظام أنواع </strong>خاص اسمه <strong>Structural Type System</strong>، علشان توازن بين مرونة <strong>JavaScript</strong> ودقّة التحقق من الأنواع.</span>"
+    },
+
+    "whatIsStructuralTypeSystem": {
+      "title": "يعني إيه Structural Type System وليه TypeScript بتستخدمه؟",
+      "p1": "<span>الـ <strong>Structural Type System</strong> هو نظام بيحدّد تطابق الأنواع بناءً على البنية أو الشكل مش على الاسم أو الوراثة. بمعنى إن لو عندنا نوعين مختلفين، لكن <strong>الخصائص Properties</strong> والأنواع الداخلية ليهم متطابقة، فوقتها بيعتبرهم النظام من نفس النوع — حتى لو مش بيشاركوا نفس الـ <strong>Type</strong> أو الـ <strong>Interface</strong> أو مش متكوّنين من نفس الـ <strong>Class</strong>.</span>",
+      "p2": "<span>ببساطة، الحكم هنا بيكون على <strong>التركيب Structure</strong> مش <strong>الاسم Name</strong>.</span>",
+      "p3": "<span>اختارت <strong>TypeScript</strong> النظام ده لأنها مصممة أصلاً علشان تشتغل بانسيابية مع <strong>JavaScript</strong>، اللي بتعتمد بشكل كبير على <strong>الكائنات المجهولة Anonymous Objects</strong> زي <strong>Function Expressions</strong> و<strong>Object Literals</strong>، فكان لازم يكون عندها نظام مرن كفاية يتعامل مع الحالات دي بدون تعقيد.</span>",
+      "p4": "<span>الأمثلة الجاية هتوضّح أكتر المبادئ الأساسية للـ <strong>Structural Typing</strong>، لكن نقدر نلخّصها مبدئيًا في ٣ نقاط رئيسية:</span>",
+      "principles": {
+        "shape": "<span><strong>التطابق الشكلي Shape Compatibility:</strong> لو نوعين مختلفين ليهم نفس شكل الخصائص، فبيُعتبروا متوافقين.</span>",
+        "extra": "<span><strong>السماح بالخصائص الإضافية Extra Properties Are Allowed:</strong> ممكن <strong>كائن Object</strong> من نوع معين يحتوي على خصائص إضافية مش مذكورة في الـ <strong>Type</strong> الأصلي، وبرضو يُعتبر من نفس النوع طالما الخصائص المطلوبة الأساسية موجودة.</span>",
+        "functions": "<span><strong>مرونة معاملات الدوال Parameter Bivariance:</strong> بالنسبة للدوال <strong>Functions</strong>، النظام الهيكلي بيسمح بمرونة في مطابقة أنواع <strong>Parameters</strong>، بحيث ممكن دالتين يُعتبروا متوافقين حتى لو أنواع المعاملات مختلفة شوية — سواء كانت أعمّ أو أخصّ — طالما باقي أجزاء <strong>التوقيع function signature</strong> متوافقة.</span>"
+      },
+      "example1": {
+        "title": "Example1: نفس الخصائص",
+        "code": "interface Point {\n  x: number;\n  y: number;\n}\n\ninterface Coordinates {\n  x: number;\n  y: number;\n}\n\nlet p: Point = { x: 10, y: 20 };\nlet c: Coordinates = p;",
+        "explanation": "تطابق X و Y مسموح لأن الشكل متطابق."
+      },
+      "example2": {
+        "title": "Example2: إضافة خصائص زائدة",
+        "code": "interface Person {\n  name: string;\n}\n\nlet user = { name: \"Ahmed\", age: 25 };\n\nlet p: Person = user;",
+        "explanation": "user عنده خاصية زيادة عن age، بس الـ structural typing بيهتم بالحد الأدنى المطلوب (الـ shape الأساسي)."
+      },
+      "example3": {
+        "title": "Example 3: التوافق مع الدوال",
+        "code": "type Logger = (msg: string) => void;\n\nfunction logMessage(fn: Logger) {\n  fn(\"Hello\");\n}\n\nfunction customLogger(message: string) {\n  console.log(\"Log:\", message);\n}\n\nlogMessage(customLogger); // ✅",
+        "explanation": "الدالة customLogger لها نفس signature زي Logger، حتى لو اسم البراميتر مختلف → عادي، المهم الشكل متطابق."
+      },
+      "example4": {
+        "title": "Example 4: Partial Matching",
+        "code": "interface Animal {\n  name: string;\n}\n\nlet dog = { name: \"Rex\", breed: \"German Shepherd\" };\n\nlet a: Animal = dog; // ✅ شغال",
+        "explanation": "هنا dog فيه خصائص أكتر (breed)، لكن لأنه بيحتوي على name فبيمشي مع Animal."
+      }
+    },
+
+    "nominalVsStructural": {
+      "title": "مقارنة بين Structural و Nominal Typing",
+      "p1": "<span>زي ما اتعرفنا على <strong>النظام الهيكلي Structural Typing</strong> وفهمنا قد إيه هو مناسب لطبيعة العمل في <strong>TypeScript</strong>، لازم نعرف إنه مش النظام الوحيد، وإن في أنظمة أنواع تانية مستخدمة في لغات برمجة مختلفة، كل نظام منها بيتناسب مع فلسفة اللغة وطبيعة استخدامها.</span>",
+      "p2": "<span>ومن أشهر الأنظمة دي <strong>نظام الأنواع الاسمي Nominal Type System</strong>، واللي بيعتمد على الاسم والتعريف لتحديد تطابق الأنواع. بمعنى إن نوعين حتى لو عندهم نفس الخصائص ونفس البنية، مش هيُعتبروا من نفس النوع إلا لو بيشاركوا نفس الاسم أو فيه علاقة وراثة صريحة بينهم. الأسلوب ده بيزوّد الأمان والدقّة في فحص الأنواع، لكنه بيقلل من المرونة مقارنة بالنظام الهيكلي.</span>",
+      "code": "type USD = { __brand: \"USD\"; value: number };\ntype EGP = { __brand: \"EGP\"; value: number };\n\n// متغير من نوع USD\nconst amountInUSD: USD = { __brand: \"USD\", value: 100 };\n\n// متغير من نوع EGP\nconst amountInEGP: EGP = { __brand: \"EGP\", value: 100 };\n\n// ✅ ده منطقي ومسموح\nconst totalUSD: USD = amountInUSD;\n\n// ❌ رغم إن البنية واحدة (نفس الخصائص)، ده مش مسموح\n// لأن النوعين مختلفين \"اسميًا\"\nconst invalid: USD = amountInEGP; // Error",
+      "p3": "<span>وبناء عليه فا <strong>النظام الهيكلي Structural Typing</strong> بيدّي قدر كبير من المرونة في التعامل مع الأنواع داخل <strong>TypeScript</strong>، وبيخلي الكود أقرب في طبيعته لـ <strong>JavaScript</strong> بس بشكل أكثر أمان وتنظيم.</span>",
+      "p4": "<span>لكن زي أي نظام، ليه جوانب قوة بتميزه، وليه كمان شوية تحديات أو قيود لازم نكون عارفينها علشان نستخدمه صح. وده اللي هنتكلم عنه بالتفصيل في الجزء الجاي:</span>"
+    },
+
+    "advantages": {
+      "title": "ما هي مميزات الـ Structural Type System",
+      "flexibility": "<span><strong>المرونة Flexibility:</strong> بيسمح بالتعامل بانسيابية ومرونة مع <strong>أنواع Types</strong> مختلفة تشترك في نفس <strong>البنية Structure</strong> بدون الحاجة لتطابق أسماء الأنواع.</span>",
+      "boilerplate": "<span><strong>تقليل الكود المتكرر Boilerplate Reduction:</strong> لأن التوافق بيتم بناءً على الشكل والبنية فقط، مش لازم نعرف أنواع جديدة أو نكرر تعريفات — وده يقلل الكود المكرر بشكل ملحوظ.</span>",
+      "reusability": "<span><strong>سهولة إعادة الاستخدام Resuability:</strong> بما إن الحكم على النوع بيكون بناءً على البنية، نقدر نعيد استخدام نفس الـ <strong>Types</strong> في أماكن مختلفة طالما شكلها متشابه.</span>",
+      "compatibility": "<span><strong>التوافق مع Java Script:</strong> النظام متوافق جدًا مع طبيعة <strong>JavaScript</strong> الديناميكية، وده بيخلي <strong>TypeScript</strong> تندمج بسهولة مع مشاريع <strong>JavaScript</strong> القائمة بالفعل.</span>",
+      "note": "<span>رغم إن <strong>النظام الهيكلي في TypeScript</strong> بيوفّر مرونة كبيرة في التعامل مع الأنواع، إلا إن ليه بعض القيود والتحديات اللي لازم نكون على وعي بيها علشان نستخدمه بشكل آمن وفعّال.</span>"
+    },
+
+    "limitations": {
+      "title": "ما هي محددات وقيود الـ Structural Type System؟",
+      "unintended": "<span><strong>احتمال التوافق غير المقصود Unintended Compatibility:</strong> أحيانًا نوعين ممكن يتطابقوا في الشكل (structure) لكن يختلفوا في المعنى أو الغرض. وده ممكن يسبب أخطاء في المنطق لو تم الاعتماد على التطابق الشكلي فقط بدون النظر للنية التصميمية وراء كل نوع.</span>",
+      "safety": "<span><strong>التوازن بين الأمان والمرونة Safety vs. Flexibility:</strong> النظام ده بيقدم مرونة كبيرة، لكنه ممكن يقلل من مستوى الأمان لو المطوّر مش مدرك حدود استخدامه للأنواع المختلفة. بمعنى آخر، سهولة التوافق بين الأنواع ممكن تخلي <strong>TypeScript</strong> تتساهل في قبول أشياء مش مقصودة فعليًا.</span>",
+      "reflection": "<span><strong>غياب الانعكاس Lack of Reflection:</strong> فحص الأنواع في <strong>TypeScript</strong> بيتم أثناء <strong>وقت الترجمة Compile Time</strong> فقط، مش <strong>وقت التشغيل Run Time</strong>. بالتالي، مفيش طريقة مباشرة لفحص أو التأكد من الـ <strong>Type</strong> أثناء تنفيذ الكود، وده بيحدّ من إمكانيات بعض العمليات الديناميكية.</span>",
+      "debugging": "<span><strong>صعوبة تتبّع الأخطاء Debugging Difficulty:</strong> لأن التوافق بين الأنواع بيحصل ضمنيًا، فـ <strong>TypeScript</strong> مش هتعتبر وجود خطأ طالما الشكل الخارجي للنوع صحيح. وده ممكن يصعّب تتبّع الأخطاء المنطقية أو حالات سوء الاستخدام — خصوصًا لما تكون الأنواع مختلفة في المعنى لكن متشابهة في الشكل.</span>"
+    },
+
+    "relatedQuestions": {
+      "q1": "إزاي بتتعامل لغات البرمجة المختلفة مع الـ Custom Types؟",
+      "q2": "هل ممكن JavaScript في المستقبل تدعم نوع من أنواع الـ Static Typing بنفسها بدون TypeScript؟",
+      "q3": "ماهي كل قواعدالـ Coercion في JavaScript؟",
+      "q4": "هل ممكن نخلط بين النظامين  Structural + Nominal) في مشروع واحد؟",
+      "q5": "هل في لغات بتستخدم مزيج بين Nomnial و Structural Typing؟"
+    }
+  }
+}

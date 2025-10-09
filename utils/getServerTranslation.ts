@@ -8,10 +8,8 @@ export async function getServerTranslation(ns: string = "common") {
   // Use your custom header (x-invoke-path) set by middleware
   const pathname = (await requestHeaders).get("x-invoke-path") || "";
 
-  // Force Arabic for tech-blog routes, otherwise use cookie or fallback to English
-  const lang = pathname.includes("/tech-blog")
-    ? "ar"
-    : cookieStore.get("i18next")?.value || "en";
+  // Use cookie language preference or fallback to English
+  const lang = cookieStore.get("i18next")?.value || "ar";
 
   const i18n = await initServerI18n(lang, ns);
   const t = i18n.getFixedT(lang, ns);
