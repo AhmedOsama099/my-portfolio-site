@@ -26,6 +26,10 @@
     "git": {
       "what-is-git": "What is GIT",
       "online-offline-git": "Does GIT need the Internet"
+    },
+    "ts": {
+      "structural-type-system": "Structural Type System",
+      "excess-type-checking": "Excess Type Checking"
     }
   }
 }

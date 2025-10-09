@@ -7,6 +7,11 @@ const technologies = [
     alt: "git-logo",
     pageURL: "/tech-blog/git/what-is-git",
   },
+  {
+    imageURL: "/images/techLogos/ts.svg",
+    alt: "ts-logo",
+    pageURL: "/tech-blog/ts/structural-type-system",
+  },
 ];
 
 const TechBlogPage = () => {

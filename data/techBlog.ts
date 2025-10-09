@@ -16,10 +16,26 @@ const gitNavItems = (
   },
 ];
 
+const tsNavItems = (
+  t: TFunction<"translation", undefined>
+): TechNavItemProps[] => [
+  {
+    id: "structural-type-system",
+    title: t("tech-blog.ts.structural-type-system"),
+    href: "structural-type-system",
+  },
+  {
+    id: "excess-type-checking",
+    title: t("tech-blog.ts.excess-type-checking"),
+    href: "excess-type-checking",
+  },
+];
+
 export const navItemsMapper = (
   t: TFunction<"translation", undefined>
 ): NavItemsMapperProps => ({
   git: gitNavItems(t),
+  ts: tsNavItems(t),
 });
 
 export const logoMap: Record<string, string> = {
@@ -28,4 +44,9 @@ export const logoMap: Record<string, string> = {
   freeCodeCamp: "/images/tech-blog/logos/free-code-camp.svg",
   gitScripts: "/images/tech-blog/logos/git-scripts.webp",
   tutorialsPoint: "/images/tech-blog/logos/tutorials-point.svg",
+  adabeat: "/images/tech-blog/logos/adabeat.svg",
+  gilbertGhost: "/images/tech-blog/logos/gilbert-ghost.png",
+  typescript: "/images/tech-blog/logos/ts.svg",
+  geeksforgeeks: "/images/tech-blog/logos/geeksforgeeks.svg",
+  medium: "/images/tech-blog/logos/medium.svg",
 };
