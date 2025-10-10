@@ -13,6 +13,42 @@ import { parseWithSpacing } from "@/utils/fixPunctuationSpacing";
 import { formatDateLang } from "@/utils/formatDateLang";
 import { getServerTranslation } from "@/utils/getServerTranslation";
 
+export async function generateMetadata() {
+  const title = "TypeScript Structural Type System";
+  const description =
+    "Explore how TypeScript’s Structural Type System works — its logic, benefits, and how it differs from Nominal Typing with real examples.";
+  const url =
+    "https://my-portfolio-site.ahmedeng099.workers.dev/tech-blog/ts/structural-type-system";
+  const image =
+    "https://my-portfolio-site.ahmedeng099.workers.dev/images/tech-blog/ts/preview.svg";
+
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      url,
+      title,
+      description,
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 630,
+          alt: "Structural Type System in TypeScript",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [image],
+    },
+  };
+}
+
 export default async function StructuralTypeSystemPage() {
   const { t, lang } = await getServerTranslation("structural-type-system");
 
