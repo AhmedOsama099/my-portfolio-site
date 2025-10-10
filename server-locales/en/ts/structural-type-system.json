@@ -10,8 +10,8 @@
       "questions": {
         "q1": "<span>What exactly is a <strong>Type</strong>?</span>",
         "q2": "<span>What is a <strong>Type System</strong>, and what role does it play?</span>",
-        "q3": "<span>Why did <strong>TypeScript</strong> choose to rely on a <strong>Structural Type System</strong> specifically?</span>",
-        "q4": "<span>And how does <strong>JavaScript’s dynamic nature</strong> relate to the confusing behavior many developers encounter?</span>"
+        "q3": "<span>How does <strong>JavaScript’s dynamic nature</strong> relate to the confusing behavior many developers encounter?</span>",
+        "q4": "<span>And Why did <strong>TypeScript</strong> choose to rely on a <strong>Structural Type System</strong> specifically?</span>"
       }
     },
 
@@ -27,7 +27,7 @@
       "title": "What Is a Type System?",
       "p1": "<span>Every programming language comes with its own set of <strong>types</strong> and rules that define how they interact — specifying what operations are valid for each type and which combinations would cause errors.</span>",
       "p2": "<span>These rules prevent illogical operations, like adding a string to a number, which would otherwise result in a <strong>code error</strong>.</span>",
-      "p3": "<span>However, not all languages enforce these rules equally. In flexible languages like <strong>JavaScript</strong>, you can combine different types thanks to a feature called <strong>type coercion</strong>, where the engine automatically converts one operand to a compatible type — e.g., turning a number into a string when concatenating.</span>",
+      "p3": "<span>However, not all languages enforce these rules equally. In flexible languages like <strong>JavaScript</strong>, you can combine different types thanks to a feature called <strong>Type Coercion</strong>, where the engine automatically converts one operand to a compatible type — e.g., turning a number into a string when concatenating.</span>",
       "p4": "<span>Other languages, like <strong>Python</strong>, are stricter and won’t allow this without explicit conversion. Otherwise, they’ll throw a <strong>Type Error</strong>.</span>",
       "p5": "<span>And this leads us to the next point: why we describe <strong>JavaScript</strong> as a <strong>weakly typed dynamic language</strong>.</span>"
     },
@@ -59,7 +59,7 @@
 
     "whatIsStructuralTypeSystem": {
       "title": "What Is the Structural Type System — and Why Does TypeScript Use It?",
-      "p1": "<span>The <strong>Structural Type System</strong> determines type compatibility based on structure, not on names or inheritance. If two types have the same <strong>properties</strong> and internal shapes, they’re considered compatible — even if they come from different <strong>interfaces</strong> or <strong>classes</strong>.</span>",
+      "p1": "<span>The <strong>Structural Type System</strong> determines type compatibility based on structure, not on names or inheritance. If two types have the same <strong>Properties</strong> and internal shapes, they’re considered compatible — even if they come from different <strong>interfaces</strong> or <strong>classes</strong>.</span>",
       "p2": "<span>In short: it cares about <strong>shape</strong>, not <strong>name</strong>.</span>",
       "p3": "<span><strong>TypeScript</strong> uses this approach because it was designed to work seamlessly with <strong>JavaScript</strong>, where anonymous objects and function expressions are common. A structural system allows this kind of flexibility.</span>",
       "p4": "<span>The key principles of structural typing can be summarized in three main ideas:</span>",
@@ -81,7 +81,7 @@
       "example3": {
         "title": "Example 3: Function Compatibility",
         "code": "type Logger = (msg: string) => void;\n\nfunction logMessage(fn: Logger) {\n  fn(\"Hello\");\n}\n\nfunction customLogger(message: string) {\n  console.log(\"Log:\", message);\n}\n\nlogMessage(customLogger); // ✅",
-        "explanation": "The customLogger function has the same signature as Logger, even if the parameter name is different → it's fine, the important thing is that the shape matches."
+        "explanation": "The customLogger function has the same signature as Logger, even if the parameter name is different  it's fine, the important thing is that the shape matches."
       },
       "example4": {
         "title": "Example 4: Partial Matching",
@@ -94,7 +94,7 @@
       "title": "Structural vs. Nominal Typing",
       "p1": "<span>While <strong>Structural Typing</strong> fits naturally with <strong>TypeScript’s</strong> design, it’s not the only approach. Many other languages use a different model known as the <strong>Nominal Type System</strong>.</span>",
       "p2": "<span>In a <strong>Nominal System</strong>, type compatibility is determined by explicit names or declared relationships (like inheritance). Even if two types share the same properties, they're not considered the same unless they share a name or hierarchy. This makes type checking stricter and safer but less flexible.</span>",
-      "code": "type USD = { __brand: \"USD\"; value: number };\ntype EGP = { __brand: \"EGP\"; value: number };\n\n// Variable of type USD\nconst amountInUSD: USD = { __brand: \"USD\", value: 100 };\n\n// Variable of type EGP\nconst amountInEGP: EGP = { __brand: \"EGP\", value: 100 };\n\n// ✅ This is logical and allowed\nconst totalUSD: USD = amountInUSD;\n\n// ❌ Despite having the same structure (same properties), this is not allowed\n// because the types are different \"nominally\"\nconst invalid: USD = amountInEGP; // Error",
+      "code": "\"Example in Python\"\n\nclass USD:\n    def __init__(self, value: float):\n        self.value = value\n\nclass EGP:\n    def __init__(self, value: float):\n        self.value = value\n\n\"Variable of type USD\"\namount_in_usd = USD(100)\n\n\"Variable of type EGP\"\namount_in_egp = EGP(100)\n\n\"✅ Valid and allowed - same type\"\nsame_currency: USD = amount_in_usd\n\n\"❌ Not allowed - different types by name despite identical structure\"\nwrong_currency: USD = amount_in_egp  # Error in Nominal Typing system",
       "p3": "<span>That's why <strong>TypeScript</strong> chose the structural approach — it provides flexibility while keeping JavaScript's natural behavior, but with more safety and predictability.</span>",
       "p4": "<span>Of course, this comes with trade-offs. Let's explore its main strengths and limitations next.</span>"
     },
@@ -121,7 +121,8 @@
       "q2": "Could JavaScript ever support a form of static typing natively?",
       "q3": "What are all the coercion rules in JavaScript?",
       "q4": "Is it possible to mix Structural and Nominal systems in the same project?",
-      "q5": "Are there languages that combine both Nominal and Structural typing?"
+      "q5": "Are there languages that combine both Nominal and Structural typing?",
+      "q6": "Is it possible to simulate Nominal Typing in TypeScript using any trick or workaround?"
     }
   }
 }

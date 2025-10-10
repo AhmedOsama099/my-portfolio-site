@@ -9,6 +9,7 @@ export default function SideNavSection({
   handleChangeNavState,
 }: SectionProps) {
   const { currentURL } = useCurrentURL();
+
   return (
     <div className="mb-6">
       <h3 className="px-3 mb-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">

@@ -72,7 +72,6 @@ export default async function StructuralTypeSystemPage() {
           {parseWithSpacing(t("structuralTypeSystem.whatIsTypeSystem.p4"))}
           {parseWithSpacing(t("structuralTypeSystem.whatIsTypeSystem.p5"))}
         </ContentSimpleParagraph>
-        <DocsImage src={`/images/tech-blog/ts/JSvsTS.svg`} />
       </SectionWrapper>
 
       {/* Why JS Weekly Dynamic Language? */}
@@ -119,6 +118,8 @@ export default async function StructuralTypeSystemPage() {
           {parseWithSpacing(t("structuralTypeSystem.whyJsDynamic.p4"))}
         </ContentSimpleParagraph>
       </SectionWrapper>
+
+      <DocsImage src={`/images/tech-blog/ts/JSvsTS.svg`} />
 
       {/* What is a Structural Typed System? */}
       <SectionWrapper id="what-is-a-structural-typed-system">
@@ -202,21 +203,6 @@ export default async function StructuralTypeSystemPage() {
             "structuralTypeSystem.whatIsStructuralTypeSystem.example3.explanation"
           )}
         </b>
-        <CodeSpace
-          language="bash"
-          codeBlocks={[
-            `"//- ${t(
-              "structuralTypeSystem.whatIsStructuralTypeSystem.example4.title"
-            )}"`,
-            ``,
-            t("structuralTypeSystem.whatIsStructuralTypeSystem.example4.code"),
-          ]}
-        />
-        <b>
-          {t(
-            "structuralTypeSystem.whatIsStructuralTypeSystem.example4.explanation"
-          )}
-        </b>
       </SectionWrapper>
 
       {/* Nominal type and structural type? */}
@@ -252,7 +238,9 @@ export default async function StructuralTypeSystemPage() {
           {parseWithSpacing(t("structuralTypeSystem.advantages.reusability"))}
           {parseWithSpacing(t("structuralTypeSystem.advantages.compatibility"))}
         </SectionList>
-        {parseWithSpacing(t("structuralTypeSystem.advantages.note"))}
+        <ContentSimpleParagraph>
+          {parseWithSpacing(t("structuralTypeSystem.advantages.note"))}
+        </ContentSimpleParagraph>
       </SectionWrapper>
 
       {/* What is Strict of Structural Typed System? */}
@@ -275,6 +263,7 @@ export default async function StructuralTypeSystemPage() {
           t("structuralTypeSystem.relatedQuestions.q3"),
           t("structuralTypeSystem.relatedQuestions.q4"),
           t("structuralTypeSystem.relatedQuestions.q5"),
+          t("structuralTypeSystem.relatedQuestions.q6"),
         ]}
       />
 

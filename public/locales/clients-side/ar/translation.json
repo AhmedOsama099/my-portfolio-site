@@ -28,7 +28,7 @@
       "online-offline-git": "هل يحتاج Git إلى Internet"
     },
     "ts": {
-      "structural-type-system": "نظام الأنواع البنيوي",
+      "structural-type-system": "نظام الأنواع الهيكلي",
       "excess-type-checking": "التحقق من الأنواع الزائدة"
     }
   }
