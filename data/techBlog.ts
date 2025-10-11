@@ -49,4 +49,5 @@ export const logoMap: Record<string, string> = {
   typescript: "/images/tech-blog/logos/ts.svg",
   geeksforgeeks: "/images/tech-blog/logos/geeksforgeeks.svg",
   medium: "/images/tech-blog/logos/medium.svg",
+  frontendMasters: "/images/tech-blog/logos/frontend-masters.png",
 };
