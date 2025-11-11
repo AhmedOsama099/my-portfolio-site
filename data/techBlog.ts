@@ -29,11 +29,11 @@ const tsNavItems = (
     title: t("tech-blog.ts.index-signature"),
     href: "index-signature",
   },
-  {
-    id: "excess-type-checking",
-    title: t("tech-blog.ts.excess-type-checking"),
-    href: "excess-type-checking",
-  },
+  // {
+  //   id: "excess-type-checking",
+  //   title: t("tech-blog.ts.excess-type-checking"),
+  //   href: "excess-type-checking",
+  // },
 ];
 
 export const navItemsMapper = (

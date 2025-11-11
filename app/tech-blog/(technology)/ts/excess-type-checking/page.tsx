@@ -1,7 +1,7 @@
-import ContentSimpleParagraph from "@/Components/techBlog/DocsUtils/ContentSimpleParagraph";
+// import ContentSimpleParagraph from "@/Components/techBlog/DocsUtils/ContentSimpleParagraph";
 import HeaderTitle from "@/Components/techBlog/DocsUtils/HeaderTitle";
 import PageHeader from "@/Components/techBlog/DocsUtils/PageHeaderWrapper";
-import SectionWrapper from "@/Components/techBlog/DocsUtils/SectionWrapper";
+// import SectionWrapper from "@/Components/techBlog/DocsUtils/SectionWrapper";
 // import { getServerTranslation } from "@/utils/getServerTranslation";
 
 export default async function ExcessTypeCheckingPage() {
