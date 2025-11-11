@@ -1,0 +1,115 @@
+{
+  "indexSignature": {
+    "title": "Index Signatures",
+
+    "gettingStarted": {
+      "p1": "<span><strong>TypeScript</strong> is a superset of <strong>JavaScript</strong>, or we can say it's <strong>JavaScript with Types</strong> by adding types to variables. Accordingly, when defining any <strong>Variable</strong> in <strong>TypeScript</strong>, it has a specific type whether we define it ourselves or <strong>TypeScript</strong> infers it. Additionally, we can define more complex types, meaning a variable can accept two different types like <strong>String and Number</strong> or an <strong>Object</strong> consisting of a set of <strong>Keys and Values</strong>, each with its own <strong>Type</strong>.</span>",
+      "p2": "<span>Up to this point, we've assumed that we've predefined our variables, especially in the case of <strong>Objects</strong>, meaning we know we have, for example, an <strong>Object</strong> named <strong>User</strong> consisting of <strong>Name, Age</strong>.</span>",
+      "b1": "<b>So what's the solution if we don't know all the required Variables?</b>"
+    },
+
+    "definition": {
+      "title": "What is Index Signature and How to Write its Syntax?",
+      "p1": "<span><strong>Index Signature</strong> is a way to define <strong>Variables</strong> in <strong>Objects</strong> with <strong>Unknown Structure</strong> by knowing the <strong>Key and Value Types</strong>, similar to defining a <strong>Dictionary Structure</strong>, and we can write it as follows:</span>",
+      "code1": {
+        "comment": "// Define an object with string keys and string values",
+        "line1": "interface obj1 {",
+        "line2": "  [key: string]: string",
+        "line3": "}"
+      },
+      "code2": {
+        "comment": "// Define an object with numeric keys and string or numeric values",
+        "line1": "interface obj2 {",
+        "line2": "  [key: number]: string | number",
+        "line3": "}"
+      },
+      "p2": "<span>We can also use the <strong>readonly</strong> property so that when defining a <strong>Variable</strong> of the <strong>Type</strong> we want, it cannot be modified after definition.</span>",
+      "readonlyExample": {
+        "line1": "interface ReadonlyStringArray {",
+        "line2": "  readonly [index: number]: string",
+        "line3": "}",
+        "line4": "",
+        "line5": "let myArray: ReadonlyStringArray = ['Ahmed', 'Sara', 'Omar'];",
+        "line6": "console.log(myArray[0]); // ✅ 'Ahmed'",
+        "line7": "// ❌ Error: Index signature in type 'ReadonlyStringArray' only permits reading.",
+        "line8": "myArray[1] = 'Ali'",
+        "line9": "// ❌ Error: Property 'push' does not exist on type 'ReadonlyStringArray'",
+        "line10": "myArray.push('Ali')"
+      }
+    },
+
+    "limitations": {
+      "title": "Limitations of Using Index Signature",
+      "intro": "<span>Despite the flexibility of <strong>Index Signature</strong> in dealing with dynamic objects, it has some limitations we should be aware of:</span>",
+
+      "keyTypes": {
+        "title": "",
+        "description": "<span><strong>Types of Keys Used:</strong> The <strong>Keys</strong> used in forming an <strong>Index Signature</strong> must be limited to only 3 types: <strong><code>string</code> | <code>number</code> | <code>symbol</code></strong>. This is because <strong>TypeScript</strong> ultimately treats <strong>Keys</strong> in <strong>Objects</strong> as string values, so if we use a <code>number</code> as a key, it's automatically converted to a <code>string</code> through <strong>Coercion</strong>, which is normal behavior compatible with <strong>JavaScript</strong>.<br/>However, for keys of type <code>symbol</code>, it's different because <strong>Symbols</strong> are treated as unique keys that aren't converted to strings, but retain their special identity within the <strong>Object</strong>.<br/>If we try to use any other type like an <strong>Object</strong> as a key, <strong>TypeScript</strong> will reject it because converting it to a string produces the value <strong><code>[object Object]</code></strong> which has no practical meaning in key determination, so <strong>TypeScript</strong> decided to restrict allowed key types to avoid such errors.<br/>If you actually need to use an <strong>Object</strong> as a key, you'll have to convert it yourself to an appropriate <code>string</code> before use.<br/><b>Note: We talked about Coercion</strong> <a href='/tech-blog/ts/structural-type-system'>here</a> and how JavaScript</strong> uses it, and in our case, TypeScript</strong> itself benefits from it to achieve compatibility in defining Index Signature</strong>.</b></span>"
+      },
+
+      "valueTypes": {
+        "description": "<span><strong>Allowed Types for Variables Used with Index Signature:</strong> If an <strong>Object</strong> contains an <strong>Index Signature</strong> of a specific type, say string, then accordingly any other variable defined in the same <strong>Object</strong> must be of the same string type. The general rule for this property is that variable values must be of the same type as the <strong>Index Signature</strong> or derived from it. So if the <strong>Index Signature</strong> is of type <strong><code>string | number</code></strong>, then we can have other variables in the same <strong>Object</strong> that are either of type <code>string</code> or <code>number</code>.</span>"
+      },
+
+      "constants": {
+        "description": "<span><strong>Key Types Used in Index Signature Cannot Be Constant Values:</strong> But we can use a <strong>Template Literal</strong>, where we ensure adding part of the key in the same pattern in the example followed by a value of any available type whether <strong><code>string | number</code></strong>.</span>",
+        "invalidExample": {
+          "line1": "// Not allowed",
+          "line2": "interface ObjectWithConstants {",
+          "line3": "  [key: 'a' | 'b']: string",
+          "line4": "}"
+        },
+        "validExample": {
+          "line1": "// Allowed",
+          "line2": "interface ObjectWithTemplateLiteral {",
+          "line3": "  [key: `key_${string}`]: string",
+          "line4": "}"
+        },
+        "validExample2": {
+          "line1": "interface ObjectWithTemplateLiteral {",
+          "line2": "  [key: `key_${number}`]: string",
+          "line3": "}"
+        }
+      },
+
+      "missingProperties": {
+        "description1": "<span><strong>Missing Properties:</strong> When creating an <strong>Object</strong> containing an <strong>Index Signature</strong> for example in this form:</span>",
+        "example1": {
+          "line1": "interface StringByString {",
+          "line2": "  [key: string]: string",
+          "line3": "}"
+        },
+        "description2": "<span>In this case, <strong>TypeScript</strong> will consider that any <strong>Key</strong> in this <strong>Object</strong> will be of <code>string</code> type , the same applies to elements not originally defined in the <strong>Object</strong>:</span>",
+        "example2": {
+          "line1": "const object: StringByString = {name:'Ahmed', role:'engineer'};",
+          "line2": "",
+          "line3": "const value = object['age'];",
+          "line4": "",
+          "line5": "console.log(value)"
+        },
+        "description3": "<span>In this case, <strong>TypeScript</strong> considers the variable <code>value</code> as <code>string</code> while in <strong>run time</strong> its value will be <code>undefined</code> because it wasn't declared in object and given an value. This is one of the confusing aspects of <strong>Index Signature</strong>. To overcome this, it's better to define the <code>value</code> as expected to be <code>string | undefined</code> so <strong>TypeScript</strong> accounts for it:</span>",
+        "example3": {
+          "line1": "interface StringByString {",
+          "line2": "  [key: string]: string | undefined",
+          "line3": "}"
+        }
+      }
+    },
+
+    "comparison": {
+      "title": "Index Signature vs Record Type",
+      "question": "<span><strong>Is there another way to deal with types by knowing only the structure type in TypeScript?</strong></span>",
+      "answer": "<span><b> In short, yes, through the Record Type.</b></span>",
+      "recordExample": "const object: Record<string, string> = { prop: 'Value' };",
+      "differenceQuestion": "<span><strong>And of course, here's an important question we must ask: What's the difference between the two methods?</strong></span>",
+      "indexSignature": "Index Signature",
+      "recordType": "Record Type",
+      "differences": {
+        "keyTypes": "<span>As we mentioned in limitations, the available types for key definition are limited</span>",
+        "keyTypesRecord": "<span>Can use different types in key definition and can also create Union between Constants</span>",
+        "additionalProperties": "<span>Can use other different variables inside the Object</span>",
+        "additionalPropertiesRecord": "<span>Used only without additional Variables</span>"
+      }
+    }
+  }
+}

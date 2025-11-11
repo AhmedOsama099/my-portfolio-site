@@ -24,11 +24,16 @@ const tsNavItems = (
     title: t("tech-blog.ts.structural-type-system"),
     href: "structural-type-system",
   },
-  // {
-  //   id: "excess-type-checking",
-  //   title: t("tech-blog.ts.excess-type-checking"),
-  //   href: "excess-type-checking",
-  // },
+  {
+    id: "index-signature",
+    title: t("tech-blog.ts.index-signature"),
+    href: "index-signature",
+  },
+  {
+    id: "excess-type-checking",
+    title: t("tech-blog.ts.excess-type-checking"),
+    href: "excess-type-checking",
+  },
 ];
 
 export const navItemsMapper = (
@@ -50,4 +55,6 @@ export const logoMap: Record<string, string> = {
   geeksforgeeks: "/images/tech-blog/logos/geeksforgeeks.svg",
   medium: "/images/tech-blog/logos/medium.svg",
   frontendMasters: "/images/tech-blog/logos/frontend-masters.png",
+  blog: "/images/tech-blog/logos/blog.svg",
+  typescriptDeepDive: "/images/tech-blog/logos/typescript-deep-dive.png",
 };

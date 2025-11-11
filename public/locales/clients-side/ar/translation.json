@@ -29,7 +29,8 @@
     },
     "ts": {
       "structural-type-system": "نظام الأنواع الهيكلي",
-      "excess-type-checking": "التحقق من الأنواع الزائدة"
+      "excess-type-checking": "التحقق من الأنواع الزائدة",
+      "index-signature": "“توقيعات الفهرس"
     }
   }
 }

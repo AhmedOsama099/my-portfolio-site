@@ -13,7 +13,7 @@ export default function SectionList({
         <li
           key={index}
           className={cn(
-            "mb-1 [&>span]:block [&>span]:my-2 [&_strong]:px-1 [&_strong]:text-[#3D4082] text-lg ",
+            "mb-1 [&>span]:block [&>span]:my-2 [&_b]:block [&_b]:w-full  [&_strong]:px-1 [&_strong]:text-[#3D4082] [&_a]:text-[#B12343] text-lg ",
             listItemClassName
           )}
         >

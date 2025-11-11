@@ -1,0 +1,114 @@
+{
+  "indexSignature": {
+    "title": "توقيع الفهرس Index Signature",
+
+    "gettingStarted": {
+      "p1": "<span><strong>TypeScript</strong> هي <strong>Superset</strong> من <strong>JavaScript</strong> أو نقدر نقول إنها <strong>JavaScript with Types</strong> أو <strong> بإضافة أنواع للمتغيرات</strong>. وبناء عليه فا عند تعريف أي  <strong>متغير Variable </strong> في <strong>TypeScript</strong> بيبقى ليه <strong>نوع Type</strong> محدد سواء حددناه بنفسنا أو <strong>TypeScript</strong> <strong>استنتجت</strong> هي النوع ده <strong>Interfered</strong>، بالإضافة لإن ممكن نحدد <strong>أنواع Types</strong> أكثر تعقيدًا بمعنى إن ممكن <strong>المتغير Variable </strong> يكون بيقبل نوعين مختلفين زي  <strong>نص ورقم String and Number</strong> أو ممكن يبقى <strong>كائن Object </strong> بيتكون من مجموعة من <strong> المفاتيح والقيم Keys and Values</strong> وكل منهم ليه <strong>نوع Type</strong>.</span>",
+      "p2": "<span>الكلام لحد هنا بافتراض إننا محددين <strong>المتغيرات Variables</strong> اللي عندنا مسبقًا وخصوصًا في حالة  <strong>الكائنات Objects</strong>، يعني عارفين إن عندنا مثلًا  <strong>كائن Object </strong> اسمه <strong>User</strong> وبيتكون من <strong>name, age</strong>.</span>",
+      "b1": "<b>طيب هيبقى إيه الحل لو مش عارفين كل المتغيرات Variables المطلوبة؟</b>"
+    },
+
+    "definition": {
+      "title": "ماهو توقيع الفهرس Index Signature وإزاي نكتبه Syntax Definition؟ ",
+      "p1": "<span><strong>توقيع الفهرس Index Signature</strong> هو وسيلة لتعريف  <strong>المتغيرات Variables</strong> في  <strong>الكائنات Objects</strong> <strong>الغير معلومة الهيكل  Unknown Structured</strong> بمعلومية  <strong>نوع المفتاح والقيمة Key and Value Type</strong>، زي ما نكون بنعرف <strong>هيكل مٌعجمي Dictionary Structure</strong>، وبنقدر نكتبه بالشكل ده:</span>",
+      "code1": {
+        "comment": "// تعريف كائن مفتاحه نصي وقيمته نصية",
+        "line1": "interface obj1 {",
+        "line2": "  [key: string]: string",
+        "line3": "}"
+      },
+      "code2": {
+        "comment": "// تعريف كائن مفتاحه رقمي وقميته نصية أو رقمية",
+        "line1": "interface obj2 {",
+        "line2": "  [key: number]: string | number",
+        "line3": "}"
+      },
+      "p2": "<span>كمان إحنا نقدر نستخدم خاصية <strong>readonly</strong> علشان عند تعريف  <strong>المتغير Variable</strong> من <strong>النوع Type</strong> اللي إحنا عايزينه لا يتم تعديله بعد التعريف.</span>",
+      "readonlyExample": {
+        "line1": "interface ReadonlyStringArray {",
+        "line2": "  readonly [index: number]: string",
+        "line3": "}",
+        "line4": "",
+        "line5": "let myArray: ReadonlyStringArray = ['Ahmed', 'Sara', 'Omar'];",
+        "line6": "console.log(myArray[0]); // ✅ 'Ahmed'",
+        "line7": "// ❌ Error: Index signature in Type 'ReadonlyStringArray' only permits reading.",
+        "line8": "myArray[1] = 'Ali'",
+        "line9": "// ❌ Error: Property 'push' does not exist on Type 'ReadonlyStringArray'",
+        "line10": "myArray.push('Ali')"
+      }
+    },
+
+    "limitations": {
+      "title": "محددات استخدام توقيع الفهرس Index Signature:",
+      "intro": "<span>رغم مرونة <strong> توقيع الفهرس Index Signature</strong> في التعامل مع <strong>الكائنات الديناميكية Dynamic Objects</strong>، لكن يظل ليه بعض المحددات اللي لازم نكون عارفينها:</span>",
+
+      "keyTypes": {
+        "description": "<span><strong>نوع المفاتيح Keys Types المستخدمة:</strong> الـ <strong>مفاتيح Keys</strong> المستخدمة في تكوين <strong>توقيع الفهرس Index Signature</strong> لازم تكون ضمن 3 <strong>أنواع Types</strong> فقط: <strong><strong> <code>string</code></strong> | <code>number</code> | <strong><code>symbol</code></strong></strong>. وده باختصار لأن <strong>TypeScript</strong> في النهاية بتتعامل مع  <strong>المفاتيح Keys</strong> في <strong>الكائنات Objects</strong> على إنها <strong>قيم نصية String Values</strong>، فلو استخدمنا  <strong>رقم <code>Number</code></strong> كـ <strong>مفتاح Key</strong> بيتم تحويله تلقائيًا إلى <strong>نص <code>string</code></strong> عن طريق خاصية <strong>التحويل التلقائي للأنواع Coercion</strong>، وده سلوك طبيعي ومتوافق مع <strong>JavaScript</strong>.<br/>لكن في حالة <strong>المفاتيح Keys</strong> من نوع <strong>الرمز <code>Symbol</code></strong> فالموضوع مختلف، لأن  <strong>الرموز Symbols</strong> بيتم التعامل معاها كمفاتيح فريدة لا تُحوّل إلى <strong>نصوص strings</strong>، بل تظل محتفظة بهويتها الخاصة داخل <strong>الكائن Object </strong>.<br/>أما لو حاولنا نستخدم أي نوع تاني زي  <strong>كائن Object </strong> كمفتاح، <strong>TypeScript</strong> هترفض لأن تحويله لنص بينتج عنه القيمة <strong><code>[Object  Object]</code></strong> اللي مالهاش معنى عملي في تحديد المفتاح، وبالتالي قررت <strong>TypeScript</strong> تقيّد  <strong>أنواع المفاتيح Keys Types</strong> المسموح بيها لتجنب أخطاء زي دي.<br/>وفي حالة لو محتاج تستخدم <strong>كائن Object </strong> كمفتاح فعلًا، فهتضطر تحوله بنفسك إلى <strong>نص <code>String</code></strong> مناسب قبل الاستخدام.<br/><b>ملاحظة: اتكلمنا عن خاصية التحويل التلقائي للأنواع Coercion <a href='/tech-blog/ts/structural-type-system'>هنا</a> وإزاي JavaScript بيستخدمها، وفي حالتنا دي TypeScript نفسه بيستفيد منها علشان يحقق التوافق في تعريف توقيع الفهرس Index Signature.</b></span>"
+      },
+
+      "valueTypes": {
+        "description": "<span><strong>الأنواع Types المسموح بها للمتغيرات Variables المستخدمة مع توقيع الفهرس Index Signature:</strong> في حالة إذا  <strong>الكائن Object </strong> يحتوي على <strong>توقيع فهرس Index Signature</strong> من نوع معين <strong>نص String</strong> مثلًا فا بناء عليه أي متغير تاني هيتم تعريفه في نفس  <strong>الكائن Object </strong> لازم يكون من نفس النوع النصي، والقاعدة العامة للخاصية دي إن قيم المتغيرات لازم تكون من نفس نوع  <strong>توقيع الفهرس Index Signature</strong> أو مشتقة منها يعني لو <strong>توقيع الفهرس Index Signature</strong> من نوع <strong><code>string | number</code></strong> فا متاح يبقى عندنا متغيرات تانية في نفس <strong>الكائن Object </strong> إما من نوع <strong>نص <code>String</code></strong> أو من نوع  <strong>رقم <code>Number</code></strong>.</span>"
+      },
+
+      "constants": {
+        "description": "<span><strong>أنواع المفاتيح Keys Type المستخدمة في توقيع الفهرس Index Signature مينفعش تبقى قيم  Constants:</strong> ولكن متاح نستخدم  <strong>قالب نصي Template Literal</strong>، يحيث نضمن زيادة جزء من المفتاح بنفس الشكل في المثال متبوعًا بقيمة من أي نوع متاح سواء كان <strong><code>string | number</code></strong>.</span>",
+        "invalidExample": {
+          "line1": "// غير مسموح",
+          "line2": "interface ObjectWithConstants {",
+          "line3": "  [key: 'a' | 'b']: string",
+          "line4": "}"
+        },
+        "validExample": {
+          "line1": "// مسموح",
+          "line2": "interface ObjectWithTemplateLiteral {",
+          "line3": "  [key: `key_${string}`]: string",
+          "line4": "}"
+        },
+        "validExample2": {
+          "line1": "interface ObjectWithTemplateLiteral {",
+          "line2": "  [key: `key_${number}`]: string",
+          "line3": "}"
+        }
+      },
+
+      "missingProperties": {
+        "description1": "<span><strong>العناصر غير الموجودة:</strong> في حالة تكوين  <strong>كائن Object </strong> يحتوي على <strong>توقيع الفهرس Index Signature</strong> بحيث يكون مثلًا بالشكل ده:</span>",
+        "example1": {
+          "line1": "interface StringByString {",
+          "line2": "  [key: string]: string",
+          "line3": "}"
+        },
+        "description2": "<span>في الحالة دي <strong>TypeScript</strong> هيعتبر إن أي <strong>مفتاح Key</strong> في <strong>الكائن Object </strong> ده هيبقى من نوع <strong>نص <code>String</code></strong>، نفس الشيئ ينطبق على العناصر الغير مٌعرَّفة أصلا في <strong>الكائن Object </strong>:</span>",
+        "example2": {
+          "line1": "const Object : StringByString = {name:'Ahmed', role:'engineer'};",
+          "line2": "",
+          "line3": "const value = Object['age'];",
+          "line4": "",
+          "line5": "console.log(value)"
+        },
+        "description3": "<span>في الحالة دي <strong>TypeScript</strong> معتبر إن <strong>القيمة Value</strong> هنا <strong>نص <code>String</code></strong> في حين إنه في <strong>وقت التشغيل Run Time</strong> هتبقى قيمته <strong><code>undefined</code></strong> لأنه غير موجود أصلًا في <strong>الكائن Object</strong> فا متمش اعطائة قيمة ودي من الأمور المربكة الخاصة بـ <strong>توقيع الفهرس Index Signature</strong> وللتغلب على حاجة زي دي فا الأفضل تعريف القيمة <strong><code>Value</code></strong> بإن متوقع منها تبقى <strong><code>string | undefined</code></strong> علشان <strong>TypeScript</strong> يبقى عامل حسابه:</span>",
+        "example3": {
+          "line1": "interface StringByString {",
+          "line2": "  [key: string]: string | undefined",
+          "line3": "}"
+        }
+      }
+    },
+
+    "comparison": {
+      "title": "توقيع الفهرس Index Signature مقابل نوع السجل Record Type",
+      "question": "<span><strong>هل في طريقة تانية للتعامل مع الأنواع Types بدلالة معرفة نوع الهيكل Structure Type فقط في TypeScript؟</strong></span>",
+      "answer": "<span><b> الإجابة باختصار أيوة، عن طريق نوع السجل Record Type.</b></span>",
+      "recordExample": "const Object : Record<string, string> = { prop: 'Value' };",
+      "differenceQuestion": "<span><strong>وهنا طبعًا في سؤال مهم لازم نسألة، إيه الفرق بين الطريقتين؟</strong></span>",
+      "indexSignature": "Index Signature ",
+      "recordType": "Record Type",
+      "differences": {
+        "keyTypes": "<span>زي ما قلنا في المحددات إن الأنواع Types المتاحة لتعريف مفتاحه Key محدودة</span>",
+        "keyTypesRecord": "<span>يمكن استخدام أنواع Types مختلفة في تعريف المفتاح key وممكن كمان نعمل اتحاد Union بين المتغيرات Constants</span>",
+        "additionalProperties": "<span>يمكن استخدام متغيرات أخرى مختلفة داخل الكائن Object </span>",
+        "additionalPropertiesRecord": "<span>يستخدم فقط بدون متغيرات Variables إضافية</span>"
+      }
+    }
+  }
+}

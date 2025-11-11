@@ -29,7 +29,8 @@
     },
     "ts": {
       "structural-type-system": "Structural Type System",
-      "excess-type-checking": "Excess Type Checking"
+      "excess-type-checking": "Excess Type Checking",
+      "index-signature": "Index SIgnature"
     }
   }
 }

@@ -9,20 +9,24 @@ import excessTypeCheckingEn from "../../server-locales/en/ts/excess-type-checkin
 import excessTypeCheckingAr from "../../server-locales/ar/ts/excess-type-checking.json";
 import structuralTypeSystemEn from "../../server-locales/en/ts/structural-type-system.json";
 import structuralTypeSystemAr from "../../server-locales/ar/ts/structural-type-system.json";
+import indexSignatureEn from "../../server-locales/en/ts/index-signature.json";
+import indexSignatureAr from "../../server-locales/ar/ts/index-signature.json";
 
 export const translations: Record<string, Record<string, unknown>> = {
   en: {
     common: commonEn,
     "what-is-git": whatIsGitEn,
     "online-offline-git": onlineOfflineGitEn,
-    "excess-type-checking": excessTypeCheckingEn,
     "structural-type-system": structuralTypeSystemEn,
+    "index-signature": indexSignatureEn,
+    "excess-type-checking": excessTypeCheckingEn,
   },
   ar: {
     common: commonAr,
     "what-is-git": whatIsGitAr,
     "online-offline-git": onlineOfflineGitAr,
-    "excess-type-checking": excessTypeCheckingAr,
     "structural-type-system": structuralTypeSystemAr,
+    "index-signature": indexSignatureAr,
+    "excess-type-checking": excessTypeCheckingAr,
   },
 };
