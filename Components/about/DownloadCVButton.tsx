@@ -9,10 +9,11 @@ const DownloadCVButton = () => {
       transition={{ delay: 1 }}
     >
       <a
-        href="/docs/Ahmed-El-Daoushy-Senior-Software-Engineer-Resume.pdf"
+        href="/docs/Ahmed%20Osama%20Senior%20Software%20Engineer.pdf"
         download="Ahmed-Osama-Resume.pdf"
         className="button-glitch"
         role="button"
+        aria-label="Download Ahmed Osama's resume (PDF)"
       >
         Resume
       </a>

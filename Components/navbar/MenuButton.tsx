@@ -5,7 +5,10 @@ import { MenuButtonProps } from "@/types/navbar";
 
 const MenuButton: React.FC<MenuButtonProps> = ({ open, toggleMenu }) => (
   <button
+    type="button"
     onClick={toggleMenu}
+    aria-label={open ? "Close menu" : "Open menu"}
+    aria-expanded={open}
     className="flex justify-between flex-col w-10 h-8 z-50 relative"
   >
     <motion.div

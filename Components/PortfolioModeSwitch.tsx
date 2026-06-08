@@ -44,9 +44,21 @@ const PortfolioModeSwitch = () => {
 
   return (
     <div
+      role="button"
+      tabIndex={0}
+      aria-label={
+        isProgrammer ? "Switch to Writer mode" : "Switch to Programmer mode"
+      }
       onClick={() => {
         toggleMode(); // Use the toggleTheme function from context
         changeLanguage();
+      }}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggleMode();
+          changeLanguage();
+        }
       }}
     >
       {/* Global Loader */}
