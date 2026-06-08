@@ -31,16 +31,23 @@ const BlogPage = () => {
         .toLowerCase()
         .includes(debouncedSearchTerm.toLowerCase());
       const contentMatch = item.content
-        .toLowerCase()
-        .includes(debouncedSearchTerm.toLowerCase());
+        ? item.content.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+        : "";
       return titleMatch || contentMatch;
     });
   }, [debouncedSearchTerm]);
+
+  console.log(filteredContent.filter((ele) => ele.title).length);
 
   // Handle search clear
   const handleClearSearch = () => {
     setSearchTerm("");
   };
+
+  const filteredContentLength = useMemo(
+    () => filteredContent.filter((item) => item.isShow).length,
+    [filteredContent],
+  );
 
   return (
     <MotionPageWrapper>
@@ -53,14 +60,14 @@ const BlogPage = () => {
           <SearchInput
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
-            filteredCount={filteredContent.length}
+            filteredCount={filteredContentLength}
             debouncedSearchTerm={debouncedSearchTerm}
           />
           <div className="absolute top-[95%] -z-10 right-0 inline-flex items-center bg-[#565FA1] px-2 py-1 shadow-sm border border-[#565FA1]/30 border-t-transparent rounded-l-lg rounded-br-lg">
             <span className="text-white font-semibold mr-1 text-xs">عدد</span>
 
             <span className="text-white font-bold  py-0.5 rounded-full min-w-[1.5rem] text-center text-xs">
-              {filteredContent.length}
+              {filteredContentLength}
             </span>
             <span className="text-white font-semibold mr-1 text-xs">
               من النصوص
@@ -70,7 +77,7 @@ const BlogPage = () => {
 
         {/* Literature Content */}
         <LiteratureList
-          filteredContent={filteredContent}
+          filteredContent={filteredContent as any}
           handleClearSearch={handleClearSearch}
         />
       </div>

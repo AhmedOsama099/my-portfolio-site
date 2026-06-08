@@ -12,11 +12,16 @@ const technologies = [
     alt: "ts-logo",
     pageURL: "/tech-blog/ts/structural-type-system",
   },
+  {
+    imageURL: "/images/techLogos/accessibility.png",
+    alt: "accessibility-logo",
+    pageURL: "/tech-blog/accessibility/general-tips",
+  },
 ];
 
 const TechBlogPage = () => {
   return (
-    <MotionPageWrapper className="flex flex-wrap gap-2  justify-center items-center  ">
+    <MotionPageWrapper className="flex flex-wrap gap-2  justify-center items-center">
       {technologies.map(({ pageURL, imageURL, alt }, index) => (
         <TechnologyLinkItem
           key={index}

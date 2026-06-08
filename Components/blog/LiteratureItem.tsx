@@ -13,7 +13,7 @@ const LiteratureItem: React.FC<LiteratureItemProps> = ({ piece }) => {
   useEffect(() => {
     if (contentRef.current) {
       const lineHeight = parseInt(
-        window.getComputedStyle(contentRef.current).lineHeight
+        window.getComputedStyle(contentRef.current).lineHeight,
       );
       const height = contentRef.current.scrollHeight;
       const lines = Math.floor(height / lineHeight);
@@ -21,7 +21,7 @@ const LiteratureItem: React.FC<LiteratureItemProps> = ({ piece }) => {
     }
   }, [piece.content]);
 
-  const replacedContent = piece.content.replace(/\./g, ". <br/>");
+  const replacedContent = piece?.content?.replace(/\./g, ". <br/>");
 
   return (
     <motion.div className="prose prose-lg max-w-none bg-white rounded-lg shadow-md p-8 border-r-4 border-[#565FA1]">
@@ -40,7 +40,7 @@ const LiteratureItem: React.FC<LiteratureItemProps> = ({ piece }) => {
         >
           <p
             dangerouslySetInnerHTML={{
-              __html: replacedContent,
+              __html: replacedContent || "",
             }}
           ></p>
         </div>

@@ -271,7 +271,7 @@ export default async function IndexSignaturePage() {
           // },
         ]}
       />
-      <WriterDate releaseDate={formatDateLang("October 09, 2025", lang)} />
+      <WriterDate releaseDate={formatDateLang("November 11, 2025", lang)} />
     </>
   );
 }

@@ -34,14 +34,17 @@ const LiteratureList: React.FC<LiteratureListProps> = ({
             animate="show"
             className="space-y-12"
           >
-            {filteredContent.map((piece, key) => (
-              <motion.div key={key} variants={item}>
-                <div className="text-sm text-gray-500 mb-2 text-right">
-                  {piece.date}
-                </div>
-                <LiteratureItem piece={piece} />
-              </motion.div>
-            ))}
+            {filteredContent.map(
+              (piece, key) =>
+                piece.isShow && (
+                  <motion.div key={key} variants={item}>
+                    <div className="text-sm text-gray-500 mb-2 text-right">
+                      {piece.date}
+                    </div>
+                    <LiteratureItem piece={piece} />
+                  </motion.div>
+                ),
+            )}
           </motion.div>
         </>
       ) : (

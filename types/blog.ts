@@ -1,7 +1,8 @@
 export interface LiteratureContent {
   title: string;
-  content: string;
+  content: string | undefined;
   date: string;
+  isShow: boolean;
 }
 
 export interface LiteratureListProps {

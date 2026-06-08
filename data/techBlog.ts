@@ -36,11 +36,28 @@ const tsNavItems = (
   // },
 ];
 
+const accessibilityNavItems = (
+  t: TFunction<"translation", undefined>
+): TechNavItemProps[] => [
+  {
+    id: "general-tips",
+    title: t("tech-blog.accessibility.general-tips"),
+    href: "general-tips",
+  },
+
+  // {
+  //   id: "excess-type-checking",
+  //   title: t("tech-blog.ts.excess-type-checking"),
+  //   href: "excess-type-checking",
+  // },
+];
+
 export const navItemsMapper = (
   t: TFunction<"translation", undefined>
 ): NavItemsMapperProps => ({
   git: gitNavItems(t),
   ts: tsNavItems(t),
+  accessibility: accessibilityNavItems(t),
 });
 
 export const logoMap: Record<string, string> = {
