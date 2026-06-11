@@ -40,7 +40,10 @@ export function middleware(req: NextRequest) {
   //    via request headers (readable by `headers()` in server components).
   const reqHeaders = new Headers(req.headers);
   reqHeaders.set("x-locale", locale);
-  reqHeaders.set("x-invoke-path", rest);
+  // NOTE: do NOT set `x-invoke-path` here — it is a reserved Next.js internal
+  // routing header. Overriding it on the forwarded request makes the production
+  // server (`next start`) mis-resolve every rewritten route to the not-found
+  // page (dev silently ignores it, which is why it only broke in production).
 
   const rewriteUrl = req.nextUrl.clone();
   rewriteUrl.pathname = rest;
