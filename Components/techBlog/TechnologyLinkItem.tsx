@@ -1,12 +1,17 @@
+"use client";
+
 import { TechnologyLinkItemProps } from "@/types/techBlog";
 import Image from "next/image";
 import Link from "next/link";
+import { useLocalizedHref } from "@/hooks/useLocalizedHref";
 
 export default function TechnologyLinkItem({
   pageURL,
   imageURL,
   alt,
 }: TechnologyLinkItemProps) {
+  // Preserve the current article language (URL locale), not the persona mode.
+  const localize = useLocalizedHref();
   return (
     <Link
       className="relative border border-gray-300 py-3 px-5 rounded-3xl bg-[#302d2d] shadow-sm size-48 flex items-center justify-center
@@ -14,7 +19,7 @@ export default function TechnologyLinkItem({
           hover:scale-110
           transition-all
           duration-300"
-      href={pageURL}
+      href={localize(pageURL)}
     >
       {/* <span
         className="absolute top-0 right-0 bg-yellow-500 text-white text-xs font-bold py-1 px-2 rounded-full"

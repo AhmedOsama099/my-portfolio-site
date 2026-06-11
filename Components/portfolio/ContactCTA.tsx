@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import LocaleLink from "@/Components/LocaleLink";
 
 const ContactCTA = () => {
   return (
@@ -12,12 +12,12 @@ const ContactCTA = () => {
           I&apos;m always open to discussing new projects, creative ideas or
           opportunities to be part of your vision.
         </p>
-        <Link
+        <LocaleLink
           href="/contact"
           className="inline-block px-8 py-4 bg-white text-[#565FA1] rounded-full font-medium hover:bg-gray-100 transition-all hover:shadow-lg"
         >
           Let&apos;s Connect
-        </Link>
+        </LocaleLink>
       </div>
     </div>
   );

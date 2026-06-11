@@ -5,6 +5,7 @@ import SideNavSection from "./SideNavSection";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { usePostponeOnRender } from "@/hooks/usePostponeOnRender";
 import { usePathname } from "next/navigation";
+import { stripLocale } from "@/lib/i18n/config";
 
 export default function SideNav({
   isMobile,
@@ -16,7 +17,8 @@ export default function SideNav({
   const { is50MSAfterRender } = usePostponeOnRender();
   const { t } = useAppTranslation();
   const pathname = usePathname();
-  const tech = pathname.split("/")[2];
+  // stripLocale so the /en|/ar prefix doesn't shift segment indexes.
+  const tech = stripLocale(pathname).split("/")[2];
   const navItems = navItemsMapper(t)[tech];
 
   if (!is50MSAfterRender) return null;

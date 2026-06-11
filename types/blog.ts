@@ -1,6 +1,6 @@
 export interface LiteratureContent {
   title: string;
-  content: string | undefined;
+  content?: string;
   date: string;
   isShow: boolean;
 }

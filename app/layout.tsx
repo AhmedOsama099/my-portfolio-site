@@ -7,6 +7,8 @@ const cairo = Cairo({
   display: "swap",
 });
 import { Metadata } from "next";
+import { headers } from "next/headers";
+import { DEFAULT_LOCALE, isLocale } from "@/lib/i18n/config";
 import TransitionProvider from "@/Components/transitionProvider";
 import TranslationProvider from "@/Components/TranslationProvider";
 import { ThemeProvider } from "@/context/ThemeContext";
@@ -66,13 +68,17 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headerLocale = (await headers()).get("x-locale");
+  const locale = isLocale(headerLocale) ? headerLocale : DEFAULT_LOCALE;
+  const dir = locale === "ar" ? "rtl" : "ltr";
+
   return (
-    <html lang="en" dir="ltr" suppressHydrationWarning>
+    <html lang={locale} dir={dir} suppressHydrationWarning>
       {/* suppressHydrationWarning prop prevents React hydration warnings that occur when server and client content don't match exactly */}
       <body suppressHydrationWarning className={`${cairo.className}`}>
         <HtmlLangSync />

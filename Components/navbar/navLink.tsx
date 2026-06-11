@@ -3,15 +3,16 @@
 import React from "react";
 import { usePathname } from "next/navigation";
 import { NavLinkProps } from "@/types/navbar";
-import Link from "next/link";
+import LocaleLink from "@/Components/LocaleLink";
 import { useTheme } from "@/context/ThemeContext";
+import { stripLocale } from "@/lib/i18n/config";
 
 const NavLink: React.FC<NavLinkProps> = ({ link }) => {
   const pathName = usePathname();
   const { isProgrammer } = useTheme();
 
   const isActive =
-    pathName === link.url
+    stripLocale(pathName) === link.url
       ? isProgrammer
         ? `bg-[#F2F7F0] outline-2 outline-dashed hover:outline-dotted transition-all duration-300`
         : `bg-[#FCE0A2] outline-2 outline-dashed hover:outline-dotted transition-all duration-300`
@@ -36,7 +37,7 @@ const NavLink: React.FC<NavLinkProps> = ({ link }) => {
       };
 
   return (
-    <Link
+    <LocaleLink
       className={`rounded font-medium p-2 text-[#3D4082] relative ${isActive} ${isHovered} `}
       key={link.title}
       href={link.url}
@@ -70,7 +71,7 @@ const NavLink: React.FC<NavLinkProps> = ({ link }) => {
         </div>
       )}
       {link.title}
-    </Link>
+    </LocaleLink>
   );
 };
 

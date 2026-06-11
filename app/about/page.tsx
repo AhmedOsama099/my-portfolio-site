@@ -15,8 +15,8 @@ const AboutPage: React.FC = () => {
   const { scrollYProgress } = useScroll({ container: containerRef });
   const skillRef = useRef<HTMLDivElement>(null);
   const experienceRef = useRef<HTMLDivElement>(null);
-  const isSkillRefInView = useInView(skillRef);
-  const isExperienceRefInView = useInView(experienceRef);
+  const isSkillRefInView = useInView(skillRef, { once: true });
+  const isExperienceRefInView = useInView(experienceRef, { once: true });
 
   return (
     <MotionPageWrapper>

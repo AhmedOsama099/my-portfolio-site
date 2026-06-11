@@ -1,15 +1,17 @@
 import { initServerI18n } from "@/lib/i18n/server-i18n";
+import { DEFAULT_LOCALE } from "@/lib/i18n/config";
 import { cookies, headers } from "next/headers";
 
 export async function getServerTranslation(ns: string = "common") {
   const cookieStore = await cookies();
-  const requestHeaders = headers();
+  const requestHeaders = await headers();
 
-  // Use your custom header (x-invoke-path) set by middleware
-  const pathname = (await requestHeaders).get("x-invoke-path") || "";
-
-  // Use cookie language preference or fallback to English
-  const lang = cookieStore.get("i18next")?.value || "ar";
+  // Locale comes from the URL prefix, forwarded by the middleware as a header.
+  // Fall back to the persisted cookie, then the default locale.
+  const lang =
+    requestHeaders.get("x-locale") ||
+    cookieStore.get("i18next")?.value ||
+    DEFAULT_LOCALE;
 
   const i18n = await initServerI18n(lang, ns);
   const t = i18n.getFixedT(lang, ns);

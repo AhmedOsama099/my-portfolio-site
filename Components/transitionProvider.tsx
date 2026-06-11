@@ -6,12 +6,16 @@ import Navbar from "./navbar";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { useTheme } from "@/context/ThemeContext";
+import { stripLocale } from "@/lib/i18n/config";
 
 const TransitionProvider: FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   const pathName = usePathname();
   const { isProgrammer } = useTheme();
+
+  // Drop the /en|/ar prefix so the label reads "home"/"about", not "en"/"ar".
+  const routePath = stripLocale(pathName);
 
   return (
     <AnimatePresence mode="wait">
@@ -55,7 +59,7 @@ const TransitionProvider: FC<{
             duration: 0.5,
           }}
         >
-          {pathName === "/" ? "home" : pathName.split("/").pop()}
+          {routePath === "/" ? "home" : routePath.split("/").pop()}
         </motion.div>
 
         <motion.div

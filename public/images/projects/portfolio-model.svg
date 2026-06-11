@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Customized Portfolio">
+  <defs>
+    <linearGradient id="pmBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4338ca"/>
+      <stop offset="1" stop-color="#9333ea"/>
+    </linearGradient>
+    <linearGradient id="pmCard" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0.04"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#pmBg)"/>
+  <circle cx="200" cy="160" r="240" fill="#ffffff" opacity="0.06"/>
+  <circle cx="1100" cy="600" r="220" fill="#ffffff" opacity="0.05"/>
+  <rect x="700" y="200" width="460" height="360" rx="24" fill="url(#pmCard)" stroke="#ffffff" stroke-opacity="0.25" stroke-width="2"/>
+  <rect x="740" y="240" width="380" height="60" rx="12" fill="#ffffff" opacity="0.18"/>
+  <rect x="740" y="330" width="170" height="170" rx="14" fill="#22d3ee" opacity="0.45"/>
+  <rect x="930" y="330" width="190" height="24" rx="12" fill="#ffffff" opacity="0.55"/>
+  <rect x="930" y="372" width="150" height="24" rx="12" fill="#ffffff" opacity="0.35"/>
+  <rect x="930" y="446" width="190" height="54" rx="14" fill="#f9a8d4" opacity="0.6"/>
+  <text x="120" y="380" font-family="Segoe UI, Arial, sans-serif" font-size="92" font-weight="700" fill="#ffffff">Customized</text>
+  <text x="120" y="480" font-family="Segoe UI, Arial, sans-serif" font-size="92" font-weight="700" fill="#ffffff">Portfolio</text>
+  <text x="124" y="540" font-family="Segoe UI, Arial, sans-serif" font-size="34" font-weight="500" fill="#ffffff" opacity="0.85">Re-themeable · Bilingual · Admin Dashboard</text>
+</svg>

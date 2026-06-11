@@ -2,6 +2,50 @@ import { Project } from "@/types/portfolio";
 
 export const projects: Project[] = [
   {
+    id: 9,
+    title: "Customized-Portfolio",
+    category: "Full-Stack SaaS",
+    description:
+      "A re-themeable, bilingual (EN/AR) professional portfolio with a built-in admin dashboard, built so a single codebase fits any persona (doctor, dentist, vet, and beyond). It pairs a public, SEO-first portfolio with a content dashboard, role-based auth (super-admin manages design/templates, admin manages content), live theming via CSS-variable design tokens, full RTL support with self-hosted Arabic fonts, and database-stored image uploads. Hardened with strict CSP/headers, signed-JWT sessions, and Zod-validated server actions, and covered by Vitest unit tests.",
+    image: "/images/projects/portfolio-model.svg",
+    technologies: [
+      "Next.js 15",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS v4",
+      "Prisma",
+      "PostgreSQL",
+      "Zod",
+      "jose (JWT)",
+      "Vitest",
+    ],
+    siteLink: "https://portfolio-model-peach.vercel.app",
+    videoLink: "",
+    codeLink: "",
+  },
+  {
+    id: 8,
+    title: "GoPay",
+    category: "Fintech",
+    description:
+      "GoPay is a fintech web application for payments and account management. I engineered UI enhancements and optimised existing React components, improving usability and reducing friction across core payment and account flows. I also resolved critical production bugs and refactored legacy code, increasing stability and code quality across multiple modules.",
+    image: "/images/projects/gopay.svg",
+    technologies: [
+      "React.js",
+      "TypeScript",
+      "shadcn/ui",
+      "React Hook Form",
+      "Zod",
+      "Recharts",
+      "Tailwind CSS",
+      "Material UI",
+      "Styled Components",
+    ],
+    siteLink: "https://app.gopay.sa/en",
+    videoLink: "",
+    codeLink: "",
+  },
+  {
     id: 1,
     title: "Amplifidor",
     category: "Social Media",

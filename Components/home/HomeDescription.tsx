@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import LocaleLink from "@/Components/LocaleLink";
 import { useTheme } from "@/context/ThemeContext";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 
@@ -35,18 +35,18 @@ const HomeDescription = () => {
       </p>
       {/* Buttons */}
       <div className="w-full flex flex-col sm:flex-row gap-4 pb-4">
-        <Link
+        <LocaleLink
           href={primaryButtonHRef}
           className={`p-4 text-lg flex-1 rounded-lg  ${primaryButton}  text-white text-center shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1`}
         >
           {t("home.viewMyWork")}
-        </Link>
-        <Link
+        </LocaleLink>
+        <LocaleLink
           href="/contact"
           className={`p-4 flex-1  rounded-lg text-lg border-2  sm:mb-0 text-center ${secondaryButton}  transition-all duration-300 hover:-translate-y-1`}
         >
           {t("home.contactMe")}
-        </Link>
+        </LocaleLink>
       </div>
     </div>
   );

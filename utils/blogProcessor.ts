@@ -9,7 +9,7 @@ import { literatureContent } from "../data/blog";
 export function generateReleasedContent() {
   // Sort content by length (assuming longer content has more substance)
   const sortedContent = [...literatureContent].sort(
-    (a, b) => b.content.length - a.content.length
+    (a, b) => (b.content?.length ?? 0) - (a.content?.length ?? 0)
   );
 
   // Take the top entries (you can adjust this number)

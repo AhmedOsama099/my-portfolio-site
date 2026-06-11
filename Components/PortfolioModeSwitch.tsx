@@ -1,156 +1,146 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePathname, useRouter } from "next/navigation";
+import { useTheme } from "@/context/ThemeContext";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
-import { useTheme } from "@/context/ThemeContext"; // Import the useTheme hook
+import { stripLocale, withLocale } from "@/lib/i18n/config";
+
+// Two personas, one site: a segmented toggle so a visitor can flip between the
+// software-engineer portfolio and the writer/literature side. The active half
+// carries a sliding gradient pill; tapping the inactive half switches mode.
+const EngineerIcon = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+  </svg>
+);
+
+const WriterIcon = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+  </svg>
+);
 
 const PortfolioModeSwitch = () => {
-  const [isAnimating, setIsAnimating] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
-  const [clickPosition, setClickPosition] = useState({ x: 0, y: 0 });
-  const { changeLanguage } = useAppTranslation();
-  const { toggleMode, isProgrammer } = useTheme(); // Get the toggleTheme function from context
-  // Reset animation periodically to draw attention
+  const [covering, setCovering] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const { isProgrammer, toggleMode } = useTheme();
+  const { t } = useAppTranslation();
+  const pathname = usePathname();
+  const router = useRouter();
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsAnimating(true);
-      setTimeout(() => setIsAnimating(false), 2000);
-    }, 10000);
+  useEffect(() => setMounted(true), []);
 
-    return () => clearInterval(interval);
-  }, []);
+  // Drop an opaque, full-viewport black cover (portaled to body so it spans the
+  // whole screen, navbar included), swap persona + language while fully black,
+  // then lift the cover — so the visitor sees: black screen → new hero.
+  const switchMode = () => {
+    if (covering) return;
+    setCovering(true);
 
-  const handleModeToggle = (e: React.MouseEvent) => {
-    // Get click position for the loader origin
-    const rect = e.currentTarget.getBoundingClientRect();
-    setClickPosition({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
+    window.setTimeout(() => {
+      const nextLocale = isProgrammer ? "ar" : "en";
+      toggleMode();
+      router.push(withLocale(stripLocale(pathname), nextLocale));
+    }, 260);
 
-    // Show loader
-    setIsLoading(true);
-
-    // After animation completes, toggle the mode
-    setTimeout(() => {
-      // Hide loader after mode change
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 300);
-    }, 1000);
+    window.setTimeout(() => setCovering(false), 950);
   };
 
-  return (
-    <div
-      role="button"
-      tabIndex={0}
-      aria-label={
-        isProgrammer ? "Switch to Writer mode" : "Switch to Programmer mode"
-      }
-      onClick={() => {
-        toggleMode(); // Use the toggleTheme function from context
-        changeLanguage();
-      }}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          toggleMode();
-          changeLanguage();
-        }
-      }}
-    >
-      {/* Global Loader */}
-      <AnimatePresence>
-        {isLoading && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center overflow-hidden justify-center bg-black bg-opacity-50 backdrop-blur-sm"
-          >
-            <motion.div
-              className={`absolute rounded-full ${
-                isProgrammer ? "bg-blue-500" : "bg-purple-500"
-              }`}
-              style={{
-                left: clickPosition.x,
-                top: clickPosition.y,
-              }}
-              initial={{ width: 0, height: 0 }}
-              animate={{
-                width: "300vw",
-                height: "300vh",
-                x: "-50%",
-                y: "-50%",
-                opacity: [0, 0.5, 0],
-              }}
-              transition={{
-                duration: 1,
-                ease: "easeInOut",
-              }}
-            />
-            <motion.div
-              className="w-16 h-16 relative"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-            >
-              <div className="absolute top-0 left-0 w-full h-full border-4 border-t-purple-500 border-r-transparent border-b-blue-500 border-l-transparent rounded-full" />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+  const segments = [
+    {
+      key: "engineer",
+      active: isProgrammer,
+      label: t("modeSwitch.engineer"),
+      Icon: EngineerIcon,
+    },
+    {
+      key: "writer",
+      active: !isProgrammer,
+      label: t("modeSwitch.writer"),
+      Icon: WriterIcon,
+    },
+  ];
 
-      {/* Mode Switch Button */}
-      <motion.div
-        onClick={handleModeToggle}
-        className="md:top-[5%] md:start-[5%] top-2 start-2  h-min w-max bottom-6 absolute right-6 bg-gradient-to-r from-purple-500 rtl:to-slate-100 to-blue-500 hover:from-purple-600 rtl:hover:to-slate-400 hover:to-blue-600 text-white font-bold py-2 px-4 rounded-3xl shadow-lg z-50 flex items-center gap-2 cursor-pointer border-2 border-white"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        animate={
-          isAnimating
-            ? {
-                scale: [1, 1.05, 1],
-                rotate: [0, 2, -2, 0],
-                transition: {
-                  duration: 1,
-                  repeat: 1,
-                  repeatType: "reverse",
-                },
-              }
-            : {}
-        }
+  return (
+    <>
+      {/* Opaque full-viewport cover */}
+      {mounted &&
+        createPortal(
+          <AnimatePresence>
+            {covering && (
+              <motion.div
+                className="fixed inset-0 z-[9999] bg-black"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+              />
+            )}
+          </AnimatePresence>,
+          document.body
+        )}
+
+      {/* Segmented mode toggle */}
+      <div
+        role="group"
+        aria-label={t("modeSwitch.hint")}
+        aria-busy={covering}
+        className="fixed bottom-5 inset-x-0 mx-auto w-max max-w-[94vw] z-50
+          sm:absolute sm:inset-x-auto sm:mx-0 sm:bottom-auto sm:top-[5%] sm:start-[5%]"
       >
-        <div className="bg-white rounded-full p-1.5 flex items-center justify-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className={`h-5 w-5 ${
-              isProgrammer
-                ? "text-purple-500"
-                : "text-blue-500 rtl:text-slate-400"
-            }`}
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d={
-                isProgrammer
-                  ? "M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                  : "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
-              }
-            />
-          </svg>
+        <div className="flex items-center gap-1 p-1 rounded-full bg-white/85 backdrop-blur-md border border-white shadow-xl">
+          {segments.map(({ key, active, label, Icon }) => (
+            <button
+              key={key}
+              type="button"
+              onClick={() => !active && switchMode()}
+              aria-pressed={active}
+              disabled={covering}
+              className="relative flex items-center gap-2 px-4 py-2 rounded-full text-sm md:text-base font-bold transition-colors disabled:cursor-default"
+            >
+              {active && (
+                <motion.span
+                  layoutId="modeActivePill"
+                  className="absolute inset-0 -z-10 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 shadow-md"
+                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                />
+              )}
+              <Icon
+                className={`h-5 w-5 shrink-0 ${
+                  active ? "text-white" : "text-gray-500"
+                }`}
+              />
+              <span
+                className={`whitespace-nowrap ${
+                  active ? "text-white" : "text-gray-600"
+                }`}
+              >
+                {label}
+              </span>
+            </button>
+          ))}
         </div>
-        <span className="text-sm md:text-base pr-1 sm:block hidden">
-          {isProgrammer ? "Writer Mode" : "Programmer Mode"}
-        </span>
-      </motion.div>
-    </div>
+      </div>
+    </>
   );
 };
 

@@ -22,10 +22,15 @@ const Experience: React.FC<ExperienceProps> = ({ experiences, isInView }) => {
       </motion.h1>
 
       {/* Experience list */}
-      <motion.div initial={{ x: "-300px" }} animate={isInView ? { x: 0 } : {}}>
+      <motion.div
+        initial={{ x: "-300px", opacity: 0 }}
+        animate={isInView ? { x: 0, opacity: 1 } : {}}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        style={{ willChange: "transform" }}
+      >
         {/* Experience list items mapped from array */}
         {experiences.map((experience, index) => (
-          <div className="flex justify-between overflow-x-hidden" key={index}>
+          <div className="flex justify-between overflow-x-clip" key={index}>
             {/* Left */}
             <div
               className={`sm:w-[45%] sm:block mb-16 w-full ${
@@ -42,7 +47,7 @@ const Experience: React.FC<ExperienceProps> = ({ experiences, isInView }) => {
               {/* Line */}
               <div className="w-1 h-full bg-gray-600 rounded relative">
                 {/* Line Circle */}
-                <div className="absolute w-5 h-5 rounded-full ring-4 ring-red-400 bg-white -left-2"></div>
+                <div className="absolute top-1 w-5 h-5 rounded-full ring-4 ring-red-400 bg-white -left-2"></div>
               </div>
             </div>
 

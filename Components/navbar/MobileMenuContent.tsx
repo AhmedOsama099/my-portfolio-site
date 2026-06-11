@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
+import LocaleLink from "@/Components/LocaleLink";
 import { motion } from "framer-motion";
 import { menuAnimations } from "./animations";
 import { MobileMenuContentProps } from "@/types/navbar";
@@ -18,9 +18,9 @@ const MobileMenuContent: React.FC<MobileMenuContentProps> = ({
   >
     {links.map((link) => (
       <motion.div variants={menuAnimations.listItem} key={link.title}>
-        <Link onClick={toggleMenu} href={link.url}>
+        <LocaleLink onClick={toggleMenu} href={link.url}>
           {link.title}
-        </Link>
+        </LocaleLink>
       </motion.div>
     ))}
   </motion.div>

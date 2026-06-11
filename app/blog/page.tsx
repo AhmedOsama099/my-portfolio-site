@@ -22,6 +22,25 @@ const BlogPage = () => {
     };
   }, [searchTerm]);
 
+  // Deep-link support: if the page is opened with a #post-... hash (a shared
+  // link to a specific text), scroll to it once the list has rendered.
+  useEffect(() => {
+    const hash = window.location.hash?.slice(1);
+    if (!hash) return;
+    const timer = setTimeout(() => {
+      const el = document.getElementById(hash);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        el.classList.add("ring-2", "ring-[#565FA1]", "ring-offset-2");
+        setTimeout(
+          () => el.classList.remove("ring-2", "ring-[#565FA1]", "ring-offset-2"),
+          2500
+        );
+      }
+    }, 400);
+    return () => clearTimeout(timer);
+  }, []);
+
   // Filter content based on search term
   const filteredContent = useMemo(() => {
     if (debouncedSearchTerm.length < 2) return literatureContent;
@@ -36,8 +55,6 @@ const BlogPage = () => {
       return titleMatch || contentMatch;
     });
   }, [debouncedSearchTerm]);
-
-  console.log(filteredContent.filter((ele) => ele.title).length);
 
   // Handle search clear
   const handleClearSearch = () => {
@@ -77,7 +94,7 @@ const BlogPage = () => {
 
         {/* Literature Content */}
         <LiteratureList
-          filteredContent={filteredContent as any}
+          filteredContent={filteredContent}
           handleClearSearch={handleClearSearch}
         />
       </div>
