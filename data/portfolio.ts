@@ -2,11 +2,35 @@ import { Project } from "@/types/portfolio";
 
 export const projects: Project[] = [
   {
+    id: 10,
+    title: "طابخينها سوا — Tabkhenha Sawa",
+    category: "Social Network · PWA",
+    description:
+      "An Arabic-first (RTL) social network for cooks with full English support, installable as a PWA. Cooks share recipes, cook through the world's cuisines, collect Kitchen Passport stamps, and buy ready ingredient packages from store pages. It ships realtime DMs, reels, hashtags & mentions, gamification (weekly missions, leaderboards, badges), commerce (packages with discounts and sale timers, checkout via Paymob + cash-on-delivery, orders), cuisine contests and 1v1 duels, and a full moderation suite — all secured end-to-end with Supabase RLS and covered by Vitest + Playwright/axe tests.",
+    image: "/images/projects/tabkhenha-sawa.svg",
+    technologies: [
+      "Next.js 16",
+      "TypeScript",
+      "Tailwind CSS v4",
+      "shadcn/ui",
+      "next-intl",
+      "Supabase",
+      "TanStack Query",
+      "Zod",
+      "PWA",
+      "Vitest",
+      "Playwright",
+    ],
+    siteLink: "https://tab5enha-sawa.vercel.app/",
+    videoLink: "",
+    codeLink: "",
+  },
+  {
     id: 9,
     title: "Customized-Portfolio",
-    category: "Full-Stack SaaS",
+    category: "Re-themeable Full-Stack SaaS",
     description:
-      "A re-themeable, bilingual (EN/AR) professional portfolio with a built-in admin dashboard, built so a single codebase fits any persona (doctor, dentist, vet, and beyond). It pairs a public, SEO-first portfolio with a content dashboard, role-based auth (super-admin manages design/templates, admin manages content), live theming via CSS-variable design tokens, full RTL support with self-hosted Arabic fonts, and database-stored image uploads. Hardened with strict CSP/headers, signed-JWT sessions, and Zod-validated server actions, and covered by Vitest unit tests.",
+      "A re-themeable, bilingual (EN/AR) professional portfolio with a built-in admin dashboard — one codebase that re-skins into a completely different site per role (doctor, dentist, vet, pharmacist, lawyer, engineer, tutor, and beyond). Each role gets its own palette, section/nav names, animated hero motif, and Arabic/English copy, all switchable live from the dashboard with no rebuild. It pairs a public, SEO-first portfolio with a content dashboard, role-based auth (super-admin manages design/templates, admin manages content), live theming via CSS-variable design tokens, full RTL with self-hosted Arabic fonts, and database-stored image uploads. New roles are added by extension, so the catalog keeps growing. Hardened with strict CSP/headers, signed-JWT sessions, and Zod-validated server actions, and covered by Vitest tests.",
     image: "/images/projects/portfolio-model.svg",
     technologies: [
       "Next.js 15",
@@ -22,6 +46,22 @@ export const projects: Project[] = [
     siteLink: "https://portfolio-model-peach.vercel.app",
     videoLink: "",
     codeLink: "",
+    roleNote:
+      "One codebase, re-themed live into many roles — and fully customizable & extensible with new ones:",
+    roles: [
+      { label: "Doctor", icon: "🩺", link: "https://portfolio-model-peach.vercel.app/demo/role-doctor-riyadh-alqj9f" },
+      { label: "Dentist", icon: "🦷", link: "https://portfolio-model-peach.vercel.app/demo/role-dentist-riyadh-e54bf6" },
+      { label: "Vet", icon: "🐾", link: "https://portfolio-model-peach.vercel.app/demo/role-vet-jeddah-orhs7x" },
+      { label: "Pharmacist", icon: "💊", link: "https://portfolio-model-peach.vercel.app/demo/role-pharmacist-riyadh-1b380b" },
+      { label: "Lawyer", icon: "⚖️", link: "https://portfolio-model-peach.vercel.app/demo/role-lawyer-riyadh-z5lt7e" },
+      { label: "Oculist", icon: "👁️", link: "https://portfolio-model-peach.vercel.app/demo/role-oculist-jeddah-puza59" },
+      { label: "Physio", icon: "🤸", link: "https://portfolio-model-peach.vercel.app/demo/role-physio-riyadh-7tzffc" },
+      { label: "Nutritionist", icon: "🍎", link: "https://portfolio-model-peach.vercel.app/demo/role-nutritionist-jeddah-p0wc0x" },
+      { label: "Lab", icon: "🧪", link: "https://portfolio-model-peach.vercel.app/demo/role-lab-riyadh-8f0da8" },
+      { label: "Engineer", icon: "📐", link: "https://portfolio-model-peach.vercel.app/demo/role-engineer-riyadh-lpkisi" },
+      { label: "Tutor", icon: "🎓", link: "https://portfolio-model-peach.vercel.app/demo/role-tutor-riyadh-6b4d68" },
+      { label: "Classic", icon: "🗂️", link: "https://portfolio-model-peach.vercel.app/demo/role-classic-riyadh-e1e03d" },
+    ],
   },
   {
     id: 8,

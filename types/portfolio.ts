@@ -1,6 +1,12 @@
 import { MotionValue } from "framer-motion";
 import { StaticImageData } from "next/image";
 
+export interface ProjectRole {
+  label: string;
+  icon?: string;
+  link: string;
+}
+
 export interface Project {
   id: number;
   title: string;
@@ -11,6 +17,10 @@ export interface Project {
   siteLink: string;
   videoLink: string;
   codeLink: string;
+  // Optional: live demos of the same codebase themed as different personas
+  // (used to showcase a re-themeable / multi-role project).
+  roles?: ProjectRole[];
+  roleNote?: string;
 }
 
 export interface ProjectCardProps {
