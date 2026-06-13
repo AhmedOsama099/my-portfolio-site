@@ -61,6 +61,32 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
         <p className="text-gray-600 mb-6 leading-relaxed">
           {project.description}
         </p>
+
+        {/* Role demos — for a re-themeable / multi-role project */}
+        {project.roles && project.roles.length > 0 && (
+          <div className="mb-6">
+            {project.roleNote && (
+              <p className="text-sm font-semibold text-[#565FA1] mb-3">
+                {project.roleNote}
+              </p>
+            )}
+            <div className="flex flex-wrap gap-2">
+              {project.roles.map((role) => (
+                <Link
+                  key={role.label}
+                  href={role.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#565FA1]/10 text-[#3D4082] text-sm font-medium border border-[#565FA1]/20 hover:bg-[#565FA1] hover:text-white transition-colors"
+                >
+                  {role.icon && <span aria-hidden>{role.icon}</span>}
+                  {role.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="flex flex-wrap gap-4">
           {project.siteLink && (
             <Link
