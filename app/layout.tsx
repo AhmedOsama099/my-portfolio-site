@@ -14,6 +14,8 @@ import TranslationProvider from "@/Components/TranslationProvider";
 import { ThemeProvider } from "@/context/ThemeContext";
 import OutsideTechBlogStateHandler from "@/Components/PagesLanguagesStateHandler";
 import HtmlLangSync from "@/Components/HtmlLangSync";
+import WebVitals from "@/Components/WebVitals";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const siteUrl = "https://ahmedosamadev.vercel.app";
 
@@ -82,6 +84,8 @@ export default async function RootLayout({
       {/* suppressHydrationWarning prop prevents React hydration warnings that occur when server and client content don't match exactly */}
       <body suppressHydrationWarning className={`${cairo.className}`}>
         <HtmlLangSync />
+        <WebVitals />
+        <SpeedInsights />
         <TranslationProvider>
           <ThemeProvider>
             <OutsideTechBlogStateHandler>
