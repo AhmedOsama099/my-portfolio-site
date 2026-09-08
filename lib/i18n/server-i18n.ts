@@ -1,20 +1,18 @@
-// lib/i18n-server.ts
-import i18n from "i18next";
+import { createInstance, type Resource } from "i18next";
 import { translations } from "./server-translations-object";
 
 export async function initServerI18n(lang: string, ns: string) {
-  if (!i18n.isInitialized) {
-    await i18n.init<"translation">({
-      lng: lang,
-      fallbackLng: "en",
-      resources: translations as Record<string, Record<string, string>>,
-      ns: [ns],
-      defaultNS: ns,
-      interpolation: { escapeValue: false },
-    });
-  } else {
-    i18n.changeLanguage(lang);
-  }
+  const i18nInstance = createInstance();
+  const allNamespaces = Object.keys(translations.en || {});
 
-  return i18n;
+  await i18nInstance.init({
+    lng: lang,
+    fallbackLng: "en",
+    resources: translations as unknown as Resource,
+    ns: allNamespaces.includes(ns) ? allNamespaces : [...allNamespaces, ns],
+    defaultNS: ns,
+    interpolation: { escapeValue: false },
+  });
+
+  return i18nInstance;
 }

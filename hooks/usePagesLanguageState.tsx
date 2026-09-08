@@ -14,13 +14,28 @@ export const usePagesLanguageState = () => {
     useAppTranslation();
 
   const pathname = usePathname();
-  const locale = getLocaleFromPathname(pathname) ?? DEFAULT_LOCALE;
 
   useEffect(() => {
+    const pathLocale = getLocaleFromPathname(pathname);
+    const windowLocale =
+      typeof window !== "undefined"
+        ? getLocaleFromPathname(window.location.pathname)
+        : null;
+    const cookieMatch =
+      typeof document !== "undefined"
+        ? document.cookie.match(/(?:^|;\s*)i18next=([^;]+)/)
+        : null;
+    const cookieLocale =
+      cookieMatch && (cookieMatch[1] === "ar" || cookieMatch[1] === "en")
+        ? (cookieMatch[1] as "ar" | "en")
+        : null;
+
+    const locale = pathLocale || windowLocale || cookieLocale || DEFAULT_LOCALE;
+
     if (currentLanguage !== locale) {
       setLanguage(locale);
     }
     changeCurrentDirection(locale === "ar" ? "rtl" : "ltr");
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [locale]);
+  }, [pathname]);
 };

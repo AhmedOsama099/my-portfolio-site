@@ -2,6 +2,28 @@ import { Project } from "@/types/portfolio";
 
 export const projects: Project[] = [
   {
+    id: 11,
+    title: "ModernStore — Angular E-Commerce Platform",
+    category: "E-Commerce · Practice Project",
+    description:
+      "A practice project built as a full-featured, responsive modern e-commerce web application with Angular 21, NgRx Signals, Angular Material 3, and Tailwind CSS 4. Features Server-Side Rendering (SSR) with Express and prerendering. Highlights include dynamic category filtering, aspect-square product detail galleries, interactive customer review breakdowns with submission forms, persistent shopping cart and wishlist management via @angular-architects/ngrx-toolkit storage sync, and a responsive multi-step checkout workflow with mock payment and auth flows.",
+    image: "/images/projects/modern-store.svg",
+    technologies: [
+      "Angular 21",
+      "NgRx Signals",
+      "TypeScript",
+      "Tailwind CSS v4",
+      "Angular Material 3",
+      "@angular/ssr",
+      "Express",
+      "Immer",
+      "@ngxpert/hot-toast",
+    ],
+    siteLink: "https://ng-ecommerce-khaki.vercel.app/",
+    videoLink: "",
+    codeLink: "https://github.com/AhmedOsama099/ng-ecommerce",
+  },
+  {
     id: 10,
     title: "طابخينها سوا — Tabkhenha Sawa",
     category: "Social Network · PWA",

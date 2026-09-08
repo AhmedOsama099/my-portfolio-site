@@ -32,6 +32,13 @@ export const skillsList: SkillItem[] = [
 export const experienceList: ExperienceItem[] = [
   {
     title: "Senior Frontend Developer",
+    description: [],
+    date: "07.2026: present",
+    company: "Telecom Egypt",
+    side: "left",
+  },
+  {
+    title: "Senior Frontend Developer",
     description: [
       {
         title: "Social Media Application",
@@ -41,10 +48,19 @@ export const experienceList: ExperienceItem[] = [
         usedTech:
           "ReactJS - Apollo Client - Zustand - Zod - React Hook Form - ShadCN",
       },
+      {
+        title: "GoPay – Fintech Web Application",
+        description: [
+          "Engineered UI enhancements and optimised existing React components, improving usability and reducing friction across core payment and account flows.",
+          "Resolved critical production bugs and refactored legacy code, increasing stability and code quality across multiple modules.",
+        ],
+        usedTech:
+          "React.js - TypeScript - shadcn/ui - React Hook Form - Zod - Recharts - Tailwind CSS - Material UI - Styled Components",
+      },
     ],
-    date: "06.2024: present",
+    date: "06.2024: 05.2026",
     company: "Bitbang,LLC",
-    side: "left",
+    side: "right",
   },
   {
     title: "Software Engineer",
@@ -96,7 +112,7 @@ export const experienceList: ExperienceItem[] = [
     ],
     date: "10.2021: 02.2022",
     company: "_vois",
-    side: "right",
+    side: "left",
   },
   {
     title: "Front End Developer",
@@ -119,7 +135,7 @@ export const experienceList: ExperienceItem[] = [
     ],
     date: "10.2021: 02.2022",
     company: "AIS-WORKS",
-    side: "left",
+    side: "right",
   },
   {
     title: "Full Stack Developer",
@@ -165,7 +181,7 @@ export const experienceList: ExperienceItem[] = [
     ],
     date: "10.11.2020: 10.2021",
     company: "MedadSoftware Cairo",
-    side: "right",
+    side: "left",
   },
   {
     title: "Intern Full Stack Developer",
@@ -188,6 +204,6 @@ export const experienceList: ExperienceItem[] = [
     ],
     date: "10.2020: 11.2020",
     company: "Weelo Business.",
-    side: "left",
+    side: "right",
   },
 ];
