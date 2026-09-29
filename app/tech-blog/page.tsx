@@ -12,12 +12,11 @@ const technologies = [
     alt: "ts-logo",
     pageURL: "/tech-blog/ts/structural-type-system",
   },
-  // Accessibility section commented out for now.
-  // {
-  //   imageURL: "/images/techLogos/accessibility.png",
-  //   alt: "accessibility-logo",
-  //   pageURL: "/tech-blog/accessibility/general-tips",
-  // },
+  {
+    imageURL: "/images/techLogos/performance.svg",
+    alt: "performance-logo",
+    pageURL: "/tech-blog/performance/ttfb",
+  },
 ];
 
 const TechBlogPage = () => {

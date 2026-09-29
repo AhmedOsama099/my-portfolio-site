@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" width="1000" height="380" dir="rtl">
+  <defs>
+    <linearGradient id="stepBgAr" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="arrowGradAr" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="380" rx="16" fill="#0b0f19" stroke="#1e293b" stroke-width="2"/>
+  
+  <text x="500" y="45" text-anchor="middle" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="22" font-weight="800" fill="#f8fafc">
+    المراحل الـ 4 الأساسية لـ TTFB (Time to First Byte)
+  </text>
+  <text x="500" y="70" text-anchor="middle" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="14" font-weight="500" fill="#94a3b8">
+    كل ما يحدث بين لحظة ضغط المستخدم وحتى وصول أول بايت من السيرفر
+  </text>
+
+  <!-- Step 1: DNS (Rightmost in RTL) -->
+  <g transform="translate(760, 100)">
+    <rect width="210" height="190" rx="12" fill="url(#stepBgAr)" stroke="#38bdf8" stroke-width="1.5"/>
+    <circle cx="105" cy="40" r="22" fill="#0284c7" fill-opacity="0.25"/>
+    <text x="105" y="46" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" font-weight="800" fill="#38bdf8">1</text>
+    <text x="105" y="85" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#f1f5f9">DNS Lookup</text>
+    <text x="105" y="115" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">ترجمة اسم الموقع</text>
+    <text x="105" y="135" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">إلى عنوان IP السيرفر</text>
+    <rect x="25" y="152" width="160" height="24" rx="6" fill="#0f172a"/>
+    <text x="105" y="168" text-anchor="middle" font-family="monospace" font-size="11" fill="#38bdf8">example.com → IP</text>
+  </g>
+
+  <!-- Arrow 1 (Points left in RTL) -->
+  <path d="M 755 195 L 730 195" stroke="url(#arrowGradAr)" stroke-width="3"/>
+  <polygon points="725,195 733,190 733,200" fill="#818cf8"/>
+
+  <!-- Step 2: Connection Setup -->
+  <g transform="translate(510, 100)">
+    <rect width="210" height="190" rx="12" fill="url(#stepBgAr)" stroke="#6366f1" stroke-width="1.5"/>
+    <circle cx="105" cy="40" r="22" fill="#4338ca" fill-opacity="0.25"/>
+    <text x="105" y="46" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" font-weight="800" fill="#818cf8">2</text>
+    <text x="105" y="85" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#f1f5f9">TCP + TLS Setup</text>
+    <text x="105" y="115" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">المصافحة الثلاثية TCP</text>
+    <text x="105" y="135" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">+ تشفير وتأمين TLS</text>
+    <rect x="25" y="152" width="160" height="24" rx="6" fill="#0f172a"/>
+    <text x="105" y="168" text-anchor="middle" font-family="monospace" font-size="11" fill="#818cf8">SYN/ACK + SSL</text>
+  </g>
+
+  <!-- Arrow 2 -->
+  <path d="M 505 195 L 480 195" stroke="url(#arrowGradAr)" stroke-width="3"/>
+  <polygon points="475,195 483,190 483,200" fill="#818cf8"/>
+
+  <!-- Step 3: Request Travel -->
+  <g transform="translate(270, 100)">
+    <rect width="200" height="190" rx="12" fill="url(#stepBgAr)" stroke="#a855f7" stroke-width="1.5"/>
+    <circle cx="100" cy="40" r="22" fill="#7e22ce" fill-opacity="0.25"/>
+    <text x="100" y="46" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" font-weight="800" fill="#c084fc">3</text>
+    <text x="100" y="85" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#f1f5f9">Request Travel</text>
+    <text x="100" y="115" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">سفر طلب HTTP</text>
+    <text x="100" y="135" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">عبر الشبكة للسيرفر</text>
+    <rect x="20" y="152" width="160" height="24" rx="6" fill="#0f172a"/>
+    <text x="100" y="168" text-anchor="middle" font-family="monospace" font-size="11" fill="#c084fc">Headers &amp; Method</text>
+  </g>
+
+  <!-- Arrow 3 -->
+  <path d="M 265 195 L 240 195" stroke="url(#arrowGradAr)" stroke-width="3"/>
+  <polygon points="235,195 243,190 243,200" fill="#818cf8"/>
+
+  <!-- Step 4: Server Processing -->
+  <g transform="translate(30, 100)">
+    <rect width="200" height="190" rx="12" fill="url(#stepBgAr)" stroke="#f43f5e" stroke-width="1.5"/>
+    <circle cx="100" cy="40" r="22" fill="#be123c" fill-opacity="0.25"/>
+    <text x="100" y="46" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" font-weight="800" fill="#fb7185">4</text>
+    <text x="100" y="85" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#f1f5f9">Server Execution</text>
+    <text x="100" y="115" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">استعلامات الداتا بايز،</text>
+    <text x="100" y="135" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94a3b8">SSR وإرسال أول بايت</text>
+    <rect x="20" y="152" width="160" height="24" rx="6" fill="#0f172a"/>
+    <text x="100" y="168" text-anchor="middle" font-family="monospace" font-size="11" fill="#fb7185">responseStart 🚀</text>
+  </g>
+
+  <!-- Total Time Bar at bottom -->
+  <g transform="translate(30, 310)">
+    <rect width="940" height="40" rx="8" fill="#1e293b" fill-opacity="0.7" stroke="#334155"/>
+    <text x="470" y="25" text-anchor="middle" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="14" font-weight="700" fill="#38bdf8">
+      إجمالي الـ TTFB = وقت DNS + وقت إنشاء الاتصال + وقت سفر الطلب + وقت معالجة السيرفر
+    </text>
+  </g>
+</svg>

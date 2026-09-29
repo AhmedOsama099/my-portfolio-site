@@ -1,0 +1,124 @@
+{
+  "ttfb": {
+    "title": "دليلك الشامل لـ TTFB — الأساس الحقيقي لأداء الويب وسرعة التحميل",
+
+    "gettingStarted": {
+      "p1": "<span>أول ما بنفكر كـ <strong>Frontend Developers</strong> أو مهندسين برمجيات في تحسين <strong>أداء الويب Web Performance</strong>، بنلاقي تفكيرنا بيتجه تلقائيًا لتقليل حجم ملفات الـ <strong>JavaScript Bundles</strong>، أو ضغط الصور بصيغ حديثة زي <strong>WebP</strong> و <strong>AVIF</strong>، أو تأجيل تحميل ملفات الـ <strong>CSS</strong> غير الحرجة. وكل دي خطوات ممتازة ولا غنى عنها، لكن في الحقيقة كلها مبنية على افتراض ضمني أساسي: <strong>إن المتصفح استلم ملف الـ HTML بالفعل وبدأ يقرأه!</strong></span>",
+      "p2": "<span>تاريخيًا، كنا بنعتمد على مقاييس تقليدية قديمة زي <strong>DOMContentLoaded (DCL)</strong> و <strong>Load Event</strong>. لكن مع ظهور الـ <strong>Client-Side Rendering (CSR)</strong> والتطبيقات المعقدة، المقاييس دي بقت بتنتهي بسرعة شكلية بدون ما تعبر عن تجربة المستخدم الفعلية <strong>User Experience</strong>. ومن هنا ظهرت مؤشرات الـ <strong>Core Web Vitals</strong> الحديثة من <strong>Google</strong> (زي <strong>LCP</strong> للسرعة، و <strong>INP</strong> للتفاعل، و <strong>CLS</strong> للاستقرار البصري).</span>",
+      "p3": "<span>لكن ماذا لو كان المتصفح بيفضل واقف مستني مئات، أو حتى آلاف الأجزاء من الثانية (Milliseconds) قبل ما يوصله مجرد <strong>أول بايت</strong> من السيرفر؟ الوقت اللي بيقضيه المتصفح في الانتظار ده هو اللي بنقيسه بـ <strong>TTFB (Time to First Byte) زمن وصول أول بايت</strong>، وهو اللي بيحدد السقف الحقيقي لأقصى سرعة ممكن يوصلها موقعك، لأنه ببساطة <strong>عنق الزجاجة Bottleneck</strong> لكل ما يليه.</span>",
+      "p4": "<span>وعلشان نفهم الموضوع ده بعمق ونسمي الأشياء بمسمياتها الهندسية المظبوطة، خلينا نطرح بعض الأسئلة الأساسية:</span>",
+      "questions": {
+        "q1": "<span>ما هو الـ <strong>TTFB</strong> بالتحديد، وإيه اللي بيحصل داخل الـ Network من لحظة الضغط على الرابط وحتى وصول أول بايت؟</span>",
+        "q2": "<span>ما هي <strong>المراحل الـ 4 الأساسية (Lifecycle Stages)</strong> اللي بيتكون منها الـ TTFB؟</span>",
+        "q3": "<span>ليه بنعتبر الـ TTFB هو الأساس المشروط والـ Prerequisite لمؤشرات حيوية زي <strong>FCP</strong> و <strong>LCP (Largest Contentful Paint)</strong>؟</span>",
+        "q4": "<span>ما هي الاستراتيجيات الهندسية المتبعة (زي <strong>Edge Caching</strong>، <strong>HTML Streaming</strong>، و <strong>103 Early Hints</strong>) للوصول بالـ TTFB لأقل من <strong>200ms</strong>؟</span>"
+      }
+    },
+
+    "whatIsTtfb": {
+      "title": "ما هو TTFB (Time to First Byte)؟",
+      "p1": "<span>الـ <strong>TTFB (Time to First Byte)</strong> هو مقياس أداء أساسي بيحسب الوقت المنقضي من لحظة ما يبدأ المستخدم التنقل نحو صفحة معينة (سواء بكتابة الرابط، أو الضغط على لينك، أو إعادة التحميل <strong>Navigation Start</strong>) وحتى وصول أول بايت من بيانات الاستجابة من السيرفر إلى المتصفح.</span>",
+      "p2": "<span>داخل الـ <strong>Navigation Timing API</strong> المدمجة في المتصفحات الحديثة، الـ TTFB بيتم حسابه بدقة عبر الفرق الزمني بين بداية إرسال الطلب <code>requestStart</code> (أو بداية التنقل <code>startTime</code>) ولحظة وصول أول بايت من السيرفر <code>responseStart</code>.</span>",
+      "p3": "<span>مهم جدًا ندرك إن الـ TTFB مش مجرد مقياس لسرعة استجابة الباك إند لوحده، بل هو حاصل جمع عنصريين رئيسيين: <strong>تأخير الشبكة Network Latency & Round-Trip Time (RTT)</strong> (الوقت اللي بتاخده الإشارات في السفر عبر الكابلات وموزعات الشبكة) و <strong>وقت معالجة السيرفر Server Execution Time</strong> (الوقت اللي بيستغرقه السيرفر في فحص الـ Headers، وتنفيذ استعلامات الداتا بايز، وتجهيز الـ HTML عبر الـ SSR).</span>"
+    },
+
+    "lifecycle": {
+      "title": "تشريح الـ TTFB: المراحل الـ 4 الأساسية في دورة حياة الطلب",
+      "intro": "<span>في كل مرة بتفتح فيها صفحة ويب، طلبك بيمر بـ 4 مراحل متتالية ورا بعض في الـ Network قبل ما يوصل أول بايت للمتصفح:</span>",
+      "step1": "<span><strong>1. ترجمة اسم النطاق (DNS Resolution):</strong> المتصفح بيبدأ بترجمة اسم الدومين (زي <code>example.com</code>) إلى عنوان الـ IP الفعلي الخاص بالسيرفر. لو الـ DNS مش متخزن محليًا في كاش المتصفح أو مزود الخدمة (ISP)، بياخد وقت إضافي في الاستعلام من خوادم الـ Authoritative DNS.</span>",
+      "step2": "<span><strong>2. إنشاء الاتصال والمصافحة الآمنة (TCP + TLS Handshake):</strong> المتصفح بيفتح اتصال TCP مع السيرفر من خلال المصافحة الثلاثية <strong>TCP 3-Way Handshake (SYN, SYN-ACK, ACK)</strong>. وفي اتصالات <strong>HTTPS</strong>، بتتم مرحلة إضافية اسمها <strong>TLS/SSL Negotiation</strong> للتحقق من شهادة الأمان والتفاوض على مفاتيح التشفير.</span>",
+      "step3": "<span><strong>3. سفر الطلب عبر الشبكة (Request Travel):</strong> بمجرد فتح القناة الآمنة، المتصفح بيبعت طلب الـ <strong>HTTP GET</strong> الفعلي متضمنًا الـ Headers والـ Cookies. والوقت هنا بيعتمد مباشرة على المسافة الجغرافية وعدد القفزات الشبكية (Network Hops) بين العميل والسيرفر.</span>",
+      "step4": "<span><strong>4. معالجة السيرفر وإرسال أول بايت (Server Processing & responseStart):</strong> السيرفر بيستقبل الطلب، ويتحقق من الـ Session والـ Auth، وينفذ استعلامات الداتا بايز (Database Queries)، ويقوم بعملية الرندرة (SSR Rendering) أو استدعاء الـ Microservices، وأول ما يكتب أول سطر استجابة في الـ Socket، دي بتكون لحظة الـ <strong>responseStart</strong> ووصول أول بايت!</span>"
+    },
+
+    "scoring": {
+      "title": "معايير التقييم: متى يعتبر الـ TTFB ممتازًا أو ضعيفًا؟",
+      "intro": "<span>وفقًا لمعايير أداء الويب القياسية وتوصيات <strong>Google</strong>، بيتم تقييم الـ TTFB وفقًا للـ <strong>75th Percentile</strong> لتجربة المستخدمين كالتالي:</span>",
+      "good": "<span>🟢 <strong>ممتاز Good (&le; 800ms):</strong> السيرفر والشبكة بيستجيبوا بكفاءة عالية. في المواقع المحسّنة التي تعتمد على الـ <strong>Edge Caching</strong>، الهدف المثالي بيتراوح بين <strong>100ms – 300ms</strong>.</span>",
+      "needsImprovement": "<span>🟡 <strong>يحتاج لتحسين Needs Improvement (800ms – 1800ms):</strong> في تأخير ملحوظ في الاستجابة، وده بيخلي تجربة التصفح تبدو بطيئة وثقيلة خاصة على شبكات الموبايل.</span>",
+      "poor": "<span>🔴 <strong>ضعيف Poor (&gt; 1800ms):</strong> عنق زجاجة حاد في الباك إند أو شبكة الاتصال. المستخدم بيفضل مستني أمام شاشة بيضاء خاملة لمدة تقارب ثانيتين قبل ما المتصفح حتى يبدأ استلام كود الصفحة.</span>",
+      "mobileNote": "<span><strong>الموبايل مقارنة بالديسكتوب (Mobile vs. Desktop):</strong> الـ TTFB على أجهزة الموبايل بيكون أعلى في أغلب الأحيان مقارنة بالديسكتوب حتى لو السيرفر هو هو. ده بسبب طبيعة شبكات المحمول اللاسلكية (Cellular Latency)، وتغيير حالة الراديو (Radio State Transitions)، وارتفاع معدل الـ Packet Loss. علشان كده عند تشخيص المشاكل، لازم نفصل بين تأخير شبكة الاتصال <strong>Network Transit</strong> وبين وقت معالجة الباك إند <strong>Server Execution Time</strong>.</span>"
+    },
+
+    "bottleneckLcp": {
+      "title": "لماذا يعتبر TTFB الأساس وعنق الزجاجة لمؤشرات LCP و FCP؟",
+      "p1": "<span>بالرغم من إن <strong>TTFB</strong> مش مصنف كواحد من مؤشرات <strong>Core Web Vitals</strong> الثلاثة التي تؤثر مباشرة في ترتيب محركات البحث (والتي تشمل <strong>LCP</strong> للتحميل، و <strong>INP</strong> للتفاعل، و <strong>CLS</strong> للاستقرار البصري)، إلا إنه يعتبر <strong>المتطلب الحرج Prerequisite</strong> لكل المؤشرات دي بدون استثناء.</span>",
+      "p2": "<span>فكر في مسار معالجة المتصفح <strong>Browser Rendering Pipeline</strong>: المتصفح ميعرفش أي حاجة عن الصفحة قبل ما يوصله أول بايت من ملف الـ HTML. مش هيقدر يكتشف ملفات الـ CSS الحرجة، ولا يبدأ تحميل الخطوط، ولا يكتشف صورة الـ <strong>Hero Image</strong> التي تمثل الـ LCP.</span>",
+      "p3": "<span>لو الـ TTFB استغرق <strong>1.8 ثانية</strong>، فأنت بكده استنزفت أكتر من <strong>70%</strong> من الميزانية الزمنية المسموحة لـ <strong>Largest Contentful Paint (LCP)</strong> والمقدرة بـ <strong>2.5 ثانية</strong> كحد أقصى للتقييم الأخضر — وكل ده قبل ما المتصفح يرسم بيكسل واحد على الشاشة!</span>",
+      "p4": "<span>كل ملي ثانية (Millisecond) بتوفره في الـ TTFB بينعكس فورًا وبشكل مباشر في تسريع مؤشرات <strong>First Contentful Paint (FCP)</strong> و <strong>Largest Contentful Paint (LCP)</strong>.</span>"
+    },
+
+    "causes": {
+      "title": "أبرز أسباب بطء الـ TTFB (The Culprits)",
+      "intro": "<span>تحديد السبب الجذري لبطء الـ TTFB هو الخطوة الأولى لحله. ومن أكثر الأسباب شيوعًا:</span>",
+      "cause1": "<span><strong>1. الاستضافات الضعيفة والمشتركة (Shared & Underpowered Hosting):</strong> الاستضافات الرخيصة والمشتركة بتعاني من محدودية الـ CPU واختناق الذاكرة (Memory Throttling) وتزاحم الموارد، مما يضع الطلبات في طوابير انتظار قبل بدء معالجتها.</span>",
+      "cause2": "<span><strong>2. الـ SSR الديناميكي غير المخزن مؤقتًا (Lack of Caching):</strong> إعادة رندرة صفحات الـ HTML كاملة وتنفيذ دوال الباك إند مع كل Request وارد، بدون وجود طبقة كاش وسيطة.</span>",
+      "cause3": "<span><strong>3. استعلامات قواعد البيانات البطيئة (Inefficient Database Queries):</strong> الجداول غير المفهرسة (Missing Indexes)، أو مشكلات الـ N+1 Queries، والعمليات الحسابية الثقيلة التي تجعل السيرفر ينتظر طويلًا قبل إرسال أول بايت.</span>",
+      "cause4": "<span><strong>4. المسافة الجغرافية وغياب الـ CDN (Lack of CDN / Edge):</strong> عندما يكون السيرفر في قارة والمستخدم في قارة أخرى، سرعة انتقال الإشارات عبر القفزات الشبكية المتعددة تضيف مئات الأجزاء من الثانية لكل دورة اتصال (Round-Trip).</span>",
+      "cause5": "<span><strong>5. سلاسل التحويل المتكررة (Redirect Chains):</strong> التحويل المتسلسل مثل <code>http://site.com</code> &rarr; <code>http://www.site.com</code> &rarr; <code>https://www.site.com</code> يجبر المتصفح على إعادة دورة الـ DNS والـ TCP والـ TLS في كل قفزة تحويل.</span>"
+    },
+
+    "optimizations": {
+      "title": "استراتيجيات وحلول هندسية متقدمة لتحسين الـ TTFB",
+      "intro": "<span>إليك أبرز الأنماط المعمارية والحلول التقنية المتبعة للوصول بالـ TTFB لأقل من 200ms:</span>",
+      "cdn": {
+        "title": "1. الاعتماد على شبكات الـ CDN والحوسبة الطرفية (Edge Caching & Edge Workers)",
+        "description": "<span>شبكات توصيل المحتوى <strong>CDNs</strong> بتوفر خوادم موزعة جغرافيًا بالقرب من المستخدمين <strong>Edge Servers</strong>. من خلال تخزين ملفات الـ HTML بالكامل على الـ Edge، يتم الرد على الطلبات من أقرب نقطة تواجد (PoP) في خلال <strong>10–50ms</strong> فقط دون الرجوع للسيرفر الأصلي. ومع استخدام <strong>Edge Workers</strong>، يمكن تنفيذ عمليات الـ Auth والـ Routing والتخصيص مباشرة على الـ Edge بسرعة فائقة.</span>"
+      },
+      "protocols": {
+        "title": "2. البروتوكولات الحديثة وتقنيات الضغط (HTTP/2, HTTP/3 & Brotli)",
+        "description": "<span>الترقية إلى <strong>HTTP/3 (QUIC over UDP)</strong> تلغي مشكلة الـ Head-of-Line Blocking وتتيح اتصالات 0-RTT سريعة. واستخدام ضغط <strong>Brotli</strong> بدلًا من Gzip يقلل حجم استجابات الـ HTML بنسبة إضافية تتراوح بين 15% إلى 25%، مما يسرع عملية نقل البيانات.</span>"
+      },
+      "streaming": {
+        "title": "3. البث المباشر للـ HTML عبر تقنية Streaming (Chunked Transfer Encoding)",
+        "description": "<span>بدلًا من انتظار اكتمال معالجة كل البيانات واستعلامات الـ Database قبل إرسال أي رد، تتيح تقنية <strong>HTML Streaming</strong> للسيرفر إرسال جزء الـ <code>&lt;head&gt;</code> وهيكل الصفحة فورًا في صورة Chunks. المتصفح يبدأ في قراءة الـ Head وتحميل ملفات الـ CSS والخطوط بالتوازي، بينما السيرفر يواصل جلب البيانات المتغيرة لباقي الصفحة.</span>"
+      },
+      "earlyHints": {
+        "title": "4. خاصية 103 Early Hints",
+        "description": "<span>كود الاستجابة <strong>103 Early Hints</strong> يتيح للسيرفر إرسال Link Headers تمهيدية للمتصفح بالموارد الحرجة (مثل الخطوط وملفات التنسيق الأساسية) في نفس اللحظة التي يقوم فيها السيرفر بمعالجة العمليات الثقيلة واستعلامات الـ Database، مما يحول الانتظار المتسلسل إلى تحميل متوازي فائق السرعة.</span>"
+      },
+      "serviceWorker": {
+        "title": "5. الـ Service Workers ونمط الـ App Shell",
+        "description": "<span>في تطبيقات الـ SPA والـ PWA، يقوم الـ <strong>Service Worker</strong> باعتراض طلبات التصفح وتقديم هيكل التطبيق الأساسي (App Shell) فورًا من الكاش المحلي للمتصفح (TTFB &asymp; 5ms)، ثم يقوم بجلب المحتوى المتغير وتحديث الكاش في الخلفية عبر استراتيجية <strong>Stale-While-Revalidate</strong>.</span>"
+      },
+      "redirects": {
+        "title": "6. القضاء على سلاسل التحويل وتفعيل HSTS",
+        "description": "<span>التأكد من أن جميع الروابط الداخلية تشير للرابط النهائي المباشر (Canonical HTTPS). واستخدام الـ Header الخاص بـ <strong>Strict-Transport-Security (HSTS)</strong> مع خاصية الـ Preload، لتوجيه المتصفح بالاتصال عبر HTTPS مباشرة من أول محاولة دون الحاجة لأي تحويل من HTTP.</span>"
+      }
+    },
+
+    "measuring": {
+      "title": "كيف تقيس وتراقب TTFB برمجياً؟ (Performance APIs & Tools)",
+      "p1": "<span>يمكنك قياس ومراقبة الـ TTFB برمجيًا داخل كود التطبيق باستخدام الـ <strong>Performance Navigation Timing API</strong> والـ <strong>PerformanceObserver</strong>:</span>",
+      "codeSnippet": "// قياس ومراقبة TTFB بدقة باستخدام Performance Navigation Timing API\nconst [navEntry] = performance.getEntriesByType('navigation') as PerformanceNavigationTiming[];\n\nif (navEntry) {\n  // وقت معالجة السيرفر وشبكة الاتصال من بداية إرسال الطلب\n  const serverTtfb = navEntry.responseStart - navEntry.requestStart;\n  \n  // إجمالي وقت TTFB الشامل من لحظة بدء التنقل (Navigation Start)\n  const totalTtfb = navEntry.responseStart - navEntry.startTime;\n  \n  console.log(`Backend & Network TTFB: ${serverTtfb.toFixed(2)} ms`);\n  console.log(`Total Navigation TTFB: ${totalTtfb.toFixed(2)} ms`);\n}\n\n// مراقبة الدخول غير المتزامن باستخدام PerformanceObserver\nconst observer = new PerformanceObserver((list) => {\n  list.getEntriesByType('navigation').forEach((entry) => {\n    const nav = entry as PerformanceNavigationTiming;\n    console.log('Real-time TTFB:', nav.responseStart - nav.requestStart);\n  });\n});\nobserver.observe({ type: 'navigation', buffered: true });",
+      "toolsIntro": "<span>أهم الأدوات التشخيصية لمراقبة الـ TTFB في بيئات العمل:</span>",
+      "tool1": "<span><strong>Chrome DevTools (Network Waterfall):</strong> فحص رسم الـ Waterfall البياني لطلب المستند الأساسي لمشاهدة التفصيل الدقيق لأوقات الـ DNS Lookup، و Initial Connection، و SSL Handshake، و Waiting for server response (TTFB).</span>",
+      "tool2": "<span><strong>WebPageTest.org:</strong> أداة متقدمة تتيح اختبار الموقع من مواقع جغرافية وشبكات متعددة وتوفر تحليل تفصيلي لـ Server Timings.</span>",
+      "tool3": "<span><strong>PageSpeed Insights و CrUX (Chrome User Experience Report):</strong> لقياس بيانات المستخدمين الحقيقيين في الميدان <strong>Real User Monitoring (RUM)</strong> على مستوى شبكات وأجهزة متعددة.</span>"
+    },
+
+    "comparison": {
+      "title": "مقارنة معمارية: إعداد غير محسّن مقابل إعداد Edge متطور",
+      "slowLabel": "إعداد تقليدي غير محسّن",
+      "fastLabel": "إعداد محسّن معتمد على الـ Edge",
+      "differences": {
+        "hosting": "<span><strong>الاستضافة:</strong> سيرفر فردي مركزي بعيد عن المستخدمين؛ استضافة مشتركة تعاني من اختناق الموارد.</span>",
+        "hostingOpt": "<span><strong>الاستضافة:</strong> شبكة CDN عالمية موزعة مع Edge Workers لتنفيذ الأكواد عند أقرب نقطة للمستخدم.</span>",
+        "caching": "<span><strong>الكاش:</strong> غياب التخزين المؤقت؛ كل طلب يعيد تنفيذ استعلامات الـ Database والـ SSR كاملة.</span>",
+        "cachingOpt": "<span><strong>الكاش:</strong> تخزين مؤقت للـ HTML على الـ Edge (Stale-While-Revalidate / ISR) مع استجابة فورية.</span>",
+        "delivery": "<span><strong>طريقة الإرسال:</strong> إرسال الصفحة ككتلة واحدة مجمعة فقط بعد انتهاء جميع العمليات.</span>",
+        "deliveryOpt": "<span><strong>طريقة الإرسال:</strong> استخدام HTML Streaming و 103 Early Hints لتحميل الملفات بالتوازي أثناء المعالجة.</span>",
+        "protocol": "<span><strong>البروتوكولات:</strong> استخدام HTTP/1.1 مع سلاسل تحويل متكررة (Redirect Chains).</span>",
+        "protocolOpt": "<span><strong>البروتوكولات:</strong> استخدام HTTP/3 (QUIC)، وتشفير TLS 1.3، وضغط Brotli، وتفعيل HSTS Preload.</span>"
+      }
+    },
+
+    "relatedQuestions": {
+      "q1": "ليه الـ TTFB بيكون أعلى على أجهزة الموبايل مقارنة بأجهزة الديسكتوب؟",
+      "q2": "ما هو الفارق الدقيق بين مؤشر TTFB ومؤشر First Contentful Paint (FCP)؟",
+      "q3": "إزاي خاصية 103 Early Hints بتسرع تحميل الصفحة بالرغم من أن وقت معالجة السيرفر نفسه مبيتغيرش؟",
+      "q4": "هل ممكن موقع يكون محقق TTFB سريع جدًا ورغم كده يحصل على تقييم LCP سيء؟",
+      "q5": "ما هو الفارق الجوهري بين Server-Side Rendering (SSR) و Static Site Generation (SSG) من حيث الـ TTFB؟"
+    }
+  }
+}

@@ -24,6 +24,7 @@ export default function DocsImage({ src, className }: DocsImageProps) {
         alt={alt}
         width={800} // sets a base width
         height={500} // sets a base height
+        unoptimized
         style={{ height: "auto", width: "100%" }} // make it responsive
       />
     </div>

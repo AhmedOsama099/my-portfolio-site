@@ -26,6 +26,7 @@ export default async function Resources({ items }: ResourcesProps) {
               alt={item.name}
               width={24}
               height={24}
+              unoptimized
             />
           </a>
         ))}

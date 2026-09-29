@@ -27,7 +27,7 @@ export default function TechnologyLinkItem({
       >
         Soon
       </span> */}
-      <Image src={imageURL} alt={alt} width={150} height={150} />
+      <Image src={imageURL} alt={alt} width={150} height={150} unoptimized />
     </Link>
   );
 }

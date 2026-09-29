@@ -4,7 +4,7 @@ const nextConfig = {
     // Allow our own local SVGs (project featured images) to be served through
     // next/image. Locked down with a sandboxed CSP and attachment disposition.
     dangerouslyAllowSVG: true,
-    contentDispositionType: "attachment",
+    contentDispositionType: "inline",
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     remotePatterns: [
       {

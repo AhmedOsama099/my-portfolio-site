@@ -11,6 +11,8 @@ import structuralTypeSystemEn from "../../server-locales/en/ts/structural-type-s
 import structuralTypeSystemAr from "../../server-locales/ar/ts/structural-type-system.json";
 import indexSignatureEn from "../../server-locales/en/ts/index-signature.json";
 import indexSignatureAr from "../../server-locales/ar/ts/index-signature.json";
+import ttfbEn from "../../server-locales/en/performance/ttfb.json";
+import ttfbAr from "../../server-locales/ar/performance/ttfb.json";
 
 export const translations: Record<string, Record<string, unknown>> = {
   en: {
@@ -20,6 +22,7 @@ export const translations: Record<string, Record<string, unknown>> = {
     "structural-type-system": structuralTypeSystemEn,
     "index-signature": indexSignatureEn,
     "excess-type-checking": excessTypeCheckingEn,
+    ttfb: ttfbEn,
   },
   ar: {
     common: commonAr,
@@ -28,5 +31,6 @@ export const translations: Record<string, Record<string, unknown>> = {
     "structural-type-system": structuralTypeSystemAr,
     "index-signature": indexSignatureAr,
     "excess-type-checking": excessTypeCheckingAr,
+    ttfb: ttfbAr,
   },
 };

@@ -1,0 +1,124 @@
+{
+  "ttfb": {
+    "title": "TTFB (Time to First Byte) — The Foundation of Web Performance",
+
+    "gettingStarted": {
+      "p1": "<span>When developers set out to optimize a web application, the first impulse is almost always to trim JavaScript bundles, compress oversized images, or defer non-critical CSS. While these frontend optimizations are essential, they all share one hidden assumption: <strong>the browser has already received the HTML document</strong>.</span>",
+      "p2": "<span>What if the browser is forced to wait hundreds — or even thousands — of milliseconds before a single byte of HTML even leaves the server? That initial waiting period is measured by <strong>TTFB (Time to First Byte)</strong>, and it represents the absolute ceiling on how fast your page can ever load.</span>",
+      "p3": "<span>If your first byte is slow, everything downstream is slow. No amount of image compression or bundle splitting can compensate for a server that takes 2 seconds to respond.</span>",
+      "p4": "<span>Before we look into how to optimize it, let’s frame the critical questions:</span>",
+      "questions": {
+        "q1": "<span>What exactly is <strong>TTFB</strong>, and what happens between navigation start and response start?</span>",
+        "q2": "<span>What are the <strong>4 lifecycle stages</strong> that make up TTFB?</span>",
+        "q3": "<span>Why is TTFB the foundational prerequisite for <strong>FCP (First Contentful Paint)</strong> and <strong>LCP (Largest Contentful Paint)</strong>?</span>",
+        "q4": "<span>What practical engineering strategies can slash TTFB down to <strong>under 200ms</strong>?</span>"
+      }
+    },
+
+    "whatIsTtfb": {
+      "title": "What Is TTFB (Time to First Byte)?",
+      "p1": "<span><strong>TTFB (Time to First Byte)</strong> is a foundational web performance metric that measures the duration from when a client initiates a page navigation request to when the browser receives the very first byte of data in response from the server.</span>",
+      "p2": "<span>In the <strong>Navigation Timing API</strong>, this corresponds to the timestamp interval between <code>startTime</code> (or <code>requestStart</code>) and <code>responseStart</code>.</span>",
+      "p3": "<span>It is crucial to understand that TTFB is not purely a backend metric; it combines both <strong>network latency</strong> (how long signals travel through the physical cables and routers) and <strong>server execution time</strong> (how long the backend takes to query databases, compute templates, and generate the response).</span>"
+    },
+
+    "lifecycle": {
+      "title": "The 4 Critical Stages of the TTFB Lifecycle",
+      "intro": "<span>Every time you navigate to a webpage, your request must traverse four sequential phases before the first byte arrives:</span>",
+      "step1": "<span><strong>1. DNS Resolution:</strong> The browser translates the human-readable domain name (e.g., <code>example.com</code>) into an IP address. If the DNS record isn't cached locally or by your ISP, this lookup requires network round trips to authoritative nameservers.</span>",
+      "step2": "<span><strong>2. Connection Setup (TCP + TLS Handshake):</strong> The browser opens a TCP connection via a three-way handshake (SYN, SYN-ACK, ACK). On HTTPS connections, an additional TLS handshake takes place to negotiate cryptographic keys and verify certificates.</span>",
+      "step3": "<span><strong>3. Request Travel:</strong> Once the secure tunnel is open, the browser sends the HTTP GET request across the internet to the server. The duration depends on the physical distance between user and server.</span>",
+      "step4": "<span><strong>4. Server Processing & First Byte:</strong> The server receives the request, processes session headers, executes database queries, renders SSR markup or fetches microservices, and writes the HTTP status line and first chunk of data back into the socket (<code>responseStart</code>).</span>"
+    },
+
+    "scoring": {
+      "title": "TTFB Benchmarks & Scoring Criteria",
+      "intro": "<span>Google and web performance standards establish clear thresholds for evaluating TTFB performance:</span>",
+      "good": "<span>🟢 <strong>Good (&le; 800ms):</strong> The server responds swiftly. For optimal user experience and edge-cached sites, top-tier targets are between <strong>100ms – 300ms</strong>.</span>",
+      "needsImprovement": "<span>🟡 <strong>Needs Improvement (800ms – 1800ms):</strong> Noticeable delay before any visual feedback. Users on slower mobile connections will experience sluggish loading.</span>",
+      "poor": "<span>🔴 <strong>Poor (&gt; 1800ms):</strong> Significant server or network bottleneck. The user stares at a blank screen for nearly 2 seconds before the browser can even begin parsing the DOM.</span>",
+      "mobileNote": "<span><strong>Mobile vs. Desktop Reality:</strong> Mobile TTFB is almost always higher than desktop over the same backend. Cellular radios, tower handoffs, and higher packet loss add network round-trip overhead. When diagnosing TTFB, always distinguish network transit latency from backend processing duration.</span>"
+    },
+
+    "bottleneckLcp": {
+      "title": "Why TTFB is the Prerequisite Bottleneck for Core Web Vitals & LCP",
+      "p1": "<span>While <strong>TTFB</strong> is not directly one of Google's three official <strong>Core Web Vitals</strong> (which are <strong>LCP</strong> for loading speed, <strong>INP</strong> for responsiveness, and <strong>CLS</strong> for visual stability), it is the direct prerequisite for all of them.</span>",
+      "p2": "<span>Consider the browser loading pipeline: Until the first byte of HTML arrives, the browser has zero information. It cannot discover stylesheets, cannot pre-load hero images, and cannot parse critical scripts.</span>",
+      "p3": "<span>If your TTFB takes <strong>1.8 seconds</strong>, you have already consumed over 70% of your total <strong>2.5-second budget</strong> for Largest Contentful Paint (LCP) before the browser has even begun rendering a single pixel!</span>",
+      "p4": "<span>Every single millisecond shaved off your TTFB translates directly into a millisecond saved on <strong>FCP</strong> and <strong>LCP</strong>.</span>"
+    },
+
+    "causes": {
+      "title": "What Causes a Slow TTFB?",
+      "intro": "<span>Identifying the root cause of a sluggish TTFB is the first step toward fixing it. The most common culprits include:</span>",
+      "cause1": "<span><strong>1. Underpowered Hosting & Shared Servers:</strong> Low-cost shared hosting environments suffer from CPU starvation, memory throttling, and multi-tenant resource contention that leaves requests waiting in queue.</span>",
+      "cause2": "<span><strong>2. Un-cached SSR & Heavy Server Computations:</strong> Re-rendering dynamic components, assembling templates, or querying external APIs on every single HTTP request without a caching layer.</span>",
+      "cause3": "<span><strong>3. Inefficient Database Queries:</strong> Un-indexed database tables, N+1 query patterns, and unoptimized ORM lookups that stall backend execution before headers can be sent.</span>",
+      "cause4": "<span><strong>4. Physical Distance & Absence of a CDN:</strong> When an origin server is located in North America and a user requests from the Middle East or Asia, speed-of-light propagation across dozens of hops adds hundreds of milliseconds to every round-trip.</span>",
+      "cause5": "<span><strong>5. Redirect Chains:</strong> Navigating through multiple redirect hops (e.g., <code>http://site.com</code> &rarr; <code>http://www.site.com</code> &rarr; <code>https://www.site.com</code>) forces the browser to repeat DNS, TCP, and TLS handshakes for each step.</span>"
+    },
+
+    "optimizations": {
+      "title": "Battle-Tested Strategies to Optimize TTFB",
+      "intro": "<span>Here are proven architectural patterns and engineering practices to bring TTFB down into the sub-200ms range:</span>",
+      "cdn": {
+        "title": "1. Leverage CDNs & Edge Caching",
+        "description": "<span>A <strong>Content Delivery Network (CDN)</strong> places edge servers physically close to users around the globe. By caching full HTML documents or static pages at the edge, requests are resolved at the nearest point of presence (PoP) in <strong>10–50ms</strong> without hitting the origin. For dynamic workloads, <strong>Edge Workers (Serverless at the Edge)</strong> execute authentication and routing logic instantly near the client.</span>"
+      },
+      "protocols": {
+        "title": "2. Modern Protocols & Compression (HTTP/2, HTTP/3 & Brotli)",
+        "description": "<span>Adopt <strong>HTTP/3 (QUIC over UDP)</strong> to eliminate TCP head-of-line blocking and establish 0-RTT handshakes on resumed connections. Use <strong>Brotli compression</strong> over Gzip for HTML responses to reduce byte payload sizes by an additional 15–25%.</span>"
+      },
+      "streaming": {
+        "title": "3. Stream HTML Markup (Chunked Transfer Encoding)",
+        "description": "<span>Instead of waiting for your entire backend data pipeline to complete before sending any response, <strong>stream HTML in chunks</strong>. Send the <code>&lt;head&gt;</code> section immediately so the browser starts downloading critical CSS, fonts, and scripts while the server finishes fetching asynchronous body data.</span>"
+      },
+      "earlyHints": {
+        "title": "4. 103 Early Hints",
+        "description": "<span><strong>103 Early Hints</strong> is an HTTP status code sent by the server while it is still computing the main response. It instructs the browser to begin pre-loading critical style sheets and fonts during server-side execution, transforming sequential waiting into parallel fetching.</span>"
+      },
+      "serviceWorker": {
+        "title": "5. Service Workers & App Shell Architecture",
+        "description": "<span>For single-page and progressive web applications, a <strong>Service Worker</strong> intercepts navigation requests and serves the cached App Shell instantly from local storage (TTFB &asymp; 5ms), fetching dynamic data subsequently in the background using a <strong>Stale-While-Revalidate</strong> strategy.</span>"
+      },
+      "redirects": {
+        "title": "6. Eliminate Redirects & Enforce HSTS",
+        "description": "<span>Audit internal links to use canonical HTTPS URLs with matching trailing slashes. Implement the <strong>Strict-Transport-Security (HSTS)</strong> header with preload to instruct browsers to connect directly over HTTPS on the very first try, avoiding the plain HTTP redirect round-trip.</span>"
+      }
+    },
+
+    "measuring": {
+      "title": "How to Measure & Monitor TTFB",
+      "p1": "<span>You can programmatically capture TTFB in the browser using the native <strong>Performance Navigation Timing API</strong>:</span>",
+      "codeSnippet": "// Measure TTFB using the Performance Navigation Timing API\nconst [navigationEntry] = performance.getEntriesByType('navigation') as PerformanceNavigationTiming[];\n\nif (navigationEntry) {\n  // Backend processing & network duration from request to first byte\n  const ttfb = navigationEntry.responseStart - navigationEntry.requestStart;\n  \n  // Total TTFB from navigation initiation\n  const totalTtfb = navigationEntry.responseStart - navigationEntry.startTime;\n  \n  console.log(`TTFB (Request to First Byte): ${ttfb.toFixed(2)} ms`);\n  console.log(`Total TTFB (Start to First Byte): ${totalTtfb.toFixed(2)} ms`);\n}",
+      "toolsIntro": "<span>Key diagnostic and real-user monitoring tools for TTFB:</span>",
+      "tool1": "<span><strong>Chrome DevTools (Network Tab):</strong> Inspect the Waterfall breakdown of the primary document request to see exact timings for DNS, Initial Connection, SSL, and Waiting for server response (TTFB).</span>",
+      "tool2": "<span><strong>WebPageTest.org:</strong> Provides detailed multi-location TTFB audits with connection waterfall graphs and server timing headers.</span>",
+      "tool3": "<span><strong>PageSpeed Insights & CrUX:</strong> Measures Real User Monitoring (RUM) field data representing actual user experience across diverse networks.</span>"
+    },
+
+    "comparison": {
+      "title": "Summary: Slow TTFB vs. Optimized TTFB",
+      "slowLabel": "Un-optimized Setup",
+      "fastLabel": "Optimized Edge Setup",
+      "differences": {
+        "hosting": "<span><strong>Hosting:</strong> Single origin server far from users; shared resources without edge distribution.</span>",
+        "hostingOpt": "<span><strong>Hosting:</strong> Global CDN edge PoPs with Edge Workers executing close to the user.</span>",
+        "caching": "<span><strong>Caching:</strong> Zero HTML caching; every request triggers fresh DB queries and full SSR computation.</span>",
+        "cachingOpt": "<span><strong>Caching:</strong> Edge HTML caching (stale-while-revalidate / ISR / SSG) with instant cache hits.</span>",
+        "delivery": "<span><strong>Delivery:</strong> Monolithic response sent only when the entire page is rendered.</span>",
+        "deliveryOpt": "<span><strong>Delivery:</strong> HTML streaming + 103 Early Hints pre-loading critical assets in parallel.</span>",
+        "protocol": "<span><strong>Protocols:</strong> HTTP/1.1 or legacy TLS with multi-hop redirect chains.</span>",
+        "protocolOpt": "<span><strong>Protocols:</strong> HTTP/3 (QUIC), TLS 1.3, Brotli compression, and HSTS preload.</span>"
+      }
+    },
+
+    "relatedQuestions": {
+      "q1": "Why is TTFB higher on mobile devices compared to desktop?",
+      "q2": "What is the difference between TTFB and FCP (First Contentful Paint)?",
+      "q3": "How does 103 Early Hints help if the server processing time is unchanged?",
+      "q4": "Can a website have a fast TTFB but a poor LCP score?",
+      "q5": "How does Server-Side Rendering (SSR) compare to Static Site Generation (SSG) in terms of TTFB?"
+    }
+  }
+}

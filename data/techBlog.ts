@@ -44,12 +44,16 @@ const accessibilityNavItems = (
     title: t("tech-blog.accessibility.general-tips"),
     href: "general-tips",
   },
+];
 
-  // {
-  //   id: "excess-type-checking",
-  //   title: t("tech-blog.ts.excess-type-checking"),
-  //   href: "excess-type-checking",
-  // },
+const performanceNavItems = (
+  t: TFunction<"translation", undefined>
+): TechNavItemProps[] => [
+  {
+    id: "ttfb",
+    title: t("tech-blog.performance.ttfb"),
+    href: "ttfb",
+  },
 ];
 
 export const navItemsMapper = (
@@ -58,6 +62,7 @@ export const navItemsMapper = (
   git: gitNavItems(t),
   ts: tsNavItems(t),
   accessibility: accessibilityNavItems(t),
+  performance: performanceNavItems(t),
 });
 
 export const logoMap: Record<string, string> = {
