@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="50%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#030712" />
+    </linearGradient>
+    <linearGradient id="glowViolet" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#ec4899" stop-opacity="0.2" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1f2937" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#111827" stop-opacity="0.9" />
+    </linearGradient>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#818cf8" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="480" fill="url(#bgGrad)" />
+
+  <!-- Ambient Glows -->
+  <circle cx="200" cy="140" r="180" fill="#6366f1" opacity="0.15" filter="url(#glow)" />
+  <circle cx="1000" cy="320" r="200" fill="#10b981" opacity="0.12" filter="url(#glow)" />
+  <circle cx="600" cy="240" r="220" fill="#ec4899" opacity="0.08" filter="url(#glow)" />
+
+  <!-- Grid lines -->
+  <g stroke="#374151" stroke-width="1" opacity="0.2">
+    <line x1="0" y1="80" x2="1200" y2="80" />
+    <line x1="0" y1="160" x2="1200" y2="160" />
+    <line x1="0" y1="240" x2="1200" y2="240" />
+    <line x1="0" y1="320" x2="1200" y2="320" />
+    <line x1="0" y1="400" x2="1200" y2="400" />
+    <line x1="200" y1="0" x2="200" y2="480" />
+    <line x1="400" y1="0" x2="400" y2="480" />
+    <line x1="600" y1="0" x2="600" y2="480" />
+    <line x1="800" y1="0" x2="800" y2="480" />
+    <line x1="1000" y1="0" x2="1000" y2="480" />
+  </g>
+
+  <!-- Left Side: Typography & Badges -->
+  <g transform="translate(80, 100)">
+    <!-- Badge -->
+    <rect x="0" y="0" width="220" height="34" rx="17" fill="#1e1b4b" stroke="#6366f1" stroke-width="1.5" />
+    <circle cx="18" cy="17" r="6" fill="#10b981" />
+    <text x="34" y="22" fill="#a5b4fc" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" letter-spacing="1">WEB PERFORMANCE</text>
+
+    <!-- Main Title -->
+    <text x="0" y="80" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="44" font-weight="800">
+      First Contentful Paint
+    </text>
+    <text x="0" y="125" fill="url(#accentGrad)" font-family="system-ui, -apple-system, sans-serif" font-size="34" font-weight="700">
+      (FCP) Deep Dive
+    </text>
+
+    <!-- Subtitle -->
+    <text x="0" y="170" fill="#9ca3af" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="400">
+      The critical threshold when your users perceive visual life.
+    </text>
+    <text x="0" y="196" fill="#9ca3af" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="400">
+      Critical Rendering Path, Render-Blocking CSS, &amp; Font Strategies.
+    </text>
+
+    <!-- Stat Pills -->
+    <g transform="translate(0, 230)">
+      <rect x="0" y="0" width="130" height="42" rx="10" fill="#064e3b" stroke="#10b981" stroke-width="1" />
+      <text x="20" y="26" fill="#6ee7b7" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700">Good ≤ 1.8s</text>
+
+      <rect x="145" y="0" width="150" height="42" rx="10" fill="#451a03" stroke="#f59e0b" stroke-width="1" />
+      <text x="160" y="26" fill="#fde68a" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700">10% Lighthouse</text>
+
+      <rect x="310" y="0" width="140" height="42" rx="10" fill="#312e81" stroke="#818cf8" stroke-width="1" />
+      <text x="325" y="26" fill="#c7d2fe" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700">Paint API</text>
+    </g>
+  </g>
+
+  <!-- Right Side: Interactive Mockup Visual -->
+  <g transform="translate(680, 80)">
+    <!-- Browser Window Card -->
+    <rect x="0" y="0" width="440" height="320" rx="16" fill="url(#cardGrad)" stroke="#374151" stroke-width="1.5" />
+    
+    <!-- Browser Controls -->
+    <rect x="0" y="0" width="440" height="40" rx="16" fill="#111827" />
+    <circle cx="24" cy="20" r="5" fill="#ef4444" />
+    <circle cx="40" cy="20" r="5" fill="#f59e0b" />
+    <circle cx="56" cy="20" r="5" fill="#10b981" />
+    <rect x="80" y="10" width="280" height="20" rx="6" fill="#1f2937" />
+    <text x="140" y="24" fill="#9ca3af" font-family="monospace" font-size="11">https://your-site.com</text>
+
+    <!-- Browser Viewport Content (First Contentful Paint Mock) -->
+    <!-- Nav bar rendered -->
+    <rect x="25" y="58" width="80" height="16" rx="4" fill="#38bdf8" />
+    <rect x="315" y="60" width="45" height="12" rx="3" fill="#4b5563" />
+    <rect x="370" y="60" width="45" height="12" rx="3" fill="#4b5563" />
+    
+    <!-- Hero Text (Contentful Paint item #1) -->
+    <rect x="25" y="95" width="220" height="22" rx="4" fill="#f3f4f6" />
+    <rect x="25" y="125" width="280" height="12" rx="3" fill="#6b7280" />
+    <rect x="25" y="145" width="250" height="12" rx="3" fill="#4b5563" />
+
+    <!-- Button & Badge (Contentful item #2) -->
+    <rect x="25" y="175" width="100" height="30" rx="6" fill="#6366f1" />
+    <text x="45" y="195" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="700">Get Started</text>
+
+    <!-- Image skeleton / SVG illustration (Contentful item #3) -->
+    <rect x="250" y="175" width="165" height="110" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="4,4" />
+    <path d="M 280 250 L 310 215 L 340 240 L 370 200 L 400 250 Z" fill="#0284c7" opacity="0.7" />
+    <circle cx="310" cy="200" r="12" fill="#fbbf24" />
+
+    <!-- Stamp: FCP FIRED -->
+    <g transform="translate(260, 85)">
+      <rect x="0" y="0" width="150" height="36" rx="8" fill="#065f46" stroke="#34d399" stroke-width="1.5" filter="url(#glow)" />
+      <circle cx="18" cy="18" r="5" fill="#34d399" />
+      <text x="32" y="23" fill="#ecfdf5" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="800">FCP FIRED: 0.9s</text>
+    </g>
+  </g>
+</svg>

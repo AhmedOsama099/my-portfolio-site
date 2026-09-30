@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+    <linearGradient id="ttfbGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#4f46e5" />
+    </linearGradient>
+    <linearGradient id="parseGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#2563eb" />
+    </linearGradient>
+    <linearGradient id="cssomGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="fcpGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <filter id="shadowBox" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#000" flood-opacity="0.4" />
+    </filter>
+  </defs>
+
+  <rect width="1100" height="480" rx="16" fill="url(#bgGrad)" />
+
+  <!-- Main Title -->
+  <text x="550" y="45" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="800" text-anchor="middle">
+    The Critical Path to FCP (First Contentful Paint)
+  </text>
+  <text x="550" y="72" fill="#9ca3af" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="400" text-anchor="middle">
+    How every milestone connects: Navigation → TTFB → HTML Parsing → Render Tree → First Contentful Paint
+  </text>
+
+  <!-- 4 Stage Blocks -->
+  <g transform="translate(30, 110)">
+    
+    <!-- Stage 1: TTFB Phase -->
+    <g transform="translate(0, 0)" filter="url(#shadowBox)">
+      <rect width="235" height="260" rx="12" fill="#1e1b4b" stroke="#6366f1" stroke-width="1.5" />
+      <rect width="235" height="40" rx="12" fill="url(#ttfbGrad)" />
+      <text x="117" y="25" fill="#ffffff" font-family="system-ui, sans-serif" font-size="14" font-weight="700" text-anchor="middle">1. Network &amp; TTFB</text>
+      
+      <g transform="translate(16, 55)">
+        <text x="0" y="16" fill="#c7d2fe" font-family="system-ui, sans-serif" font-size="12" font-weight="700">• DNS Resolution</text>
+        <text x="0" y="36" fill="#a5b4fc" font-family="system-ui, sans-serif" font-size="11">Resolving domain to IP</text>
+        
+        <text x="0" y="66" fill="#c7d2fe" font-family="system-ui, sans-serif" font-size="12" font-weight="700">• TCP + TLS Handshake</text>
+        <text x="0" y="86" fill="#a5b4fc" font-family="system-ui, sans-serif" font-size="11">Establishing secure socket</text>
+        
+        <text x="0" y="116" fill="#c7d2fe" font-family="system-ui, sans-serif" font-size="12" font-weight="700">• Server Execution</text>
+        <text x="0" y="136" fill="#a5b4fc" font-family="system-ui, sans-serif" font-size="11">SSR / DB queries / Cache lookup</text>
+
+        <rect x="0" y="155" width="203" height="28" rx="6" fill="#312e81" stroke="#818cf8" stroke-width="1" />
+        <text x="101" y="174" fill="#e0e7ff" font-family="monospace" font-size="11" font-weight="700" text-anchor="middle">responseStart (1st Byte)</text>
+      </g>
+    </g>
+
+    <!-- Arrow 1 -->
+    <path d="M 245 130 L 265 130" stroke="#6366f1" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)" />
+
+    <!-- Stage 2: HTML Parsing -->
+    <g transform="translate(275, 0)" filter="url(#shadowBox)">
+      <rect width="235" height="260" rx="12" fill="#172554" stroke="#3b82f6" stroke-width="1.5" />
+      <rect width="235" height="40" rx="12" fill="url(#parseGrad)" />
+      <text x="117" y="25" fill="#ffffff" font-family="system-ui, sans-serif" font-size="14" font-weight="700" text-anchor="middle">2. HTML &amp; DOM</text>
+      
+      <g transform="translate(16, 55)">
+        <text x="0" y="16" fill="#bfdbfe" font-family="system-ui, sans-serif" font-size="12" font-weight="700">• HTML Tokenization</text>
+        <text x="0" y="36" fill="#93c5fd" font-family="system-ui, sans-serif" font-size="11">Browser reads bytes stream</text>
+        
+        <text x="0" y="66" fill="#bfdbfe" font-family="system-ui, sans-serif" font-size="12" font-weight="700">• DOM Tree Construction</text>
+        <text x="0" y="86" fill="#93c5fd" font-family="system-ui, sans-serif" font-size="11">Nodes created progressively</text>
+        
+        <text x="0" y="116" fill="#bfdbfe" font-family="system-ui, sans-serif" font-size="12" font-weight="700">• Preload Scanner</text>
+        <text x="0" y="136" fill="#93c5fd" font-family="system-ui, sans-serif" font-size="11">Discovers &lt;link&gt; &amp; &lt;script&gt;</text>
+
+        <rect x="0" y="155" width="203" height="28" rx="6" fill="#1e3a8a" stroke="#60a5fa" stroke-width="1" />
+        <text x="101" y="174" fill="#dbeafe" font-family="monospace" font-size="11" font-weight="700" text-anchor="middle">DOM Ready to Style</text>
+      </g>
+    </g>
+
+    <!-- Arrow 2 -->
+    <path d="M 520 130 L 540 130" stroke="#3b82f6" stroke-width="3" stroke-linecap="round" />
+
+    <!-- Stage 3: CSSOM & Render Blocking -->
+    <g transform="translate(550, 0)" filter="url(#shadowBox)">
+      <rect width="235" height="260" rx="12" fill="#451a03" stroke="#f59e0b" stroke-width="1.5" />
+      <rect width="235" height="40" rx="12" fill="url(#cssomGrad)" />
+      <text x="117" y="25" fill="#ffffff" font-family="system-ui, sans-serif" font-size="14" font-weight="700" text-anchor="middle">3. CSSOM &amp; Script Block</text>
+      
+      <g transform="translate(16, 55)">
+        <text x="0" y="16" fill="#fde68a" font-family="system-ui, sans-serif" font-size="12" font-weight="700">• CSSOM Construction</text>
+        <text x="0" y="36" fill="#fcd34d" font-family="system-ui, sans-serif" font-size="11">CSS is render-blocking!</text>
+        
+        <text x="0" y="66" fill="#fde68a" font-family="system-ui, sans-serif" font-size="12" font-weight="700">• Synchronous JS Execution</text>
+        <text x="0" y="86" fill="#fcd34d" font-family="system-ui, sans-serif" font-size="11">Blocks parser until finished</text>
+        
+        <text x="0" y="116" fill="#fde68a" font-family="system-ui, sans-serif" font-size="12" font-weight="700">• Font Loading (FOIT)</text>
+        <text x="0" y="136" fill="#fcd34d" font-family="system-ui, sans-serif" font-size="11">Waiting for web font files</text>
+
+        <rect x="0" y="155" width="203" height="28" rx="6" fill="#78350f" stroke="#fbbf24" stroke-width="1" />
+        <text x="101" y="174" fill="#fef3c7" font-family="monospace" font-size="11" font-weight="700" text-anchor="middle">Render Tree Formed</text>
+      </g>
+    </g>
+
+    <!-- Arrow 3 -->
+    <path d="M 795 130 L 815 130" stroke="#f59e0b" stroke-width="3" stroke-linecap="round" />
+
+    <!-- Stage 4: Layout & FCP -->
+    <g transform="translate(825, 0)" filter="url(#shadowBox)">
+      <rect width="245" height="260" rx="12" fill="#022c22" stroke="#10b981" stroke-width="2" />
+      <rect width="245" height="40" rx="12" fill="url(#fcpGrad)" />
+      <text x="122" y="25" fill="#ffffff" font-family="system-ui, sans-serif" font-size="14" font-weight="800" text-anchor="middle">4. Layout &amp; FCP ⚡</text>
+      
+      <g transform="translate(16, 55)">
+        <text x="0" y="16" fill="#a7f3d0" font-family="system-ui, sans-serif" font-size="12" font-weight="700">• Layout (Reflow)</text>
+        <text x="0" y="36" fill="#6ee7b7" font-family="system-ui, sans-serif" font-size="11">Computing box positions</text>
+        
+        <text x="0" y="66" fill="#a7f3d0" font-family="system-ui, sans-serif" font-size="12" font-weight="700">• First Contentful Paint</text>
+        <text x="0" y="86" fill="#6ee7b7" font-family="system-ui, sans-serif" font-size="11">Text, SVG, Images painted!</text>
+        
+        <text x="0" y="116" fill="#a7f3d0" font-family="system-ui, sans-serif" font-size="12" font-weight="700">• User Perception</text>
+        <text x="0" y="136" fill="#6ee7b7" font-family="system-ui, sans-serif" font-size="11">Visual confirmation received</text>
+
+        <rect x="0" y="155" width="213" height="32" rx="6" fill="#065f46" stroke="#34d399" stroke-width="1.5" />
+        <text x="106" y="176" fill="#ecfdf5" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">🎯 FCP FIRED (&le; 1.8s)</text>
+      </g>
+    </g>
+
+  </g>
+
+  <!-- Bottom Timeline Bar -->
+  <g transform="translate(30, 400)">
+    <rect width="1040" height="40" rx="8" fill="#1f2937" stroke="#374151" stroke-width="1" />
+    <rect x="0" y="0" width="270" height="40" rx="8" fill="#4f46e5" opacity="0.6" />
+    <text x="135" y="24" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">TTFB Window (Sub-phase of FCP)</text>
+
+    <rect x="270" y="0" width="770" height="40" rx="8" fill="#059669" opacity="0.7" />
+    <text x="655" y="24" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">Parsing + Styling + Painting Window → TOTAL TIME = FCP</text>
+  </g>
+</svg>

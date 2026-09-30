@@ -38,7 +38,8 @@
       "index-signature": "Index Signature"
     },
     "performance": {
-      "ttfb": "Time to First Byte (TTFB)"
+      "ttfb": "Time to First Byte (TTFB)",
+      "fcp": "First Contentful Paint (FCP)"
     }
   }
 }

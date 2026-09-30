@@ -1,0 +1,124 @@
+{
+  "fcp": {
+    "title": "دليلك الشامل لـ FCP (First Contentful Paint) — أول ومضة حياة يراها المستخدم",
+
+    "gettingStarted": {
+      "p1": "<span>بعد ما اتكلمنا في المقال السابق عن <strong>TTFB (Time to First Byte)</strong> وعرفنا إنه حجر الأساس اللي بيحدد سرعة استلام المتصفح لأول بايت من السيرفر، بيجي الدور فورًا على اللحظة الأهم بالنسبة للمستخدم: <strong>متى هيبدأ يشوف حاجة حقيقية مرسومة قدامه على الشاشة؟</strong></span>",
+      "p2": "<span>تخيل معايا السيناريو ده: المستخدم ضغط على لينك موقعك، الـ TTFB كان سريع جداً واستلم ملف الـ HTML في <strong>150ms</strong>، لكن الصفحة فضلت بيضاء تماماً وفارغة لمدة <strong>3 أو 4 ثواني!</strong> المستخدم في اللحظة دي مش مهتم السيرفر رد في كام جزء من الثانية، هو شايف شاشة بيضاء خاملة وهيبدأ يفتكر إن الموقع مهنج أو فيه عطل، وممكن يقفل التاب ويمشي (Bounce).</span>",
+      "p3": "<span>هنا بالظبط بيظهر المقياس المحوري <strong>First Contentful Paint (FCP)</strong>. الـ FCP هو أول تأكيد بصري حقيقي يطمن المستخدم إن الصفحة شغالة وبدأت تعرض محتواها الفعلي. وعلشان نفهم الـ FCP بعمق ونتعلم إزاي نخليه ينطلق في أقل من <strong>1.8 ثانية</strong>، خلينا نطرح الأسئلة الجوهرية دي:</span>",
+      "questions": {
+        "q1": "<span>ما هو الـ <strong>First Contentful Paint (FCP)</strong> بالتحديد، وإيه العناصر المؤهلة لاعتباره انطلق؟</span>",
+        "q2": "<span>إيه الفرق الدقيق بين <strong>First Paint (FP)</strong> و <strong>First Contentful Paint (FCP)</strong> و <strong>Largest Contentful Paint (LCP)</strong>؟</span>",
+        "q3": "<span>ليه الـ <strong>TTFB</strong> بيعتبر جزء متضمن تلقائياً داخل الـ FCP، وإزاي الـ <strong>Critical Rendering Path</strong> بيأثر عليه؟</span>",
+        "q4": "<span>ما هي أسباب بطء الـ FCP (زي الموارد الحاجبة <strong>Render-Blocking Resources</strong> واستراتيجيات الخطوط <strong>FOIT</strong>)، وإزاي نعالجها عملياً؟</span>"
+      }
+    },
+
+    "whatIsFcp": {
+      "title": "ما هو FCP (First Contentful Paint)؟",
+      "p1": "<span>الـ <strong>First Contentful Paint (FCP)</strong> هو مقياس أداء متمركز حول المستخدم (User-Centric Metric) بيقيس الوقت المنقضي من لحظة بدء المستخدم للتنقل نحو الصفحة (Navigation Start) وحتى قيام المتصفح برسم <strong>أول جزء من محتوى الـ DOM</strong> على الشاشة.</span>",
+      "p2": "<span>المقصود بـ <strong>المحتوى Content</strong> هنا وفقاً للمواصفات القياسية هو:</span>",
+      "items": {
+        "text": "<span><strong>1. النصوص (Text Elements):</strong> أي نص داخل عناصر HTML مثل العناوين <code>&lt;h1&gt;</code>، الفقرات <code>&lt;p&gt;</code>، أو القوائم.</span>",
+        "images": "<span><strong>2. الصور (Images & Background Images):</strong> الصور المحملة عبر وسم <code>&lt;img&gt;</code> أو صور الخلفية المحملة عبر الـ CSS <code>background-image</code> بمجرد رسم أول بكسل منها.</span>",
+        "svg": "<span><strong>3. عناصر الفيكتور (SVG Elements):</strong> الرسوم والشعارات المكتوبة عبر وسوم <code>&lt;svg&gt;</code>.</span>",
+        "canvas": "<span><strong>4. لوحات الرسم غير البيضاء (Non-white &lt;canvas&gt;):</strong> أي عنصر <code>&lt;canvas&gt;</code> تم رسم محتوى لوني داخله مختلف عن الأبيض الفارغ.</span>"
+      },
+      "p3": "<span>لو الصفحة رسمت مجرد لون خلفية فقط (Background Color) أو شاشة بيضاء، ده <strong>مش FCP</strong>. الـ FCP لازم يتضمن عنصر محتوى فعلي من العناصر المذكورة أعلاه. ويمثل الـ FCP نسبة <strong>10% من إجمالي تقييم الأداء في Google Lighthouse (Score Weight)</strong>.</span>"
+    },
+
+    "fpVsFcpVsLcp": {
+      "title": "المقارنة الثلاثية: FP مقابل FCP مقابل LCP",
+      "intro": "<span>كتير من المطورين بيحصل عندهم خلط بين مقاييس الرسم المختلفة. خلينا نوضح الفرق الجوهري بينهم:</span>",
+      "fp": "<span><strong>1. First Paint (FP) — الرسم الأول:</strong> بيسجل اللحظة اللي المتصفح بيرسم فيها <em>أي بكسل على الإطلاق</em> على الشاشة، حتى لو كان مجرد تغيير لون خلفية الصفحة (Background Color) أو مجرد إطار فارغ بدون أي محتوى نصي أو صور.</span>",
+      "fcp": "<span><strong>2. First Contentful Paint (FCP) — الرسم الأول للمحتوى:</strong> بيسجل اللحظة اللي بيظهر فيها <em>أول محتوى DOM حقيقي</em> (نص، لوجو، صورة، SVG). مش مهم حجمه قد إيه، المهم إن في محتوى مفيد ظهر يثبت للمستخدم إن الصفحة بتحمل.</span>",
+      "lcp": "<span><strong>3. Largest Contentful Paint (LCP) — الرسم للمحتوى الأكبر:</strong> بيسجل اللحظة اللي بيكتمل فيها رسم <em>أكبر وأهم عنصر مرئي</em> في الـ Viewport (زي صورة الـ Hero Image الرئيسية أو العنوان الرئيسي الضخم للمقال). وهو أحد الأعمدة الثلاثة الأساسية لـ <strong>Core Web Vitals</strong>.</span>",
+      "summary": "<span>باختصار شديد: الـ <strong>FP</strong> بيأكد إن المتصفح بدأ يغير الشاشة، الـ <strong>FCP</strong> بيأكد إن أول معلومة ظهرت، والـ <strong>LCP</strong> بيأكد إن المحتوى الأساسي والجاهز للقراءة اكتمل.</span>"
+    },
+
+    "scoring": {
+      "title": "معايير التقييم: متى يعتبر الـ FCP ممتازاً أو ضعيفاً؟",
+      "intro": "<span>وفقاً لتوصيات <strong>Google</strong> وبيانات الـ <strong>Chrome User Experience Report (CrUX)</strong>، بيتم تصنيف الـ FCP عند الشريحة المئوية <strong>75th Percentile</strong> للمستخدمين كالتالي:</span>",
+      "good": "<span>🟢 <strong>ممتاز Good (&le; 1.8 ثانية):</strong> المستخدم بيشهد ظهور أول محتوى بصري في أقل من 1.8 ثانية، وده بيعطي انطباع فوري بالسرعة والاستجابة العالية.</span>",
+      "needsImprovement": "<span>🟡 <strong>يحتاج لتحسين Needs Improvement (1.8s – 3.0s):</strong> المستخدم بيبدأ يشعر بتأخير وانتظار خفيف، ومحتاج تحسين للمسار الحرج (Critical Rendering Path).</span>",
+      "poor": "<span>🔴 <strong>ضعيف Poor (&gt; 3.0 ثوانٍ):</strong> تأخير ملحوظ جداً وشاشة بيضاء مستمرة لأكثر من 3 ثوانٍ، مما يؤدي لارتفاع معدلات الارتداد (Bounce Rate) وتجربة مستخدم سيئة.</span>"
+    },
+
+    "criticalPath": {
+      "title": "المسار الحرج للرندرة: كيف يرتبط TTFB بالـ FCP؟",
+      "p1": "<span>من الناحية الهندسية، الـ <strong>FCP لا يمكن أن ينطلق أبداً قبل اكتمال الـ TTFB</strong>، لأن المتصفح بيحتاج أولاً يستلم الـ HTML علشان يبدأ رحلة الرندرة. المعادلة التتابعية بتمشي كالتالي:</span>",
+      "p2": "<code>Navigation Start &rarr; TTFB (DNS + TCP + TLS + Server) &rarr; HTML Parsing &rarr; DOM + CSSOM &rarr; Render Tree &rarr; Layout &rarr; FCP</code>",
+      "p3": "<span>بعد ما بيوصل أول بايت، المتصفح بيبدأ يقرأ كود الـ HTML سطر بسطر ويبني شجرة الـ <strong>DOM Tree</strong>. وأثناء القراءة دي، أول ما يقابل ملفات <strong>CSS</strong> خارجية أو وسوم <code>&lt;script&gt;</code> عادية غير متزامنة، المتصفح <strong>بيوقف عملية الرندرة تماماً</strong> ويستنى تحميل وتفسير الملفات دي لبناء شجرة الـ <strong>CSSOM Tree</strong>.</span>",
+      "p4": "<span>بدون اكتمال الـ CSSOM ودمجها مع الـ DOM لإنشاء شجرة الـ <strong>Render Tree</strong>، المتصفح مبيكونش عارف إزاي ينسق العناصر أو يحدد أحجامها ومواضعها (Layout Phase)، وبالتالي مبيقدرش يرسم أي بكسل على الشاشة حتى لو الـ HTML نزل بالكامل!</span>"
+    },
+
+    "causes": {
+      "title": "أبرز أسباب بطء الـ FCP (The Bottlenecks)",
+      "intro": "<span>ليه الـ FCP ممكن يتأخر ويوصل لأكتر من 3 ثواني؟ إليك الأسباب الجذرية:</span>",
+      "cause1": "<span><strong>1. الموارد الحاجبة للرندرة (Render-Blocking CSS & JS):</strong> ملفات الـ CSS الخارجية وملفات الـ JavaScript المتزامنة الموضوعة في الـ <code>&lt;head&gt;</code> تجبر المتصفح على تعليق عملية الـ Parsing والـ Paint حتى اكتمال تحميلها وتنفيذها.</span>",
+      "cause2": "<span><strong>2. ارتفاع زمن وصول أول بايت (High TTFB):</strong> لو السيرفر بيستغرق 1.5 ثانية بس علشان يبعت أول بايت، فالـ FCP تلقائياً هيكون أسوأ من 1.5 ثانية مهما كانت سرعة الجهاز والمتصفح.</span>",
+      "cause3": "<span><strong>3. استراتيجيات تحميل الخطوط السيئة (Font Blocking & FOIT):</strong> استخدام خطوط الويب الخارجية بدون <code>font-display: swap</code> أو <code>optional</code> يسبب ظاهرة <strong>Flash of Invisible Text (FOIT)</strong>، حيث يرفض المتصفح رسم النص حتى اكتمال تحميل ملف الخط، مما يترك الشاشة فارغة لعدة ثوانٍ.</span>",
+      "cause4": "<span><strong>4. سلاسل التحويل المتكررة (Redirect Chains):</strong> وجود تحويلات متتالية (Redirects) يضيع مئات الأجزاء من الثانية في فتح قنوات اتصال متكررة قبل الوصول للصفحة النهائية.</span>",
+      "cause5": "<span><strong>5. تضخم شجرة الـ DOM والأكواد غير المستخدمة (DOM Bloat & Unused Code):</strong> وجود آلاف العقد (Nodes) داخل الـ DOM وملفات CSS ضخمة مليئة بأكواد غير مستخدمة يبطئ حسابات الـ CSSOM والـ Layout بشكل كبير.</span>"
+    },
+
+    "optimizations": {
+      "title": "استراتيجيات وحلول هندسية متقدمة لتسريع الـ FCP",
+      "intro": "<span>للوصول بالـ FCP لأقل من ثانية واحدة، بنطبق أفضل الممارسات الهندسية التالية:</span>",
+      "criticalCss": {
+        "title": "1. استخراج الـ Critical CSS وتضمينه مباشرة (Inline Critical CSS)",
+        "description": "<span>قم بفصل التنسيقات الضرورية فقط لعناصر الجزء العلوي من الصفحة (Above-the-Fold Content) وتضمينها كوداً داخل وسم <code>&lt;style&gt;</code> في الـ <code>&lt;head&gt;</code> مباشرة. أما ملفات الـ CSS الكاملة غير الحرجة، فيتم تحميلها بشكل غير متزامن عبر <code>rel=\"preload\"</code> مع تفعيل <code>onload=\"this.rel='stylesheet'\"</code>.</span>"
+      },
+      "fontStrategy": {
+        "title": "2. استراتيجية خطوط ذكية لمنع ظاهرة FOIT (Font Optimization)",
+        "description": "<span>استخدم خاصية <code>font-display: swap</code> أو <code>font-display: optional</code> في تعريف الـ <code>@font-face</code>. ده بيخلي المتصفح يعرض النص فوراً بخط النظام البديل (Fallback Font)، ثم يبدله بالخط المخصص فور جاهزيته، مما يطلق الـ FCP فوراً بدون أي حجب. بالإضافة لذلك، قم بعمل Preload لأهم ملف خط باستخدام <code>&lt;link rel=\"preload\" as=\"font\" type=\"font/woff2\" crossorigin&gt;</code>.</span>"
+      },
+      "resourceHints": {
+        "title": "3. تسريع اتصالات الـ Third-Party عبر الـ Resource Hints",
+        "description": "<span>استخدم <code>&lt;link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"&gt;</code> و <code>&lt;link rel=\"dns-prefetch\"&gt;</code> لفتح اتصالات TCP و TLS مبكراً مع خوادم الخطوط والـ CDN الهامة، مما يوفر من <strong>100ms إلى 500ms</strong> من وقت الانتظار.</span>"
+      },
+      "scriptDefer": {
+        "title": "4. تجنب حجب الـ JavaScript عبر Defer و Async",
+        "description": "<span>تأكد من عدم وجود أي وسم <code>&lt;script&gt;</code> متزامن في الـ <code>&lt;head&gt;</code>. استخدم دائماً خاصية <code>defer</code> أو <code>async</code>، أو انقل السكربتات لنهاية الـ <code>&lt;body&gt;</code>، واعتمد على تقنيات الـ <strong>Code Splitting</strong> لتحميل الأكواد المطلوبة فقط لكل صفحة.</span>"
+      },
+      "ttfbReduction": {
+        "title": "5. تقليل الـ TTFB وتفعيل الضغط الحديث (Edge Caching & Brotli)",
+        "description": "<span>تخزين ملفات الـ HTML على شبكات الـ <strong>CDN / Edge</strong>، تفعيل ضغط <strong>Brotli</strong>، واستخدام بروتوكولات <strong>HTTP/2 و HTTP/3</strong> لتنزيل الموارد بالتوازي (Multiplexing) عبر اتصال واحد سريع.</span>"
+      }
+    },
+
+    "measuring": {
+      "title": "كيفية قياس ومراقبة FCP برمجياً وعملياً",
+      "p1": "<span>يمكنك قياس قيمة الـ FCP بدقة مباشرة من المتصفح باستخدام <strong>Paint Timing API</strong> و <strong>PerformanceObserver</strong> لمراقبة أداء المستخدمين الحقيقيين (RUM - Real User Monitoring):</span>",
+      "codeSnippet": "const observer = new PerformanceObserver((list) => {\n  for (const entry of list.getEntries()) {\n    if (entry.name === 'first-contentful-paint') {\n      console.log(`⚡ FCP Value: ${entry.startTime.toFixed(2)}ms`);\n      \n      // Send metric to analytics / RUM endpoint\n      // sendToAnalytics({ metric: 'FCP', value: entry.startTime });\n    }\n  }\n});\n\n// Register observer for paint entries\nobserver.observe({ type: 'paint', buffered: true });",
+      "toolsIntro": "<span>أما في مرحلة التطوير والفحص المخبري (Lab Tools)، بنعتمد على:</span>",
+      "tool1": "<span><strong>Lighthouse & PageSpeed Insights:</strong> بيوضح نتيجة الـ FCP ولحظة التقاطها في شريط الـ Screenshots والـ Filmstrip.</span>",
+      "tool2": "<span><strong>Chrome DevTools (Performance & Network Panels):</strong> يحدد لك بدقة توقيت الـ FCP على الـ Timeline ومقارنته بانتهاء تحميل الـ CSS والـ DOMContentLoaded.</span>",
+      "tool3": "<span><strong>WebPageTest:</strong> يقدم مقارنة بصرية بالفيديو والإطارات (Visual Progress Filmstrip) توضح متى بدأ ظهور أول عنصر على الشاشات المختلفة.</span>"
+    },
+
+    "comparison": {
+      "title": "مقارنة سريعة: مسار FCP البطيء مقابل المسار المحسّن",
+      "slowLabel": "مسار بطيء وغير محسّن (Poor FCP > 3.0s)",
+      "fastLabel": "مسار عالي الكفاءة (Fast FCP < 1.0s)",
+      "differences": {
+        "css": "<span>❌ <strong>ملفات CSS:</strong> ملفات CSS خارجية ضخمة تحجب الـ DOM في الـ Head.</span>",
+        "cssOpt": "<span>✅ <strong>ملفات CSS:</strong> تضمين Critical CSS واستدعاء الباقي Asynchronously.</span>",
+        "fonts": "<span>❌ <strong>الخطوط:</strong> غياب <code>font-display</code> مما يخفي النصوص (FOIT) حتى اكتمال الخط.</span>",
+        "fontsOpt": "<span>✅ <strong>الخطوط:</strong> استخدام <code>font-display: swap</code> مع Preload لأهم خط WOFF2.</span>",
+        "scripts": "<span>❌ <strong>ملفات JS:</strong> سكربتات متزامنة في الـ Head توقف الـ HTML Parser.</span>",
+        "scriptsOpt": "<span>✅ <strong>ملفات JS:</strong> استخدام <code>defer</code> / <code>async</code> و Code Splitting دقيق.</span>",
+        "network": "<span>❌ <strong>الشبكة و TTFB:</strong> استضافة بدون CDN و TTFB عالي يتجاوز 1.5 ثانية.</span>",
+        "networkOpt": "<span>✅ <strong>الشبكة و TTFB:</strong> استجابة عبر Edge CDN و TTFB سريع أقل من 200ms.</span>"
+      }
+    },
+
+    "relatedQuestions": {
+      "q1": "هل صورة الخلفية (CSS Background Image) تعتبر مؤهلة لإطلاق FCP؟",
+      "q2": "ما هو التأثير المباشر لـ FCP على معدل الارتداد (Bounce Rate) وتجربة المستخدم؟",
+      "q3": "هل يؤثر FCP في ترتيب الموقع على محركات البحث (SEO)؟",
+      "q4": "كيف تفرق بين مشكلة FCP الناتجة عن الـ TTFB ومشكلة ناتجة عن الـ Render-Blocking؟",
+      "q5": "ما الفرق بين font-display: swap و font-display: optional من حيث سرعة الـ FCP والـ CLS؟"
+    }
+  }
+}

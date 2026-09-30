@@ -54,6 +54,11 @@ const performanceNavItems = (
     title: t("tech-blog.performance.ttfb"),
     href: "ttfb",
   },
+  {
+    id: "fcp",
+    title: t("tech-blog.performance.fcp"),
+    href: "fcp",
+  },
 ];
 
 export const navItemsMapper = (
