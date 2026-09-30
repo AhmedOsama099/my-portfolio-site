@@ -1,145 +1,91 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 480" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" width="1000" height="380">
   <defs>
-    <linearGradient id="bgGradAr" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#090d16" />
-      <stop offset="100%" stop-color="#111827" />
+    <linearGradient id="stepBgAr" x1="0%" y1="0%" x2="0%" y2="1">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
     </linearGradient>
-    <linearGradient id="ttfbGradAr" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#6366f1" />
-      <stop offset="100%" stop-color="#4f46e5" />
+    <linearGradient id="arrowGradAr" x1="0%" y1="0%" x2="1" y2="0">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#818cf8"/>
     </linearGradient>
-    <linearGradient id="parseGradAr" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#3b82f6" />
-      <stop offset="100%" stop-color="#2563eb" />
-    </linearGradient>
-    <linearGradient id="cssomGradAr" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#f59e0b" />
-      <stop offset="100%" stop-color="#d97706" />
-    </linearGradient>
-    <linearGradient id="fcpGradAr" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#10b981" />
-      <stop offset="100%" stop-color="#059669" />
-    </linearGradient>
-    <filter id="shadowBoxAr" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#000" flood-opacity="0.4" />
-    </filter>
   </defs>
 
-  <rect width="1100" height="480" rx="16" fill="url(#bgGradAr)" />
-
-  <!-- Main Title -->
-  <text x="550" y="45" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="800" text-anchor="middle">
+  <!-- Background -->
+  <rect width="1000" height="380" rx="16" fill="#0b0f19" stroke="#1e293b" stroke-width="2"/>
+  
+  <text x="500" y="45" text-anchor="middle" font-family="system-ui, sans-serif" font-size="22" font-weight="800" fill="#f8fafc">
     المسار الحرج للوصول إلى FCP (First Contentful Paint)
   </text>
-  <text x="550" y="72" fill="#9ca3af" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="400" text-anchor="middle">
-    كيف ترتبط المراحل ببعضها: طلب الشبكة → TTFB → تحليل HTML → شجرة الرندرة → أول رسم لمحتوى الصفحة
+  <text x="500" y="70" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="500" fill="#94a3b8">
+    من بداية التنقل ووصول أول بايت TTFB إلى تحليل الـ DOM وبناء الـ CSSOM والرسم الفعلي
   </text>
 
-  <!-- 4 Stage Blocks (RTL progression or Left-to-Right stages with Arabic labels) -->
-  <g transform="translate(30, 110)">
-    
-    <!-- Stage 1: TTFB Phase -->
-    <g transform="translate(0, 0)" filter="url(#shadowBoxAr)">
-      <rect width="235" height="260" rx="12" fill="#1e1b4b" stroke="#6366f1" stroke-width="1.5" />
-      <rect width="235" height="40" rx="12" fill="url(#ttfbGradAr)" />
-      <text x="117" y="25" fill="#ffffff" font-family="system-ui, sans-serif" font-size="14" font-weight="700" text-anchor="middle">1. الشبكة و TTFB</text>
-      
-      <g transform="translate(16, 55)">
-        <text x="200" y="16" fill="#c7d2fe" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="end">• ترجمة النطاق DNS</text>
-        <text x="200" y="36" fill="#a5b4fc" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">تحويل الدومين إلى IP</text>
-        
-        <text x="200" y="66" fill="#c7d2fe" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="end">• مصافحة TCP + TLS</text>
-        <text x="200" y="86" fill="#a5b4fc" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">فتح القناة المشفرة الآمنة</text>
-        
-        <text x="200" y="116" fill="#c7d2fe" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="end">• معالجة السيرفر</text>
-        <text x="200" y="136" fill="#a5b4fc" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">تنفيذ الـ SSR واستعلامات الداتا</text>
-
-        <rect x="0" y="155" width="203" height="28" rx="6" fill="#312e81" stroke="#818cf8" stroke-width="1" />
-        <text x="101" y="174" fill="#e0e7ff" font-family="monospace" font-size="11" font-weight="700" text-anchor="middle">وصول أول بايت (responseStart)</text>
-      </g>
-    </g>
-
-    <!-- Arrow 1 -->
-    <path d="M 245 130 L 265 130" stroke="#6366f1" stroke-width="3" stroke-linecap="round" />
-
-    <!-- Stage 2: HTML Parsing -->
-    <g transform="translate(275, 0)" filter="url(#shadowBoxAr)">
-      <rect width="235" height="260" rx="12" fill="#172554" stroke="#3b82f6" stroke-width="1.5" />
-      <rect width="235" height="40" rx="12" fill="url(#parseGradAr)" />
-      <text x="117" y="25" fill="#ffffff" font-family="system-ui, sans-serif" font-size="14" font-weight="700" text-anchor="middle">2. تحليل HTML و DOM</text>
-      
-      <g transform="translate(16, 55)">
-        <text x="200" y="16" fill="#bfdbfe" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="end">• قراءة بايتات الـ HTML</text>
-        <text x="200" y="36" fill="#93c5fd" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">تحويل النص إلى Tokens</text>
-        
-        <text x="200" y="66" fill="#bfdbfe" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="end">• بناء شجرة DOM Tree</text>
-        <text x="200" y="86" fill="#93c5fd" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">إنشاء العقد والعناصر تدريجيًا</text>
-        
-        <text x="200" y="116" fill="#bfdbfe" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="end">• فاحص الموارد Preload</text>
-        <text x="200" y="136" fill="#93c5fd" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">اكتشاف الـ CSS والخطوط باكرًا</text>
-
-        <rect x="0" y="155" width="203" height="28" rx="6" fill="#1e3a8a" stroke="#60a5fa" stroke-width="1" />
-        <text x="101" y="174" fill="#dbeafe" font-family="monospace" font-size="11" font-weight="700" text-anchor="middle">DOM جاهز للتنسيق</text>
-      </g>
-    </g>
-
-    <!-- Arrow 2 -->
-    <path d="M 520 130 L 540 130" stroke="#3b82f6" stroke-width="3" stroke-linecap="round" />
-
-    <!-- Stage 3: CSSOM & Render Blocking -->
-    <g transform="translate(550, 0)" filter="url(#shadowBoxAr)">
-      <rect width="235" height="260" rx="12" fill="#451a03" stroke="#f59e0b" stroke-width="1.5" />
-      <rect width="235" height="40" rx="12" fill="url(#cssomGradAr)" />
-      <text x="117" y="25" fill="#ffffff" font-family="system-ui, sans-serif" font-size="14" font-weight="700" text-anchor="middle">3. شجرة CSSOM والـ Blocking</text>
-      
-      <g transform="translate(16, 55)">
-        <text x="200" y="16" fill="#fde68a" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="end">• بناء شجرة CSSOM</text>
-        <text x="200" y="36" fill="#fcd34d" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">ملفات CSS تحجب الرسم تمامًا</text>
-        
-        <text x="200" y="66" fill="#fde68a" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="end">• تنفيذ ملفات JS المتزامنة</text>
-        <text x="200" y="86" fill="#fcd34d" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">توقف المعالج حتى اكتمالها</text>
-        
-        <text x="200" y="116" fill="#fde68a" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="end">• تحميل خطوط الويب WebFonts</text>
-        <text x="200" y="136" fill="#fcd34d" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">تجنب النص المخفي (FOIT)</text>
-
-        <rect x="0" y="155" width="203" height="28" rx="6" fill="#78350f" stroke="#fbbf24" stroke-width="1" />
-        <text x="101" y="174" fill="#fef3c7" font-family="monospace" font-size="11" font-weight="700" text-anchor="middle">اكتمال شجرة الـ Render Tree</text>
-      </g>
-    </g>
-
-    <!-- Arrow 3 -->
-    <path d="M 795 130 L 815 130" stroke="#f59e0b" stroke-width="3" stroke-linecap="round" />
-
-    <!-- Stage 4: Layout & FCP -->
-    <g transform="translate(825, 0)" filter="url(#shadowBoxAr)">
-      <rect width="245" height="260" rx="12" fill="#022c22" stroke="#10b981" stroke-width="2" />
-      <rect width="245" height="40" rx="12" fill="url(#fcpGradAr)" />
-      <text x="122" y="25" fill="#ffffff" font-family="system-ui, sans-serif" font-size="14" font-weight="800" text-anchor="middle">4. التخطيط وانطلاق FCP ⚡</text>
-      
-      <g transform="translate(16, 55)">
-        <text x="210" y="16" fill="#a7f3d0" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="end">• حساب المواقع (Layout/Reflow)</text>
-        <text x="210" y="36" fill="#6ee7b7" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">تحديد أبعاد ومواضع الصناديق</text>
-        
-        <text x="210" y="66" fill="#a7f3d0" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="end">• الرسم الفعلي First Content Paint</text>
-        <text x="210" y="86" fill="#6ee7b7" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">رسم أول نص، لوجو، أو عنصر SVG</text>
-        
-        <text x="210" y="116" fill="#a7f3d0" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="end">• إدراك المستخدم للحياة في الموقع</text>
-        <text x="210" y="136" fill="#6ee7b7" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">تأكيد بصري على بدء التفاعل</text>
-
-        <rect x="0" y="155" width="213" height="32" rx="6" fill="#065f46" stroke="#34d399" stroke-width="1.5" />
-        <text x="106" y="176" fill="#ecfdf5" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">🎯 انطلاق FCP (&le; 1.8s)</text>
-      </g>
-    </g>
-
+  <!-- Step 1: Network & TTFB -->
+  <g transform="translate(30, 100)">
+    <rect width="210" height="200" rx="12" fill="url(#stepBgAr)" stroke="#6366f1" stroke-width="1.5"/>
+    <circle cx="105" cy="38" r="20" fill="#4338ca" fill-opacity="0.25"/>
+    <text x="105" y="44" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="800" fill="#818cf8">1</text>
+    <text x="105" y="78" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#f1f5f9">الشبكة و TTFB</text>
+    <text x="105" y="105" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8">مصافحة DNS و TCP و TLS</text>
+    <text x="105" y="125" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8">معالجة السيرفر والداتابيز</text>
+    <rect x="20" y="152" width="170" height="26" rx="6" fill="#0f172a"/>
+    <text x="105" y="169" text-anchor="middle" font-family="monospace" font-size="11" fill="#818cf8">وصول أول بايت (responseStart)</text>
   </g>
 
-  <!-- Bottom Timeline Bar -->
-  <g transform="translate(30, 400)">
-    <rect width="1040" height="40" rx="8" fill="#1f2937" stroke="#374151" stroke-width="1" />
-    <rect x="0" y="0" width="270" height="40" rx="8" fill="#4f46e5" opacity="0.6" />
-    <text x="135" y="24" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">مرحلة الـ TTFB (جزء متضمن داخل FCP)</text>
+  <!-- Arrow 1 -->
+  <path d="M 245 200 L 270 200" stroke="url(#arrowGradAr)" stroke-width="3"/>
+  <polygon points="275,200 267,195 267,205" fill="#818cf8"/>
 
-    <rect x="270" y="0" width="770" height="40" rx="8" fill="#059669" opacity="0.7" />
-    <text x="655" y="24" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">التحليل + تطبيق التنسيقات + الرسم الفعلي → إجمالي الوقت = FCP</text>
+  <!-- Step 2: HTML & DOM -->
+  <g transform="translate(280, 100)">
+    <rect width="210" height="200" rx="12" fill="url(#stepBgAr)" stroke="#38bdf8" stroke-width="1.5"/>
+    <circle cx="105" cy="38" r="20" fill="#0284c7" fill-opacity="0.25"/>
+    <text x="105" y="44" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="800" fill="#38bdf8">2</text>
+    <text x="105" y="78" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#f1f5f9">تحليل HTML و DOM</text>
+    <text x="105" y="105" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8">قراءة بايتات كود الـ HTML</text>
+    <text x="105" y="125" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8">اكتشاف الموارد باكرًا (Preload)</text>
+    <rect x="20" y="152" width="170" height="26" rx="6" fill="#0f172a"/>
+    <text x="105" y="169" text-anchor="middle" font-family="monospace" font-size="11" fill="#38bdf8">بناء عقد الـ DOM Tree</text>
+  </g>
+
+  <!-- Arrow 2 -->
+  <path d="M 495 200 L 520 200" stroke="url(#arrowGradAr)" stroke-width="3"/>
+  <polygon points="525,200 517,195 517,205" fill="#818cf8"/>
+
+  <!-- Step 3: CSSOM & Script Block -->
+  <g transform="translate(530, 100)">
+    <rect width="210" height="200" rx="12" fill="url(#stepBgAr)" stroke="#f59e0b" stroke-width="1.5"/>
+    <circle cx="105" cy="38" r="20" fill="#b45309" fill-opacity="0.25"/>
+    <text x="105" y="44" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="800" fill="#fbbf24">3</text>
+    <text x="105" y="78" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#f1f5f9">شجرة CSSOM والخطوط</text>
+    <text x="105" y="105" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8">ملفات CSS تحجب الرسم</text>
+    <text x="105" y="125" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8">تجنب النص المخفي (FOIT)</text>
+    <rect x="20" y="152" width="170" height="26" rx="6" fill="#0f172a"/>
+    <text x="105" y="169" text-anchor="middle" font-family="monospace" font-size="11" fill="#fbbf24">اكتمال الـ Render Tree</text>
+  </g>
+
+  <!-- Arrow 3 -->
+  <path d="M 745 200 L 770 200" stroke="url(#arrowGradAr)" stroke-width="3"/>
+  <polygon points="775,200 767,195 767,205" fill="#10b981"/>
+
+  <!-- Step 4: Layout & FCP -->
+  <g transform="translate(780, 100)">
+    <rect width="190" height="200" rx="12" fill="url(#stepBgAr)" stroke="#10b981" stroke-width="2"/>
+    <circle cx="95" cy="38" r="20" fill="#059669" fill-opacity="0.3"/>
+    <text x="95" y="44" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="800" fill="#34d399">4</text>
+    <text x="95" y="78" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#34d399">التخطيط وانطلاق FCP ⚡</text>
+    <text x="95" y="105" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#a7f3d0">حساب أبعاد ومواضع الصناديق</text>
+    <text x="95" y="125" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#a7f3d0">رسم أول محتوى بصري للـ DOM</text>
+    <rect x="15" y="152" width="160" height="26" rx="6" fill="#064e3b" stroke="#10b981" stroke-width="1"/>
+    <text x="95" y="169" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="800" fill="#6ee7b7">انطلاق FCP (&le; 1.8s)</text>
+  </g>
+
+  <!-- Footer Timeline Summary -->
+  <g transform="translate(30, 320)">
+    <rect width="940" height="34" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="0" y="0" width="240" height="34" rx="8" fill="#4338ca" fill-opacity="0.4"/>
+    <text x="120" y="21" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#c7d2fe">مرحلة الـ TTFB (الشبكة والسيرفر)</text>
+    <rect x="240" y="0" width="700" height="34" rx="8" fill="#059669" fill-opacity="0.4"/>
+    <text x="590" y="21" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#a7f3d0">تحليل المتصفح + التنسيق + الرسم الفعلي → إجمالي الوقت = FCP</text>
   </g>
 </svg>
