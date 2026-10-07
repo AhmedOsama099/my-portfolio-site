@@ -28,6 +28,14 @@
   "tech-blog": {
     "sideNavTitle": "Documentations",
     "sideNavDescription": "Navigate through topics",
+    "parentNavTitle": "Technologies",
+    "parentNavDescription": "Select category",
+    "categories": {
+      "git": "Git",
+      "ts": "TypeScript",
+      "performance": "Performance",
+      "accessibility": "Accessibility"
+    },
     "git": {
       "what-is-git": "What is GIT",
       "online-offline-git": "Does GIT need the Internet"

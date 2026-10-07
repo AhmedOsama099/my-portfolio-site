@@ -9,7 +9,7 @@ export default function ToggleButton({
     <button
       onClick={() => handleToggleNav()}
       className={`fixed top-32 z-10 p-3 bg-blue-600 text-white rounded-e-lg shadow-lg hover:bg-blue-700 transition
-       ${isNavOpen && !isMobile ? "start-[18rem]" : "start-0"} 
+       ${isNavOpen && !isMobile ? "start-[28rem]" : "start-0"} 
 
         `}
       aria-label="Toggle navigation"

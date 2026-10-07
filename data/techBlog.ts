@@ -66,6 +66,35 @@ const performanceNavItems = (
   },
 ];
 
+export type ParentCategoryConfig = {
+  id: string;
+  icon: string;
+  defaultHref: string;
+};
+
+export const parentCategories: ParentCategoryConfig[] = [
+  {
+    id: "git",
+    icon: "/images/techLogos/git.svg",
+    defaultHref: "/tech-blog/git/what-is-git",
+  },
+  {
+    id: "ts",
+    icon: "/images/techLogos/ts.svg",
+    defaultHref: "/tech-blog/ts/structural-type-system",
+  },
+  {
+    id: "performance",
+    icon: "/images/techLogos/performance.svg",
+    defaultHref: "/tech-blog/performance/ttfb",
+  },
+  {
+    id: "accessibility",
+    icon: "/images/techLogos/accessibility.png",
+    defaultHref: "/tech-blog/accessibility/general-tips",
+  },
+];
+
 export const navItemsMapper = (
   t: TFunction<"translation", undefined>
 ): NavItemsMapperProps => ({

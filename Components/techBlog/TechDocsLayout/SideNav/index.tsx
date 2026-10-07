@@ -1,11 +1,16 @@
-import { navItemsMapper } from "@/data/techBlog";
+"use client";
+
+import { useState, useEffect } from "react";
+import { navItemsMapper, parentCategories } from "@/data/techBlog";
 import { SideNavProps } from "@/types/techBlog";
 import SideNavHeader from "./SideNavHeader";
 import SideNavSection from "./SideNavSection";
+import ParentNavSection from "./ParentNavSection";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 import { usePostponeOnRender } from "@/hooks/usePostponeOnRender";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { stripLocale } from "@/lib/i18n/config";
+import { useLocalizedHref } from "@/hooks/useLocalizedHref";
 
 export default function SideNav({
   isMobile,
@@ -13,39 +18,75 @@ export default function SideNav({
   handleToggleNav,
   handleChangeNavState,
 }: SideNavProps) {
-  const { currentDirection, isLTR } = useAppTranslation();
+  const { currentDirection, isLTR, t } = useAppTranslation();
   const { is50MSAfterRender } = usePostponeOnRender();
-  const { t } = useAppTranslation();
   const pathname = usePathname();
-  // stripLocale so the /en|/ar prefix doesn't shift segment indexes.
-  const tech = stripLocale(pathname).split("/")[2];
-  const navItems = navItemsMapper(t)[tech];
+  const router = useRouter();
+  const getHref = useLocalizedHref();
+
+  // Extract current technology key from URL (e.g., "git", "ts", "performance", "accessibility")
+  const currentTechFromUrl =
+    stripLocale(pathname).split("/")[2] || "performance";
+
+  const [activeParentKey, setActiveParentKey] =
+    useState<string>(currentTechFromUrl);
+
+  // Keep activeParentKey synchronized with URL changes
+  useEffect(() => {
+    if (
+      currentTechFromUrl &&
+      parentCategories.some((cat) => cat.id === currentTechFromUrl)
+    ) {
+      setActiveParentKey(currentTechFromUrl);
+    }
+  }, [currentTechFromUrl]);
+
+  // Handle clicking a parent category
+  const handleSelectParent = (catId: string) => {
+    setActiveParentKey(catId);
+    const catConfig = parentCategories.find((cat) => cat.id === catId);
+    if (catConfig && catId !== currentTechFromUrl) {
+      router.push(getHref(catConfig.defaultHref));
+    }
+  };
+
+  const navItems = navItemsMapper(t)[activeParentKey] || [];
 
   if (!is50MSAfterRender) return null;
 
   return (
     <aside
       dir={currentDirection}
-      className={`fixed inset-y-0 start-0 ebd z-40 w-72 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out  ${
+      className={`fixed inset-y-0 start-0 z-40 flex shadow-2xl transform transition-transform duration-300 ease-in-out ${
         isNavOpen
           ? "translate-x-0"
           : isLTR
-          ? "-translate-x-full"
-          : "translate-x-full"
+            ? "-translate-x-full"
+            : "translate-x-full"
       }`}
       aria-hidden={!isNavOpen && isMobile}
     >
-      <div className="absolute inset-0 bg-white/95 backdrop-blur-sm md:bg-white"></div>
-      <div className="relative flex flex-col h-full">
-        <SideNavHeader handleToggleNav={handleToggleNav} />
+      {/* 1. Parent Sidebar (Main Sidebar) */}
+      <ParentNavSection
+        activeParent={activeParentKey}
+        onSelectParent={handleSelectParent}
+      />
 
-        <div className="flex-1 overflow-y-auto p-6 custom-scrollbar">
+      {/* 2. Child Sidebar (Subtopics Sidebar) */}
+      <div className="w-56 sm:w-64 bg-white flex flex-col h-full border-e border-gray-200">
+        <SideNavHeader
+          handleToggleNav={handleToggleNav}
+          activeParentKey={activeParentKey}
+        />
+
+        <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
           <nav className="space-y-3">
             <SideNavSection
               items={navItems}
               color="blue"
               isMobile={isMobile}
               handleChangeNavState={handleChangeNavState}
+              parentKey={activeParentKey}
             />
           </nav>
         </div>

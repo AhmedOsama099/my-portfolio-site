@@ -1,39 +1,55 @@
 import { useCurrentURL } from "@/hooks/useCurrentURL";
+import { useLocalizedHref } from "@/hooks/useLocalizedHref";
 import { SectionProps } from "@/types/techBlog";
+import Link from "next/link";
 
 export default function SideNavSection({
   title,
   items,
-  color,
   isMobile,
   handleChangeNavState,
-}: SectionProps) {
+  parentKey,
+}: SectionProps & { parentKey?: string }) {
   const { currentURL } = useCurrentURL();
+  const getHref = useLocalizedHref();
 
   return (
     <div className="mb-6">
-      <h3 className="px-3 mb-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-        {title}
-      </h3>
-      {items.map((item) => (
-        <a
-          key={item.id}
-          href={item.href}
-          className={`block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-${color}-50 hover:text-${color}-700 hover:border-l-4 hover:border-${color}-500 transition-all duration-300 transform hover:translate-x-1 ${
-            currentURL === item.href
-              ? `bg-${color}-50 text-${color}-700 border-l-4 border-${color}-500`
-              : ""
-          }`}
-          onClick={() => {
-            if (isMobile) handleChangeNavState(false);
-          }}
-        >
-          <div className="flex items-center">
-            <span className={`mr-3 text-${color}-500`}>•</span>
-            {item.title}
-          </div>
-        </a>
-      ))}
+      {title && (
+        <h3 className="px-3 mb-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+          {title}
+        </h3>
+      )}
+      {items?.map((item) => {
+        const fullPath = parentKey
+          ? `/tech-blog/${parentKey}/${item.href}`
+          : item.href;
+        const isActive = currentURL === item.href;
+
+        return (
+          <Link
+            key={item.id}
+            href={getHref(fullPath)}
+            className={`block px-4 py-3 text-sm rounded-xl transition-all duration-200 ${
+              isActive
+                ? `bg-blue-50 text-blue-700 font-semibold border-s-4 border-blue-500 shadow-sm`
+                : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            }`}
+            onClick={() => {
+              if (isMobile) handleChangeNavState(false);
+            }}
+          >
+            <div className="flex items-center">
+              <span
+                className={`me-2.5 text-base ${isActive ? "text-blue-600 font-bold" : "text-gray-400"}`}
+              >
+                •
+              </span>
+              <span>{item.title}</span>
+            </div>
+          </Link>
+        );
+      })}
     </div>
   );
 }

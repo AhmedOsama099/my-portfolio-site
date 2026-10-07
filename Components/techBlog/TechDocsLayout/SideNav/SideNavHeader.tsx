@@ -3,17 +3,20 @@ import { SideNavProps } from "@/types/techBlog";
 
 export default function SideNavHeader({
   handleToggleNav,
-}: Pick<SideNavProps, "handleToggleNav">) {
+  activeParentKey,
+}: Pick<SideNavProps, "handleToggleNav"> & { activeParentKey?: string }) {
   const { t } = useAppTranslation();
 
   return (
-    <div className="flex items-center border-[#EE3E54] justify-between p-6 border-b bg-gradient-to-r from-blue-50 to-indigo-50 h-[112px]">
+    <div className="flex items-center border-[#EE3E54] justify-between p-4 border-b bg-gradient-to-r from-blue-50/80 to-indigo-50/80 h-[112px]">
       <div>
-        <h2 className="text-xl font-bold text-gray-800">
+        <h2 className="text-lg font-bold text-gray-800">
           {t("tech-blog.sideNavTitle")}
         </h2>
-        <p className="text-sm text-gray-600 mt-1">
-          {t("tech-blog.sideNavDescription")}
+        <p className="text-xs text-gray-600 mt-1">
+          {activeParentKey
+            ? `${t("tech-blog.sideNavDescription")} (${t(`tech-blog.categories.${activeParentKey}`)})`
+            : t("tech-blog.sideNavDescription")}
         </p>
       </div>
       <button
