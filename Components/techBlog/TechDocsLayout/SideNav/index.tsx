@@ -7,7 +7,6 @@ import SideNavHeader from "./SideNavHeader";
 import SideNavSection from "./SideNavSection";
 import ParentNavSection from "./ParentNavSection";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
-import { usePostponeOnRender } from "@/hooks/usePostponeOnRender";
 import { usePathname, useRouter } from "next/navigation";
 import { stripLocale } from "@/lib/i18n/config";
 import { useLocalizedHref } from "@/hooks/useLocalizedHref";
@@ -19,10 +18,18 @@ export default function SideNav({
   handleChangeNavState,
 }: SideNavProps) {
   const { currentDirection, isLTR, t } = useAppTranslation();
-  const { is50MSAfterRender } = usePostponeOnRender();
   const pathname = usePathname();
   const router = useRouter();
   const getHref = useLocalizedHref();
+
+  const [disableTransition, setDisableTransition] = useState(false);
+
+  // Disable CSS slide transition on direction/locale switch to prevent sliding across screen
+  useEffect(() => {
+    setDisableTransition(true);
+    const timer = setTimeout(() => setDisableTransition(false), 350);
+    return () => clearTimeout(timer);
+  }, [isLTR, currentDirection]);
 
   // Extract current technology key from URL (e.g., "git", "ts", "performance", "accessibility")
   const currentTechFromUrl =
@@ -52,12 +59,14 @@ export default function SideNav({
 
   const navItems = navItemsMapper(t)[activeParentKey] || [];
 
-  if (!is50MSAfterRender) return null;
-
   return (
     <aside
       dir={currentDirection}
-      className={`fixed inset-y-0 start-0 z-40 flex shadow-2xl transform transition-transform duration-300 ease-in-out ${
+      className={`fixed inset-y-0 start-0 z-[60] flex shadow-2xl transform ${
+        disableTransition
+          ? "transition-none"
+          : "transition-transform duration-300 ease-in-out"
+      } ${
         isNavOpen
           ? "translate-x-0"
           : isLTR

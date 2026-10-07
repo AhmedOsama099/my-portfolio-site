@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import {
   DEFAULT_LOCALE,
   getLocaleFromPathname,
@@ -13,7 +13,6 @@ import { useAppTranslation } from "@/hooks/useAppTranslation";
 
 export default function LanguageSwitchButton() {
   const pathname = usePathname();
-  const router = useRouter();
   const { currentLanguage, setLanguage, changeCurrentDirection } =
     useAppTranslation();
 
@@ -44,12 +43,9 @@ export default function LanguageSwitchButton() {
     setLanguage(nextLocale);
     changeCurrentDirection(nextLocale === "ar" ? "rtl" : "ltr");
 
-    // Perform full navigation to ensure the Server Component re-renders with the new locale
+    // Perform direct navigation so the Server Component immediately renders the new locale dictionary
     if (typeof window !== "undefined") {
       window.location.href = targetUrl;
-    } else {
-      router.push(targetUrl);
-      router.refresh();
     }
   };
 
@@ -62,4 +58,3 @@ export default function LanguageSwitchButton() {
     </button>
   );
 }
-

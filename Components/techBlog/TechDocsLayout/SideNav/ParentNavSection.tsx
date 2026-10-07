@@ -37,28 +37,21 @@ export default function ParentNavSection({
             <button
               key={cat.id}
               onClick={() => onSelectParent(cat.id)}
-              className={`w-full text-start flex items-center justify-between p-2.5 rounded-xl transition-all duration-200 group ${
+              className={`w-full text-start flex items-center justify-between px-3 py-2.5 rounded-xl transition-all duration-200 group ${
                 isActive
                   ? "bg-blue-600 text-white shadow-lg shadow-blue-600/30 font-semibold"
                   : "text-slate-300 hover:bg-slate-800/80 hover:text-white"
               }`}
             >
-              <div className="flex items-center gap-2.5 min-w-0">
-                <div
-                  className={`w-8 h-8 rounded-lg flex items-center justify-center p-1.5 transition-transform duration-200 flex-shrink-0 ${
-                    isActive
-                      ? "bg-white/20 scale-105"
-                      : "bg-slate-800 group-hover:bg-slate-700 group-hover:scale-105"
-                  }`}
-                >
-                  <Image
-                    src={cat.icon}
-                    alt={cat.id}
-                    width={20}
-                    height={20}
-                    className="object-contain"
-                  />
-                </div>
+              <div className="flex items-center gap-3 min-w-0">
+                <Image
+                  src={cat.icon}
+                  alt={cat.id}
+                  width={26}
+                  height={26}
+                  unoptimized
+                  className="w-6.5 h-6.5 object-contain flex-shrink-0 transition-transform duration-200 group-hover:scale-110 drop-shadow-sm"
+                />
                 <span className="text-xs sm:text-sm font-medium truncate">
                   {t(`tech-blog.categories.${cat.id}`)}
                 </span>

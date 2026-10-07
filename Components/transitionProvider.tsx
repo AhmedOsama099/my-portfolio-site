@@ -17,6 +17,9 @@ const TransitionProvider: FC<{
   // Drop the /en|/ar prefix so the label reads "home"/"about", not "en"/"ar".
   const routePath = stripLocale(pathName);
 
+  // Skip the black curtain overlays when navigating within Tech Blog documentation pages to prevent flashing.
+  const isTechBlog = routePath.startsWith("/tech-blog");
+
   return (
     <AnimatePresence mode="wait">
       <div
@@ -27,56 +30,60 @@ const TransitionProvider: FC<{
             : "from-slate-50  to-fuchsia-200"
         }  min-w-56`}
       >
-        <motion.div
-          className={clsx(
-            "w-screen h-screen fixed bg-black rounded-b-[100px] z-40"
-          )}
-          initial={{ height: "100vh" }}
-          animate={{
-            height: "0vh",
-          }}
-          exit={{
-            height: "140vh",
-          }}
-          transition={{
-            duration: 0.3,
-            ease: "easeOut",
-          }}
-        />
-        <motion.div
-          className="fixed m-auto top-0  bottom-0 left-0 right-0 text-white text-8xl cursor-default z-50 w-fit h-fit pointer-events-none text-center"
-          initial={{
-            opacity: 1,
-          }}
-          animate={{
-            opacity: 0,
-          }}
-          exit={{
-            opacity: 0,
-          }}
-          transition={{
-            ease: "easeOut",
-            duration: 0.5,
-          }}
-        >
-          {routePath === "/" ? "home" : routePath.split("/").pop()}
-        </motion.div>
+        {!isTechBlog && (
+          <>
+            <motion.div
+              className={clsx(
+                "w-screen h-screen fixed bg-black rounded-b-[100px] z-40"
+              )}
+              initial={{ height: "100vh" }}
+              animate={{
+                height: "0vh",
+              }}
+              exit={{
+                height: "140vh",
+              }}
+              transition={{
+                duration: 0.3,
+                ease: "easeOut",
+              }}
+            />
+            <motion.div
+              className="fixed m-auto top-0  bottom-0 left-0 right-0 text-white text-8xl cursor-default z-50 w-fit h-fit pointer-events-none text-center"
+              initial={{
+                opacity: 1,
+              }}
+              animate={{
+                opacity: 0,
+              }}
+              exit={{
+                opacity: 0,
+              }}
+              transition={{
+                ease: "easeOut",
+                duration: 0.5,
+              }}
+            >
+              {routePath === "/" ? "home" : routePath.split("/").pop()}
+            </motion.div>
 
-        <motion.div
-          className={clsx(
-            "w-screen h-screen fixed bg-black rounded-t-[100px] bottom-0 z-30"
-          )}
-          initial={{
-            height: "140vh",
-          }}
-          animate={{
-            height: "0vh",
-            transition: {
-              delay: 0.3,
-              duration: 0.3,
-            },
-          }}
-        />
+            <motion.div
+              className={clsx(
+                "w-screen h-screen fixed bg-black rounded-t-[100px] bottom-0 z-30"
+              )}
+              initial={{
+                height: "140vh",
+              }}
+              animate={{
+                height: "0vh",
+                transition: {
+                  delay: 0.3,
+                  duration: 0.3,
+                },
+              }}
+            />
+          </>
+        )}
 
         <div className="h-28">
           <Navbar />

@@ -8,10 +8,11 @@ export default function ToggleButton({
   return (
     <button
       onClick={() => handleToggleNav()}
-      className={`fixed top-32 z-10 p-3 bg-blue-600 text-white rounded-e-lg shadow-lg hover:bg-blue-700 transition
-       ${isNavOpen && !isMobile ? "start-[28rem]" : "start-0"} 
-
-        `}
+      className={`fixed top-32 z-[70] p-3 bg-blue-600 text-white shadow-xl hover:bg-blue-700 transition-all duration-300 ${
+        isNavOpen && !isMobile
+          ? "start-[28rem] rounded-xl"
+          : "start-0 rounded-e-lg"
+      }`}
       aria-label="Toggle navigation"
     >
       <svg

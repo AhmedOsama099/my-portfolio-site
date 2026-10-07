@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ToggleButton from "./toggleButton";
 import MobileOverlay from "./mobileOverlay";
 import ContentWrapper from "./ContentWrapper";
@@ -9,16 +9,46 @@ import LanguageSwitchButton from "./LanguageSwitchButton";
 import { TechDocsLayoutProps } from "@/types/techBlog";
 import { useMobileResize } from "@/hooks/techBlog/useMobileResize";
 
+// Module-level persistent state so navigation between pages retains the open/close state
+let globalIsNavOpen: boolean | null = null;
+
 export default function TechDocsLayout({ children }: TechDocsLayoutProps) {
-  const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isNavOpen, setIsNavOpen] = useState<boolean>(() => {
+    if (globalIsNavOpen !== null) return globalIsNavOpen;
+    return false;
+  });
+
   const { isMobile } = useMobileResize();
 
+  // Read stored preference once mounted on client side
+  useEffect(() => {
+    if (globalIsNavOpen === null && typeof window !== "undefined") {
+      const stored = sessionStorage.getItem("tech_blog_nav_open");
+      if (stored !== null) {
+        const parsed = stored === "true";
+        globalIsNavOpen = parsed;
+        setIsNavOpen(parsed);
+      }
+    }
+  }, []);
+
   const handleToggleNav = () => {
-    setIsNavOpen((prev) => !prev);
+    setIsNavOpen((prev) => {
+      const nextState = !prev;
+      globalIsNavOpen = nextState;
+      if (typeof window !== "undefined") {
+        sessionStorage.setItem("tech_blog_nav_open", String(nextState));
+      }
+      return nextState;
+    });
   };
 
   const handleChangeNavState = (state: boolean) => {
     setIsNavOpen(state);
+    globalIsNavOpen = state;
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("tech_blog_nav_open", String(state));
+    }
   };
 
   return (
