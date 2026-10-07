@@ -15,6 +15,8 @@ import ttfbEn from "../../server-locales/en/performance/ttfb.json";
 import ttfbAr from "../../server-locales/ar/performance/ttfb.json";
 import fcpEn from "../../server-locales/en/performance/fcp.json";
 import fcpAr from "../../server-locales/ar/performance/fcp.json";
+import lcpEn from "../../server-locales/en/performance/lcp.json";
+import lcpAr from "../../server-locales/ar/performance/lcp.json";
 
 export const translations: Record<string, Record<string, unknown>> = {
   en: {
@@ -26,6 +28,7 @@ export const translations: Record<string, Record<string, unknown>> = {
     "excess-type-checking": excessTypeCheckingEn,
     ttfb: ttfbEn,
     fcp: fcpEn,
+    lcp: lcpEn,
   },
   ar: {
     common: commonAr,
@@ -36,5 +39,6 @@ export const translations: Record<string, Record<string, unknown>> = {
     "excess-type-checking": excessTypeCheckingAr,
     ttfb: ttfbAr,
     fcp: fcpAr,
+    lcp: lcpAr,
   },
 };

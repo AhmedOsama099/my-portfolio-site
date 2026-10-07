@@ -1,0 +1,156 @@
+{
+  "lcp": {
+    "title": "دليلك الشامل لـ LCP (Largest Contentful Paint) — المقياس الأهم لسرعة التحميل الفعلية",
+
+    "gettingStarted": {
+      "p1": "<span>في التطبيقات التقليدية (Multi-Page Apps)، كانت المقاييس القديمة زي <strong>DOMContentLoaded (DCL)</strong> وحثيث <strong>window.onload</strong> كافية لتقييم أداء الصفحة. الـ DCL كان بيعني إن الـ HTML نزل والسكربتات اتقرأت، والـ Load كان بيعني إن كل الموارد بما فيها الصور اتكتمت. لكن مع ظهور تقنيات <strong>الرندرة من طرف العميل (Client-Side Rendering - CSR)</strong> وتطبيقات الصفحة الواحدة (SPAs) والتحميل الديناميكي للأكواد، اتغيرت بنية الويب جذرياً. في تطبيقات الـ CSR، أحداث الـ DCL والـ Load ممكن تنطلق في أجزاء من الثانية، ومع ذلك بتفضل الشاشة بيضاء وخالية تماماً لعدة ثوانٍ! وبكده فقدت المقاييس القديمة أي ارتباط حقيقي بتجربة المستخدم الفعلية والسرعة التي يشعر بها (Perceived Performance).</span>",
+      "p2": "<span>من هنا ابتكرت شركة Google منظومة <strong>Web Vitals</strong> لتحديد المقاييس المتمركزة حول المستخدم لتقييم ثلاثة جوانب رئيسية: <strong>مدى السرعة</strong> (<em>LCP - Largest Contentful Paint</em>)، <strong>مدى سلاسة الصفحة</strong> (<em>CLS - Cumulative Layout Shift</em>)، و<strong>زمن الجاهزية للتفاعل</strong> (<em>INP - Interaction to Next Paint / FID</em>)، وكل ده بيعتمد على أساس سيرفر قوي بيقاس بـ <strong>TTFB (Time to First Byte)</strong>.</span>",
+      "p3": "<span>لو كان الـ <strong>TTFB</strong> بيقيس استجابة السيرفر، والـ <strong>FCP</strong> بيسجل أول ومضة بصارية على الشاشة، فالـ <strong>Largest Contentful Paint (LCP)</strong> هو المقياس الجوهري اللي بيحدد متى بيكتمل رسم المحتوى الرئيسي والأساسي للمستخدم في الـ Viewport. لو صورة المنتجات أو العنوان الرئيسي استغرق 5 ثواني علشان يظهر، فالمستخدم هيعتبر موقعك بطيء مهما كان السيرفر رد بسرعة. وعلشان نوصل بالـ LCP لأقل من <strong>2.5 ثانية</strong>، خلينا نطرح الأسئلة الهندسية الجوهرية دي:</span>",
+      "questions": {
+        "q1": "<span>ما هي العناصر المؤهلة لتكون <strong>مرشحة كـ LCP</strong>، وإيه العناصر المستبعدة تماماً (زي الصور خفيفة التفاصيل Entropy أو opacity 0)؟</span>",
+        "q2": "<span>إزاي المتصفح بيراقب ويحسب ويبعث تحديثات الـ <strong>PerformanceEntry</strong> للـ LCP حتى لحظة تفاعل المستخدم؟</span>",
+        "q3": "<span>ما هي <strong>المراحل الأربعة المكونة لزمن LCP</strong> (الـ TTFB، تأخير التحميل، مدة التنزيل، وتأخير الرندرة)، وإيه الميزانية الزمنية المستهدفة لكل مرحلة؟</span>",
+        "q4": "<span>إزاي نقضي تماماً على <strong>تأخير تحميل المورد (Resource Load Delay)</strong> عبر تكتيكات الـ HTML Discoverability، و <code>fetchpriority=\"high\"</code>، واستضافة الـ Same-Origin؟</span>",
+        "q5": "<span>ما هي الاستراتيجيات الهندسية لتقليل <strong>مدة تنزيل المورد</strong> (WebP/AVIF، خطوط WOFF2، شبكات CDN، HTTP/3) وحذف <strong>تأخير الرندرة</strong> (Critical CSS، Defer JS، و SSR/SSG)؟</span>"
+      }
+    },
+
+    "whatIsLcp": {
+      "title": "ما هو LCP (Largest Contentful Paint)؟",
+      "p1": "<span>الـ <strong>Largest Contentful Paint (LCP)</strong> هو أحد الأعمدة الثلاثة الأساسية لـ Core Web Vitals، ويقيس الوقت المنقضي من لحظة بدايه تنقل المستخدم نحو الصفحة (Navigation Start) وحتى اكتمال رسم <strong>أكبر صورة أو كتلة نصية أو فيديو</strong> مرئي داخل شاشة المستخدم (Viewport).</span>",
+      "p2": "<span>نظراً لأن العنصر الأكبر حسماً في الجزء العلوي من الصفحة (Above the Fold) هو في الغالب محط أنظار المستخدم (زي صورة المنتج الرئيسية، أو بنر المقال، أو العنوان الضخم)، فإن الـ LCP بيعتبر أدق مقياس لـ <strong>سرعة التحميل المحسوسة (Perceived Load Speed)</strong>. ويمثل الـ LCP نسبة <strong>25% من إجمالي تقييم الأداء في Google Lighthouse (Score Weight)</strong> ويؤثر بشكل مباشر في ترتيب موقعك في نتائج بحث Google (SEO).</span>"
+    },
+
+    "lcpElements": {
+      "title": "العناصر المؤهلة كـ LCP مقابل العناصر المستبعدة",
+      "intro": "<span>وفقاً للمواصفات القياسية لـ W3C و Google Web Vitals، مش كل عقدة في الـ DOM مؤهلة لتكون LCP. إليك التصنيف الدقيق:</span>",
+      "consideredTitle": "1. العناصر المؤهلة كمرشحات LCP:",
+      "consideredItems": {
+        "img": "<span><strong>وسوم الصور &lt;img&gt;:</strong> عناصر الصور العادية. بالنسبة للصور المتحركة (GIFs أو Animated PNGs)، بيتم تسجيل توقيت عرض أول إطار (First Frame).</span>",
+        "svgImage": "<span><strong>وسوم &lt;image&gt; داخل &lt;svg&gt;:</strong> الصور النقطية المضمنة داخل عناصر الـ SVG.</span>",
+        "video": "<span><strong>وسوم الفيديو &lt;video&gt;:</strong> يتم اعتماد إما توقيت تحميل صورة الغلاف (Poster Image) أو توقيت عرض أول إطار للفيديو — أيهما أسبق.</span>",
+        "bgUrl": "<span><strong>صور الخلفية عبر url():</strong> العناصر التي تحتوي على صورة خلفية محملة بواسطة دالة الـ CSS <code>url()</code> (بخلاف التدرجات اللونية CSS Gradients والتي تعتبر مستبعدة).</span>",
+        "text": "<span><strong>العناصر النصية على مستوى الكتلة (Block-level):</strong> مثل <code>&lt;h1&gt;</code>، <code>&lt;p&gt;</code>، <code>&lt;div&gt;</code> والتي تحتوي على نصوص أو عناصر نصية مضمنة.</span>"
+      },
+      "excludedTitle": "2. العناصر المستبعدة من الـ LCP (قد تعتبر FCP فقط):",
+      "excludedItems": {
+        "opacity": "<span><strong>العناصر المخفية (Zero Opacity):</strong> العناصر التي تمتلك <code>opacity: 0</code> أو <code>visibility: hidden</code> وغير مرئية للمستخدم.</span>",
+        "fullViewport": "<span><strong>الخلفيات الممتدة بالكامل:</strong> العناصر التي تغطي 100% من أبعاد الـ Viewport، حيث تعتبر خلفيات ديكورية وليست محتوى رئيسي.</span>",
+        "lowEntropy": "<span><strong>الصور خفيفة التفاصيل (Low Entropy / Placeholders):</strong> الصور المؤقتة أو الصور ذات الانتروبي المنخفض جداً (Entropy &lt; 0.05) والتي لا تعبر عن المحتوى الفعلي للصفحة.</span>"
+      }
+    },
+
+    "lcpReporting": {
+      "title": "آلية رصد وتسجيل وتعديل أحجام عناصر LCP",
+      "p1": "<span>أثناء تحميل الصفحة، بيتم رندرة عناصر الـ DOM بشكل غير متزامن. المتصفح بيحتفظ بسجل أداء مستمر: كل ما اترسم عنصر جديد في الـ Viewport <strong>أكبر مساحةً</strong> من عنصر الـ LCP السابق، المتصفح بيطلق <code>PerformanceEntry</code> جديد من نوع <code>largest-contentful-paint</code>.</span>",
+      "p2": "<span><ctrl42>متى يتوقف التقرير؟ المتصفح بيتوقف فوراً وبشكل نهائي عن إرسال إدخالات LCP جديدة في اللحظة التي يقوم فيها المستخدم بأي تفاعل مع الصفحة (مثل الضغط Tap، النقر Click، التمرير Scroll، أو الضغط على الكيبورد).</span>",
+      "p3": "<span><ctrl42>كيف تتعامل الحسابات مع تغير حجم وموقع العنصر؟ لتقليل الضغط على المعالج والذاكرة، فإن أي تغيير لاحق في حجم أو موقع عنصر تم رندرته بالفعل <strong>لا ينشئ مرشحات LCP جديدة</strong>. المتصفح بيعتمد فقط على <em>الحجم والموقع الأولي للعنصر عند رندرته لأول مرة في الـ Viewport</em>. لو الصورة كبرت لاحقاً بـ CSS Animations، مساحتها الأولى هي اللي بتفضل معتمدة.</span>"
+    },
+
+    "scoring": {
+      "title": "معايير التقييم: متى يعتبر الـ LCP ممتازاً أو ضعيفاً؟",
+      "intro": "<span>وفقاً لتوصيات <strong>Google</strong> وبيانات الـ <strong>CrUX</strong>، بيتم تصنيف الـ LCP عند الشريحة المئوية <strong>75th Percentile</strong> للمستخدمين الحقيقيين كالتالي:</span>",
+      "good": "<span>🟢 <strong>ممتاز Good (&le; 2.5 ثانية):</strong> المحتوى الرئيسي يظهر فوراً ويمنح المستخدم تجربة تحميل فائقة السرعة.</span>",
+      "needsImprovement": "<span>🟡 <strong>يحتاج لتحسين Needs Improvement (2.5s – 4.0s):</strong> تأخير متوسط في رندرة المحتوى؛ يستوجب تحسين الأصول والمسار الحرج.</span>",
+      "poor": "<span>🔴 <strong>ضعيف Poor (&gt; 4.0 ثوانٍ):</strong> تجربة تحميل بطيئة ومحبطة، تؤدي لارتفاع نسبة المغادرة وتراجع الترتيب في البحث.</span>"
+    },
+
+    "lcpBreakdown": {
+      "title": "تفكيك زمن LCP إلى 4 مراحل فرعية (LCP Time Breakdown)",
+      "intro": "<span>لتشخيص أسباب بطء الـ LCP وعلاجها هندسياً، بنقسم الوقت الإجمالي لـ LCP إلى 4 أجزاء رئيسية:</span>",
+      "step1": "<span><strong>1. زمن وصول أول بايت (TTFB) [~40% من LCP]:</strong> الوقت من بداية طلب الصفحة وحتى استلام المتصفح لأول بايت من الـ HTML. المستهدف: أقل من 800ms.</span>",
+      "step2": "<span><strong>2. تأخير تحميل المورد (Resource Load Delay) [&lt;10% من LCP]:</strong> الوقت بين استلام الـ TTFB ولحظة اكتشاف المتصفح لمورد LCP وبدء طلبه. المستهدف: يقارب 0ms.</span>",
+      "step3": "<span><strong>3. مدة تنزيل المورد (Resource Load Duration) [~40% من LCP]:</strong> الوقت المستغرق لنقل بيانات المورد (صورة، خط، فيديو) عبر الشبكة. المستهدف: أقل من 1,000ms.</span>",
+      "step4": "<span><strong>4. تأخير رندرة العنصر (Element Render Delay) [&lt;10% من LCP]:</strong> الوقت بين اكتمال تنزيل مورد الـ LCP ولحظة رسمه فعلياً على الشاشة. المستهدف: يقارب 0ms.</span>"
+    },
+
+    "optimizations": {
+      "title": "حلول واستراتيجيات هندسية شاملة لتحسين كل مرحلة من LCP",
+      "intro": "<span>للوصول بالـ LCP لأقل من 2.5 ثانية في بيئة الإنتاج، نقوم بتحسين كل مرحلة من المراحل الأربعة بشكل مستقل:</span>",
+
+      "phase1": {
+        "title": "المرحلة الأولى: القضاء على تأخير تحميل المورد (Target: ~0ms)",
+        "p1": "<span>السبب الرئيسي لتأخير تحميل المورد هو عدم قدرة الماسح المسبق للمتصفح (Preload Scanner) على اكتشاف ملف الـ LCP في كود الـ HTML الأولي. من أبرز الممارسات الخاطئة:</span>",
+        "antiPatterns": {
+          "jsImg": "<span>❌ إضافة وسم الـ <code>&lt;img&gt;</code> الخاص بالـ LCP ديناميكياً باستخدام كود JavaScript في وقت التشغيل.</span>",
+          "lazyImg": "<span>❌ استخدام مكتبات Lazy-Loading تقوم باستبدال <code>src</code> بـ <code>data-src</code> في صور الجزء العلوي من الصفحة.</span>",
+          "cssBg": "<span>❌ الاعتماد على صورة خلفية <code>background-image: url(...)</code> داخل ملف CSS خارجي يتطلب تنزيله وتفسيره أولاً.</span>"
+        },
+        "solutions": {
+          "preload": "<span>✅ <strong>التحميل المسبق الصريح وأولوية الطلب:</strong> أضف <code>&lt;link rel=\"preload\" as=\"image\" href=\"/hero.webp\" fetchpriority=\"high\"&gt;</code> في الـ <code>&lt;head&gt;</code>.</span>",
+          "noLazyAboveFold": "<span>✅ <strong>تجنب الـ Lazy Loading لصور الأعلى:</strong> احذف <code>loading=\"lazy\"</code> تماماً من صورة الـ LCP، وضع <code>fetchpriority=\"high\"</code> مباشرة على وسم <code>&lt;img&gt;</code>.</span>",
+          "lowPriorityOffscreen": "<span>✅ <strong>تقليل أولوية الصور غير المرئية:</strong> اضبط <code>fetchpriority=\"low\"</code> للصور الموجودة خارج الشاشة أو في السلايدر لتجنب التزاحم على الشبكة.</span>",
+          "sameOrigin": "<span>✅ <strong>الاستضافة على نفس النطاق / Proxied CDN:</strong> استضف أصول الـ LCP على نفس نطاق الـ HTML أو عبر CDN معنون بـ Reverse Proxy لإعادة استخدام نفس اتصال الـ TCP/TLS وتوفير وقت الاتصال.</span>"
+        }
+      },
+
+      "phase2": {
+        "title": "المرحلة الثانية: تقليل مدة تنزيل المورد (Target: &lt; 1,000ms)",
+        "p1": "<span>الهدف هو تقليل حجم البايتات المنقولة عبر الشبكة وتسرع عملية التنزيل:</span>",
+        "solutions": {
+          "responsiveImages": "<span>✅ <strong>الصور التكيفية الذكية:</strong> استخدم خصائص <code>srcset</code> و <code>sizes</code> أو عنصر <code>&lt;picture&gt;</code> لتنزيل صور بأبعاد تناسب أجهزة الموبايل بدلاً من الصور الضخمة. واستخدم SVG للرسومات المتجهية.</span>",
+          "modernFormats": "<span>✅ <strong>صيغ الصور الحديثة (WebP & AVIF):</strong> تحويل صور JPEG/PNG إلى WebP أو AVIF. تقدم صيغة AVIF ضغطاً أفضل بنسبة تصل لـ 50% مقارنة بـ JPEG مع نفس الجودة. ووفّر بديلاً للمتصفحات القديمة.</span>",
+          "compression": "<span>✅ <strong>ضغط الصور و شبكات CDN:</strong> اضبط ضغط الصور عند مستوى جودة مقبول. يقوم Lighthouse بفحص الصور وتنبيهك إذا كان الضغط يقلل &ge; 4 KiB (عند جودة 85). استخدم Image CDN للتحويل التلقائي.</span>",
+          "fonts": "<span>✅ <strong>تحسين خطوط الويب:</strong> اعتمد صيغة WOFF2 (أصغر بنسبة 30% من WOFF). قم بعمل Subsetting للخطوط لتنزيل الحروف المستخدمة فقط. استخدم Variable Fonts، واضبط <code>font-display: swap</code> أو <code>optional</code> لمنع حجب الرندرة. وقم بعمل Preload للخط الأساسي.</span>",
+          "caching": "<span>✅ <strong>التخزين المؤقت وتجنب التزاحم:</strong> استغل كاش المتصفح عبر ترويسات <code>ETag</code> و <code>Last-Modified</code> للحصول على استجابة <code>304 Not Modified</code> وتجنب إعادة تنزيل الأصول غير المتغيرة.</span>"
+        }
+      },
+
+      "phase3": {
+        "title": "المرحلة الثالثة: القضاء على تأخير رندرة العنصر (Target: ~0ms)",
+        "p1": "<span>إذا اكتمل تنزيل مورد الـ LCP ولكن العنصر لم يترسم فوراً، فهذا يعني وجود حجب للرندرة بواسطة ملفات الويب أو انسداد خيط التنفيذ الرئيسي (Main Thread):</span>",
+        "solutions": {
+          "cssBlocking": "<span>✅ <strong>إزالة حجب الـ CSS:</strong> قم بتضمين الـ Critical CSS داخل الـ <code>&lt;head&gt;</code>، احذف التنسيقات غير المستخدمة، ضغط التنسيقات، واكتفِ بتحميل الـ CSS الثانوي asynchronously.</span>",
+          "jsBlocking": "<span>✅ <strong>إزالة حجب الـ JavaScript:</strong> تجنب السكربتات المتزامنة في الـ <code>&lt;head&gt;</code> واستخدم خاصية <code>defer</code> أو <code>async</code> لجميع السكربتات.</span>",
+          "ssrSsg": "<span>✅ <strong>الرندرة على السيرفر (SSR / SSG / ISR):</strong> رندر كود الـ HTML على السيرفر بحيث تكون عناصر الـ LCP موجودة وجاهزة في الـ HTML الأولي دون انتظار تنزيل وتنفيذ أكواد الـ JavaScript على العميل.</span>",
+          "breakLongTasks": "<span>✅ <strong>تفكيك المهام الطويلة:</strong> أعد التمرير لخيط التنفيذ الرئيسي للمتصفح باستخدام <code>setTimeout()</code> أو <code>requestAnimationFrame()</code> لتجنب حجب مرحلة الـ Paint.</span>"
+        }
+      },
+
+      "phase4": {
+        "title": "المرحلة الرابعة: تحسين زمن وصول أول بايت TTFB (Target: &lt; 800ms)",
+        "p1": "<span>بما أن الـ TTFB يمثل حوالي 40% من زمن الـ LCP، فإن تسريع استجابة الخادم ينعكس فوراً على تسريع جميع المقاييس التالية:</span>",
+        "solutions": {
+          "compression": "<span>✅ <strong>ضغط استجابات الـ HTTP:</strong> تفعيل ضغط <strong>Brotli</strong> (المبعوث عبر <code>Accept-Encoding</code> والمستلم بـ <code>Content-Encoding: br</code>)، وهو أفضل بكثير من Gzip للملفات النصية.</span>",
+          "protocols": "<span>✅ <strong>البروتوكولات الحديثة (HTTP/2 & HTTP/3):</strong> استخدام HTTP/2 Multiplexing أو HTTP/3 عبر QUIC (UDP) لإلغاء جولات الاتصال المتكررة.</span>",
+          "edgeCdn": "<span>✅ <strong>شبكات Edge CDN والقرب الجغرافي:</strong> تخزين صفحات الـ HTML على شبكات Edge قريبة من المستخدمين جغرافياً لتقليل زمن الذهاب والعودة (RTT).</span>"
+        }
+      }
+    },
+
+    "measuring": {
+      "title": "كيفية قياس ومراقبة LCP برمجياً وعملياً",
+      "p1": "<span>يمكنك قياس قيمة الـ LCP المرشحة وتحديد عنصرها بدقة من متصفح المستخدم باستخدام <strong>PerformanceObserver API</strong>:</span>",
+      "codeSnippet": "// مراقبة مقياس Largest Contentful Paint (LCP)\nconst observer = new PerformanceObserver((entryList) => {\n  const entries = entryList.getEntries();\n  const lastEntry = entries[entries.length - 1]; // أحدث عنصر مرشح كـ LCP\n  \n  console.log(`🎯 عنصر الـ LCP: ${lastEntry.element?.tagName}, زمن الرندرة: ${lastEntry.startTime.toFixed(2)}ms`);\n  \n  // إرسال البيانات لنظام التحليلات / RUM\n  // sendToAnalytics({ metric: 'LCP', value: lastEntry.startTime, element: lastEntry.element?.tagName });\n});\n\n// تسجيل المظاهر الخاصة بـ LCP مع buffering\nobserver.observe({ type: 'largest-contentful-paint', buffered: true });",
+      "toolsIntro": "<span>أما في مرحلة الفحص الميداني والمخبري (Field & Lab Measurement):</span>",
+      "tool1": "<span><strong>CrUX & PageSpeed Insights:</strong> يقيس بيانات المستخدمين الحقيقيين عند الشريحة المئوية 75th percentile.</span>",
+      "tool2": "<span><strong>Chrome DevTools (Performance Panel):</strong> يحدد لك بدقة إطار الـ LCP والعنصر المستهدف وشبكة الطلبات Waterfall.</span>",
+      "tool3": "<span><strong>WebPageTest.org:</strong> يمنحك تسجيل فيديو مقارن ومخطط Waterfall وإبراز بصري لعنصر الـ LCP عبر مختلف الأجهزة.</span>",
+      "tool4": "<span><strong>امتداد Web Vitals للمتصفح:</strong> يعرض قيم الـ LCP اللحظية مباشرة في شريط أدوات المتصفح أثناء التصفح.</span>"
+    },
+
+    "comparison": {
+      "title": "مقارنة سريعة: مسار LCP البطيء مقابل المسار عالي الكفاءة",
+      "slowLabel": "مسار بطيء وغير محسّن (Poor LCP > 4.0s)",
+      "fastLabel": "مسار عالي الكفاءة (Fast LCP < 1.5s)",
+      "differences": {
+        "discoverability": "<span>❌ <strong>اكتشاف المورد:</strong> صورة LCP مخفية في كود JS أو CSS url()؛ تأخير اكتشاف طويل.</span>",
+        "discoverabilityOpt": "<span>✅ <strong>اكتشاف المورد:</strong> صورة LCP موجودة في الـ HTML الأولي ومحمّلة بـ fetchpriority=\"high\".</span>",
+        "formatting": "<span>❌ <strong>صيغة وحجم الصورة:</strong> صورة JPEG غير مضغوطة بحجم 3MB معروضة لشاشات الموبايل.</span>",
+        "formattingOpt": "<span>✅ <strong>صيغة وحجم الصورة:</strong> صور تكيفية WebP/AVIF بأحجام دقيقة عبر srcset و sizes.</span>",
+        "renderBlocking": "<span>❌ <strong>حجب الرندرة:</strong> ملفات CSS و JS متزامنة تحجب رسم العنصر بعد تنزيله.</span>",
+        "renderBlockingOpt": "<span>✅ <strong>حجب الرندرة:</strong> Critical CSS مضمن، والسكربتات مؤجلة بـ defer، وتفعيل الـ SSR.</span>",
+        "ttfb": "<span>❌ <strong>الشبكة و TTFB:</strong> استضافة بدون CDN و TTFB عالي يتجاوز 1.5 ثانية مع HTML غير مضغوط.</span>",
+        "ttfbOpt": "<span>✅ <strong>الشبكة و TTFB:</strong> استجابة عبر Edge CDN و HTTP/3 مع ضغط Brotli و TTFB أقل من 300ms.</span>"
+      }
+    },
+
+    "relatedQuestions": {
+      "q1": "ليه تحميل صورة الـ LCP مسبقاً باستعمال fetchpriority=\"high\" بيحدث فرق هائل في النتيجة؟",
+      "q2": "إيه اللي بيحصل لو اترسم عنصر أكبر على الشاشة بعد ما المستخدم بدأ يعمل Scroll أو يضغط على الصفحة؟",
+      "q3": "هل استخدام الـ Server-Side Rendering (SSR) مفيد دائماً لـ LCP، ولا فيه مقايضة مع الـ TTFB؟",
+      "q4": "إزاي المتصفح بيستبعد الصور قليلة التفاصيل (Low Entropy) والعناصر المخفية من حسابات الـ LCP؟",
+      "q5": "ما هي العلاقة بين الـ TTFB والـ FCP والـ LCP في التسلسل الزمني الكامل لأداء الويب؟"
+    }
+  }
+}
