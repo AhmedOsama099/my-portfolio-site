@@ -4,72 +4,77 @@ import { TFunction } from "i18next";
 const gitNavItems = (
   t: TFunction<"translation", undefined>
 ): TechNavItemProps[] => [
-  {
-    id: "what-is-git",
-    title: t("tech-blog.git.what-is-git"),
-    href: "what-is-git",
-  },
-  {
-    id: "online-offline-git",
-    title: t("tech-blog.git.online-offline-git"),
-    href: "online-offline-git",
-  },
-];
+    {
+      id: "what-is-git",
+      title: t("tech-blog.git.what-is-git"),
+      href: "what-is-git",
+    },
+    {
+      id: "online-offline-git",
+      title: t("tech-blog.git.online-offline-git"),
+      href: "online-offline-git",
+    },
+  ];
 
 const tsNavItems = (
   t: TFunction<"translation", undefined>
 ): TechNavItemProps[] => [
-  {
-    id: "structural-type-system",
-    title: t("tech-blog.ts.structural-type-system"),
-    href: "structural-type-system",
-  },
-  {
-    id: "index-signature",
-    title: t("tech-blog.ts.index-signature"),
-    href: "index-signature",
-  },
-  // {
-  //   id: "excess-type-checking",
-  //   title: t("tech-blog.ts.excess-type-checking"),
-  //   href: "excess-type-checking",
-  // },
-];
+    {
+      id: "structural-type-system",
+      title: t("tech-blog.ts.structural-type-system"),
+      href: "structural-type-system",
+    },
+    {
+      id: "index-signature",
+      title: t("tech-blog.ts.index-signature"),
+      href: "index-signature",
+    },
+    // {
+    //   id: "excess-type-checking",
+    //   title: t("tech-blog.ts.excess-type-checking"),
+    //   href: "excess-type-checking",
+    // },
+  ];
 
 const accessibilityNavItems = (
   t: TFunction<"translation", undefined>
 ): TechNavItemProps[] => [
-  {
-    id: "general-tips",
-    title: t("tech-blog.accessibility.general-tips"),
-    href: "general-tips",
-  },
-];
+    {
+      id: "general-tips",
+      title: t("tech-blog.accessibility.general-tips"),
+      href: "general-tips",
+    },
+  ];
 
 const performanceNavItems = (
   t: TFunction<"translation", undefined>
 ): TechNavItemProps[] => [
-  {
-    id: "ttfb",
-    title: t("tech-blog.performance.ttfb"),
-    href: "ttfb",
-  },
-  {
-    id: "fcp",
-    title: t("tech-blog.performance.fcp"),
-    href: "fcp",
-  },
-  {
-    id: "lcp",
-    title: t("tech-blog.performance.lcp"),
-    href: "lcp",
-  },
-  {
-    id: "cls",
-    title: t("tech-blog.performance.cls"),
-    href: "cls",
-  },
-];
+    {
+      id: "ttfb",
+      title: t("tech-blog.performance.ttfb"),
+      href: "ttfb",
+    },
+    {
+      id: "fcp",
+      title: t("tech-blog.performance.fcp"),
+      href: "fcp",
+    },
+    {
+      id: "lcp",
+      title: t("tech-blog.performance.lcp"),
+      href: "lcp",
+    },
+    {
+      id: "cls",
+      title: t("tech-blog.performance.cls"),
+      href: "cls",
+    },
+    {
+      id: "inp",
+      title: t("tech-blog.performance.inp"),
+      href: "inp",
+    },
+  ];
 
 export type ParentCategoryConfig = {
   id: string;

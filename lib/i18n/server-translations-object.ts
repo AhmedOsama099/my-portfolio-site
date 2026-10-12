@@ -19,6 +19,8 @@ import lcpEn from "../../server-locales/en/performance/lcp.json";
 import lcpAr from "../../server-locales/ar/performance/lcp.json";
 import clsEn from "../../server-locales/en/performance/cls.json";
 import clsAr from "../../server-locales/ar/performance/cls.json";
+import inpEn from "../../server-locales/en/performance/inp.json";
+import inpAr from "../../server-locales/ar/performance/inp.json";
 
 export const translations: Record<string, Record<string, unknown>> = {
   en: {
@@ -32,6 +34,7 @@ export const translations: Record<string, Record<string, unknown>> = {
     fcp: fcpEn,
     lcp: lcpEn,
     cls: clsEn,
+    inp: inpEn,
   },
   ar: {
     common: commonAr,
@@ -44,5 +47,6 @@ export const translations: Record<string, Record<string, unknown>> = {
     fcp: fcpAr,
     lcp: lcpAr,
     cls: clsAr,
+    inp: inpAr,
   },
 };

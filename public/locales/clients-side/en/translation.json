@@ -49,7 +49,8 @@
       "ttfb": "Time to First Byte (TTFB)",
       "fcp": "First Contentful Paint (FCP)",
       "lcp": "Largest Contentful Paint (LCP)",
-      "cls": "Cumulative Layout Shift (CLS)"
+      "cls": "Cumulative Layout Shift (CLS)",
+      "inp": "Interaction to Next Paint (INP)"
     }
   }
 }

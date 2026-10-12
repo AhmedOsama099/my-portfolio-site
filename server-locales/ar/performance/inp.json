@@ -1,0 +1,157 @@
+{
+  "inp": {
+    "title": "دليلك الشامل لـ INP (Interaction to Next Paint) — المقياس الأهم لسرعة استجابة الموقع وتفاعله الحقيقي",
+
+    "gettingStarted": {
+      "p1": "<span>في بدايات الويب، كانت مقاييس الأداء التقليدية زي <strong>DOMContentLoaded (DCL)</strong> وحَدَث <strong>window.onload</strong> كافية جداً لتقييم حالة الصفحة. الـ DCL كان بيعني إن كود الـ HTML نزل والسكربتات الأساسية اشتغلت، والـ Load كان بيعني إن جميع الموارد (زي الصور وملفات الـ CSS) اكتمل تحميلها. ولكن مع التحول الضخم نحو <strong>الرندرة من جهة العميل (Client-Side Rendering - CSR)</strong> وتطبيقات الصفحة الواحدة (SPAs) ومرحلة الـ Hydration، اتغيرت قواعد اللعبة تماماً! في تطبيقات الـ CSR، أحداث الـ DCL والـ Load بتنطلق في أجزاء من الثانية، ومع ذلك بيفضل خيط التنفيذ الرئيسي للمتصفح (Main Thread) مخنوقاً لعدة ثوانٍ وهو بيحلل أكواد جافاسكربت ضخمة—فالمستخدم يضغط على الأزرار والشاشة متجمدة ولا تستجيب! وبكده فقدت المقاييس القديمة أي ارتباط واقعي بسرعة الاستجابة التي يشعر بها المستخدم.</span>",
+      "p2": "<span>عشان كده أطلقت Google منظومة <strong>Web Vitals</strong> المبنية على ثلاثة محاور رئيسية لتجربة المستخدم: <strong>السرعة</strong> (<em>LCP — Largest Contentful Paint</em>)، و<strong>الاستقرار البصري</strong> (<em>CLS — Cumulative Layout Shift</em>)، و<strong>التفاعل اللحظي</strong> (<em>INP — Interaction to Next Paint</em>)، وكل ده مستند على أساس متين لاستجابة السيرفر (<em>TTFB — Time to First Byte</em>). وفي مارس 2024، أوقفت Google رسمياً مقياس FID القديم واعتمدت <strong>INP</strong> كمقياس أساسي رسمي في ترتيب نتائج البحث.</span>",
+      "p3": "<span>على عكس المقاييس القديمة اللي كانت بتكتفي بفحص أول نقرة فقط أو تتجاهل وقت رسم الشاشة، مقياس INP بيرصد استجابة <strong>كل تفاعل</strong> طوال رحلة المستخدم في الصفحة من أول ما يفتح التاب لحد ما يقفله. وقبل ما نبدأ في استراتيجيات تحسين الكود، تعال نجاوب على الأسئلة الجوهرية:</span>",
+      "questions": {
+        "q1": "<span>ما هو التعريف الدقيق لـ <strong>التفاعل (Interaction)</strong> في مقياس INP، ولماذا تُحتسب النقرات واللمس والضغط على المفاتيح بينما يُستبعد التمرير (Scroll)؟</span>",
+        "q2": "<span>ليه شركة Google قررت استبدال مقياس <strong>FID (First Input Delay)</strong> بمقياس <strong>INP</strong> في مارس 2024؟</span>",
+        "q3": "<span>ما هي المراحل الثلاث الأساسية لتأخير التفاعل: <strong>تأخير الإدخال (Input Delay)</strong>، و<strong>مدة المعالجة (Processing Duration)</strong>، و<strong>تأخير العرض والرسم (Presentation Delay)</strong>؟</span>",
+        "q4": "<span>إزاي مشكلة <strong>Layout Thrashing (إعادة حساب التخطيط القسري)</strong> بتدمر سرعة الاستجابة، وإزاي فصل مرحلة القراءة عن الكتابة بيحلها تماماً؟</span>",
+        "q5": "<span>إزاي نستخدم واجهات المتصفح المدمجة زي <code>PerformanceObserver</code> و <code>setTimeout</code> لتفكيك المهام وضمان استجابة أقل من 200ms؟</span>"
+      }
+    },
+
+    "whatIsInp": {
+      "title": "ما هو مقياس INP (Interaction to Next Paint)؟",
+      "p1": "<span><strong>مقياس التفاعل مع أول رسم تالٍ (INP)</strong> هو مقياس أداء قياسي ومعتمد من Google ضمن Core Web Vitals، وظيفته تقييم مدى استجابة الصفحة لمدخلات المستخدم عن طريق رصد زمن الاستجابة (Latency) <strong>لكل نقرات الماوس، ولمسات شاشات اللمس، والضغط على لوحة المفاتيح</strong> طوال فترة وجود المستخدم في الصفحة.</span>",
+      "p2": "<span>لما المستخدم يتفاعل مع موقعك، بيتوقع يشوف تأكيد بصري فوري—زرار ينداس، قائمة تفتح، حرف يظهر في حقل الإدخال، أو مؤشر تحميل (Skeleton Loader). مقياس INP بيقيس الوقت من أول لحظة بدأ فيها المستخدم الحركة دي لحد ما المتصفح يقدر بالفعل <strong>يرسم الإطار البصري التالي (Next Paint)</strong> على الشاشة.</span>",
+      "p3": "<span>في نهاية جلسة المستخدم، المتصفح بيختار التفاعل اللي أخذ أطول مدة استجابة (أو عند الشريحة المئوية 98 للصفحات اللي فيها مئات التفاعلات لاستبعاد الشذوذ الإحصائي) ليكون هو درجة الـ INP المعبرة عن الصفحة.</span>",
+      "triggers": {
+        "title": "الإيماءات الثلاث المؤهلة للاحتساب في INP",
+        "intro": "<span>يقيس INP تفاعلات محددة وواضحة يقودها المستخدم:</span>",
+        "mouse": "<span>🖱️ <strong>نقرات الماوس (Mouse Clicks):</strong> الضغط على العناصر التفاعلية، واللي بيشغل أحداث <code>pointerdown</code> و <code>mousedown</code> و <code>mouseup</code> و <code>click</code>.</span>",
+        "touch": "<span>📱 <strong>لمس الشاشة (Touchscreen Taps):</strong> الضغط بالأصابع على شاشات الهواتف والتابلت، واللي بيطلق أحداث <code>pointerdown</code> و <code>pointerup</code> والنقرة المترتبة عليها.</span>",
+        "keyboard": "<span>⌨️ <strong>الضغط على لوحة المفاتيح (Key Strokes):</strong> الضغط على أزرار الكيبورد الفيزيائية أو الافتراضية، واللي بيطلق <code>keydown</code> و <code>keypress</code> و <code>keyup</code>.</span>",
+        "excluded": "<span>🚫 <strong>الحركات المستبعدة (التمرير والتقريب Scroll &amp; Zoom):</strong> التمرير (Scrolling) وتكبير الصفحة (Pinching) هي حركات مستمرة بيعالجها خيط التكوين (Compositor Thread) في المتصفح بشكل منفصل، ولا تخضع لمقياس INP. وضع <code>{ passive: true }</code> بيساعد سلاسة التمرير لكنه <strong>لا يغير درجة الـ INP إطلاقاً</strong>!</span>"
+      },
+      "noInp": {
+        "title": "ماذا يعني عدم تسجيل قيمة INP للصفحة؟",
+        "intro": "<span>في أدوات مراقبة المستخدمين الواقعية (RUM) وبيانات تقرير CrUX، قد تجد صفحات بدون قيمة INP مسجلة. هذا طبيعي في ثلاث حالات:</span>",
+        "reason1": "<span><strong>1. عدم تفاعل المستخدم:</strong> الزائر قرأ المقال وغادر الصفحة دون النقر أو الكتابة.</span>",
+        "reason2": "<span><strong>2. حركات غير مشمولة فقط:</strong> الزائر اكتفى بعمل Scroll للتصفح فقط، والتمرير لا يسجل تفاعلات INP.</span>",
+        "reason3": "<span><strong>3. روبوتات محركات البحث وعناكب الزحف:</strong> زيارات البوتات ومحركات البحث التي تتصفح المحتوى آلياً دون نقرات بشرية.</span>"
+      }
+    },
+
+    "scoring": {
+      "title": "معايير التقييم: متى يعتبر الـ INP ممتازاً أو ضعيفاً؟",
+      "intro": "<span>تقوم Google بتقييم مقياس INP عند <strong>الشريحة المئوية 75% (75th Percentile)</strong> لزيارات المستخدمين الفعليين في تقرير CrUX وفق الحدود التالية:</span>",
+      "good": "<span>🟢 <strong>ممتاز Good (&le; 200 ms):</strong> تقدم الصفحة استجابة بصرية شبه فورية لجميع التفاعلات، والمستخدم يشعر بأن الموقع سريع، سلس، ومرن.</span>",
+      "needsImprovement": "<span>🟡 <strong>يحتاج لتحسين Needs Improvement (200 ms – 500 ms):</strong> هناك تأخير ملحوظ بين ضغطة المستخدم والتأثير البصري، وقد يتردد المستخدم أو يكرر الضغط ظناً منه أن النقرة لم تعمل.</span>",
+      "poor": "<span>🔴 <strong>ضعيف Poor (&gt; 500 ms):</strong> تجميد وتأخير شديد، الصفحة تبدو معلقة أو عاطلة، مما يسبب إحباطاً كبيراً ومغادرة سريعة للموقع وترك سلات الشراء.</span>"
+    },
+
+    "fidVsInp": {
+      "title": "المقارنة بين FID و INP: لماذا استبدلت Google المقياس القديم؟",
+      "p1": "<span>بين عامي 2020 وبداية 2024، اعتمدت Google مقياس <strong>FID (First Input Delay)</strong> لقياس التفاعل، ولكن كان يعاني من نقطتين ضعف جوهريتين جعلتاه متساهلاً للغاية:</span>",
+      "points": {
+        "fidFlaw1": "<span>❌ <strong>قصر النظر على أول نقرة فقط:</strong> كان FID يقيس التفاعل <em>الأول فقط</em> في الصفحة (زي نقرة على نافذة الكوكيز أو رابط الهيدر)، ويتجاهل تماماً مئات النقرات والمدخلات اللي بيعملها المستخدم طوال تصفحه!</span>",
+        "fidFlaw2": "<span>❌ <strong>قياس وقت التأخير فقط:</strong> كان FID يقيس فقط الوقت اللي انتظره المتصفح حتى <em>يبدأ</em> تنفيذ دالة الحدث (Callback)، لكنه كان أعمى تماماً عن الوقت اللي استغرقه كود الجافاسكربت للتنفيذ، والوقت اللي استغرقه المتصفح لرسم النتيجة على الشاشة!</span>",
+        "inpAdvantage": "<span>✅ <strong>شامل ودقيق في INP:</strong> مقياس INP بيقيس الدورة كاملة لكل التفاعلات، من لحظة الضغط، مروراً بتنفيذ الكود، وحتى ظهور التغيير على الشاشة. أكثر من 90% من المواقع التي كانت تجتاز FID واجهت صعوبات مع INP لأن كود الجافاسكربت أصبح خاضعاً للمحاسبة الواقعية!</span>"
+      }
+    },
+
+    "latencyBreakdown": {
+      "title": "تشريح زمن التفاعل: المراحل الثلاث الأساسية",
+      "intro": "<span>كل تفاعل يقيسه INP هو حاصل جمع ثلاث فترات زمنية متتالية:</span>",
+      "formula": "إجمالي زمن التفاعل = تأخير الإدخال + مدة المعالجة + تأخير العرض والرسم",
+      "phases": {
+        "inputDelay": "<span><strong>1. تأخير الإدخال (Input Delay):</strong> الوقت من لحظة قيام المستخدم بالحركة وحتى تفرغ خيط التنفيذ الرئيسي (Main Thread) لبدء تشغيل دوال الأحداث. السبب الرئيسي لهذا التأخير هو <strong>المهام الطويلة (Long Tasks &gt; 50ms)</strong> التي تسد خيط التنفيذ، مثل سكربتات التتبع الثقيلة أو تحليل ملفات JSON الضخمة.</span>",
+        "processingDuration": "<span><strong>2. مدة المعالجة (Processing Duration):</strong> الوقت الفعلي المستغرق في تنفيذ جميع دوال الأحداث المرتبطة بالتفاعل في الجافاسكربت (زي دوال <code>pointerdown</code> و <code>click</code> ومكونات React). وينتج التأخير هنا عن العمليات الحسابية المتزامنة أو إعادة بناء الـ DOM بكثافة.</span>",
+        "presentationDelay": "<span><strong>3. تأخير العرض والرسم (Presentation Delay):</strong> الوقت من لحظة انتهاء تنفيذ كود الجافاسكربت وحتى يقوم المتصفح بحساب التنسيقات (Recalculate Style) وإعادة التخطيط (Layout) ورسم الإطار البصري الجديد (Paint) على الشاشة. وينتج هذا التأخير عن <strong>Layout Thrashing</strong> أو حجم DOM هائل يفوق 1,500 عنصر.</span>"
+      }
+    },
+
+    "performanceApis": {
+      "title": "حزمة Performance API المدمجة لفحص الأداء في الوقت الفعلي",
+      "intro": "<span>توفر المتصفحات الحديثة أدوات برمجية دقيقة لقياس ورصد الأداء بدقة الميكروثانية:</span>",
+      "apis": {
+        "now": "<span><code>performance.now()</code>: تعطي طابعاً زمنياً فائق الدقة بالميكروثانية، يقيس الوقت المنقضي منذ بدء تصفح الصفحة. ممتازة للاختبارات البرمجية الدقيقة داخل دوال الأحداث.</span>",
+        "timeOrigin": "<span><code>performance.timeOrigin</code>: يوفر طابعاً زمنياً عالي الدقة يمثل لحظة بداية التنقل أو تشغيل الصفحة ليكون نقطة مرجعية متزامنة.</span>",
+        "getEntries": "<span><code>performance.getEntries()</code>: تعرض سجلات تفصيلية لجميع عناصر الأداء، مثل استعلامات DNS، ومصافحة TCP/SSL، وزمن تحميل الموارد.</span>",
+        "navigationTiming": "<span><code>PerformanceNavigationTiming</code>: تقدم تفاصيل حاسمة عن دورة تنقل الصفحة الأولى، بما فيها لحظات إطلاق DOMContentLoaded وانتهاء معالجة الجافاسكربت.</span>",
+        "observer": "<span><code>PerformanceObserver</code>: واجهة برمجية غير متزامنة تجمع مؤشرات الأداء في أوقات خمول المتصفح (Idle Time) دون مقاطعة خيط التنفيذ الرئيسي، وتسترجع البيانات حتى التي حدثت قبل تسجيل المراقب.</span>"
+      }
+    },
+
+    "measuring": {
+      "title": "قياس ورصد INP برمجياً باستخدام PerformanceObserver",
+      "p1": "<span>يمكنك رصد تفاعلات المستخدمين في موقعك وحساب أداء الـ INP برمجياً من خلال كود جافاسكربت مباشر:</span>",
+      "codeSnippet": "// رصد مقياس Interaction to Next Paint (INP) برمجياً\nlet worstInteractionLatency = 0;\nlet worstInteractionEntry = null;\n\nconst observer = new PerformanceObserver((entryList) => {\n  for (const entry of entryList.getEntries()) {\n    // التأكد من أن السجل يمثل تفاعلاً حقيقياً للمستخدم\n    if (entry.interactionId) {\n      const inputDelay = entry.processingStart - entry.startTime;\n      const processingDuration = entry.processingEnd - entry.processingStart;\n      const presentationDelay = entry.duration - (entry.processingEnd - entry.startTime);\n\n      if (entry.duration > worstInteractionLatency) {\n        worstInteractionLatency = entry.duration;\n        worstInteractionEntry = entry;\n\n        console.log(`⚡ أسوأ تفاعل حتى الآن: ${entry.name}`);\n        console.log(`  إجمالي التأخير: ${entry.duration.toFixed(1)}ms`);\n        console.log(`  تأخير الإدخال: ${inputDelay.toFixed(1)}ms`);\n        console.log(`  زمن المعالجة: ${processingDuration.toFixed(1)}ms`);\n        console.log(`  تأخير الرسم والعرض: ${presentationDelay.toFixed(1)}ms`);\n      }\n    }\n  }\n});\n\n// مراقبة أحداث الـ event مع حد أدنى 16ms\nobserver.observe({\n  type: 'event',\n  buffered: true,\n  durationThreshold: 16,\n});",
+      "toolsIntro": "<span>بالإضافة للقياس البرمجي، اعتمد على الأدوات الاحترافية التالية:</span>",
+      "tool1": "<span><strong>لوحة Performance في Chrome DevTools:</strong> استخدم مسار 'Interactions' المخصص لرؤية تفاعلات المستخدمين وتحليل المهام الطويلة التي تعطل المتصفح.</span>",
+      "tool2": "<span><strong>إضافة Web Vitals للمتصفح:</strong> تعرض لوحة سريعة فوق الصفحة في الوقت الفعلي تظهر قيمة الـ INP ومراحل التأخير فور نقر أي زر.</span>",
+      "tool3": "<span><strong>تقرير Google PageSpeed Insights &amp; CrUX:</strong> يقيس بيانات الشريحة المئوية 75% من المستخدمين الحقيقيين على مدار 28 يوماً.</span>",
+      "tool4": "<span><strong>موقع WebPageTest.org:</strong> يتيح لك محاكاة تفاعلات برمجية (نقر، كتابة) على هواتف مختلفة وقياس زمن الاستجابة بدقة.</span>",
+      "tool5": "<span><strong>مراقبة المستخدم الفعلي (RUM):</strong> تسجيل مقاييس الأداء لجميع الزوار الحقيقيين لاكتشاف أي تراجع في السرعة عبر مختلف الأجهزة والشبكات.</span>"
+    },
+
+    "optimizations": {
+      "title": "ست استراتيجيات برمجية حاسمة لتحسين مقياس INP",
+      "intro": "<span>لتحقيق درجة INP ممتازة (أقل من 200ms)، يجب معالجة المراحل الثلاث للتأخير:</span>",
+
+      "opt1": {
+        "title": "1. التنازل لخيط التنفيذ الرئيسي وتفكيك المهام الطويلة",
+        "p1": "<span>عند حدوث تفاعل، تجنب تنفيذ العمليات الثقيلة وتنسيق البيانات المعقدة في نفس المهمة. يجب منح المتصفح فرصة فورية لرسم التحديث البصري (زي تغيير لون الزر أو إظهار لودر التحميل).</span>",
+        "solution": "<span>استخدم <code>setTimeout(fn, 0)</code> أو الدالة الحديثة <code>scheduler.yield()</code> لترحيل العمليات غير الضرورية للمهمة التالية، واقصر كود الـ Callback المباشر على التحديث البصري المطلوب للإطار التالي:</span>"
+      },
+
+      "opt2": {
+        "title": "2. القضاء على Layout Thrashing (إعادة حساب التخطيط القسري)",
+        "p1": "<span>تحدث مشكلة <strong>Layout Thrashing</strong> عندما يقوم كود الجافاسكربت بتعديل خصائص الـ DOM (مرحلة الكتابة Write) ثم يطلب قراءة أبعاد العنصر مثل <code>offsetHeight</code> أو <code>getBoundingClientRect()</code> (مرحلة القراءة Read) في نفس التكرار أو الحلقة. هذا يجبر المتصفح على إعادة حساب التنسيق فوراً في كل لفة بدلاً من تجميعها مرة واحدة!</span>",
+        "unoptimizedCode": "// ❌ الطريقة غير المحسّنة: دمج القراءة والكتابة في حلقة واحدة (يجبر المتصفح على Reflow قسري في كل لفة)\nboxes.forEach((box) => {\n  box.style.width = '200px'; // تعديل (Write)\n  const height = box.offsetHeight; // قراءة تجبر المتصفح على إعادة الحساب فوراً (Read)!\n});",
+        "optimizedCode": "// ✅ الطريقة المحسّنة: فصل مرحلة القراءة بالكامل عن مرحلة الكتابة\nconst boxes = document.querySelectorAll('.box');\n\n// مرحلة القراءة (Read Phase): تجميع كل الأبعاد أولاً\nconst heights = Array.from(boxes, (box) => box.offsetHeight);\n\n// مرحلة الكتابة (Write Phase): تطبيق التنسيقات دفعة واحدة\nboxes.forEach((box) => {\n  box.style.width = '200px';\n});"
+      },
+
+      "opt3": {
+        "title": "3. تقليص حجم الـ DOM والاستفادة من خاصية content-visibility",
+        "p1": "<span>وجود عدد هائل من العناصر في الصفحة (أكثر من 1,500 عقدة) يضخم تأخير العرض لأن المتصفح يضطر لمراجعة شجرة الـ DOM بالكامل عند أي تعديل. يمكنك استخدام خاصية CSS الحديثة <code>content-visibility: auto</code> لتأجيل رندرة العناصر الموجودة خارج الشاشة لحين اقتراب المستخدم منها، مما يقلل بشكل مذهل من وقت حساب التنسيقات عند التفاعل.</span>"
+      },
+
+      "opt4": {
+        "title": "4. البث من الخادم (HTML Streaming) مقابل تحميل الجافاسكربت الثقيل",
+        "p1": "<span>توليد كميات ضخمة من الـ HTML على المتصفح عبر الجافاسكربت يحتكر خيط التنفيذ الرئيسي ويزيد من تأخير الإدخال لأي مستخدم يحاول النقر أثناء التحميل. استخدم تقنيات الرندرة على الخادم (SSR) وبث الـ HTML عبر Server Components لتقليل حجم الجافاسكربت المرسل للمتصفح.</span>"
+      },
+
+      "opt5": {
+        "title": "5. جدولة السكربتات غير الضرورية في أوقات خمول المتصفح",
+        "p1": "<span>هل تحتاج حقاً لفتح نافذة الدردشة المباشرة أو إرسال تحليلات التتبع في أول 500ms من التفاعل؟ قم بجدولة المهام غير الحرجة باستخدام <code>requestIdleCallback()</code> لتعمل فقط عندما يكون المتصفح في حالة خمول تام، واحرص على استخدام <code>defer</code> و <code>async</code> لملفات السكربت لمنع حجب قراءة الـ HTML.</span>"
+      },
+
+      "opt6": {
+        "title": "6. تصحيح المفهوم الخاطئ حول مستمعات الأحداث الخاملة (Passive Listeners)",
+        "p1": "<span>ينصح البعض بإضافة <code>{ passive: true }</code> لمستمعات الأحداث لتحسين INP. الحقيقة هي أن هذه الخاصية مفيدة لسلاسة التمرير (Scrolling) لأنها تخبر المتصفح بأنك لن تستدعي <code>preventDefault()</code>، ولكن <strong>التمرير لا يُحتسب إطلاقاً في مقياس INP</strong>! لذا ركز طاقتك على تفكيك المهام وتجنب الـ Layout Thrashing بدلاً من ذلك.</span>"
+      }
+    },
+
+    "comparison": {
+      "title": "مقارنة معمارية: واجهة بطيئة مقابل واجهة فائقة الاستجابة",
+      "slowLabel": "معمارية بطيئة (INP ضعيف > 500ms)",
+      "fastLabel": "معمارية سريعة (INP ممتاز ≤ 200ms)",
+      "differences": {
+        "tasks": "<span>❌ <strong>معالجة المهام:</strong> دوال أحداث ضخمة متصلة تحتكر خيط التنفيذ لأكثر من 300ms قبل التحديث البصري.</span>",
+        "tasksOpt": "<span>✅ <strong>معالجة المهام:</strong> دوال خفيفة تتنازل عبر setTimeout/scheduler.yield مع تحديث بصري فوري.</span>",
+        "reflow": "<span>❌ <strong>استعلامات الـ DOM:</strong> تداخل القراءة والكتابة في نفس المهمة مما يسبب Layout Thrashing متكرر.</span>",
+        "reflowOpt": "<span>✅ <strong>استعلامات الـ DOM:</strong> فصل صارم بين مرحلة القراءة ومرحلة الكتابة وتحديث التنسيقات مجمعة.</span>",
+        "dom": "<span>❌ <strong>حجم شجرة الـ DOM:</strong> أكثر من 3000 عنصر بدون تقسيم مما يبطئ عملية إعادة الرسم.</span>",
+        "domOpt": "<span>✅ <strong>حجم شجرة الـ DOM:</strong> شجرة DOM رشيقة مع استخدام content-visibility: auto للرندرة الكسولة.</span>",
+        "thirdParty": "<span>❌ <strong>سكربتات الطرف الثالث:</strong> سكربتات تتبع ودردشة متزامنة تتنافس على خيط التنفيذ عند التفاعل.</span>",
+        "thirdPartyOpt": "<span>✅ <strong>سكربتات الطرف الثالث:</strong> جدولة السكربتات الثانوية عبر requestIdleCallback في أوقات الخمول.</span>",
+        "hydration": "<span>❌ <strong>معالجة العميل:</strong> رندرة كل المحتوى عبر الجافاسكربت مما يعطل استجابة الصفحة للمدخلات.</span>",
+        "hydrationOpt": "<span>✅ <strong>معالجة العميل:</strong> بث الـ HTML عبر Server Components لتقليل كود الجافاسكربت على العميل.</span>"
+      }
+    },
+
+    "relatedQuestions": {
+      "q1": "لماذا تم استبعاد التمرير (Scrolling) من مقياس INP رغم أن المستخدم يشعر ببطء التمرير؟",
+      "q2": "كيف تقدم الدالة الحديثة scheduler.yield() أداءً أفضل من setTimeout(fn, 0) عند تفكيك المهام الطويلة؟",
+      "q3": "ما هو الفرق بين قياس INP الواقعي في CrUX والاختبارات التقديرية في Lighthouse؟",
+      "q4": "كيف تساعد خاصية CSS content-visibility: auto في تقليل تأخير العرض (Presentation Delay)؟",
+      "q5": "لماذا قد يحصل تفاعل على تأخير إدخال 0ms ووقت معالجة 0ms ومع ذلك يفشل في تحقيق درجة INP جيدة؟"
+    }
+  }
+}

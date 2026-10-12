@@ -20,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/tech-blog/performance/fcp",
     "/tech-blog/performance/lcp",
     "/tech-blog/performance/cls",
+    "/tech-blog/performance/inp",
     // Accessibility section commented out for now.
     // "/tech-blog/accessibility/general-tips",
   ];
