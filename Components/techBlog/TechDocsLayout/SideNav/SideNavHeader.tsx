@@ -8,12 +8,12 @@ export default function SideNavHeader({
   const { t } = useAppTranslation();
 
   return (
-    <div className="flex items-center border-[#EE3E54] justify-between p-4 border-b bg-gradient-to-r from-blue-50/80 to-indigo-50/80 h-[112px]">
-      <div>
-        <h2 className="text-lg font-bold text-gray-800">
+    <div className="flex items-center justify-between p-3 sm:p-4 border-b border-gray-200/80 bg-gradient-to-r from-blue-50/80 to-indigo-50/80 h-[112px]">
+      <div className="min-w-0 flex-1 pe-2">
+        <h2 className="text-base sm:text-lg font-bold text-gray-800 truncate">
           {t("tech-blog.sideNavTitle")}
         </h2>
-        <p className="text-xs text-gray-600 mt-1">
+        <p className="text-xs text-gray-600 mt-0.5 line-clamp-2 leading-relaxed">
           {activeParentKey
             ? `${t("tech-blog.sideNavDescription")} (${t(`tech-blog.categories.${activeParentKey}`)})`
             : t("tech-blog.sideNavDescription")}
@@ -21,11 +21,11 @@ export default function SideNavHeader({
       </div>
       <button
         onClick={handleToggleNav}
-        className="p-2 rounded-lg hover:bg-white/80 transition-colors duration-200 md:hidden"
+        className="p-2 sm:p-2.5 rounded-xl bg-white/70 hover:bg-white text-gray-700 shadow-sm border border-gray-200/60 transition-all duration-200 md:hidden flex-shrink-0 flex items-center justify-center"
         aria-label="Close navigation"
       >
         <svg
-          className="w-5 h-5 text-gray-600"
+          className="w-5 h-5 text-gray-700"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"

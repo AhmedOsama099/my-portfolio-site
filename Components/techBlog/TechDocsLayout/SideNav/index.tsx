@@ -72,23 +72,24 @@ export default function SideNav({
           : isLTR
             ? "-translate-x-full"
             : "translate-x-full"
-      }`}
+      } w-[calc(100vw-3rem)] max-w-[360px] md:w-auto md:max-w-none`}
       aria-hidden={!isNavOpen && isMobile}
     >
       {/* 1. Parent Sidebar (Main Sidebar) */}
       <ParentNavSection
         activeParent={activeParentKey}
         onSelectParent={handleSelectParent}
+        isMobile={isMobile}
       />
 
       {/* 2. Child Sidebar (Subtopics Sidebar) */}
-      <div className="w-56 sm:w-64 bg-white flex flex-col h-full border-e border-gray-200">
+      <div className="flex-1 min-w-0 md:w-64 bg-white flex flex-col h-full border-e border-gray-200">
         <SideNavHeader
           handleToggleNav={handleToggleNav}
           activeParentKey={activeParentKey}
         />
 
-        <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
+        <div className="flex-1 overflow-y-auto p-3 sm:p-4 custom-scrollbar">
           <nav className="space-y-3">
             <SideNavSection
               items={navItems}

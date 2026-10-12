@@ -5,12 +5,18 @@ export default function ToggleButton({
   isMobile,
   handleToggleNav,
 }: ToggleButtonProps) {
+  // On mobile when navigation is open, the close button is inside SideNavHeader,
+  // so hide the floating button so it doesn't overlap the parent icon rail.
+  const isHiddenOnMobile = isNavOpen && isMobile;
+
   return (
     <button
       onClick={() => handleToggleNav()}
       className={`fixed top-32 z-[70] p-3 bg-blue-600 text-white shadow-xl hover:bg-blue-700 transition-all duration-300 ${
+        isHiddenOnMobile ? "hidden" : "flex"
+      } ${
         isNavOpen && !isMobile
-          ? "start-[28rem] rounded-xl"
+          ? "start-[29rem] rounded-xl"
           : "start-0 rounded-e-lg"
       }`}
       aria-label="Toggle navigation"
