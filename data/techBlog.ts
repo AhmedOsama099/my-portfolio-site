@@ -64,6 +64,11 @@ const performanceNavItems = (
     title: t("tech-blog.performance.lcp"),
     href: "lcp",
   },
+  {
+    id: "cls",
+    title: t("tech-blog.performance.cls"),
+    href: "cls",
+  },
 ];
 
 export type ParentCategoryConfig = {

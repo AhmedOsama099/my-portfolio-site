@@ -48,7 +48,8 @@
     "performance": {
       "ttfb": "Time to First Byte (TTFB)",
       "fcp": "First Contentful Paint (FCP)",
-      "lcp": "Largest Contentful Paint (LCP)"
+      "lcp": "Largest Contentful Paint (LCP)",
+      "cls": "Cumulative Layout Shift (CLS)"
     }
   }
 }

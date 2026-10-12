@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 460" width="1000" height="460">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+    <linearGradient id="impactGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#f97316" stop-opacity="0.35" />
+    </linearGradient>
+    <linearGradient id="windowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#6366f1" />
+    </linearGradient>
+    <linearGradient id="maxWindowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f43f5e" />
+      <stop offset="100%" stop-color="#e11d48" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Container -->
+  <rect width="1000" height="460" rx="16" fill="url(#bgGrad)" stroke="#374151" stroke-width="1.5" />
+
+  <!-- Title & Subtitle (RTL text-anchor="end") -->
+  <text x="955" y="44" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="800" text-anchor="end">
+    آلية عمل مقياس CLS: حسابات إزاحة التخطيط ونوافذ الجلسة (Session Windows)
+  </text>
+  <text x="955" y="70" fill="#9ca3af" font-family="system-ui, -apple-system, sans-serif" font-size="14" text-anchor="end">
+    المعادلة: درجة الإزاحة = نسبة التأثير × نسبة المسافة · المستهدف القياسي: ≤ 0.1 (ممتاز)
+  </text>
+
+  <!-- Right Side: Mathematical Geometry (Frame 1 vs Frame 2) - RTL -->
+  <g transform="translate(525, 95)">
+    <!-- Outer Card -->
+    <rect x="0" y="0" width="430" height="235" rx="12" fill="#1f2937" stroke="#4b5563" stroke-width="1" />
+    <text x="410" y="28" fill="#f87171" font-family="system-ui, sans-serif" font-size="14" font-weight="700" text-anchor="end">1. هندسة المعادلة الحسابية (Frame 1 مقابل Frame 2)</text>
+
+    <!-- Viewport Wireframe -->
+    <g transform="translate(20, 44)">
+      <rect x="0" y="0" width="170" height="170" rx="6" fill="#111827" stroke="#6b7280" stroke-width="1" />
+      <text x="8" y="15" fill="#9ca3af" font-family="monospace" font-size="9">VIEWPORT</text>
+
+      <!-- Impact Union Area (Combined Frames) -->
+      <rect x="15" y="25" width="140" height="130" rx="4" fill="url(#impactGrad)" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2" />
+
+      <!-- Frame 1 Original Element Position -->
+      <rect x="25" y="32" width="120" height="45" rx="4" fill="#374151" stroke="#9ca3af" stroke-width="1" opacity="0.6" />
+      <text x="85" y="58" fill="#d1d5db" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">الموقع في Frame 1</text>
+
+      <!-- Frame 2 Shifted Element Position -->
+      <rect x="25" y="100" width="120" height="45" rx="4" fill="#7f1d1d" stroke="#f87171" stroke-width="1.5" />
+      <text x="85" y="126" fill="#fecaca" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">الموقع المزاح في Frame 2</text>
+
+      <!-- Displacement Arrow (Distance) -->
+      <line x1="152" y1="55" x2="152" y2="120" stroke="#facc15" stroke-width="2" />
+      <polygon points="149,118 155,118 152,125" fill="#facc15" />
+      <text x="135" y="90" fill="#fef08a" font-family="monospace" font-size="10" font-weight="700">Δy</text>
+    </g>
+
+    <!-- Formula Calculation Steps (RTL Text) -->
+    <g transform="translate(205, 52)">
+      <rect x="0" y="0" width="205" height="48" rx="6" fill="#111827" />
+      <text x="195" y="20" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="end">نسبة التأثير (Impact): ~0.75</text>
+      <text x="195" y="38" fill="#9ca3af" font-family="system-ui, sans-serif" font-size="10" text-anchor="end">مساحة اتحاد الإطارين (75% من الشاشة)</text>
+
+      <rect x="0" y="58" width="205" height="48" rx="6" fill="#111827" />
+      <text x="195" y="20" fill="#fde047" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="end">نسبة المسافة (Distance): ~0.25</text>
+      <text x="195" y="38" fill="#9ca3af" font-family="system-ui, sans-serif" font-size="10" text-anchor="end">مسافة الحركة مقسومة على أطول بعد</text>
+
+      <!-- Final Score Calculation -->
+      <rect x="0" y="116" width="205" height="44" rx="6" fill="#450a0a" stroke="#ef4444" stroke-width="1.5" />
+      <text x="195" y="19" fill="#fecaca" font-family="system-ui, sans-serif" font-size="10" text-anchor="end">نتيجة إزاحة الإطار:</text>
+      <text x="195" y="35" fill="#ffffff" font-family="monospace" font-size="13" font-weight="800" text-anchor="end">0.75 × 0.25 = 0.1875</text>
+    </g>
+  </g>
+
+  <!-- Left Side: Session Window Calculation (Largest Burst) - RTL -->
+  <g transform="translate(45, 95)">
+    <!-- Outer Card -->
+    <rect x="0" y="0" width="460" height="235" rx="12" fill="#1f2937" stroke="#4b5563" stroke-width="1" />
+    <text x="440" y="28" fill="#93c5fd" font-family="system-ui, sans-serif" font-size="14" font-weight="700" text-anchor="end">2. نافذة الجلسة (Session Window - أكبر حزمة إزاحات)</text>
+
+    <!-- Session Window Rule Pills -->
+    <g transform="translate(20, 42)">
+      <rect x="0" y="0" width="205" height="26" rx="6" fill="#1e293b" />
+      <text x="102" y="17" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">الفارق بين الإزاحات: &lt; 1 ثانية</text>
+
+      <rect x="215" y="0" width="205" height="26" rx="6" fill="#1e293b" />
+      <text x="317" y="17" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">أقصى مدة للنافذة: 5 ثوانٍ كاملة</text>
+    </g>
+
+    <!-- Timeline Chart RTL -->
+    <g transform="translate(20, 82)">
+      <!-- Timeline Axis -->
+      <line x1="0" y1="75" x2="415" y2="75" stroke="#4b5563" stroke-width="1.5" />
+      <text x="415" y="94" fill="#6b7280" font-family="monospace" font-size="10" text-anchor="end">0s (بدء التحميل)</text>
+      <text x="210" y="94" fill="#6b7280" font-family="monospace" font-size="10" text-anchor="middle">15s</text>
+      <text x="0" y="94" fill="#6b7280" font-family="monospace" font-size="10">30s (مغادرة الصفحة)</text>
+
+      <!-- Window 1: Small Burst -->
+      <g transform="translate(325, 10)">
+        <rect x="0" y="0" width="75" height="55" rx="6" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1" />
+        <text x="37" y="18" fill="#93c5fd" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">النافذة 1</text>
+        <text x="37" y="34" fill="#ffffff" font-family="monospace" font-size="11" text-anchor="middle">0.03</text>
+        <text x="37" y="47" fill="#bfdbfe" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">تبديل الخطوط</text>
+      </g>
+
+      <!-- Window 2: LARGEST BURST (REPORTED CLS) -->
+      <g transform="translate(150, 0)">
+        <rect x="0" y="0" width="145" height="65" rx="8" fill="url(#maxWindowGrad)" stroke="#fda4af" stroke-width="2" />
+        <rect x="8" y="6" width="129" height="18" rx="4" fill="#881337" />
+        <text x="72" y="19" fill="#fecdd3" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">★ أكبر نافذة مسجلة</text>
+        <text x="72" y="40" fill="#ffffff" font-family="monospace" font-size="15" font-weight="900" text-anchor="middle">النتيجة: 0.18</text>
+        <text x="72" y="55" fill="#ffe4e6" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">إعلانات ديناميكية + حقن محتوى</text>
+      </g>
+
+      <!-- Window 3: Small Scroll Shift -->
+      <g transform="translate(20, 15)">
+        <rect x="0" y="0" width="85" height="50" rx="6" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1" />
+        <text x="42" y="18" fill="#93c5fd" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">النافذة 3</text>
+        <text x="42" y="34" fill="#ffffff" font-family="monospace" font-size="11" text-anchor="middle">0.02</text>
+        <text x="42" y="45" fill="#bfdbfe" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">هيدر التمرير</text>
+      </g>
+    </g>
+
+    <!-- Reporting Banner RTL -->
+    <g transform="translate(20, 192)">
+      <rect x="0" y="0" width="415" height="32" rx="6" fill="#0f172a" stroke="#6366f1" stroke-width="1" />
+      <text x="400" y="20" fill="#c7d2fe" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">
+        قيمة CLS المعتمدة للموقع: <tspan fill="#ffffff" font-weight="800">0.18</tspan> (أعلى نافذة فقط وليست مجموع النوافذ!)
+      </text>
+    </g>
+  </g>
+
+  <!-- Bottom 3 Strategic Rules Cards RTL -->
+  <g transform="translate(45, 345)">
+    <!-- Rule 1: Transforms over Layout -->
+    <rect x="0" y="0" width="295" height="95" rx="8" fill="#111827" stroke="#3b82f6" stroke-width="1" />
+    <text x="280" y="24" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="end">⚡ التحريك عبر الـ GPU فقط</text>
+    <text x="280" y="44" fill="#d1d5db" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">تجنب تحريك top و left و width و height.</text>
+    <text x="280" y="60" fill="#d1d5db" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">فقط transform و opacity لا يسببان Layout.</text>
+    <text x="280" y="78" fill="#93c5fd" font-family="system-ui, sans-serif" font-size="10" font-weight="600" text-anchor="end">الحل: transform: scale() &amp; translate()</text>
+
+    <!-- Rule 2: Scroll Is NOT Excluded -->
+    <rect x="308" y="0" width="295" height="95" rx="8" fill="#111827" stroke="#f59e0b" stroke-width="1" />
+    <text x="588" y="24" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="end">⚠️ التمرير (Scroll) لا يستثني الإزاحة</text>
+    <text x="588" y="44" fill="#d1d5db" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">فحص Lighthouse لا يمرر، لكن المستخدم الحقيقي يمرر!</text>
+    <text x="588" y="60" fill="#d1d5db" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">تحريك الهيدر عند التمرير بالـ top يحسب كـ CLS.</text>
+    <text x="588" y="78" fill="#fde68a" font-family="system-ui, sans-serif" font-size="10" font-weight="600" text-anchor="end">الحل: transform: translateY()</text>
+
+    <!-- Rule 3: hadRecentInput -->
+    <rect x="616" y="0" width="294" height="95" rx="8" fill="#111827" stroke="#10b981" stroke-width="1" />
+    <text x="895" y="24" fill="#10b981" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="end">✓ استثناء التفاعل hadRecentInput</text>
+    <text x="895" y="44" fill="#d1d5db" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">الإزاحات الناتجة خلال 500ms من تفاعل المستخدم</text>
+    <text x="895" y="60" fill="#d1d5db" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">(نقر، لمس، كتابة) تستبعد تماماً من الحساب.</text>
+    <text x="895" y="78" fill="#6ee7b7" font-family="system-ui, sans-serif" font-size="10" font-weight="600" text-anchor="end">التفاعلات المتوقعة للمستخدم = صفر CLS</text>
+  </g>
+</svg>

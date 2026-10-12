@@ -16,6 +16,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/tech-blog/ts/excess-type-checking",
     "/tech-blog/ts/index-signature",
     "/tech-blog/ts/structural-type-system",
+    "/tech-blog/performance/ttfb",
+    "/tech-blog/performance/fcp",
+    "/tech-blog/performance/lcp",
+    "/tech-blog/performance/cls",
     // Accessibility section commented out for now.
     // "/tech-blog/accessibility/general-tips",
   ];
