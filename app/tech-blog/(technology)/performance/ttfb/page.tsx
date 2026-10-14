@@ -1,4 +1,3 @@
-import CodeSpace from "@/Components/techBlog/DocsUtils/CodeSpace";
 import Comparison from "@/Components/techBlog/DocsUtils/Comparison";
 import ContentSimpleParagraph from "@/Components/techBlog/DocsUtils/ContentSimpleParagraph";
 import DocsImage from "@/Components/techBlog/DocsUtils/DocsImage";
@@ -77,18 +76,8 @@ export default async function TTFBPage() {
         <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.whatIsTtfb.p1"))}
           {parseWithSpacing(t("ttfb.whatIsTtfb.p2"))}
-        </ContentSimpleParagraph>
-        <SectionList>
-          {parseWithSpacing(t("ttfb.whatIsTtfb.stages.dns"))}
-          {parseWithSpacing(t("ttfb.whatIsTtfb.stages.connection"))}
-          {parseWithSpacing(t("ttfb.whatIsTtfb.stages.travel"))}
-          {parseWithSpacing(t("ttfb.whatIsTtfb.stages.processing"))}
-          {parseWithSpacing(t("ttfb.whatIsTtfb.stages.response"))}
-        </SectionList>
-        <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.whatIsTtfb.p3"))}
           {parseWithSpacing(t("ttfb.whatIsTtfb.p4"))}
-          {parseWithSpacing(t("ttfb.whatIsTtfb.p5"))}
         </ContentSimpleParagraph>
       </SectionWrapper>
 
@@ -98,6 +87,7 @@ export default async function TTFBPage() {
         <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.lifecycle.p1"))}
           {parseWithSpacing(t("ttfb.lifecycle.p2"))}
+          {parseWithSpacing(t("ttfb.lifecycle.p3"))}
         </ContentSimpleParagraph>
         <SectionList>
           {parseWithSpacing(t("ttfb.lifecycle.stages.s1"))}
@@ -106,7 +96,7 @@ export default async function TTFBPage() {
           {parseWithSpacing(t("ttfb.lifecycle.stages.s4"))}
         </SectionList>
         <ContentSimpleParagraph>
-          {parseWithSpacing(t("ttfb.lifecycle.p3"))}
+          {parseWithSpacing(t("ttfb.lifecycle.p4"))}
         </ContentSimpleParagraph>
 
         {/* 2.1 DNS Resolution */}
@@ -118,6 +108,7 @@ export default async function TTFBPage() {
           {parseWithSpacing(t("ttfb.lifecycle.dns.p2"))}
           {parseWithSpacing(t("ttfb.lifecycle.dns.p3"))}
           {parseWithSpacing(t("ttfb.lifecycle.dns.p4"))}
+          {parseWithSpacing(t("ttfb.lifecycle.dns.p5"))}
         </ContentSimpleParagraph>
 
         {/* 2.2 Connection Setup */}
@@ -133,6 +124,8 @@ export default async function TTFBPage() {
           {parseWithSpacing(t("ttfb.lifecycle.connection.p6"))}
           {parseWithSpacing(t("ttfb.lifecycle.connection.p7"))}
           {parseWithSpacing(t("ttfb.lifecycle.connection.p8"))}
+          {parseWithSpacing(t("ttfb.lifecycle.connection.p9"))}
+          {parseWithSpacing(t("ttfb.lifecycle.connection.p10"))}
         </ContentSimpleParagraph>
 
         {/* 2.3 Request Travel and Network Latency */}
@@ -155,6 +148,9 @@ export default async function TTFBPage() {
           {parseWithSpacing(t("ttfb.lifecycle.travel.p4"))}
           {parseWithSpacing(t("ttfb.lifecycle.travel.p5"))}
           {parseWithSpacing(t("ttfb.lifecycle.travel.p6"))}
+          {parseWithSpacing(t("ttfb.lifecycle.travel.p7"))}
+          {parseWithSpacing(t("ttfb.lifecycle.travel.p8"))}
+          {parseWithSpacing(t("ttfb.lifecycle.travel.p9"))}
         </ContentSimpleParagraph>
 
         {/* 2.4 Server Processing */}
@@ -163,71 +159,28 @@ export default async function TTFBPage() {
         </SectionTitle>
         <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.lifecycle.processing.p1"))}
+          {parseWithSpacing(t("ttfb.lifecycle.processing.p2"))}
         </ContentSimpleParagraph>
         <SectionList>
           {parseWithSpacing(t("ttfb.lifecycle.processing.operations.auth"))}
           {parseWithSpacing(t("ttfb.lifecycle.processing.operations.db"))}
           {parseWithSpacing(t("ttfb.lifecycle.processing.operations.external"))}
+          {parseWithSpacing(t("ttfb.lifecycle.processing.operations.logic"))}
           {parseWithSpacing(t("ttfb.lifecycle.processing.operations.ssr"))}
         </SectionList>
         <ContentSimpleParagraph>
-          {parseWithSpacing(t("ttfb.lifecycle.processing.p2"))}
           {parseWithSpacing(t("ttfb.lifecycle.processing.p3"))}
           {parseWithSpacing(t("ttfb.lifecycle.processing.p4"))}
           {parseWithSpacing(t("ttfb.lifecycle.processing.p5"))}
+          {parseWithSpacing(t("ttfb.lifecycle.processing.p6"))}
+          {parseWithSpacing(t("ttfb.lifecycle.processing.p7"))}
+          {parseWithSpacing(t("ttfb.lifecycle.processing.p8"))}
         </ContentSimpleParagraph>
 
         <DocsImage src={`/images/tech-blog/performance/ttfb-lifecycle-${lang}.svg`} />
       </SectionWrapper>
 
-      {/* Section 3: Measuring TTFB */}
-      <SectionWrapper id="measuring-ttfb">
-        <SectionTitle>{parseWithSpacing(t("ttfb.measuring.title"))}</SectionTitle>
-        <ContentSimpleParagraph>
-          {parseWithSpacing(t("ttfb.measuring.intro"))}
-        </ContentSimpleParagraph>
-
-        {/* 3.1 Navigation Timing API */}
-        <SectionTitle className="text-xl mt-6">
-          {parseWithSpacing(t("ttfb.measuring.navigationTiming.title"))}
-        </SectionTitle>
-        <ContentSimpleParagraph>
-          {parseWithSpacing(t("ttfb.measuring.navigationTiming.p1"))}
-          {parseWithSpacing(t("ttfb.measuring.navigationTiming.p2"))}
-          {parseWithSpacing(t("ttfb.measuring.navigationTiming.p3"))}
-        </ContentSimpleParagraph>
-        <SectionList>
-          {parseWithSpacing(t("ttfb.measuring.navigationTiming.properties.startTime"))}
-          {parseWithSpacing(t("ttfb.measuring.navigationTiming.properties.responseStart"))}
-        </SectionList>
-        <ContentSimpleParagraph>
-          {parseWithSpacing(t("ttfb.measuring.navigationTiming.p4"))}
-        </ContentSimpleParagraph>
-
-        <CodeSpace
-          language="typescript"
-          codeBlocks={[t("ttfb.measuring.navigationTiming.codeSnippet")]}
-        />
-
-        <ContentSimpleParagraph>
-          {parseWithSpacing(t("ttfb.measuring.navigationTiming.p5"))}
-          {parseWithSpacing(t("ttfb.measuring.navigationTiming.p6"))}
-          {parseWithSpacing(t("ttfb.measuring.navigationTiming.p7"))}
-        </ContentSimpleParagraph>
-
-        {/* 3.2 Browser DevTools */}
-        <SectionTitle className="text-xl mt-6">
-          {parseWithSpacing(t("ttfb.measuring.devTools.title"))}
-        </SectionTitle>
-        <ContentSimpleParagraph>
-          {parseWithSpacing(t("ttfb.measuring.devTools.p1"))}
-          {parseWithSpacing(t("ttfb.measuring.devTools.p2"))}
-          {parseWithSpacing(t("ttfb.measuring.devTools.p3"))}
-          {parseWithSpacing(t("ttfb.measuring.devTools.p4"))}
-        </ContentSimpleParagraph>
-      </SectionWrapper>
-
-      {/* Section 4: What Is a Good TTFB? */}
+      {/* Section 3: What Is a Good TTFB? */}
       <SectionWrapper id="ttfb-scoring">
         <SectionTitle>{parseWithSpacing(t("ttfb.scoring.title"))}</SectionTitle>
         <ContentSimpleParagraph>
@@ -235,18 +188,29 @@ export default async function TTFBPage() {
           {parseWithSpacing(t("ttfb.scoring.p2"))}
           {parseWithSpacing(t("ttfb.scoring.p3"))}
           {parseWithSpacing(t("ttfb.scoring.p4"))}
+        </ContentSimpleParagraph>
+
+        {/* Why Field Data Matters */}
+        <SectionTitle className="text-xl mt-6">
+          {parseWithSpacing(t("ttfb.scoring.rumTitle"))}
+        </SectionTitle>
+        <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.scoring.p5"))}
+          {parseWithSpacing(t("ttfb.scoring.p6"))}
+          {parseWithSpacing(t("ttfb.scoring.p7"))}
+          {parseWithSpacing(t("ttfb.scoring.p8"))}
         </ContentSimpleParagraph>
       </SectionWrapper>
 
-      {/* Section 5: Causes of High TTFB */}
+      {/* Section 4: Causes of High TTFB */}
       <SectionWrapper id="slow-ttfb-causes">
         <SectionTitle>{parseWithSpacing(t("ttfb.causes.title"))}</SectionTitle>
         <ContentSimpleParagraph>
-          {parseWithSpacing(t("ttfb.causes.intro"))}
+          {parseWithSpacing(t("ttfb.causes.intro1"))}
+          {parseWithSpacing(t("ttfb.causes.intro2"))}
         </ContentSimpleParagraph>
 
-        {/* 5.1 DNS & Connection */}
+        {/* 4.1 DNS & Connection */}
         <SectionTitle className="text-xl mt-6">
           {parseWithSpacing(t("ttfb.causes.dnsConn.title"))}
         </SectionTitle>
@@ -255,21 +219,23 @@ export default async function TTFBPage() {
           {parseWithSpacing(t("ttfb.causes.dnsConn.p2"))}
         </ContentSimpleParagraph>
 
-        {/* 5.2 Distance & Network */}
+        {/* 4.2 Distance & Network */}
         <SectionTitle className="text-xl mt-6">
           {parseWithSpacing(t("ttfb.causes.network.title"))}
         </SectionTitle>
         <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.causes.network.p1"))}
           {parseWithSpacing(t("ttfb.causes.network.p2"))}
+          {parseWithSpacing(t("ttfb.causes.network.p3"))}
         </ContentSimpleParagraph>
 
-        {/* 5.3 Server Processing */}
+        {/* 4.3 Server Processing */}
         <SectionTitle className="text-xl mt-6">
           {parseWithSpacing(t("ttfb.causes.server.title"))}
         </SectionTitle>
         <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.causes.server.p1"))}
+          {parseWithSpacing(t("ttfb.causes.server.p2"))}
         </ContentSimpleParagraph>
         <SectionList>
           {parseWithSpacing(t("ttfb.causes.server.causes.slowQueries"))}
@@ -279,37 +245,44 @@ export default async function TTFBPage() {
           {parseWithSpacing(t("ttfb.causes.server.causes.heavyCompute"))}
         </SectionList>
         <ContentSimpleParagraph>
-          {parseWithSpacing(t("ttfb.causes.server.p2"))}
           {parseWithSpacing(t("ttfb.causes.server.p3"))}
+          {parseWithSpacing(t("ttfb.causes.server.p4"))}
         </ContentSimpleParagraph>
 
-        {/* 5.4 SSR */}
+        {/* 4.4 SSR */}
         <SectionTitle className="text-xl mt-6">
           {parseWithSpacing(t("ttfb.causes.ssr.title"))}
         </SectionTitle>
         <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.causes.ssr.p1"))}
           {parseWithSpacing(t("ttfb.causes.ssr.p2"))}
+          {parseWithSpacing(t("ttfb.causes.ssr.p3"))}
+          {parseWithSpacing(t("ttfb.causes.ssr.p4"))}
         </ContentSimpleParagraph>
 
-        {/* 5.5 Caching */}
+        {/* 4.5 Caching */}
         <SectionTitle className="text-xl mt-6">
           {parseWithSpacing(t("ttfb.causes.caching.title"))}
         </SectionTitle>
         <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.causes.caching.p1"))}
           {parseWithSpacing(t("ttfb.causes.caching.p2"))}
+          {parseWithSpacing(t("ttfb.causes.caching.p3"))}
+          {parseWithSpacing(t("ttfb.causes.caching.p4"))}
+          {parseWithSpacing(t("ttfb.causes.caching.p5"))}
+          {parseWithSpacing(t("ttfb.causes.conclusion"))}
         </ContentSimpleParagraph>
       </SectionWrapper>
 
-      {/* Section 6: How to Improve TTFB */}
+      {/* Section 5: How to Improve TTFB */}
       <SectionWrapper id="optimizations">
         <SectionTitle>{parseWithSpacing(t("ttfb.optimizations.title"))}</SectionTitle>
         <ContentSimpleParagraph>
-          {parseWithSpacing(t("ttfb.optimizations.intro"))}
+          {parseWithSpacing(t("ttfb.optimizations.intro1"))}
+          {parseWithSpacing(t("ttfb.optimizations.intro2"))}
         </ContentSimpleParagraph>
 
-        {/* 6.1 Network & Connection */}
+        {/* 5.1 Network & Connection */}
         <SectionTitle className="text-xl mt-6">
           {parseWithSpacing(t("ttfb.optimizations.network.title"))}
         </SectionTitle>
@@ -319,36 +292,47 @@ export default async function TTFBPage() {
           {parseWithSpacing(t("ttfb.optimizations.network.p3"))}
         </ContentSimpleParagraph>
 
-        {/* 6.2 Server Processing */}
+        {/* 5.2 Server Processing */}
         <SectionTitle className="text-xl mt-6">
           {parseWithSpacing(t("ttfb.optimizations.server.title"))}
         </SectionTitle>
         <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.optimizations.server.p1"))}
+          {parseWithSpacing(t("ttfb.optimizations.server.p2"))}
         </ContentSimpleParagraph>
         <SectionList>
-          {parseWithSpacing(t("ttfb.optimizations.server.solutions.dbOptimization"))}
-          {parseWithSpacing(t("ttfb.optimizations.server.solutions.indexing"))}
+          {parseWithSpacing(t("ttfb.optimizations.server.solutions.dbAndIndexing"))}
           {parseWithSpacing(t("ttfb.optimizations.server.solutions.reduceQueries"))}
           {parseWithSpacing(t("ttfb.optimizations.server.solutions.parallelExecution"))}
           {parseWithSpacing(t("ttfb.optimizations.server.solutions.externalServices"))}
+          {parseWithSpacing(t("ttfb.optimizations.server.solutions.resourceMonitoring"))}
         </SectionList>
         <ContentSimpleParagraph>
-          {parseWithSpacing(t("ttfb.optimizations.server.p2"))}
           {parseWithSpacing(t("ttfb.optimizations.server.p3"))}
+          {parseWithSpacing(t("ttfb.optimizations.server.p4"))}
         </ContentSimpleParagraph>
 
-        {/* 6.3 Caching */}
+        {/* 5.3 Caching */}
         <SectionTitle className="text-xl mt-6">
           {parseWithSpacing(t("ttfb.optimizations.caching.title"))}
         </SectionTitle>
         <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.optimizations.caching.p1"))}
           {parseWithSpacing(t("ttfb.optimizations.caching.p2"))}
+        </ContentSimpleParagraph>
+        <SectionList>
+          {parseWithSpacing(t("ttfb.optimizations.caching.levels.cdn"))}
+          {parseWithSpacing(t("ttfb.optimizations.caching.levels.app"))}
+          {parseWithSpacing(t("ttfb.optimizations.caching.levels.db"))}
+          {parseWithSpacing(t("ttfb.optimizations.caching.levels.html"))}
+        </SectionList>
+        <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.optimizations.caching.p3"))}
+          {parseWithSpacing(t("ttfb.optimizations.caching.p4"))}
+          {parseWithSpacing(t("ttfb.optimizations.caching.p5"))}
         </ContentSimpleParagraph>
 
-        {/* 6.4 Rendering Strategy */}
+        {/* 5.4 Rendering Strategy */}
         <SectionTitle className="text-xl mt-6">
           {parseWithSpacing(t("ttfb.optimizations.rendering.title"))}
         </SectionTitle>
@@ -356,19 +340,24 @@ export default async function TTFBPage() {
           {parseWithSpacing(t("ttfb.optimizations.rendering.p1"))}
           {parseWithSpacing(t("ttfb.optimizations.rendering.p2"))}
           {parseWithSpacing(t("ttfb.optimizations.rendering.p3"))}
+          {parseWithSpacing(t("ttfb.optimizations.rendering.p4"))}
+          {parseWithSpacing(t("ttfb.optimizations.rendering.p5"))}
+          {parseWithSpacing(t("ttfb.optimizations.rendering.p6"))}
+          {parseWithSpacing(t("ttfb.optimizations.rendering.p7"))}
         </ContentSimpleParagraph>
 
-        {/* 6.5 Measurement */}
+        {/* 5.5 Measurement */}
         <SectionTitle className="text-xl mt-6">
           {parseWithSpacing(t("ttfb.optimizations.measurement.title"))}
         </SectionTitle>
         <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.optimizations.measurement.p1"))}
           {parseWithSpacing(t("ttfb.optimizations.measurement.p2"))}
+          {parseWithSpacing(t("ttfb.optimizations.measurement.p3"))}
         </ContentSimpleParagraph>
       </SectionWrapper>
 
-      {/* Section 7: Relation to Core Web Vitals */}
+      {/* Section 6: Relation to Core Web Vitals */}
       <SectionWrapper id="bottleneck-lcp">
         <SectionTitle>{parseWithSpacing(t("ttfb.vitals.title"))}</SectionTitle>
         <ContentSimpleParagraph>
@@ -388,7 +377,7 @@ export default async function TTFBPage() {
         <DocsImage src={`/images/tech-blog/performance/ttfb-waterfall-${lang}.svg`} />
       </SectionWrapper>
 
-      {/* Section 8: Architecture Comparison */}
+      {/* Section 7: Architecture Comparison */}
       <SectionWrapper id="summary-comparison">
         <SectionTitle>{parseWithSpacing(t("ttfb.comparison.title"))}</SectionTitle>
         <ContentSimpleParagraph>
@@ -405,6 +394,8 @@ export default async function TTFBPage() {
           {parseWithSpacing(t("ttfb.comparison.differences.cachingOpt"))}
           {parseWithSpacing(t("ttfb.comparison.differences.delivery"))}
           {parseWithSpacing(t("ttfb.comparison.differences.deliveryOpt"))}
+          {parseWithSpacing(t("ttfb.comparison.differences.processing"))}
+          {parseWithSpacing(t("ttfb.comparison.differences.processingOpt"))}
           {parseWithSpacing(t("ttfb.comparison.differences.protocol"))}
           {parseWithSpacing(t("ttfb.comparison.differences.protocolOpt"))}
         </Comparison>
@@ -412,10 +403,11 @@ export default async function TTFBPage() {
         <ContentSimpleParagraph className="mt-6">
           {parseWithSpacing(t("ttfb.comparison.caveats.p1"))}
           {parseWithSpacing(t("ttfb.comparison.caveats.p2"))}
+          {parseWithSpacing(t("ttfb.comparison.caveats.p3"))}
         </ContentSimpleParagraph>
       </SectionWrapper>
 
-      {/* Section 9: Conclusion */}
+      {/* Section 8: Conclusion */}
       <SectionWrapper id="conclusion">
         <SectionTitle>{parseWithSpacing(t("ttfb.conclusion.title"))}</SectionTitle>
         <ContentSimpleParagraph>
