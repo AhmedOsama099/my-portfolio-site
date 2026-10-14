@@ -6,6 +6,7 @@ import HeaderTitle from "@/Components/techBlog/DocsUtils/HeaderTitle";
 import PageHeader from "@/Components/techBlog/DocsUtils/PageHeaderWrapper";
 import RelatedQuestions from "@/Components/techBlog/DocsUtils/RelatedQuestions";
 import Resources from "@/Components/techBlog/DocsUtils/Resources";
+import SectionList from "@/Components/techBlog/DocsUtils/SectionList";
 import SectionTitle from "@/Components/techBlog/DocsUtils/SectionTitle";
 import SectionWrapper from "@/Components/techBlog/DocsUtils/SectionWrapper";
 import WriterDate from "@/Components/techBlog/DocsUtils/Writer&Date";
@@ -76,8 +77,18 @@ export default async function TTFBPage() {
         <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.whatIsTtfb.p1"))}
           {parseWithSpacing(t("ttfb.whatIsTtfb.p2"))}
+        </ContentSimpleParagraph>
+        <SectionList>
+          {parseWithSpacing(t("ttfb.whatIsTtfb.stages.dns"))}
+          {parseWithSpacing(t("ttfb.whatIsTtfb.stages.connection"))}
+          {parseWithSpacing(t("ttfb.whatIsTtfb.stages.travel"))}
+          {parseWithSpacing(t("ttfb.whatIsTtfb.stages.processing"))}
+          {parseWithSpacing(t("ttfb.whatIsTtfb.stages.response"))}
+        </SectionList>
+        <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.whatIsTtfb.p3"))}
           {parseWithSpacing(t("ttfb.whatIsTtfb.p4"))}
+          {parseWithSpacing(t("ttfb.whatIsTtfb.p5"))}
         </ContentSimpleParagraph>
       </SectionWrapper>
 
@@ -87,6 +98,15 @@ export default async function TTFBPage() {
         <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.lifecycle.p1"))}
           {parseWithSpacing(t("ttfb.lifecycle.p2"))}
+        </ContentSimpleParagraph>
+        <SectionList>
+          {parseWithSpacing(t("ttfb.lifecycle.stages.s1"))}
+          {parseWithSpacing(t("ttfb.lifecycle.stages.s2"))}
+          {parseWithSpacing(t("ttfb.lifecycle.stages.s3"))}
+          {parseWithSpacing(t("ttfb.lifecycle.stages.s4"))}
+        </SectionList>
+        <ContentSimpleParagraph>
+          {parseWithSpacing(t("ttfb.lifecycle.p3"))}
         </ContentSimpleParagraph>
 
         {/* 2.1 DNS Resolution */}
@@ -111,6 +131,8 @@ export default async function TTFBPage() {
           {parseWithSpacing(t("ttfb.lifecycle.connection.p4"))}
           {parseWithSpacing(t("ttfb.lifecycle.connection.p5"))}
           {parseWithSpacing(t("ttfb.lifecycle.connection.p6"))}
+          {parseWithSpacing(t("ttfb.lifecycle.connection.p7"))}
+          {parseWithSpacing(t("ttfb.lifecycle.connection.p8"))}
         </ContentSimpleParagraph>
 
         {/* 2.3 Request Travel and Network Latency */}
@@ -121,8 +143,18 @@ export default async function TTFBPage() {
           {parseWithSpacing(t("ttfb.lifecycle.travel.p1"))}
           {parseWithSpacing(t("ttfb.lifecycle.travel.p2"))}
           {parseWithSpacing(t("ttfb.lifecycle.travel.p3"))}
+        </ContentSimpleParagraph>
+        <SectionList>
+          {parseWithSpacing(t("ttfb.lifecycle.travel.factors.distance"))}
+          {parseWithSpacing(t("ttfb.lifecycle.travel.factors.quality"))}
+          {parseWithSpacing(t("ttfb.lifecycle.travel.factors.congestion"))}
+          {parseWithSpacing(t("ttfb.lifecycle.travel.factors.routes"))}
+          {parseWithSpacing(t("ttfb.lifecycle.travel.factors.protocols"))}
+        </SectionList>
+        <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.lifecycle.travel.p4"))}
           {parseWithSpacing(t("ttfb.lifecycle.travel.p5"))}
+          {parseWithSpacing(t("ttfb.lifecycle.travel.p6"))}
         </ContentSimpleParagraph>
 
         {/* 2.4 Server Processing */}
@@ -131,6 +163,14 @@ export default async function TTFBPage() {
         </SectionTitle>
         <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.lifecycle.processing.p1"))}
+        </ContentSimpleParagraph>
+        <SectionList>
+          {parseWithSpacing(t("ttfb.lifecycle.processing.operations.auth"))}
+          {parseWithSpacing(t("ttfb.lifecycle.processing.operations.db"))}
+          {parseWithSpacing(t("ttfb.lifecycle.processing.operations.external"))}
+          {parseWithSpacing(t("ttfb.lifecycle.processing.operations.ssr"))}
+        </SectionList>
+        <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.lifecycle.processing.p2"))}
           {parseWithSpacing(t("ttfb.lifecycle.processing.p3"))}
           {parseWithSpacing(t("ttfb.lifecycle.processing.p4"))}
@@ -155,6 +195,12 @@ export default async function TTFBPage() {
           {parseWithSpacing(t("ttfb.measuring.navigationTiming.p1"))}
           {parseWithSpacing(t("ttfb.measuring.navigationTiming.p2"))}
           {parseWithSpacing(t("ttfb.measuring.navigationTiming.p3"))}
+        </ContentSimpleParagraph>
+        <SectionList>
+          {parseWithSpacing(t("ttfb.measuring.navigationTiming.properties.startTime"))}
+          {parseWithSpacing(t("ttfb.measuring.navigationTiming.properties.responseStart"))}
+        </SectionList>
+        <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.measuring.navigationTiming.p4"))}
         </ContentSimpleParagraph>
 
@@ -166,6 +212,7 @@ export default async function TTFBPage() {
         <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.measuring.navigationTiming.p5"))}
           {parseWithSpacing(t("ttfb.measuring.navigationTiming.p6"))}
+          {parseWithSpacing(t("ttfb.measuring.navigationTiming.p7"))}
         </ContentSimpleParagraph>
 
         {/* 3.2 Browser DevTools */}
@@ -223,6 +270,15 @@ export default async function TTFBPage() {
         </SectionTitle>
         <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.causes.server.p1"))}
+        </ContentSimpleParagraph>
+        <SectionList>
+          {parseWithSpacing(t("ttfb.causes.server.causes.slowQueries"))}
+          {parseWithSpacing(t("ttfb.causes.server.causes.sequentialOps"))}
+          {parseWithSpacing(t("ttfb.causes.server.causes.externalServices"))}
+          {parseWithSpacing(t("ttfb.causes.server.causes.highResource"))}
+          {parseWithSpacing(t("ttfb.causes.server.causes.heavyCompute"))}
+        </SectionList>
+        <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.causes.server.p2"))}
           {parseWithSpacing(t("ttfb.causes.server.p3"))}
         </ContentSimpleParagraph>
@@ -269,6 +325,15 @@ export default async function TTFBPage() {
         </SectionTitle>
         <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.optimizations.server.p1"))}
+        </ContentSimpleParagraph>
+        <SectionList>
+          {parseWithSpacing(t("ttfb.optimizations.server.solutions.dbOptimization"))}
+          {parseWithSpacing(t("ttfb.optimizations.server.solutions.indexing"))}
+          {parseWithSpacing(t("ttfb.optimizations.server.solutions.reduceQueries"))}
+          {parseWithSpacing(t("ttfb.optimizations.server.solutions.parallelExecution"))}
+          {parseWithSpacing(t("ttfb.optimizations.server.solutions.externalServices"))}
+        </SectionList>
+        <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.optimizations.server.p2"))}
           {parseWithSpacing(t("ttfb.optimizations.server.p3"))}
         </ContentSimpleParagraph>
@@ -280,6 +345,7 @@ export default async function TTFBPage() {
         <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.optimizations.caching.p1"))}
           {parseWithSpacing(t("ttfb.optimizations.caching.p2"))}
+          {parseWithSpacing(t("ttfb.optimizations.caching.p3"))}
         </ContentSimpleParagraph>
 
         {/* 6.4 Rendering Strategy */}
@@ -307,26 +373,27 @@ export default async function TTFBPage() {
         <SectionTitle>{parseWithSpacing(t("ttfb.vitals.title"))}</SectionTitle>
         <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.vitals.p1"))}
+        </ContentSimpleParagraph>
+        <SectionList>
+          {parseWithSpacing(t("ttfb.vitals.metrics.lcp"))}
+          {parseWithSpacing(t("ttfb.vitals.metrics.inp"))}
+          {parseWithSpacing(t("ttfb.vitals.metrics.cls"))}
+        </SectionList>
+        <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.vitals.p2"))}
           {parseWithSpacing(t("ttfb.vitals.p3"))}
           {parseWithSpacing(t("ttfb.vitals.p4"))}
+          {parseWithSpacing(t("ttfb.vitals.p5"))}
         </ContentSimpleParagraph>
         <DocsImage src={`/images/tech-blog/performance/ttfb-waterfall-${lang}.svg`} />
       </SectionWrapper>
 
-      {/* Section 8: Conclusion */}
-      <SectionWrapper id="conclusion">
-        <SectionTitle>{parseWithSpacing(t("ttfb.conclusion.title"))}</SectionTitle>
-        <ContentSimpleParagraph>
-          {parseWithSpacing(t("ttfb.conclusion.p1"))}
-          {parseWithSpacing(t("ttfb.conclusion.p2"))}
-          {parseWithSpacing(t("ttfb.conclusion.p3"))}
-        </ContentSimpleParagraph>
-      </SectionWrapper>
-
-      {/* Comparison: Slow vs Optimized */}
+      {/* Section 8: Architecture Comparison */}
       <SectionWrapper id="summary-comparison">
         <SectionTitle>{parseWithSpacing(t("ttfb.comparison.title"))}</SectionTitle>
+        <ContentSimpleParagraph>
+          {parseWithSpacing(t("ttfb.comparison.intro"))}
+        </ContentSimpleParagraph>
 
         <Comparison
           firstLabel={t("ttfb.comparison.slowLabel")}
@@ -341,6 +408,21 @@ export default async function TTFBPage() {
           {parseWithSpacing(t("ttfb.comparison.differences.protocol"))}
           {parseWithSpacing(t("ttfb.comparison.differences.protocolOpt"))}
         </Comparison>
+
+        <ContentSimpleParagraph className="mt-6">
+          {parseWithSpacing(t("ttfb.comparison.caveats.p1"))}
+          {parseWithSpacing(t("ttfb.comparison.caveats.p2"))}
+        </ContentSimpleParagraph>
+      </SectionWrapper>
+
+      {/* Section 9: Conclusion */}
+      <SectionWrapper id="conclusion">
+        <SectionTitle>{parseWithSpacing(t("ttfb.conclusion.title"))}</SectionTitle>
+        <ContentSimpleParagraph>
+          {parseWithSpacing(t("ttfb.conclusion.p1"))}
+          {parseWithSpacing(t("ttfb.conclusion.p2"))}
+          {parseWithSpacing(t("ttfb.conclusion.p3"))}
+        </ContentSimpleParagraph>
       </SectionWrapper>
 
       {/* Related Questions */}
