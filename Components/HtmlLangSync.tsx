@@ -1,25 +1,31 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { DEFAULT_LOCALE, getLocaleFromPathname } from "@/lib/i18n/config";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 
 /**
- * Keeps the root <html> element's `lang` and `dir` attributes in sync with the
- * active i18next language. The root layout renders <html lang="en" dir="ltr">
- * for the initial server response (good defaults for SEO / Lighthouse), and this
- * component updates them on the client whenever the language changes — e.g. when
- * switching to Arabic (RTL) in writer mode or on the tech-blog pages.
+ * Keeps the root <html> element's `lang` and `dir` attributes, as well as the
+ * active client i18next language, in sync with the current URL locale prefix.
  */
 const HtmlLangSync = () => {
-  const { currentLanguage } = useAppTranslation();
+  const pathname = usePathname();
+  const { currentLanguage, setLanguage, changeCurrentDirection } =
+    useAppTranslation();
 
   useEffect(() => {
-    const lang = currentLanguage === "ar" ? "ar" : "en";
-    const dir = currentLanguage === "ar" ? "rtl" : "ltr";
+    const urlLocale = getLocaleFromPathname(pathname) || DEFAULT_LOCALE;
+    const dir = urlLocale === "ar" ? "rtl" : "ltr";
 
-    document.documentElement.lang = lang;
+    document.documentElement.lang = urlLocale;
     document.documentElement.dir = dir;
-  }, [currentLanguage]);
+
+    if (currentLanguage !== urlLocale) {
+      setLanguage(urlLocale);
+      changeCurrentDirection(dir);
+    }
+  }, [pathname, currentLanguage, setLanguage, changeCurrentDirection]);
 
   return null;
 };

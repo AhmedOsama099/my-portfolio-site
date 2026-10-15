@@ -1,6 +1,6 @@
 "use client";
 
-import { getLocaleFromPathname } from "@/lib/i18n/config";
+import { getLocaleFromPathname, stripLocale } from "@/lib/i18n/config";
 import { usePathname } from "next/navigation";
 import React, {
   createContext,
@@ -33,17 +33,44 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   const isProgrammer = mode === "programmer";
   const pathname = usePathname();
 
-  // On initial site entry (full page load / deliberate URL) the landing
-  // locale sets the persona: /ar -> writer, /en or anything else -> programmer.
-  // This effect runs once because ThemeProvider lives in the root layout and
-  // does not remount across <Link> navigations.
   useEffect(() => {
+    const cleanPath = stripLocale(pathname);
+
+    // Tech-blog is strictly part of Engineer (programmer) mode, even when articles are read in Arabic
+    if (cleanPath.startsWith("/tech-blog")) {
+      setMode("programmer");
+      if (typeof window !== "undefined") {
+        localStorage.setItem("portfolioMode", "programmer");
+      }
+      return;
+    }
+
+    // Literary blog is strictly part of Writer mode
+    if (cleanPath.startsWith("/blog")) {
+      setMode("writer");
+      if (typeof window !== "undefined") {
+        localStorage.setItem("portfolioMode", "writer");
+      }
+      return;
+    }
+
+    // For other routes, check saved mode first
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("portfolioMode");
+      if (stored === "programmer" || stored === "writer") {
+        setMode(stored);
+        return;
+      }
+    }
+
+    // Fallback based on initial URL prefix
     const initialMode =
       getLocaleFromPathname(pathname) === "ar" ? "writer" : "programmer";
     setMode(initialMode);
-    localStorage.setItem("portfolioMode", initialMode);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("portfolioMode", initialMode);
+    }
+  }, [pathname]);
 
   const toggleMode = useCallback(() => {
     setMode((prev) => {

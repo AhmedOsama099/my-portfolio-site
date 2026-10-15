@@ -52,7 +52,11 @@ export function middleware(req: NextRequest) {
     request: { headers: reqHeaders },
   });
   // Persist the choice so "/" and SSR fallbacks resolve consistently.
-  res.cookies.set("i18next", locale, { path: "/", maxAge: 60 * 60 * 24 * 365 });
+  // We only persist for main portfolio routes, NOT when switching article language in tech-blog,
+  // so reading an article in Arabic doesn't convert the whole portfolio into Writer mode.
+  if (!rest.startsWith("/tech-blog")) {
+    res.cookies.set("i18next", locale, { path: "/", maxAge: 60 * 60 * 24 * 365 });
+  }
   return res;
 }
 

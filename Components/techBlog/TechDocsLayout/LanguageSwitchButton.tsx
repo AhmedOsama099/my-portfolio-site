@@ -35,9 +35,12 @@ export default function LanguageSwitchButton() {
     const targetUrl = withLocale(cleanPath, nextLocale);
 
     if (typeof document !== "undefined") {
-      document.cookie = `i18next=${nextLocale}; path=/; max-age=31536000`;
       document.documentElement.lang = nextLocale;
       document.documentElement.dir = nextLocale === "ar" ? "rtl" : "ltr";
+    }
+
+    if (typeof window !== "undefined") {
+      localStorage.setItem("portfolioMode", "programmer");
     }
 
     setLanguage(nextLocale);
