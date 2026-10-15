@@ -6,11 +6,10 @@ import {
   getStoredAnalytics,
   clearAnalyticsData,
   AnalyticsData,
-  PageVisit,
-  InteractionEvent,
 } from "@/utils/analytics";
 
 type TimeRange = "today" | "7d" | "30d" | "all";
+type ActiveTab = "overview" | "pages" | "geo" | "interactions" | "devices";
 
 export default function StatsPage() {
   // Authentication State
@@ -25,7 +24,7 @@ export default function StatsPage() {
   // Dashboard State
   const [analytics, setAnalytics] = useState<AnalyticsData>({ visits: [], events: [] });
   const [timeRange, setTimeRange] = useState<TimeRange>("30d");
-  const [activeTab, setActiveTab] = useState<"overview" | "pages" | "geo" | "interactions" | "devices">("overview");
+  const [activeTab, setActiveTab] = useState<ActiveTab>("overview");
   const [interactionCategory, setInteractionCategory] = useState<string>("all");
 
   // Check persisted auth on mount
@@ -629,15 +628,17 @@ export default function StatsPage() {
 
         {/* Section Tabs */}
         <div className="flex items-center gap-2 border-b border-slate-800 pb-3 text-sm font-semibold overflow-x-auto">
-          {[
-            { id: "overview", label: "Overview & Top Pages" },
-            { id: "geo", label: "Geographic Insights (From Where)" },
-            { id: "interactions", label: `Interactions & Events (${filteredData.events.length})` },
-            { id: "devices", label: "Devices & Tech Stack" },
-          ].map((tab) => (
+          {(
+            [
+              { id: "overview", label: "Overview & Top Pages" },
+              { id: "geo", label: "Geographic Insights (From Where)" },
+              { id: "interactions", label: `Interactions & Events (${filteredData.events.length})` },
+              { id: "devices", label: "Devices & Tech Stack" },
+            ] as const
+          ).map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id as any)}
+              onClick={() => setActiveTab(tab.id)}
               className={`px-4 py-2 rounded-xl transition whitespace-nowrap ${
                 activeTab === tab.id
                   ? "bg-slate-800 text-white border border-slate-700/80 shadow-sm"
