@@ -21,7 +21,6 @@ const shortCategoryLabels: Record<string, { en: string; ar: string }> = {
 export default function ParentNavSection({
   activeParent,
   onSelectParent,
-  isMobile,
 }: ParentNavSectionProps) {
   const { t, isLTR, currentLanguage } = useAppTranslation();
   const langKey = currentLanguage === "ar" ? "ar" : "en";

@@ -26,6 +26,10 @@
     "sending": "Sending..."
   },
   "tech-blog": {
+    "aiDisclaimer": "AI assistance was used in preparing this article. Please be mindful of possible inaccuracies.",
+    "aiBadge": "AI-Assisted Article",
+    "collapse": "Collapse",
+    "expand": "AI Notice",
     "sideNavTitle": "Documentations",
     "sideNavDescription": "Navigate through topics",
     "parentNavTitle": "Technologies",

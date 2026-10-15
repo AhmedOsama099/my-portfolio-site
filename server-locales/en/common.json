@@ -3,5 +3,9 @@
   "resources": "Resources",
   "relatedQuestions": "Related Questions",
   "preparedBy": "Prepared by",
-  "releaseDate": "Release Date"
+  "releaseDate": "Release Date",
+  "aiDisclaimer": "AI assistance was used in preparing this article. Please be mindful of possible inaccuracies.",
+  "aiBadge": "AI-Assisted Article",
+  "collapse": "Collapse",
+  "expand": "AI Notice"
 }
