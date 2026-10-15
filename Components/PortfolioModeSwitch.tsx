@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { createPortal } from "react-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import React from "react";
+import { motion } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "@/context/ThemeContext";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
@@ -40,29 +39,15 @@ const WriterIcon = ({ className }: { className?: string }) => (
 );
 
 const PortfolioModeSwitch = () => {
-  const [covering, setCovering] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const { isProgrammer, toggleMode } = useTheme();
   const { t } = useAppTranslation();
   const pathname = usePathname();
   const router = useRouter();
 
-  useEffect(() => setMounted(true), []);
-
-  // Drop an opaque, full-viewport black cover (portaled to body so it spans the
-  // whole screen, navbar included), swap persona + language while fully black,
-  // then lift the cover — so the visitor sees: black screen → new hero.
   const switchMode = () => {
-    if (covering) return;
-    setCovering(true);
-
-    window.setTimeout(() => {
-      const nextLocale = isProgrammer ? "ar" : "en";
-      toggleMode();
-      router.push(withLocale(stripLocale(pathname), nextLocale));
-    }, 260);
-
-    window.setTimeout(() => setCovering(false), 950);
+    const nextLocale = isProgrammer ? "ar" : "en";
+    toggleMode();
+    router.push(withLocale(stripLocale(pathname), nextLocale));
   };
 
   const segments = [
@@ -81,66 +66,46 @@ const PortfolioModeSwitch = () => {
   ];
 
   return (
-    <>
-      {/* Opaque full-viewport cover */}
-      {mounted &&
-        createPortal(
-          <AnimatePresence>
-            {covering && (
-              <motion.div
-                className="fixed inset-0 z-[9999] bg-black"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
+    <div
+      role="group"
+      aria-label={t("modeSwitch.hint")}
+      className="relative my-3 mx-auto w-max max-w-[94vw] z-30 flex justify-center
+        sm:absolute sm:my-0 sm:inset-x-auto sm:top-[4%] sm:start-[5%] sm:z-40"
+    >
+      <div className="flex items-center gap-1 p-1 rounded-full bg-white/85 backdrop-blur-md border border-white shadow-xl">
+        {segments.map(({ key, active, label, Icon }) => (
+          <button
+            key={key}
+            type="button"
+            onClick={() => !active && switchMode()}
+            aria-pressed={active}
+            className="relative flex items-center gap-2 px-4 py-2 rounded-full text-sm md:text-base font-bold transition-colors cursor-pointer"
+          >
+            {active && (
+              <motion.span
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.2 }}
+                className="absolute inset-0 -z-10 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 shadow-md"
               />
             )}
-          </AnimatePresence>,
-          document.body
-        )}
-
-      {/* Segmented mode toggle */}
-      <div
-        role="group"
-        aria-label={t("modeSwitch.hint")}
-        aria-busy={covering}
-        className="fixed bottom-5 inset-x-0 mx-auto w-max max-w-[94vw] z-50
-          sm:absolute sm:inset-x-auto sm:mx-0 sm:bottom-auto sm:top-[5%] sm:start-[5%]"
-      >
-        <div className="flex items-center gap-1 p-1 rounded-full bg-white/85 backdrop-blur-md border border-white shadow-xl">
-          {segments.map(({ key, active, label, Icon }) => (
-            <button
-              key={key}
-              type="button"
-              onClick={() => !active && switchMode()}
-              aria-pressed={active}
-              disabled={covering}
-              className="relative flex items-center gap-2 px-4 py-2 rounded-full text-sm md:text-base font-bold transition-colors disabled:cursor-default"
+            <Icon
+              className={`h-5 w-5 shrink-0 ${
+                active ? "text-white" : "text-gray-500"
+              }`}
+            />
+            <span
+              className={`whitespace-nowrap ${
+                active ? "text-white" : "text-gray-600"
+              }`}
             >
-              {active && (
-                <motion.span
-                  layoutId="modeActivePill"
-                  className="absolute inset-0 -z-10 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 shadow-md"
-                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                />
-              )}
-              <Icon
-                className={`h-5 w-5 shrink-0 ${
-                  active ? "text-white" : "text-gray-500"
-                }`}
-              />
-              <span
-                className={`whitespace-nowrap ${
-                  active ? "text-white" : "text-gray-600"
-                }`}
-              >
-                {label}
-              </span>
-            </button>
-          ))}
-        </div>
+              {label}
+            </span>
+          </button>
+        ))}
       </div>
-    </>
+    </div>
   );
 };
 

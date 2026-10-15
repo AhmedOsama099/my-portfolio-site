@@ -19,8 +19,11 @@ export default function Home() {
   return (
     <MotionPageWrapper>
       <div
-        className={`flex flex-col  lg:items-center lg:flex-row  px-4 ${globalPX}`}
+        className={`flex flex-col lg:items-center lg:flex-row px-4 ${globalPX} relative`}
       >
+        {/* Portfolio Mode Switch Button */}
+        <PortfolioModeSwitch />
+
         {/* Image Container */}
         <HomeImage />
 
@@ -32,9 +35,6 @@ export default function Home() {
 
         {/* Text Container */}
         <HomeDescription />
-
-        {/* Portfolio Mode Switch Button */}
-        <PortfolioModeSwitch />
       </div>
     </MotionPageWrapper>
   );
