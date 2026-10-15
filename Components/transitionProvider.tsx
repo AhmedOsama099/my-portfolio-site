@@ -17,8 +17,9 @@ const TransitionProvider: FC<{
   // Drop the /en|/ar prefix so the label reads "home"/"about", not "en"/"ar".
   const routePath = stripLocale(pathName);
 
-  // Skip the black curtain overlays when navigating within Tech Blog documentation pages to prevent flashing.
+  // Skip the black curtain overlays when navigating within Tech Blog or stats
   const isTechBlog = routePath.startsWith("/tech-blog");
+  const isStats = routePath.startsWith("/stats");
 
   return (
     <AnimatePresence mode="wait">
@@ -30,7 +31,7 @@ const TransitionProvider: FC<{
             : "from-slate-50  to-fuchsia-200"
         }  min-w-56`}
       >
-        {!isTechBlog && (
+        {!isTechBlog && !isStats && (
           <>
             <motion.div
               className={clsx(
@@ -85,10 +86,14 @@ const TransitionProvider: FC<{
           </>
         )}
 
-        <div className="h-28">
-          <Navbar />
+        {!isStats && (
+          <div className="h-28">
+            <Navbar />
+          </div>
+        )}
+        <div className={clsx(isStats ? "h-full" : "h-[calc(100vh-112px)]")}>
+          {children}
         </div>
-        <div className={clsx("h-[calc(100vh-112px)]")}>{children}</div>
       </div>
     </AnimatePresence>
   );

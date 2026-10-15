@@ -25,6 +25,12 @@ function detectLocale(req: NextRequest): Locale {
 
 export function middleware(req: NextRequest) {
   const { pathname, search } = req.nextUrl;
+
+  // Direct root route for /stats (bypasses locale redirect)
+  if (pathname === "/stats" || pathname.startsWith("/stats/")) {
+    return NextResponse.next();
+  }
+
   const locale = getLocaleFromPathname(pathname);
 
   // 1. No locale prefix -> redirect to the detected locale.

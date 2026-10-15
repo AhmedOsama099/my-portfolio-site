@@ -15,6 +15,7 @@ import { ThemeProvider } from "@/context/ThemeContext";
 import OutsideTechBlogStateHandler from "@/Components/PagesLanguagesStateHandler";
 import HtmlLangSync from "@/Components/HtmlLangSync";
 import WebVitals from "@/Components/WebVitals";
+import AnalyticsTracker from "@/Components/AnalyticsTracker";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const siteUrl = "https://ahmedosamadev.vercel.app";
@@ -85,6 +86,7 @@ export default async function RootLayout({
       <body suppressHydrationWarning className={`${cairo.className}`}>
         <HtmlLangSync />
         <WebVitals />
+        <AnalyticsTracker />
         <SpeedInsights />
         <TranslationProvider>
           <ThemeProvider>
