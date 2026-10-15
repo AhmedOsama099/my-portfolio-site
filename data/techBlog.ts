@@ -126,6 +126,11 @@ export const logoMap: Record<string, string> = {
   geeksforgeeks: "/images/tech-blog/logos/geeksforgeeks.svg",
   medium: "/images/tech-blog/logos/medium.svg",
   frontendMasters: "/images/tech-blog/logos/frontend-masters.png",
+  masterDev: "/images/tech-blog/logos/master-dev.png",
   blog: "/images/tech-blog/logos/blog.svg",
   typescriptDeepDive: "/images/tech-blog/logos/typescript-deep-dive.png",
+  mdn: "/images/tech-blog/logos/mdn.svg",
+  webDev: "/images/tech-blog/logos/web-dev.png",
+  youtube: "/images/tech-blog/logos/youtube.svg",
 };
+

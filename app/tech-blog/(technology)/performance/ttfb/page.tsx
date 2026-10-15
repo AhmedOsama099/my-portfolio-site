@@ -14,11 +14,11 @@ import { formatDateLang } from "@/utils/formatDateLang";
 import { getServerTranslation } from "@/utils/getServerTranslation";
 
 export async function generateMetadata() {
-  const title = "TTFB (Time to First Byte) — The Real Foundation of Web Performance";
+  const title =
+    "TTFB (Time to First Byte) — The Real Foundation of Web Performance";
   const description =
     "A comprehensive engineering guide to TTFB (Time to First Byte): full lifecycle breakdown from navigation to first byte, measurement APIs, benchmarks, root causes, optimization strategies, and Core Web Vitals impact.";
-  const url =
-    "https://ahmedosamadev.vercel.app/tech-blog/performance/ttfb";
+  const url = "https://ahmedosamadev.vercel.app/tech-blog/performance/ttfb";
 
   return {
     title,
@@ -72,7 +72,9 @@ export default async function TTFBPage() {
 
       {/* Section 1: What is TTFB */}
       <SectionWrapper id="what-is-ttfb">
-        <SectionTitle>{parseWithSpacing(t("ttfb.whatIsTtfb.title"))}</SectionTitle>
+        <SectionTitle>
+          {parseWithSpacing(t("ttfb.whatIsTtfb.title"))}
+        </SectionTitle>
         <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.whatIsTtfb.p1"))}
           {parseWithSpacing(t("ttfb.whatIsTtfb.p2"))}
@@ -83,7 +85,9 @@ export default async function TTFBPage() {
 
       {/* Section 2: TTFB Lifecycle */}
       <SectionWrapper id="ttfb-lifecycle">
-        <SectionTitle>{parseWithSpacing(t("ttfb.lifecycle.title"))}</SectionTitle>
+        <SectionTitle>
+          {parseWithSpacing(t("ttfb.lifecycle.title"))}
+        </SectionTitle>
         <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.lifecycle.p1"))}
           {parseWithSpacing(t("ttfb.lifecycle.p2"))}
@@ -177,7 +181,9 @@ export default async function TTFBPage() {
           {parseWithSpacing(t("ttfb.lifecycle.processing.p8"))}
         </ContentSimpleParagraph>
 
-        <DocsImage src={`/images/tech-blog/performance/ttfb-lifecycle-${lang}.svg`} />
+        <DocsImage
+          src={`/images/tech-blog/performance/ttfb-lifecycle-${lang}.svg`}
+        />
       </SectionWrapper>
 
       {/* Section 3: What Is a Good TTFB? */}
@@ -276,7 +282,9 @@ export default async function TTFBPage() {
 
       {/* Section 5: How to Improve TTFB */}
       <SectionWrapper id="optimizations">
-        <SectionTitle>{parseWithSpacing(t("ttfb.optimizations.title"))}</SectionTitle>
+        <SectionTitle>
+          {parseWithSpacing(t("ttfb.optimizations.title"))}
+        </SectionTitle>
         <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.optimizations.intro1"))}
           {parseWithSpacing(t("ttfb.optimizations.intro2"))}
@@ -301,11 +309,21 @@ export default async function TTFBPage() {
           {parseWithSpacing(t("ttfb.optimizations.server.p2"))}
         </ContentSimpleParagraph>
         <SectionList>
-          {parseWithSpacing(t("ttfb.optimizations.server.solutions.dbAndIndexing"))}
-          {parseWithSpacing(t("ttfb.optimizations.server.solutions.reduceQueries"))}
-          {parseWithSpacing(t("ttfb.optimizations.server.solutions.parallelExecution"))}
-          {parseWithSpacing(t("ttfb.optimizations.server.solutions.externalServices"))}
-          {parseWithSpacing(t("ttfb.optimizations.server.solutions.resourceMonitoring"))}
+          {parseWithSpacing(
+            t("ttfb.optimizations.server.solutions.dbAndIndexing"),
+          )}
+          {parseWithSpacing(
+            t("ttfb.optimizations.server.solutions.reduceQueries"),
+          )}
+          {parseWithSpacing(
+            t("ttfb.optimizations.server.solutions.parallelExecution"),
+          )}
+          {parseWithSpacing(
+            t("ttfb.optimizations.server.solutions.externalServices"),
+          )}
+          {parseWithSpacing(
+            t("ttfb.optimizations.server.solutions.resourceMonitoring"),
+          )}
         </SectionList>
         <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.optimizations.server.p3"))}
@@ -374,12 +392,16 @@ export default async function TTFBPage() {
           {parseWithSpacing(t("ttfb.vitals.p4"))}
           {parseWithSpacing(t("ttfb.vitals.p5"))}
         </ContentSimpleParagraph>
-        <DocsImage src={`/images/tech-blog/performance/ttfb-waterfall-${lang}.svg`} />
+        <DocsImage
+          src={`/images/tech-blog/performance/ttfb-waterfall-${lang}.svg`}
+        />
       </SectionWrapper>
 
       {/* Section 7: Architecture Comparison */}
       <SectionWrapper id="summary-comparison">
-        <SectionTitle>{parseWithSpacing(t("ttfb.comparison.title"))}</SectionTitle>
+        <SectionTitle>
+          {parseWithSpacing(t("ttfb.comparison.title"))}
+        </SectionTitle>
         <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.comparison.intro"))}
         </ContentSimpleParagraph>
@@ -409,7 +431,9 @@ export default async function TTFBPage() {
 
       {/* Section 8: Conclusion */}
       <SectionWrapper id="conclusion">
-        <SectionTitle>{parseWithSpacing(t("ttfb.conclusion.title"))}</SectionTitle>
+        <SectionTitle>
+          {parseWithSpacing(t("ttfb.conclusion.title"))}
+        </SectionTitle>
         <ContentSimpleParagraph>
           {parseWithSpacing(t("ttfb.conclusion.p1"))}
           {parseWithSpacing(t("ttfb.conclusion.p2"))}
@@ -432,16 +456,37 @@ export default async function TTFBPage() {
       <Resources
         items={[
           {
-            name: "blog",
+            name: "webDev",
             url: "https://web.dev/articles/ttfb",
           },
           {
-            name: "medium",
+            name: "webDev",
             url: "https://web.dev/articles/optimize-ttfb",
           },
           {
-            name: "geeksforgeeks",
+            name: "webDev",
+            url: "https://web.dev/articles/vitals",
+          },
+          {
+            name: "mdn",
             url: "https://developer.mozilla.org/en-US/docs/Glossary/Time_to_first_byte",
+          },
+          {
+            name: "mdn",
+            url: "https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Navigation_and_resource_timings",
+          },
+          {
+            name: "mdn",
+            url: "https://developer.mozilla.org/en-US/docs/Web/API/PerformanceResourceTiming",
+          },
+
+          {
+            name: "youtube",
+            url: "https://www.youtube.com/playlist?list=PLH_t3aTgqQcAFpAc58kJ4QLIn9y_I9zP1",
+          },
+          {
+            name: "masterDev",
+            url: "https://master.dev/courses/web-perf-v2/",
           },
         ]}
       />
