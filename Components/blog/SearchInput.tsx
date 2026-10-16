@@ -46,8 +46,8 @@ const SearchInput: React.FC<SearchInputProps> = ({
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="ابحث في النصوص..."
-          className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#565FA1] focus:border-transparent shadow-sm text-right pr-4 pl-10"
+          placeholder="ابحث في الكلمات أو العناوين..."
+          className="w-full px-5 py-3.5 rounded-2xl bg-white/90 backdrop-blur-sm border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#3A4184] focus:border-transparent shadow-md text-right pr-5 pl-12 text-gray-800 placeholder-gray-400 font-medium transition"
           dir="rtl"
         />
       </div>

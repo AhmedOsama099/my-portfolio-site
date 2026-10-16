@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { useTheme } from "@/context/ThemeContext";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
 
 interface AnimatedHeadingProps {
@@ -7,23 +6,15 @@ interface AnimatedHeadingProps {
 }
 
 const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({ text }) => {
-  const { isProgrammer } = useTheme();
   const { currentLanguage } = useAppTranslation();
-
-  const contactColors = isProgrammer
-    ? {
-        heading: "#565FA1",
-      }
-    : {
-        heading: "#5a6c98",
-      };
+  const headingColor = "#565FA1";
 
   const textArr = currentLanguage === "ar" ? text.split(" ") : text.split("");
 
   return (
     <motion.div
       className="text-6xl md:text-7xl font-bold"
-      style={{ color: contactColors.heading }}
+      style={{ color: headingColor }}
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}

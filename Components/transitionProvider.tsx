@@ -5,14 +5,12 @@ import React, { FC } from "react";
 import Navbar from "./navbar";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
-import { useTheme } from "@/context/ThemeContext";
 import { stripLocale } from "@/lib/i18n/config";
 
 const TransitionProvider: FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   const pathName = usePathname();
-  const { isProgrammer } = useTheme();
 
   // Drop the /en|/ar prefix so the label reads "home"/"about", not "en"/"ar".
   const routePath = stripLocale(pathName);
@@ -25,11 +23,7 @@ const TransitionProvider: FC<{
     <AnimatePresence mode="wait">
       <div
         key={pathName}
-        className={`w-screen h-screen overflow-y-auto bg-gradient-to-b ${
-          isProgrammer
-            ? "from-blue-100 to-red-100"
-            : "from-slate-50  to-fuchsia-200"
-        }  min-w-56`}
+        className="w-screen h-screen overflow-y-auto bg-gradient-to-b from-blue-100 to-red-100 min-w-56"
       >
         {!isTechBlog && !isStats && (
           <>

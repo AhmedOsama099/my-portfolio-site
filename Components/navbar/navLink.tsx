@@ -4,37 +4,25 @@ import React from "react";
 import { usePathname } from "next/navigation";
 import { NavLinkProps } from "@/types/navbar";
 import LocaleLink from "@/Components/LocaleLink";
-import { useTheme } from "@/context/ThemeContext";
 import { stripLocale } from "@/lib/i18n/config";
 
 const NavLink: React.FC<NavLinkProps> = ({ link }) => {
   const pathName = usePathname();
-  const { isProgrammer } = useTheme();
 
   const isActive =
     stripLocale(pathName) === link.url
-      ? isProgrammer
-        ? `bg-[#F2F7F0] outline-2 outline-dashed hover:outline-dotted transition-all duration-300`
-        : `bg-[#FCE0A2] outline-2 outline-dashed hover:outline-dotted transition-all duration-300`
+      ? `bg-[#F2F7F0] outline-2 outline-dashed hover:outline-dotted transition-all duration-300`
       : "";
 
-  const isHovered = isProgrammer
-    ? "hover:bg-gradient-to-r from-transparent via-[#EE3E5430] to-transparent"
-    : "hover:bg-gradient-to-r from-transparent via-[#7881B320] to-transparent";
+  const isHovered =
+    "hover:bg-gradient-to-r from-transparent via-[#EE3E5430] to-transparent";
 
-  const dotsColors = isProgrammer
-    ? {
-        one1: "bg-[#FFB800]",
-        two2: "bg-[#EE3E54]",
-        three3: "bg-white",
-        four4: "bg-[#8889B9]",
-      }
-    : {
-        one1: "bg-[#ff0000]",
-        two2: "bg-[#6E8B3D]",
-        three3: "bg-white",
-        four4: "bg-[#5000a8]",
-      };
+  const dotsColors = {
+    one1: "bg-[#FFB800]",
+    two2: "bg-[#EE3E54]",
+    three3: "bg-white",
+    four4: "bg-[#8889B9]",
+  };
 
   return (
     <LocaleLink

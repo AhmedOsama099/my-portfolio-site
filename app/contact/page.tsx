@@ -4,20 +4,11 @@ import MotionPageWrapper from "@/Components/motionPageWrapper";
 import ContactForm from "@/Components/contact/ContactForm";
 import AnimatedHeading from "@/Components/contact/AnimatedHeading";
 import { motion } from "framer-motion";
-import { useTheme } from "@/context/ThemeContext";
 import { useTranslation } from "react-i18next";
 
 const ContactPage = () => {
-  const { isProgrammer } = useTheme();
   const { t } = useTranslation();
-
-  const contactColors = isProgrammer
-    ? {
-        underline: "#EE3E54",
-      }
-    : {
-        underline: "#5a6c98",
-      };
+  const underlineColor = "#EE3E54";
 
   return (
     <MotionPageWrapper>
@@ -28,7 +19,7 @@ const ContactPage = () => {
             <AnimatedHeading text={t("contact.sayHello")} />
             <motion.div
               className="absolute -bottom-6 start-0 w-1/2 h-1"
-              style={{ backgroundColor: contactColors.underline }}
+              style={{ backgroundColor: underlineColor }}
               initial={{ width: 0 }}
               animate={{ width: "50%" }}
               transition={{ duration: 0.8, delay: 0.5 }}

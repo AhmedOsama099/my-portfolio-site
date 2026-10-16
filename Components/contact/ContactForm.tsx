@@ -6,7 +6,6 @@ import FormInput from "./FormInput";
 import MessageTextarea from "./MessageTextarea";
 import SubmitButton from "./SubmitButton";
 import StatusMessage from "./StatusMessage";
-import { useTheme } from "@/context/ThemeContext";
 import { useTranslation } from "react-i18next";
 
 const ContactForm = () => {
@@ -16,22 +15,14 @@ const ContactForm = () => {
   const [message, setMessage] = useState("");
   const [isValidMessage, setIsValidMessage] = useState(false);
 
-  const { isProgrammer } = useTheme();
   const { t } = useTranslation();
 
-  const contactForm = isProgrammer
-    ? {
-        div1: "from-[#565FA1] to-[#EE3E54]",
-        div2: "bg-[#FCE0A2]",
-        div3: "bg-[#8889B9]",
-        title: "text-[#565FA1]",
-      }
-    : {
-        div1: "from-slate-300  to-fuchsia-200",
-        div2: "bg-[#5a6c98]",
-        div3: "bg-[#5a6c9830]",
-        title: "text-[#5a6c98]",
-      };
+  const contactForm = {
+    div1: "from-[#565FA1] to-[#EE3E54]",
+    div2: "bg-[#FCE0A2]",
+    div3: "bg-[#8889B9]",
+    title: "text-[#565FA1]",
+  };
 
   const form = useRef<HTMLFormElement>(null);
 

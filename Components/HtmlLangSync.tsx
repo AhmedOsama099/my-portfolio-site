@@ -15,15 +15,26 @@ const HtmlLangSync = () => {
     useAppTranslation();
 
   useEffect(() => {
-    const urlLocale = getLocaleFromPathname(pathname) || DEFAULT_LOCALE;
-    const dir = urlLocale === "ar" ? "rtl" : "ltr";
+    const isTechBlog = pathname.includes("/tech-blog");
+    if (isTechBlog) {
+      const urlLocale = getLocaleFromPathname(pathname) || DEFAULT_LOCALE;
+      const dir = urlLocale === "ar" ? "rtl" : "ltr";
 
-    document.documentElement.lang = urlLocale;
-    document.documentElement.dir = dir;
+      document.documentElement.lang = urlLocale;
+      document.documentElement.dir = dir;
 
-    if (currentLanguage !== urlLocale) {
-      setLanguage(urlLocale);
-      changeCurrentDirection(dir);
+      if (currentLanguage !== urlLocale) {
+        setLanguage(urlLocale);
+        changeCurrentDirection(dir);
+      }
+    } else {
+      document.documentElement.lang = DEFAULT_LOCALE;
+      document.documentElement.dir = "ltr";
+
+      if (currentLanguage !== DEFAULT_LOCALE) {
+        setLanguage(DEFAULT_LOCALE);
+        changeCurrentDirection("ltr");
+      }
     }
   }, [pathname, currentLanguage, setLanguage, changeCurrentDirection]);
 

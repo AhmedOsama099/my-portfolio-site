@@ -2,8 +2,6 @@
 
 import Link from "next/link";
 import { ComponentProps } from "react";
-import { useTheme } from "@/context/ThemeContext";
-import { withLocale } from "@/lib/i18n/config";
 
 type LocaleLinkProps = Omit<ComponentProps<typeof Link>, "href"> & {
   href: string;
@@ -19,10 +17,5 @@ type LocaleLinkProps = Omit<ComponentProps<typeof Link>, "href"> & {
  * article navigation), use `useLocalizedHref` directly.
  */
 export default function LocaleLink({ href, ...props }: LocaleLinkProps) {
-  const { isProgrammer } = useTheme();
-  const isInternal = href.startsWith("/") && !href.startsWith("//");
-  const localized = isInternal
-    ? withLocale(href, isProgrammer ? "en" : "ar")
-    : href;
-  return <Link href={localized} {...props} />;
+  return <Link href={href} {...props} />;
 }

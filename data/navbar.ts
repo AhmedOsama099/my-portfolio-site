@@ -1,18 +1,17 @@
 import { NavLinkType, SocialMediaType } from "@/types/navbar";
 
-// Navigation links data
-export const programmerLinks: NavLinkType[] = [
+// Navigation links data - unified default mode
+export const navLinks: NavLinkType[] = [
   { url: "/", title: "Home" },
   { url: "/about", title: "About" },
   { url: "/portfolio", title: "Portfolio" },
   { url: "/contact", title: "Contact" },
-  { url: "/tech-blog", title: "Blog" },
+  { url: "/tech-blog", title: "Tech Blog" },
+  { url: "/blog", title: "Arabic Writings" },
 ];
-export const writerLinks: NavLinkType[] = [
-  { url: "/", title: "الرئيسية" },
-  { url: "/blog", title: "المدونة" },
-  { url: "/contact", title: "التواصل" },
-];
+
+export const programmerLinks: NavLinkType[] = navLinks;
+export const writerLinks: NavLinkType[] = navLinks;
 
 // Social media links data
 export const socialMedia: SocialMediaType[] = [

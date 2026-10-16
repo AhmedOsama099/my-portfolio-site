@@ -23,19 +23,23 @@ const siteUrl = "https://ahmedosamadev.vercel.app";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Ahmed Osama - Software Engineer Portfolio",
+    default: "Ahmed Osama - Senior Software Engineer & Arabic Writer",
     template: "%s | Ahmed Osama",
   },
   description:
-    "Portfolio of Ahmed Osama, a Senior Software Engineer — showcasing projects, skills, experience and a technical blog in English and Arabic.",
+    "Portfolio of Ahmed Osama: Senior Software Engineer & Arabic Writer — showcasing engineering projects, technical blog in English & Arabic, and reflective Arabic literature writings.",
   keywords: [
     "Ahmed Osama",
     "Software Engineer",
     "Frontend Developer",
+    "Full-Stack Developer",
     "Portfolio",
     "React",
     "Next.js",
     "TypeScript",
+    "Arabic Literature",
+    "أحمد أسامة",
+    "أدب عربي",
   ],
   authors: [{ name: "Ahmed Osama" }],
   creator: "Ahmed Osama",
@@ -49,25 +53,25 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "Ahmed Osama Portfolio",
-    title: "Ahmed Osama - Software Engineer Portfolio",
+    title: "Ahmed Osama - Senior Software Engineer & Arabic Writer",
     description:
-      "Portfolio of Ahmed Osama, a Senior Software Engineer — projects, skills, experience and a technical blog.",
+      "Explore software engineering projects, technical deep-dive guides, and creative Arabic literary prose by Ahmed Osama.",
     url: siteUrl,
     images: [
       {
-        url: "/images/hero.png",
+        url: "/images/hero-portrait.jpg",
         width: 1200,
         height: 630,
-        alt: "Ahmed Osama Portfolio Preview",
+        alt: "Ahmed Osama — Software Engineer & Writer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ahmed Osama - Software Engineer Portfolio",
+    title: "Ahmed Osama - Senior Software Engineer & Arabic Writer",
     description:
-      "Portfolio of Ahmed Osama, a Senior Software Engineer — projects, skills, experience and a technical blog.",
-    images: ["/images/hero.png"],
+      "Software engineering projects, technical articles, and Arabic literature writings by Ahmed Osama.",
+    images: ["/images/hero-portrait.jpg"],
   },
 };
 

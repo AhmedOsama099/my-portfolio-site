@@ -31,9 +31,9 @@ const BlogPage = () => {
       const el = document.getElementById(hash);
       if (el) {
         el.scrollIntoView({ behavior: "smooth", block: "start" });
-        el.classList.add("ring-2", "ring-[#565FA1]", "ring-offset-2");
+        el.classList.add("ring-2", "ring-[#EE3E54]", "ring-offset-2");
         setTimeout(
-          () => el.classList.remove("ring-2", "ring-[#565FA1]", "ring-offset-2"),
+          () => el.classList.remove("ring-2", "ring-[#EE3E54]", "ring-offset-2"),
           2500
         );
       }
@@ -68,26 +68,25 @@ const BlogPage = () => {
 
   return (
     <MotionPageWrapper>
-      <div className="min-h-screen py-12 px-4 sm:px-8 md:px-12 max-w-4xl mx-auto relative z-10">
-        {/* Page Header */}
+      <div
+        className="min-h-screen py-10 px-4 sm:px-8 md:px-12 max-w-4xl mx-auto relative z-10"
+        dir="rtl"
+      >
+        {/* Page Header matching Default Mode Theme */}
         <BlogHeader />
 
         {/* Search Input with attached counter badge */}
-        <div className="relative max-w-md mx-auto mb-8">
+        <div className="relative max-w-md mx-auto mb-10">
           <SearchInput
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
             filteredCount={filteredContentLength}
             debouncedSearchTerm={debouncedSearchTerm}
           />
-          <div className="absolute top-[95%] -z-10 right-0 inline-flex items-center bg-[#565FA1] px-2 py-1 shadow-sm border border-[#565FA1]/30 border-t-transparent rounded-l-lg rounded-br-lg">
-            <span className="text-white font-semibold mr-1 text-xs">عدد</span>
-
-            <span className="text-white font-bold  py-0.5 rounded-full min-w-[1.5rem] text-center text-xs">
+          <div className="absolute top-[92%] -z-10 right-0 inline-flex items-center gap-1.5 bg-[#3A4184] px-3 py-1 shadow-md border border-[#3A4184]/40 border-t-transparent rounded-l-xl rounded-br-xl text-xs text-white">
+            <span className="font-medium">عدد النصوص المتاحة:</span>
+            <span className="font-extrabold bg-[#EE3E54] px-2 py-0.5 rounded-full min-w-[1.5rem] text-center">
               {filteredContentLength}
-            </span>
-            <span className="text-white font-semibold mr-1 text-xs">
-              من النصوص
             </span>
           </div>
         </div>

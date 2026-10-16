@@ -33,7 +33,7 @@ export async function generateMetadata({
   const locale = await localeFromHeaders();
   const title = piece.title?.trim() || excerpt(piece.content, 50);
   const description = excerpt(piece.content, 180);
-  const url = `${siteUrl}/${locale}/blog/${params.id}`;
+  const url = `${siteUrl}/blog/${params.id}`;
 
   return {
     title,
@@ -67,20 +67,19 @@ export default async function BlogPostPage({
   const piece = findPiece(params.id);
   if (!piece) notFound();
 
-  const locale = await localeFromHeaders();
-  const backHref = `/${locale}/blog`;
+  const backHref = "/blog";
 
   return (
     <div className="h-full overflow-y-auto" dir="rtl">
       <div className="min-h-full py-12 px-4 sm:px-8 md:px-12 max-w-3xl mx-auto">
         <a
           href={backHref}
-          className="inline-flex items-center gap-2 text-[#565FA1] font-semibold hover:underline mb-6"
+          className="inline-flex items-center gap-2 text-[#3A4184] hover:text-[#EE3E54] font-bold transition-colors mb-6"
         >
-          <span aria-hidden>→</span> العودة إلى المدونة
+          <span aria-hidden>→</span> العودة إلى النصوص والكتابات
         </a>
 
-        <article className="bg-white rounded-lg shadow-md p-8 border-r-4 border-[#565FA1]">
+        <article className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-lg p-6 sm:p-10 border-r-4 border-[#3A4184] border-t border-l border-b border-slate-100">
           {/* Author */}
           <div className="flex items-center gap-3 mb-6">
             {/* eslint-disable-next-line @next/next/no-img-element */}

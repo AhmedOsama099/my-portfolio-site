@@ -2,39 +2,35 @@
 
 import HomeDescription from "@/Components/home/HomeDescription";
 import HomeImage from "@/Components/home/HomeImage";
+import HomeStats from "@/Components/home/HomeStats";
 import MotionPageWrapper from "@/Components/motionPageWrapper";
 import { globalPX } from "./constants";
 import SocialMediaLinks from "@/Components/navbar/SocialMediaLinks";
 import { socialMedia } from "@/data/navbar";
-import PortfolioModeSwitch from "@/Components/PortfolioModeSwitch";
-import { useTheme } from "@/context/ThemeContext";
 
 export default function Home() {
-  const { isProgrammer } = useTheme();
-
-  const socialLinks = isProgrammer
-    ? socialMedia
-    : socialMedia.filter((link) => link.alt !== "github");
-
   return (
     <MotionPageWrapper>
       <div
-        className={`flex flex-col lg:items-center lg:flex-row px-4 ${globalPX} relative`}
+        className={`flex flex-col gap-8 md:gap-12 py-4 md:py-8 px-4 ${globalPX} relative max-w-7xl mx-auto`}
       >
-        {/* Portfolio Mode Switch Button */}
-        <PortfolioModeSwitch />
+        {/* Hero Section: Split Portrait Image + Narrative Description */}
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12 w-full">
+          {/* Image Container with Left (Programmer) and Right (Writer) Callouts */}
+          <HomeImage />
 
-        {/* Image Container */}
-        <HomeImage />
+          {/* Text & CTAs Container */}
+          <HomeDescription />
+        </div>
 
-        {/* Social Media Links */}
+        {/* Mobile Social Media Links */}
         <SocialMediaLinks
-          socialMedia={socialLinks}
-          className="flex min-[980px]:hidden items-center justify-center w-full my-2"
+          socialMedia={socialMedia}
+          className="flex min-[980px]:hidden items-center justify-center w-full my-1"
         />
 
-        {/* Text Container */}
-        <HomeDescription />
+        {/* Live Numbers & Stats Component (Projects, Tech Blog, Literature Writings, Analytics) */}
+        <HomeStats />
       </div>
     </MotionPageWrapper>
   );

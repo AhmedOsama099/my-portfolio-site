@@ -19,7 +19,7 @@ export interface PageVisit {
 
 export interface InteractionEvent {
   id: string;
-  category: "navigation" | "mode_switch" | "lang_switch" | "article_read" | "social_click" | "contact_submit" | "code_copy";
+  category: "navigation" | "mode_switch" | "lang_switch" | "article_read" | "social_click" | "contact_submit" | "code_copy" | "literature";
   action: string;
   label: string;
   path: string;
@@ -31,7 +31,7 @@ export interface AnalyticsData {
   events: InteractionEvent[];
 }
 
-const STORAGE_KEY = "ahmed_osama_stats_v1";
+const STORAGE_KEY = "ahmed_osama_stats_v2";
 
 // Mapping timezone to country for realistic client-side country detection
 function detectCountry(): { name: string; code: string; flag: string; city: string } {
@@ -98,16 +98,16 @@ export function generateSeedData(): AnalyticsData {
   ];
 
   const pages = [
-    { path: "/", title: "Home — Portfolio Landing", weight: 35 },
-    { path: "/tech-blog", title: "Tech Blog — Overview", weight: 18 },
-    { path: "/tech-blog/git/what-is-git", title: "Git Guide — What is GIT", weight: 14 },
-    { path: "/portfolio", title: "Portfolio Projects Showcase", weight: 12 },
-    { path: "/tech-blog/ts/index-signature", title: "TypeScript Index Signatures", weight: 8 },
-    { path: "/tech-blog/performance/ttfb", title: "Web Performance — TTFB Guide", weight: 6 },
-    { path: "/about", title: "About Ahmed Osama", weight: 5 },
-    { path: "/blog", title: "Literary Blog (المدونة الأدبية)", weight: 4 },
+    { path: "/", title: "Home — Portfolio Landing", weight: 30 },
+    { path: "/blog", title: "Arabic Writings — كتابات ونصوص أدبية", weight: 20 },
+    { path: "/portfolio", title: "Portfolio Projects Showcase", weight: 15 },
+    { path: "/tech-blog", title: "Tech Blog — Overview", weight: 12 },
+    { path: "/tech-blog/git/what-is-git", title: "Git Guide — What is GIT", weight: 8 },
+    { path: "/tech-blog/performance/ttfb", title: "Web Performance — TTFB Guide", weight: 5 },
+    { path: "/about", title: "About Ahmed Osama", weight: 4 },
     { path: "/contact", title: "Contact Ahmed Osama", weight: 3 },
-    { path: "/tech-blog/performance/cls", title: "Web Performance — CLS Guide", weight: 2 },
+    { path: "/tech-blog/ts/index-signature", title: "TypeScript Index Signatures", weight: 2 },
+    { path: "/tech-blog/performance/cls", title: "Web Performance — CLS Guide", weight: 1 },
   ];
 
   const referrers = [
@@ -120,14 +120,18 @@ export function generateSeedData(): AnalyticsData {
   ];
 
   const eventsList: Array<{ category: InteractionEvent["category"]; action: string; label: string }> = [
-    { category: "mode_switch", action: "Toggle Persona", label: "Switched to Writer Mode" },
-    { category: "mode_switch", action: "Toggle Persona", label: "Switched to Engineer Mode" },
-    { category: "lang_switch", action: "Article Translation", label: "Read Git in Arabic" },
-    { category: "lang_switch", action: "Article Translation", label: "Read TS in English" },
+    { category: "literature", action: "Read Text", label: "Read 'مُنظِّر' (Arabic Literature)" },
+    { category: "literature", action: "Read Text", label: "Read 'وجهُ كاذِب' (Arabic Literature)" },
+    { category: "literature", action: "Read Text", label: "Read 'لاشيء' (Arabic Literature)" },
+    { category: "literature", action: "Read Text", label: "Read 'راية' (Arabic Literature)" },
+    { category: "literature", action: "Generate Share Card", label: "Created Share Card for 'مُنظِّر'" },
+    { category: "literature", action: "Archive Search", label: "Searched in Arabic Writings" },
     { category: "article_read", action: "Completed Article", label: "What is Git" },
     { category: "article_read", action: "Completed Article", label: "Index Signatures" },
     { category: "code_copy", action: "Copy Code Snippet", label: "TypeScript readonly example" },
     { category: "code_copy", action: "Copy Code Snippet", label: "Git Distributed diagram" },
+    { category: "lang_switch", action: "Article Translation", label: "Read Tech Blog in Arabic" },
+    { category: "lang_switch", action: "Article Translation", label: "Read Tech Blog in English" },
     { category: "social_click", action: "Outbound Profile", label: "GitHub Profile Clicked" },
     { category: "social_click", action: "Outbound Profile", label: "LinkedIn Profile Clicked" },
     { category: "social_click", action: "Outbound Profile", label: "WhatsApp Direct Message" },

@@ -24,46 +24,46 @@ function detectLocale(req: NextRequest): Locale {
 }
 
 export function middleware(req: NextRequest) {
-  const { pathname, search } = req.nextUrl;
+  const { pathname } = req.nextUrl;
 
-  // Direct root route for /stats (bypasses locale redirect)
+  // Direct root route for /stats (bypasses all middleware handling)
   if (pathname === "/stats" || pathname.startsWith("/stats/")) {
     return NextResponse.next();
   }
 
   const locale = getLocaleFromPathname(pathname);
+  const rest = stripLocale(pathname);
+  const isTechBlog = rest.startsWith("/tech-blog");
 
-  // 1. No locale prefix -> redirect to the detected locale.
-  if (!locale) {
-    const target = req.nextUrl.clone();
-    target.pathname = withLocale(pathname, detectLocale(req));
-    return NextResponse.redirect(target);
+  // Arabic and English routing are strictly reserved for tech-blog articles
+  if (isTechBlog) {
+    const activeLocale = locale || DEFAULT_LOCALE;
+    const reqHeaders = new Headers(req.headers);
+    reqHeaders.set("x-locale", activeLocale);
+
+    const rewriteUrl = req.nextUrl.clone();
+    rewriteUrl.pathname = rest;
+
+    return NextResponse.rewrite(rewriteUrl, {
+      request: { headers: reqHeaders },
+    });
   }
 
-  const rest = stripLocale(pathname);
+  // If a legacy URL with /en/ or /ar/ prefix is hit for non-tech-blog pages,
+  // redirect cleanly to the un-prefixed canonical route
+  if (locale) {
+    const redirectUrl = req.nextUrl.clone();
+    redirectUrl.pathname = rest;
+    return NextResponse.redirect(redirectUrl);
+  }
 
-  // 2. Rewrite to the un-prefixed route, forwarding the locale to the server
-  //    via request headers (readable by `headers()` in server components).
+  // All other pages (/ , /about, /portfolio, /contact, /blog) are in the default mode
   const reqHeaders = new Headers(req.headers);
-  reqHeaders.set("x-locale", locale);
-  // NOTE: do NOT set `x-invoke-path` here — it is a reserved Next.js internal
-  // routing header. Overriding it on the forwarded request makes the production
-  // server (`next start`) mis-resolve every rewritten route to the not-found
-  // page (dev silently ignores it, which is why it only broke in production).
+  reqHeaders.set("x-locale", DEFAULT_LOCALE);
 
-  const rewriteUrl = req.nextUrl.clone();
-  rewriteUrl.pathname = rest;
-
-  const res = NextResponse.rewrite(rewriteUrl, {
+  return NextResponse.next({
     request: { headers: reqHeaders },
   });
-  // Persist the choice so "/" and SSR fallbacks resolve consistently.
-  // We only persist for main portfolio routes, NOT when switching article language in tech-blog,
-  // so reading an article in Arabic doesn't convert the whole portfolio into Writer mode.
-  if (!rest.startsWith("/tech-blog")) {
-    res.cookies.set("i18next", locale, { path: "/", maxAge: 60 * 60 * 24 * 365 });
-  }
-  return res;
 }
 
 export const config = {

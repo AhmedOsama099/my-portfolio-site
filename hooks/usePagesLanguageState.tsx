@@ -16,26 +16,22 @@ export const usePagesLanguageState = () => {
   const pathname = usePathname();
 
   useEffect(() => {
-    const pathLocale = getLocaleFromPathname(pathname);
-    const windowLocale =
-      typeof window !== "undefined"
-        ? getLocaleFromPathname(window.location.pathname)
-        : null;
-    const cookieMatch =
-      typeof document !== "undefined"
-        ? document.cookie.match(/(?:^|;\s*)i18next=([^;]+)/)
-        : null;
-    const cookieLocale =
-      cookieMatch && (cookieMatch[1] === "ar" || cookieMatch[1] === "en")
-        ? (cookieMatch[1] as "ar" | "en")
-        : null;
+    const isTechBlog = pathname.includes("/tech-blog");
+    if (isTechBlog) {
+      const pathLocale = getLocaleFromPathname(pathname);
+      const locale = pathLocale || DEFAULT_LOCALE;
 
-    const locale = pathLocale || windowLocale || cookieLocale || DEFAULT_LOCALE;
-
-    if (currentLanguage !== locale) {
-      setLanguage(locale);
+      if (currentLanguage !== locale) {
+        setLanguage(locale);
+      }
+      changeCurrentDirection(locale === "ar" ? "rtl" : "ltr");
+    } else {
+      // All other sections are in the default mode (English)
+      if (currentLanguage !== DEFAULT_LOCALE) {
+        setLanguage(DEFAULT_LOCALE);
+      }
+      changeCurrentDirection("ltr");
     }
-    changeCurrentDirection(locale === "ar" ? "rtl" : "ltr");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 };

@@ -5,39 +5,30 @@ import DesktopNavLinks from "./DesktopNavLinks";
 import NavLogo from "./NavLogo";
 import SocialMediaLinks from "./SocialMediaLinks";
 import MobileMenu from "./MobileMenu";
-import { programmerLinks, writerLinks, socialMedia } from "@/data/navbar";
-import { useTheme } from "@/context/ThemeContext";
+import { navLinks, socialMedia } from "@/data/navbar";
 
 const Navbar: React.FC = () => {
   const [open, setOpen] = useState(false);
-  const { isProgrammer } = useTheme();
-
-  const socialLinks = isProgrammer
-    ? socialMedia
-    : socialMedia.filter((link) => link.alt !== "github");
-
   const toggleMenu = () => setOpen((prev) => !prev);
 
-  const borderColor = isProgrammer ? "border-[#EE3E54]" : "border-[#7881B3]";
-  const links = isProgrammer ? programmerLinks : writerLinks;
   return (
     <div
-      className={`h-full flex items-center justify-between px-4 sm:px-8 md:px-12 text-xl  border-b-[1px] ${borderColor} min-[980px]:px-3  min-[1024px]:px-3 min-[1350px]:px-48`}
+      className="h-full flex items-center justify-between px-4 sm:px-8 md:px-12 border-b-[1px] border-[#EE3E54] min-[980px]:px-6 xl:px-16 2xl:px-24"
     >
       {/* Desktop Navigation Links */}
-      <DesktopNavLinks links={links} />
+      <DesktopNavLinks links={navLinks} />
 
       {/* Logo */}
       <NavLogo />
 
       {/* Social Media Links */}
       <SocialMediaLinks
-        socialMedia={socialLinks}
-        className="hidden min-[980px]:flex justify-end"
+        socialMedia={socialMedia}
+        className="hidden min-[980px]:flex justify-end shrink-0"
       />
 
       {/* Mobile Menu */}
-      <MobileMenu open={open} toggleMenu={toggleMenu} links={links} />
+      <MobileMenu open={open} toggleMenu={toggleMenu} links={navLinks} />
     </div>
   );
 };

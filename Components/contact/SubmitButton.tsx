@@ -1,4 +1,3 @@
-import { useTheme } from "@/context/ThemeContext";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -11,23 +10,15 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
   isDisabled,
   isLoading,
 }) => {
-  const { isProgrammer } = useTheme();
   const { t } = useTranslation();
-
-  const contactButton = isProgrammer
-    ? {
-        submitButton: "bg-[#565FA1] hover:bg-[#4A5290]",
-      }
-    : {
-        submitButton: "bg-[#5a6c98] hover:bg-[#5b6f90]",
-      };
+  const submitButtonClass = "bg-[#565FA1] hover:bg-[#4A5290]";
 
   return (
     <button
       className={`w-full py-3 px-4 rounded-lg font-medium text-white transition-all ${
         isDisabled
           ? "bg-gray-400 cursor-not-allowed"
-          : `${contactButton.submitButton} active:transform active:scale-[0.98]`
+          : `${submitButtonClass} active:transform active:scale-[0.98]`
       }`}
       disabled={isDisabled}
     >
