@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { literatureContent } from "@/data/blog";
 import { getPostId } from "@/utils/postId";
 import { DEFAULT_LOCALE, isLocale } from "@/lib/i18n/config";
+import ArticleComments from "@/Components/comments/ArticleComments";
 
 const siteUrl = "https://ahmedosamadev.vercel.app";
 const AUTHOR_NAME_AR = "أحمد أسامة الدعوشي";
@@ -105,7 +106,17 @@ export default async function BlogPostPage({
             {(piece.content ?? "").trim()}
           </p>
         </article>
+
+        {/* Comments Section */}
+        <ArticleComments
+          articleId={params.id}
+          articleTitle={piece.title || "نص أدبي"}
+          articleType="literature"
+          pagePath={`/blog/${params.id}`}
+          dir="rtl"
+        />
       </div>
     </div>
   );
 }
+

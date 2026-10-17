@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { LiteratureItemProps } from "@/types/blog";
 import { getPostId } from "@/utils/postId";
 import ShareCardModal from "./ShareCardModal";
+import LocaleLink from "@/Components/LocaleLink";
 
 const LiteratureItem: React.FC<LiteratureItemProps> = ({ piece }) => {
   const [expanded, setExpanded] = useState(false);
@@ -73,15 +74,26 @@ const LiteratureItem: React.FC<LiteratureItemProps> = ({ piece }) => {
           ></p>
         </div>
 
-        {showButton && (
-          <button
-            onClick={() => setExpanded(!expanded)}
-            className="mt-3 inline-flex items-center gap-1 text-[#3A4184] hover:text-[#EE3E54] font-bold text-sm transition-colors cursor-pointer"
-            aria-expanded={expanded}
+        <div className="flex items-center justify-between flex-wrap gap-2.5 mt-3 pt-3 border-t border-slate-100/80">
+          {showButton ? (
+            <button
+              onClick={() => setExpanded(!expanded)}
+              className="inline-flex items-center gap-1 text-[#3A4184] hover:text-[#EE3E54] font-bold text-sm transition-colors cursor-pointer"
+              aria-expanded={expanded}
+            >
+              <span>{expanded ? "عرض أقل ↑" : "قراءة النص كاملًا ↓"}</span>
+            </button>
+          ) : <div />}
+
+          <LocaleLink
+            href={`/blog/${postId}#comments`}
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100/80 hover:bg-[#EE3E54]/10 text-slate-600 hover:text-[#EE3E54] text-xs font-bold transition-all border border-slate-200/60"
+            title="إضافة تعليق ومناقشة هذا النص"
           >
-            <span>{expanded ? "عرض أقل ↑" : "قراءة النص كاملًا ↓"}</span>
-          </button>
-        )}
+            <span>💬</span>
+            <span>التعليقات والمناقشة</span>
+          </LocaleLink>
+        </div>
       </div>
 
       <ShareCardModal

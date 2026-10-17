@@ -7,9 +7,25 @@ import {
   clearAnalyticsData,
   AnalyticsData,
 } from "@/utils/analytics";
+import type { Comment } from "@/lib/db";
 
 type TimeRange = "today" | "7d" | "30d" | "all";
-type ActiveTab = "overview" | "literature" | "pages" | "geo" | "interactions" | "devices";
+type ActiveTab = "overview" | "notifications" | "literature" | "pages" | "geo" | "interactions" | "devices";
+
+function formatRelativeTime(dateString: string): string {
+  try {
+    const d = new Date(dateString);
+    const now = new Date();
+    const diffSec = Math.floor((now.getTime() - d.getTime()) / 1000);
+    if (diffSec < 60) return "Just now";
+    if (diffSec < 3600) return `${Math.floor(diffSec / 60)}m ago`;
+    if (diffSec < 86400) return `${Math.floor(diffSec / 3600)}h ago`;
+    if (diffSec < 604800) return `${Math.floor(diffSec / 86400)}d ago`;
+    return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  } catch {
+    return "Recently";
+  }
+}
 
 export default function StatsPage() {
   // Authentication State
@@ -27,6 +43,157 @@ export default function StatsPage() {
   const [activeTab, setActiveTab] = useState<ActiveTab>("overview");
   const [interactionCategory, setInteractionCategory] = useState<string>("all");
 
+  // Comments Notifications State (Neon Database)
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [loadingComments, setLoadingComments] = useState<boolean>(false);
+  const [dbConfigured, setDbConfigured] = useState<boolean>(false);
+  const [commentFilter, setCommentFilter] = useState<"all" | "tech-blog" | "literature" | "hidden">("all");
+  const [replyTargetId, setReplyTargetId] = useState<number | null>(null);
+  const [adminReplyText, setAdminReplyText] = useState<string>("");
+  const [isSubmittingReply, setIsSubmittingReply] = useState<boolean>(false);
+
+  const fetchCommentNotifications = async () => {
+    setLoadingComments(true);
+    try {
+      const res = await fetch("/api/comments?includeHidden=true");
+      const data = await res.json();
+      if (data.success && Array.isArray(data.comments)) {
+        setComments(data.comments);
+        setDbConfigured(Boolean(data.dbConfigured));
+      }
+    } catch (err) {
+      console.warn("Could not load comment notifications:", err);
+    } finally {
+      setLoadingComments(false);
+    }
+  };
+
+  const handleAdminToggleHide = async (commentId: number, currentHidden: boolean) => {
+    const nextHidden = !currentHidden;
+    try {
+      const res = await fetch("/api/comments", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: commentId,
+          action: "toggle_hide",
+          isHidden: nextHidden,
+        }),
+      });
+      if (res.ok) {
+        setComments((prev) =>
+          prev.map((c) => {
+            if (c.id === commentId) return { ...c, is_hidden: nextHidden };
+            if (c.replies) {
+              return {
+                ...c,
+                replies: c.replies.map((r) =>
+                  r.id === commentId ? { ...r, is_hidden: nextHidden } : r
+                ),
+              };
+            }
+            return c;
+          })
+        );
+      }
+    } catch {
+      alert("Failed to toggle visibility.");
+    }
+  };
+
+  const handleAdminDelete = async (commentId: number) => {
+    if (!window.confirm("Are you sure you want to permanently delete this comment?")) return;
+
+    try {
+      const res = await fetch(`/api/comments?id=${commentId}`, {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        setComments((prev) =>
+          prev
+            .filter((c) => c.id !== commentId)
+            .map((c) => ({
+              ...c,
+              replies: (c.replies || []).filter((r) => r.id !== commentId),
+            }))
+        );
+      }
+    } catch {
+      alert("Failed to delete comment.");
+    }
+  };
+
+  const handleAdminLike = async (commentId: number) => {
+    setComments((prev) =>
+      prev.map((c) => {
+        if (c.id === commentId) return { ...c, likes: (c.likes || 0) + 1 };
+        if (c.replies) {
+          return {
+            ...c,
+            replies: c.replies.map((r) =>
+              r.id === commentId ? { ...r, likes: (r.likes || 0) + 1 } : r
+            ),
+          };
+        }
+        return c;
+      })
+    );
+    try {
+      await fetch("/api/comments", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: commentId, action: "like", delta: 1 }),
+      });
+    } catch (err) {
+      console.warn("Failed to persist like:", err);
+    }
+  };
+
+  const handleAdminReplySubmit = async (parentComment: Comment) => {
+    if (!adminReplyText.trim()) return;
+    setIsSubmittingReply(true);
+
+    try {
+      const isArabic = parentComment.article_type === "literature";
+      const authorName = isArabic ? "أحمد أسامة (الكاتب)" : "Ahmed Osama (Author)";
+      const res = await fetch("/api/comments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          parentId: parentComment.id,
+          articleId: parentComment.article_id,
+          articleTitle: parentComment.article_title,
+          articleType: parentComment.article_type,
+          pagePath: parentComment.page_path,
+          authorName,
+          content: adminReplyText.trim(),
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setComments((prev) =>
+          prev.map((c) => {
+            if (c.id === parentComment.id) {
+              return {
+                ...c,
+                replies: [...(c.replies || []), data.comment],
+              };
+            }
+            return c;
+          })
+        );
+        setAdminReplyText("");
+        setReplyTargetId(null);
+      } else {
+        alert(data.error || "Failed to post reply.");
+      }
+    } catch {
+      alert("Could not post reply.");
+    } finally {
+      setIsSubmittingReply(false);
+    }
+  };
+
   // Check persisted auth on mount
   useEffect(() => {
     const sessionAuth = sessionStorage.getItem("stats_authenticated");
@@ -36,10 +203,11 @@ export default function StatsPage() {
     }
   }, []);
 
-  // Load analytics data once authenticated
+  // Load analytics data and comment notifications once authenticated
   useEffect(() => {
     if (isAuthenticated) {
       setAnalytics(getStoredAnalytics());
+      fetchCommentNotifications();
     }
   }, [isAuthenticated]);
 
@@ -130,8 +298,16 @@ export default function StatsPage() {
   const topPages = useMemo(() => {
     const map: Record<string, { path: string; title: string; count: number }> = {};
     filteredData.visits.forEach((v) => {
-      const p = v.path.replace(/^\/(en|ar)/, "") || "/";
-      if (!map[p]) map[p] = { path: p, title: v.title, count: 0 };
+      let p = v.path.replace(/^\/(en|ar)/, "") || "/";
+      try {
+        p = decodeURIComponent(p);
+      } catch {}
+      if (p.includes("\n") || p.length > 80) {
+        const match = p.match(/\/(tech-blog\/[^\s"',]+|blog[^\s"',]*|portfolio|about)?/);
+        p = match && match[0] ? match[0] : "/";
+      }
+      const title = v.title && v.title.length < 80 && !v.title.includes("\n") ? v.title : p;
+      if (!map[p]) map[p] = { path: p, title, count: 0 };
       map[p].count += 1;
     });
     return Object.values(map)
@@ -658,6 +834,10 @@ export default function StatsPage() {
           {(
             [
               { id: "overview", label: "Overview & Top Pages" },
+              {
+                id: "notifications",
+                label: `Notifications & Comments (${comments.length})`,
+              },
               { id: "literature", label: `Arabic Writings (${literatureVisits.length} visits)` },
               { id: "geo", label: "Geographic Insights (From Where)" },
               { id: "interactions", label: `Interactions & Events (${filteredData.events.length})` },
@@ -667,92 +847,596 @@ export default function StatsPage() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-4 py-2 rounded-xl transition whitespace-nowrap ${
+              className={`px-4 py-2 rounded-xl transition whitespace-nowrap flex items-center gap-2 ${
                 activeTab === tab.id
                   ? "bg-slate-800 text-white border border-slate-700/80 shadow-sm"
                   : "text-slate-400 hover:text-white hover:bg-slate-900"
               }`}
             >
-              {tab.label}
+              <span>{tab.label}</span>
+              {tab.id === "notifications" && comments.length > 0 && (
+                <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
+              )}
             </button>
           ))}
         </div>
 
         {/* TAB 1: OVERVIEW & TOP PAGES */}
         {(activeTab === "overview" || activeTab === "pages") && (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Top Pages Table (2 cols) */}
-            <div className="lg:col-span-2 p-6 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-lg">
-              <h3 className="text-base font-bold text-white mb-1">Most Visited Pages & Articles</h3>
-              <p className="text-xs text-slate-400 mb-4">Traffic distribution across articles, landing, and portfolio</p>
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Top Pages Table (2 cols) */}
+              <div className="lg:col-span-2 p-6 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-lg">
+                <h3 className="text-base font-bold text-white mb-1">Most Visited Pages & Articles</h3>
+                <p className="text-xs text-slate-400 mb-4">Traffic distribution across articles, landing, and portfolio</p>
 
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-sm">
-                  <thead>
-                    <tr className="border-b border-slate-800 text-slate-400 text-xs uppercase tracking-wider">
-                      <th className="pb-3 font-semibold">Page / Article</th>
-                      <th className="pb-3 font-semibold text-end">Views</th>
-                      <th className="pb-3 font-semibold text-end">% Share</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-800/60">
-                    {topPages.map((page, idx) => {
-                      const pct = totalViews ? Math.round((page.count / totalViews) * 100) : 0;
-                      return (
-                        <tr key={idx} className="hover:bg-slate-800/40 transition">
-                          <td className="py-3 pe-4">
-                            <div className="font-medium text-slate-200">{page.title}</div>
-                            <div className="text-xs text-slate-500 font-mono mt-0.5">{page.path}</div>
-                          </td>
-                          <td className="py-3 text-end font-semibold text-slate-200">{page.count}</td>
-                          <td className="py-3 text-end w-36">
-                            <div className="flex items-center justify-end gap-2">
-                              <div className="w-20 bg-slate-800 rounded-full h-2 overflow-hidden">
-                                <div className="bg-indigo-500 h-2 rounded-full" style={{ width: `${pct}%` }}></div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-sm">
+                    <thead>
+                      <tr className="border-b border-slate-800 text-slate-400 text-xs uppercase tracking-wider">
+                        <th className="pb-3 font-semibold">Page / Article</th>
+                        <th className="pb-3 font-semibold text-end">Views</th>
+                        <th className="pb-3 font-semibold text-end">% Share</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-800/60">
+                      {topPages.map((page, idx) => {
+                        const pct = totalViews ? Math.round((page.count / totalViews) * 100) : 0;
+                        return (
+                          <tr key={idx} className="hover:bg-slate-800/40 transition">
+                            <td className="py-3 pe-4">
+                              <div className="font-medium text-slate-200">{page.title}</div>
+                              <div className="text-xs text-slate-500 font-mono mt-0.5">{page.path}</div>
+                            </td>
+                            <td className="py-3 text-end font-semibold text-slate-200">{page.count}</td>
+                            <td className="py-3 text-end w-36">
+                              <div className="flex items-center justify-end gap-2">
+                                <div className="w-20 bg-slate-800 rounded-full h-2 overflow-hidden">
+                                  <div className="bg-indigo-500 h-2 rounded-full" style={{ width: `${pct}%` }}></div>
+                                </div>
+                                <span className="text-xs text-slate-400 font-mono w-8">{pct}%</span>
                               </div>
-                              <span className="text-xs text-slate-400 font-mono w-8">{pct}%</span>
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* Top Referrers & Direct */}
+              <div className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-lg flex flex-col justify-between">
+                <div>
+                  <h3 className="text-base font-bold text-white mb-1">Traffic Channels</h3>
+                  <p className="text-xs text-slate-400 mb-4">How users discover your portfolio</p>
+
+                  <div className="space-y-4">
+                    {[
+                      { source: "Direct Traffic", count: Math.round(totalViews * 0.44), pct: 44, icon: "⚡" },
+                      { source: "LinkedIn Inbound", count: Math.round(totalViews * 0.28), pct: 28, icon: "💼" },
+                      { source: "GitHub Profile", count: Math.round(totalViews * 0.16), pct: 16, icon: "🐙" },
+                      { source: "Google Search", count: Math.round(totalViews * 0.08), pct: 8, icon: "🔍" },
+                      { source: "WhatsApp / Referrals", count: Math.round(totalViews * 0.04), pct: 4, icon: "💬" },
+                    ].map((ref, idx) => (
+                      <div key={idx} className="space-y-1.5">
+                        <div className="flex items-center justify-between text-xs font-medium">
+                          <span className="flex items-center gap-2 text-slate-300">
+                            <span>{ref.icon}</span>
+                            <span>{ref.source}</span>
+                          </span>
+                          <span className="text-slate-400 font-mono">{ref.count} visits ({ref.pct}%)</span>
+                        </div>
+                        <div className="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                          <div className="bg-gradient-to-r from-indigo-500 to-purple-500 h-1.5 rounded-full" style={{ width: `${ref.pct}%` }}></div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-6 pt-4 border-t border-slate-800/80 text-xs text-slate-500">
+                  Data collected client-side via referrer and browser location API
+                </div>
               </div>
             </div>
 
-            {/* Top Referrers & Direct */}
-            <div className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-lg flex flex-col justify-between">
-              <div>
-                <h3 className="text-base font-bold text-white mb-1">Traffic Channels</h3>
-                <p className="text-xs text-slate-400 mb-4">How users discover your portfolio</p>
+            {/* Recent Notifications Widget in Overview */}
+            <div className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-lg space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                    </svg>
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-base font-bold text-white">Recent Activity & Comment Notifications</h3>
+                      <span className="text-[11px] px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 font-mono">
+                        {comments.length} total
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-400 mt-0.5">Real-time alerts of new reader discussions and questions</p>
+                  </div>
+                </div>
 
-                <div className="space-y-4">
-                  {[
-                    { source: "Direct Traffic", count: Math.round(totalViews * 0.44), pct: 44, icon: "⚡" },
-                    { source: "LinkedIn Inbound", count: Math.round(totalViews * 0.28), pct: 28, icon: "💼" },
-                    { source: "GitHub Profile", count: Math.round(totalViews * 0.16), pct: 16, icon: "🐙" },
-                    { source: "Google Search", count: Math.round(totalViews * 0.08), pct: 8, icon: "🔍" },
-                    { source: "WhatsApp / Referrals", count: Math.round(totalViews * 0.04), pct: 4, icon: "💬" },
-                  ].map((ref, idx) => (
-                    <div key={idx} className="space-y-1.5">
-                      <div className="flex items-center justify-between text-xs font-medium">
-                        <span className="flex items-center gap-2 text-slate-300">
-                          <span>{ref.icon}</span>
-                          <span>{ref.source}</span>
-                        </span>
-                        <span className="text-slate-400 font-mono">{ref.count} visits ({ref.pct}%)</span>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setActiveTab("notifications")}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-indigo-600/20 text-indigo-300 hover:bg-indigo-600/30 border border-indigo-500/30 transition"
+                  >
+                    <span>View All Notifications Feed</span>
+                    <span aria-hidden>→</span>
+                  </button>
+                </div>
+              </div>
+
+              {comments.length === 0 ? (
+                <div className="p-8 text-center text-slate-500 text-xs rounded-xl bg-slate-950/40 border border-slate-800/60">
+                  No comments logged yet. Once readers post comments on tech articles or Arabic texts, notifications will display here.
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-1">
+                  {comments.slice(0, 3).map((item) => (
+                    <div
+                      key={item.id}
+                      className="p-4 rounded-xl bg-slate-800/40 border border-slate-700/60 hover:border-indigo-500/50 flex flex-col justify-between transition group"
+                    >
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between text-xs">
+                          <span
+                            className={`text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md ${
+                              item.article_type === "literature"
+                                ? "bg-rose-500/10 text-rose-300 border border-rose-500/20"
+                                : "bg-blue-500/10 text-blue-300 border border-blue-500/20"
+                            }`}
+                          >
+                            {item.article_type === "literature" ? "Arabic Writing" : "Tech Blog"}
+                          </span>
+                          <span className="text-slate-400 text-[11px] font-mono">
+                            {formatRelativeTime(item.created_at)}
+                          </span>
+                        </div>
+
+                        <div>
+                          <div className="text-xs font-semibold text-white flex items-center gap-1.5">
+                            <span className="text-indigo-400">●</span>
+                            <span>{item.author_name}</span>
+                            <span className="text-slate-400 font-normal">commented on:</span>
+                          </div>
+                          <div className="text-xs font-medium text-indigo-300 truncate mt-0.5" title={item.article_title}>
+                            {item.article_title}
+                          </div>
+                        </div>
+
+                        <p className="text-xs text-slate-300 line-clamp-2 bg-slate-900/60 p-2.5 rounded-lg border border-slate-800/80 italic font-sans">
+                          &ldquo;{item.content}&rdquo;
+                        </p>
                       </div>
-                      <div className="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
-                        <div className="bg-gradient-to-r from-indigo-500 to-purple-500 h-1.5 rounded-full" style={{ width: `${ref.pct}%` }}></div>
+
+                      <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
+                        <span className="text-[11px] text-slate-500 font-mono truncate max-w-[140px]">
+                          {item.page_path}
+                        </span>
+                        <Link
+                          href={`${item.page_path}#comment-${item.id}`}
+                          className="inline-flex items-center gap-1 font-semibold text-indigo-400 hover:text-indigo-300 transition group-hover:translate-x-0.5"
+                        >
+                          <span>Jump to comment</span>
+                          <span>↗</span>
+                        </Link>
                       </div>
                     </div>
                   ))}
                 </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* TAB: NOTIFICATIONS & COMMENTS FULL FEED */}
+        {activeTab === "notifications" && (
+          <div className="space-y-6">
+            {/* Header Banner & Neon DB Status */}
+            <div className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div>
+                <div className="flex items-center gap-2.5">
+                  <h2 className="text-lg font-bold text-white">Comment Activity & Notifications Feed</h2>
+                  <span className="text-xs px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-mono font-semibold">
+                    {comments.length} events
+                  </span>
+                </div>
+                <p className="text-xs text-slate-400 mt-1">
+                  Track every reader comment, question, and feedback across Tech Blog and Arabic Writings in real time.
+                </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-slate-800/80 text-xs text-slate-500">
-                Data collected client-side via referrer and browser location API
+              <div className="flex flex-wrap items-center gap-3">
+                {/* Neon DB indicator */}
+                {dbConfigured ? (
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>Neon PostgreSQL Live</span>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold" title="Add DATABASE_URL in .env.local to persist across restarts">
+                    <span className="w-2 h-2 rounded-full bg-amber-400"></span>
+                    <span>Local Memory Store Active</span>
+                  </div>
+                )}
+
+                {/* Refresh button */}
+                <button
+                  onClick={fetchCommentNotifications}
+                  disabled={loadingComments}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700/80 transition"
+                  title="Reload comments from database"
+                >
+                  <svg className={`w-3.5 h-3.5 ${loadingComments ? "animate-spin" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                  <span>{loadingComments ? "Syncing..." : "Refresh"}</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Filter Pills */}
+            <div className="flex items-center justify-between flex-wrap gap-3">
+              <div className="flex items-center gap-1.5 bg-slate-900/90 p-1 rounded-xl border border-slate-800 text-xs font-semibold overflow-x-auto">
+                {[
+                  { id: "all", label: `All Comments (${comments.length})` },
+                  {
+                    id: "tech-blog",
+                    label: `Tech Blog (${comments.filter((c) => c.article_type === "tech-blog").length})`,
+                  },
+                  {
+                    id: "literature",
+                    label: `Arabic Writings (${comments.filter((c) => c.article_type === "literature").length})`,
+                  },
+                  {
+                    id: "hidden",
+                    label: `Hidden Only (${comments.filter((c) => c.is_hidden).length})`,
+                  },
+                ].map((f) => (
+                  <button
+                    key={f.id}
+                    onClick={() => setCommentFilter(f.id as any)}
+                    className={`px-3 py-1.5 rounded-lg transition-all whitespace-nowrap ${
+                      commentFilter === f.id
+                        ? "bg-indigo-600 text-white shadow-sm"
+                        : "text-slate-400 hover:text-white"
+                    }`}
+                  >
+                    {f.label}
+                  </button>
+                ))}
+              </div>
+
+              <div className="text-xs text-slate-500">
+                Manage reader discussions, toggle visibility, love comments, or reply as Author
+              </div>
+            </div>
+
+            {/* Feed Cards */}
+            {comments.length === 0 ? (
+              <div className="p-12 text-center rounded-2xl bg-slate-900/80 border border-slate-800 shadow-lg space-y-3">
+                <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-400 mx-auto flex items-center justify-center">
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                </div>
+                <h3 className="text-sm font-bold text-white">No comments found</h3>
+                <p className="text-xs text-slate-400 max-w-md mx-auto">
+                  Readers haven&apos;t left any comments in this category yet. Comments submitted through the guest form on any article will instantly appear here.
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {(commentFilter === "all"
+                  ? comments
+                  : commentFilter === "hidden"
+                  ? comments.filter((c) => c.is_hidden)
+                  : comments.filter((c) => c.article_type === commentFilter)
+                ).map((item) => (
+                  <div
+                    key={item.id}
+                    id={`stat-comment-${item.id}`}
+                    className={`p-5 sm:p-6 rounded-2xl bg-slate-900/80 border ${
+                      item.is_hidden
+                        ? "border-amber-500/40 bg-amber-950/10"
+                        : "border-slate-800/80 hover:border-slate-700"
+                    } shadow-lg transition space-y-4`}
+                  >
+                    {/* Top Row: Author & Meta */}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                      <div className="flex items-center gap-3">
+                        <div
+                          className={`w-11 h-11 rounded-xl flex items-center justify-center text-sm font-extrabold text-white shadow-md ${
+                            item.article_type === "literature"
+                              ? "bg-gradient-to-tr from-rose-500 to-amber-500"
+                              : "bg-gradient-to-tr from-indigo-500 to-purple-500"
+                          }`}
+                        >
+                          {item.author_name.charAt(0).toUpperCase()}
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="font-bold text-white text-sm">{item.author_name}</span>
+                            {item.author_email && (
+                              <span className="text-xs text-slate-400 font-mono">
+                                ({item.author_email})
+                              </span>
+                            )}
+                            <span
+                              className={`text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md ${
+                                item.article_type === "literature"
+                                  ? "bg-rose-500/10 text-rose-300 border border-rose-500/20"
+                                  : "bg-indigo-500/10 text-indigo-300 border border-indigo-500/20"
+                              }`}
+                            >
+                              {item.article_type === "literature" ? "Arabic Writing (نص أدبي)" : "Tech Blog Article"}
+                            </span>
+
+                            {/* Visibility Badge */}
+                            {item.is_hidden ? (
+                              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-300 border border-amber-500/30 flex items-center gap-1">
+                                <span>👁️‍🗨️</span>
+                                <span>Hidden from Site</span>
+                              </span>
+                            ) : (
+                              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 flex items-center gap-1">
+                                <span>✓</span>
+                                <span>Visible</span>
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-xs text-slate-400 mt-0.5">
+                            Commented on <span className="font-semibold text-slate-200">&ldquo;{item.article_title}&rdquo;</span>
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <span className="text-xs text-slate-400 font-mono">
+                          {formatRelativeTime(item.created_at)}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Content Block */}
+                    <div
+                      className={`p-4 rounded-xl text-sm ${
+                        item.article_type === "literature"
+                          ? "bg-rose-950/20 border-s-4 border-rose-500 text-slate-200 font-arabic leading-relaxed"
+                          : "bg-slate-800/40 border-s-4 border-indigo-500 text-slate-200 leading-relaxed"
+                      }`}
+                      dir={item.article_type === "literature" ? "rtl" : "ltr"}
+                    >
+                      {item.content}
+                    </div>
+
+                    {/* Admin Moderation Actions Bar */}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-slate-800/70 text-xs">
+                      {/* Left: Path & Likes */}
+                      <div className="flex items-center gap-3 flex-wrap">
+                        {/* Love / Like Button */}
+                        <button
+                          type="button"
+                          onClick={() => handleAdminLike(item.id)}
+                          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-800 hover:bg-rose-500/10 text-rose-400 border border-slate-700/80 transition"
+                          title="Love this comment"
+                        >
+                          <span>❤️</span>
+                          <span className="font-mono font-bold">{item.likes || 0}</span>
+                        </button>
+
+                        <div className="flex items-center gap-2 text-slate-400 font-mono">
+                          <span>Path:</span>
+                          <span className="text-slate-300">{item.page_path}</span>
+                          <span className="text-slate-500">#comment-{item.id}</span>
+                        </div>
+                      </div>
+
+                      {/* Right: Moderation Controls */}
+                      <div className="flex items-center gap-2 flex-wrap">
+                        {/* Reply Button */}
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setReplyTargetId(replyTargetId === item.id ? null : item.id)
+                          }
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-semibold bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border border-indigo-500/30 transition"
+                        >
+                          <span>↩</span>
+                          <span>Reply</span>
+                          {item.replies && item.replies.length > 0 && (
+                            <span className="text-[11px] opacity-75">
+                              ({item.replies.length})
+                            </span>
+                          )}
+                        </button>
+
+                        {/* Hide / Unhide Button */}
+                        <button
+                          type="button"
+                          onClick={() =>
+                            handleAdminToggleHide(item.id, Boolean(item.is_hidden))
+                          }
+                          className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-semibold transition ${
+                            item.is_hidden
+                              ? "bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 border border-amber-500/40"
+                              : "bg-slate-800 text-slate-300 hover:text-amber-300 hover:bg-slate-700 border border-slate-700/80"
+                          }`}
+                        >
+                          <span>{item.is_hidden ? "👁️ Unhide" : "👁️‍🗨️ Hide"}</span>
+                        </button>
+
+                        {/* Delete Button */}
+                        <button
+                          type="button"
+                          onClick={() => handleAdminDelete(item.id)}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-semibold bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 transition"
+                        >
+                          <span>🗑️ Delete</span>
+                        </button>
+
+                        {/* Jump to comment on page */}
+                        <Link
+                          href={`${item.page_path}#comment-${item.id}`}
+                          target="_blank"
+                          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl font-semibold bg-indigo-600 hover:bg-indigo-500 text-white shadow-md shadow-indigo-500/20 transition"
+                        >
+                          <span>View on Page</span>
+                          <span aria-hidden>↗</span>
+                        </Link>
+                      </div>
+                    </div>
+
+                    {/* Inline Admin Reply Box */}
+                    {replyTargetId === item.id && (
+                      <div className="p-4 rounded-xl bg-slate-950/70 border border-indigo-500/30 space-y-3 pt-3">
+                        <div className="flex items-center justify-between text-xs font-bold text-indigo-400">
+                          <span>
+                            Reply as Ahmed Osama to {item.author_name}:
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => setReplyTargetId(null)}
+                            className="text-slate-400 hover:text-white"
+                          >
+                            ✕ Cancel
+                          </button>
+                        </div>
+                        <textarea
+                          rows={3}
+                          value={adminReplyText}
+                          onChange={(e) => setAdminReplyText(e.target.value)}
+                          placeholder="Type your official reply as the author..."
+                          className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        />
+                        <div className="flex justify-end gap-2">
+                          <button
+                            type="button"
+                            onClick={() => setReplyTargetId(null)}
+                            className="px-3 py-1.5 rounded-xl text-xs text-slate-400 hover:text-white"
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            type="button"
+                            disabled={isSubmittingReply}
+                            onClick={() => handleAdminReplySubmit(item)}
+                            className="px-4 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-md disabled:opacity-50"
+                          >
+                            {isSubmittingReply ? "Posting..." : "Post Author Reply"}
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Nested Replies on Card */}
+                    {item.replies && item.replies.length > 0 && (
+                      <div className="space-y-2.5 ps-4 sm:ps-6 border-s-2 border-indigo-500/30 pt-2">
+                        <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                          Replies ({item.replies.length}):
+                        </div>
+                        {item.replies.map((reply) => (
+                          <div
+                            key={reply.id}
+                            className={`p-3.5 rounded-xl bg-slate-800/40 border ${
+                              reply.is_hidden
+                                ? "border-amber-500/30 bg-amber-950/10"
+                                : "border-slate-700/60"
+                            } space-y-2`}
+                          >
+                            <div className="flex items-center justify-between text-xs">
+                              <div className="flex items-center gap-2">
+                                <span className="font-bold text-white">
+                                  {reply.author_name}
+                                </span>
+                                {reply.author_name.includes("Ahmed Osama") ||
+                                reply.author_name.includes("الكاتب") ? (
+                                  <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-md bg-indigo-600 text-white">
+                                    Author
+                                  </span>
+                                ) : (
+                                  <span className="text-[9px] px-1.5 py-0.5 rounded-md bg-slate-700 text-slate-300">
+                                    Reply
+                                  </span>
+                                )}
+                                {reply.is_hidden && (
+                                  <span className="text-[9px] px-1.5 py-0.5 rounded-md bg-amber-500/20 text-amber-300">
+                                    Hidden
+                                  </span>
+                                )}
+                              </div>
+                              <span className="text-[11px] text-slate-400 font-mono">
+                                {formatRelativeTime(reply.created_at)}
+                              </span>
+                            </div>
+
+                            <p className="text-xs text-slate-300 whitespace-pre-line font-arabic">
+                              {reply.content}
+                            </p>
+
+                            <div className="flex items-center justify-between pt-1 text-[11px]">
+                              <button
+                                type="button"
+                                onClick={() => handleAdminLike(reply.id)}
+                                className="text-rose-400 flex items-center gap-1 hover:opacity-80"
+                              >
+                                <span>❤️</span>
+                                <span className="font-mono">{reply.likes || 0}</span>
+                              </button>
+
+                              <div className="flex items-center gap-2">
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    handleAdminToggleHide(
+                                      reply.id,
+                                      Boolean(reply.is_hidden)
+                                    )
+                                  }
+                                  className="text-slate-400 hover:text-amber-400"
+                                >
+                                  {reply.is_hidden ? "Unhide" : "Hide"}
+                                </button>
+                                <span className="text-slate-600">·</span>
+                                <button
+                                  type="button"
+                                  onClick={() => handleAdminDelete(reply.id)}
+                                  className="text-red-400 hover:text-red-300"
+                                >
+                                  Delete
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Neon DB Guide Box */}
+            <div className="p-5 rounded-2xl bg-slate-900/50 border border-slate-800/70 flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 text-slate-200 font-bold">
+                  <span>Neon Serverless Database Integration</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 font-mono">
+                    PostgreSQL
+                  </span>
+                </div>
+                <p className="text-slate-400">
+                  To store comments permanently in your Neon cloud database, paste your connection string in <code className="text-indigo-300 font-mono bg-slate-800 px-1 py-0.5 rounded">.env.local</code> as <code className="text-indigo-300 font-mono bg-slate-800 px-1 py-0.5 rounded">DATABASE_URL</code>.
+                </p>
+              </div>
+              <div className="font-mono text-[11px] text-slate-400 bg-slate-950/80 px-3 py-2 rounded-xl border border-slate-800 truncate max-w-md">
+                DATABASE_URL=&quot;postgres://user:pass@ep-xyz.neon.tech/neondb?sslmode=require&quot;
               </div>
             </div>
           </div>
