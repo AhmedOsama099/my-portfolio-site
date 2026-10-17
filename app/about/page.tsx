@@ -20,10 +20,10 @@ const AboutPage: React.FC = () => {
   const isExperienceRefInView = useInView(experienceRef, { once: true });
 
   return (
-    <MotionPageWrapper>
+    <MotionPageWrapper className="h-full !overflow-hidden">
       {/* Container */}
       <div
-        className="h-full overflow-y-auto  lg:flex justify-between"
+        className="h-full overflow-y-auto lg:flex justify-between custom-scrollbar"
         ref={containerRef}
       >
         {/* Text Container*/}
@@ -46,7 +46,7 @@ const AboutPage: React.FC = () => {
         </div>
 
         {/* SVG Container with Contact CTA ~50px below */}
-        <div className="hidden lg:flex flex-col items-center justify-center w-1/3 xl:w-[45.5%] sticky top-0 h-screen max-h-screen py-4">
+        <div className="hidden lg:flex flex-col items-center justify-between w-1/3 xl:w-[45.5%] sticky top-0 h-full max-h-full py-4 shrink-0">
           <div className="w-full flex-1 min-h-0 flex items-center justify-center">
             <Brain scrollYProgress={scrollYProgress} />
           </div>
@@ -55,7 +55,7 @@ const AboutPage: React.FC = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.7, ease: "easeOut" }}
-            className="mt-[50px] mb-8 w-full flex justify-start pl-6 sm:pl-10 xl:pl-14"
+            className="mt-4 mb-4 w-full flex justify-start pl-6 sm:pl-10 xl:pl-14 shrink-0"
           >
             <Link
               href="/contact"

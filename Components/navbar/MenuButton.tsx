@@ -3,28 +3,15 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { MenuButtonProps } from "@/types/navbar";
-import { usePathname } from "next/navigation";
-import { stripLocale } from "@/lib/i18n/config";
-import clsx from "clsx";
 
 const MenuButton: React.FC<MenuButtonProps> = ({ open, toggleMenu }) => {
-  const pathname = usePathname();
-  const routePath = stripLocale(pathname);
-  const isArticlePage =
-    routePath.startsWith("/tech-blog") || routePath.startsWith("/blog");
-
   return (
     <button
       type="button"
       onClick={toggleMenu}
       aria-label={open ? "Close menu" : "Open menu"}
       aria-expanded={open}
-      className={clsx(
-        "group relative w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all duration-300 focus:outline-none",
-        isArticlePage
-          ? "bg-transparent border border-transparent shadow-none"
-          : "bg-white/85 backdrop-blur-xl border border-white/90 shadow-md shadow-indigo-950/10 hover:shadow-lg hover:scale-105 active:scale-95"
-      )}
+      className="group relative w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all duration-300 focus:outline-none bg-white/85 backdrop-blur-xl border border-white/90 shadow-md shadow-indigo-950/10 hover:shadow-lg hover:scale-105 active:scale-95"
     >
       {/* Subtle gradient rim glow on hover */}
       <span className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-400/20 via-transparent to-rose-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />

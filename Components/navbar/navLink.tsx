@@ -9,10 +9,14 @@ import { stripLocale } from "@/lib/i18n/config";
 const NavLink: React.FC<NavLinkProps> = ({ link }) => {
   const pathName = usePathname();
 
-  const isActive =
-    stripLocale(pathName) === link.url
-      ? `bg-[#F2F7F0] outline-2 outline-dashed hover:outline-dotted transition-all duration-300`
-      : "";
+  const currentPath = stripLocale(pathName);
+  const isMatch =
+    currentPath === link.url ||
+    (link.url !== "/" && currentPath.startsWith(link.url));
+
+  const isActive = isMatch
+    ? `bg-[#F2F7F0] outline-2 outline-dashed hover:outline-dotted transition-all duration-300`
+    : "";
 
   const isHovered =
     "hover:bg-gradient-to-r from-transparent via-[#EE3E5430] to-transparent";

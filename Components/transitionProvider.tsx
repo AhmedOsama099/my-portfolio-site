@@ -96,10 +96,8 @@ const TransitionProvider: FC<{
     <TransitionContext.Provider value={{ navigateWithTransition, isTransitioning }}>
       <div
         className={clsx(
-          "w-full max-w-full h-screen overflow-y-auto overflow-x-hidden min-w-56 flex flex-col",
-          routePath.startsWith("/tech-blog")
-            ? "bg-gray-50"
-            : "bg-gradient-to-b from-blue-100 to-red-100"
+          "w-full max-w-full h-screen min-w-56 flex flex-col bg-gradient-to-b from-blue-100 to-red-100",
+          isStats ? "overflow-y-auto" : "overflow-hidden"
         )}
       >
         {/* Black Screen Transition Curtains (Applies to all pages including Tech Blog) */}
@@ -157,7 +155,14 @@ const TransitionProvider: FC<{
         )}
 
         {!isStats && <Navbar />}
-        <div className="flex-1 w-full flex flex-col">{children}</div>
+        <div
+          className={clsx(
+            "w-full flex flex-col",
+            isStats ? "h-full" : "flex-1 min-h-0 overflow-hidden"
+          )}
+        >
+          {children}
+        </div>
         <FloatingContactButton />
       </div>
     </TransitionContext.Provider>
