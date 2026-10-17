@@ -1084,24 +1084,26 @@ export default function StatsPage() {
             {/* Filter Pills */}
             <div className="flex items-center justify-between flex-wrap gap-3">
               <div className="flex items-center gap-1.5 bg-slate-900/90 p-1 rounded-xl border border-slate-800 text-xs font-semibold overflow-x-auto">
-                {[
-                  { id: "all", label: `All Comments (${comments.length})` },
-                  {
-                    id: "tech-blog",
-                    label: `Tech Blog (${comments.filter((c) => c.article_type === "tech-blog").length})`,
-                  },
-                  {
-                    id: "literature",
-                    label: `Arabic Writings (${comments.filter((c) => c.article_type === "literature").length})`,
-                  },
-                  {
-                    id: "hidden",
-                    label: `Hidden Only (${comments.filter((c) => c.is_hidden).length})`,
-                  },
-                ].map((f) => (
+                {(
+                  [
+                    { id: "all", label: `All Comments (${comments.length})` },
+                    {
+                      id: "tech-blog",
+                      label: `Tech Blog (${comments.filter((c) => c.article_type === "tech-blog").length})`,
+                    },
+                    {
+                      id: "literature",
+                      label: `Arabic Writings (${comments.filter((c) => c.article_type === "literature").length})`,
+                    },
+                    {
+                      id: "hidden",
+                      label: `Hidden Only (${comments.filter((c) => c.is_hidden).length})`,
+                    },
+                  ] as const
+                ).map((f) => (
                   <button
                     key={f.id}
-                    onClick={() => setCommentFilter(f.id as any)}
+                    onClick={() => setCommentFilter(f.id)}
                     className={`px-3 py-1.5 rounded-lg transition-all whitespace-nowrap ${
                       commentFilter === f.id
                         ? "bg-indigo-600 text-white shadow-sm"

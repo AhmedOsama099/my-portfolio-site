@@ -180,38 +180,42 @@ export async function fetchComments(
       await initCommentsTable();
       const sql = neon(dbUrl);
 
-      let rows: any[] = [];
+      let rows: Comment[] = [];
       if (articleId) {
         if (includeHidden) {
-          rows = await sql`
+          const res = await sql`
             SELECT * FROM comments 
             WHERE article_id = ${articleId}
             ORDER BY created_at ASC
           `;
+          rows = res as unknown as Comment[];
         } else {
-          rows = await sql`
+          const res = await sql`
             SELECT * FROM comments 
             WHERE article_id = ${articleId} AND is_hidden = false AND is_approved = true
             ORDER BY created_at ASC
           `;
+          rows = res as unknown as Comment[];
         }
       } else {
         if (includeHidden) {
-          rows = await sql`
+          const res = await sql`
             SELECT * FROM comments 
             ORDER BY created_at DESC
             LIMIT 100
           `;
+          rows = res as unknown as Comment[];
         } else {
-          rows = await sql`
+          const res = await sql`
             SELECT * FROM comments 
             WHERE is_hidden = false AND is_approved = true
             ORDER BY created_at DESC
             LIMIT 100
           `;
+          rows = res as unknown as Comment[];
         }
       }
-      return rows as Comment[];
+      return rows;
     } catch (err) {
       console.warn("Database fetch error, using fallback comments:", err);
     }
