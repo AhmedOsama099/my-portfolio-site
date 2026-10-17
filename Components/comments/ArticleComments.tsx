@@ -366,7 +366,7 @@ export default function ArticleComments({
     <section
       id="comments"
       dir={isRtl ? "rtl" : "ltr"}
-      className="mt-12 pt-8 border-t border-slate-200/80 dark:border-slate-800 text-slate-800 dark:text-slate-100 select-text"
+      className="mt-12 pt-8 border-t border-slate-200/80 dark:border-slate-800 text-slate-800 dark:text-slate-100 select-text scroll-mt-24"
       aria-label={isRtl ? "قسم التعليقات" : "Comments Section"}
     >
       {/* Header */}
