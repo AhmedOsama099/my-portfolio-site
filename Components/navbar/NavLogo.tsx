@@ -5,14 +5,15 @@ import Image from "next/image";
 import LocaleLink from "@/Components/LocaleLink";
 
 const NavLogo: React.FC = () => (
-  <div className="flex-col justify-center flex min-[980px]:items-center items-start shrink-0 px-2 lg:px-6">
-    <LocaleLink href="/" aria-label="Ahmed Osama - Home">
+  <div className="flex flex-col items-center justify-center shrink-0">
+    <LocaleLink href="/" aria-label="Ahmed Osama - Home" className="block transition-transform duration-300 hover:scale-105 active:scale-95">
       <Image
         src={"/images/logo.svg"}
         alt="Ahmed Osama logo"
-        width={140}
-        height={140}
-        className="w-28 sm:w-36 h-auto"
+        width={110}
+        height={38}
+        className="w-16 sm:w-20 md:w-22 h-auto drop-shadow-sm"
+        priority
       />
     </LocaleLink>
   </div>

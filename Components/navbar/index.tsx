@@ -3,33 +3,31 @@
 import React, { useState } from "react";
 import DesktopNavLinks from "./DesktopNavLinks";
 import NavLogo from "./NavLogo";
-import SocialMediaLinks from "./SocialMediaLinks";
 import MobileMenu from "./MobileMenu";
-import { navLinks, socialMedia } from "@/data/navbar";
+import { navLinks } from "@/data/navbar";
 
 const Navbar: React.FC = () => {
   const [open, setOpen] = useState(false);
   const toggleMenu = () => setOpen((prev) => !prev);
 
   return (
-    <div
-      className="h-full flex items-center justify-between px-4 sm:px-8 md:px-12 border-b-[1px] border-[#EE3E54] min-[980px]:px-6 xl:px-16 2xl:px-24"
-    >
-      {/* Desktop Navigation Links */}
-      <DesktopNavLinks links={navLinks} />
+    <header className="relative w-full z-40 flex flex-col items-center pt-2 sm:pt-3 pb-1 select-none shrink-0 px-4">
+      {/* 1. Creative Floating Glass Nav Pill or Circular Trigger (Centered at the top) */}
+      <div className="flex items-center justify-center">
+        {/* Desktop Navigation Pill (shown when tabs fit without wrapping) */}
+        <DesktopNavLinks links={navLinks} />
 
-      {/* Logo */}
-      <NavLogo />
+        {/* Mobile Creative Circular Trigger (shown only when tabs wrap) */}
+        <div className="min-[680px]:hidden">
+          <MobileMenu open={open} toggleMenu={toggleMenu} links={navLinks} />
+        </div>
+      </div>
 
-      {/* Social Media Links */}
-      <SocialMediaLinks
-        socialMedia={socialMedia}
-        className="hidden min-[980px]:flex justify-end shrink-0"
-      />
-
-      {/* Mobile Menu */}
-      <MobileMenu open={open} toggleMenu={toggleMenu} links={navLinks} />
-    </div>
+      {/* 2. Signature Logo placed directly UNDER the Nav Bar */}
+      <div className="mt-1 sm:mt-1.5 transition-transform hover:scale-105">
+        <NavLogo />
+      </div>
+    </header>
   );
 };
 

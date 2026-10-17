@@ -12,22 +12,15 @@ const BlogHeader: React.FC = () => {
       transition={{ duration: 0.5 }}
       dir="rtl"
     >
-      {/* Category Pill matching default mode */}
-      <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 border border-[#3A4184]/20 shadow-sm text-xs sm:text-sm font-bold text-[#3A4184] mb-3">
-        <span className="w-2 h-2 rounded-full bg-[#EE3E54] animate-pulse"></span>
-        <span>مساحة الأدب والكتابة العربية</span>
-        <span className="text-gray-300">·</span>
-        <span className="text-gray-600 font-normal">أحمد أسامة</span>
-      </div>
-
       {/* Main Gradient Title */}
-      <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-[#3A4184] via-[#565FA1] to-[#EE3E54] bg-clip-text text-transparent mb-4 leading-normal sm:leading-relaxed">
+      <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-[#3A4184] via-[#565FA1] to-[#EE3E54] bg-clip-text text-transparent mb-4 !leading-normal !sm:leading-relaxed">
         نصوصٌ وخواطِر
       </h1>
 
       {/* Literary Quote / Subtitle */}
       <p className="text-lg sm:text-xl text-gray-700 max-w-2xl mx-auto leading-relaxed font-medium">
-        &laquo;حُبي للكتابةِ جليٌّ واضح، فهي وسيلتي للتصوير وطريقتي للبوح.. قد تلاقيني في طيّات الكلمات والحروف، فسلامٌ عليك إن ألقيت أم لم تُلقِ السلام.&raquo;
+        قد تلاقيني في طيّات الكلمات والحروف، فسلامٌ عليك إن ألقيت أم لم تُلقِ
+        السلام.&raquo;
       </p>
 
       {/* Tags row */}

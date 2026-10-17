@@ -5,7 +5,6 @@ export const navLinks: NavLinkType[] = [
   { url: "/", title: "Home" },
   { url: "/about", title: "About" },
   { url: "/portfolio", title: "Portfolio" },
-  { url: "/contact", title: "Contact" },
   { url: "/tech-blog", title: "Tech Blog" },
   { url: "/blog", title: "Arabic Writings" },
 ];

@@ -1,95 +1,166 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
-import React, { FC } from "react";
+import { motion } from "framer-motion";
+import React, { FC, useState, useEffect, createContext, useContext, useCallback, useRef } from "react";
 import Navbar from "./navbar";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import clsx from "clsx";
 import { stripLocale } from "@/lib/i18n/config";
+import FloatingContactButton from "./contact/FloatingContactButton";
+
+interface TransitionContextType {
+  navigateWithTransition: (href: string) => void;
+  isTransitioning: boolean;
+}
+
+export const TransitionContext = createContext<TransitionContextType>({
+  navigateWithTransition: () => {},
+  isTransitioning: false,
+});
+
+export const usePageTransition = () => useContext(TransitionContext);
+
+const getRouteLabel = (path: string): string => {
+  const clean = stripLocale(path).split("?")[0].split("#")[0];
+  if (clean === "" || clean === "/") return "home";
+  if (clean.startsWith("/about")) return "about";
+  if (clean.startsWith("/portfolio")) return "portfolio";
+  if (clean.startsWith("/tech-blog")) return "tech blog";
+  if (clean.startsWith("/blog")) return "arabic writings";
+  if (clean.startsWith("/contact")) return "contact";
+  if (clean.startsWith("/stats")) return "stats";
+  const last = clean.split("/").filter(Boolean).pop() || "home";
+  return last.replace(/-/g, " ");
+};
 
 const TransitionProvider: FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   const pathName = usePathname();
+  const router = useRouter();
 
-  // Drop the /en|/ar prefix so the label reads "home"/"about", not "en"/"ar".
+  // Drop the /en|/ar prefix
   const routePath = stripLocale(pathName);
-
-  // Skip the black curtain overlays when navigating within Tech Blog or stats
-  const isTechBlog = routePath.startsWith("/tech-blog");
   const isStats = routePath.startsWith("/stats");
 
+  // Transition state
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [transitionLabel, setTransitionLabel] = useState(() => getRouteLabel(routePath));
+  const [initialEnterDone, setInitialEnterDone] = useState(false);
+
+  const prevPathRef = useRef(pathName);
+
+  // When pathname changes (either via router.push or browser Back/Forward):
+  useEffect(() => {
+    if (prevPathRef.current !== pathName) {
+      prevPathRef.current = pathName;
+      // Update label to current page
+      setTransitionLabel(getRouteLabel(stripLocale(pathName)));
+      // Give a tiny moment for DOM paint behind the curtain, then lift it
+      const timer = setTimeout(() => {
+        setIsTransitioning(false);
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [pathName]);
+
+  // Handle client navigation with pre-covering black curtain
+  const navigateWithTransition = useCallback(
+    (href: string) => {
+      const currentClean = stripLocale(pathName).replace(/\/+$/, "") || "/";
+      const targetClean = stripLocale(href).replace(/\/+$/, "") || "/";
+
+      // If already on this route, do nothing
+      if (currentClean === targetClean) return;
+
+      // Set destination label and activate black curtain overlay
+      setTransitionLabel(getRouteLabel(targetClean));
+      setIsTransitioning(true);
+
+      // Once curtain covers the screen (300ms), execute the route push
+      setTimeout(() => {
+        router.push(href);
+      }, 300);
+    },
+    [pathName, router]
+  );
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setInitialEnterDone(true);
+    }, 600);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <AnimatePresence mode="wait">
+    <TransitionContext.Provider value={{ navigateWithTransition, isTransitioning }}>
       <div
-        key={pathName}
-        className="w-screen h-screen overflow-y-auto bg-gradient-to-b from-blue-100 to-red-100 min-w-56"
+        className={clsx(
+          "w-full max-w-full h-screen overflow-y-auto overflow-x-hidden min-w-56 flex flex-col",
+          routePath.startsWith("/tech-blog")
+            ? "bg-gray-50"
+            : "bg-gradient-to-b from-blue-100 to-red-100"
+        )}
       >
-        {!isTechBlog && !isStats && (
+        {/* Black Screen Transition Curtains (Applies to all pages including Tech Blog) */}
+        {!isStats && (
           <>
+            {/* Top Curtain */}
             <motion.div
               className={clsx(
-                "w-screen h-screen fixed bg-black rounded-b-[100px] z-40"
+                "fixed inset-x-0 top-0 w-full bg-black rounded-b-[100px] z-[300]",
+                isTransitioning ? "pointer-events-auto" : "pointer-events-none"
               )}
               initial={{ height: "100vh" }}
               animate={{
-                height: "0vh",
-              }}
-              exit={{
-                height: "140vh",
+                height: isTransitioning ? "140vh" : "0vh",
               }}
               transition={{
-                duration: 0.3,
-                ease: "easeOut",
+                duration: 0.35,
+                ease: [0.22, 1, 0.36, 1],
               }}
             />
+
+            {/* Destination Name in Center */}
             <motion.div
-              className="fixed m-auto top-0  bottom-0 left-0 right-0 text-white text-8xl cursor-default z-50 w-fit h-fit pointer-events-none text-center"
-              initial={{
-                opacity: 1,
-              }}
+              className="fixed m-auto inset-0 text-white text-5xl sm:text-7xl md:text-8xl font-black cursor-default z-[310] w-fit h-fit pointer-events-none text-center select-none capitalize"
+              initial={{ opacity: 1, scale: 0.95 }}
               animate={{
-                opacity: 0,
-              }}
-              exit={{
-                opacity: 0,
+                opacity: isTransitioning ? 1 : initialEnterDone ? 0 : 0,
+                scale: isTransitioning ? 1 : 0.95,
               }}
               transition={{
+                duration: 0.25,
                 ease: "easeOut",
-                duration: 0.5,
               }}
             >
-              {routePath === "/" ? "home" : routePath.split("/").pop()}
+              {transitionLabel}
             </motion.div>
 
+            {/* Bottom Curtain */}
             <motion.div
               className={clsx(
-                "w-screen h-screen fixed bg-black rounded-t-[100px] bottom-0 z-30"
+                "fixed inset-x-0 bottom-0 w-full bg-black rounded-t-[100px] z-[290]",
+                isTransitioning ? "pointer-events-auto" : "pointer-events-none"
               )}
-              initial={{
-                height: "140vh",
-              }}
+              initial={{ height: "140vh" }}
               animate={{
-                height: "0vh",
-                transition: {
-                  delay: 0.3,
-                  duration: 0.3,
-                },
+                height: isTransitioning ? "140vh" : "0vh",
+              }}
+              transition={{
+                delay: isTransitioning ? 0 : 0.1,
+                duration: 0.35,
+                ease: [0.22, 1, 0.36, 1],
               }}
             />
           </>
         )}
 
-        {!isStats && (
-          <div className="h-28">
-            <Navbar />
-          </div>
-        )}
-        <div className={clsx(isStats ? "h-full" : "h-[calc(100vh-112px)]")}>
-          {children}
-        </div>
+        {!isStats && <Navbar />}
+        <div className="flex-1 w-full flex flex-col">{children}</div>
+        <FloatingContactButton />
       </div>
-    </AnimatePresence>
+    </TransitionContext.Provider>
   );
 };
 

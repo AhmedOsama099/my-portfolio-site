@@ -23,7 +23,7 @@ const nextPaint = () =>
   );
 
 /** The card body — shared by the on-screen (scrollable) and the off-screen
- *  (fully-expanded, used for export) versions so they always look identical. */
+ *  (fully-expanded, used for export) versions so they always look identical and responsive. */
 const CardBody = ({
   piece,
   fullText,
@@ -33,28 +33,28 @@ const CardBody = ({
   fullText: string;
   scrollable: boolean;
 }) => (
-  <div className="rounded-2xl overflow-hidden bg-white shadow-2xl">
-    <div className="h-3 bg-gradient-to-l from-[#565FA1] to-[#9333ea]" />
-    <div className="p-7">
-      {/* Author */}
-      <div className="flex items-center gap-3 mb-5">
+  <div className="rounded-2xl overflow-hidden bg-white shadow-xl border border-gray-100">
+    <div className="h-2.5 sm:h-3 bg-gradient-to-l from-[#565FA1] to-[#9333ea]" />
+    <div className="p-4 sm:p-6 md:p-7">
+      {/* Author Header */}
+      <div className="flex items-center gap-3 mb-3.5 sm:mb-5">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={PROFILE_SRC}
           alt={AUTHOR_NAME_AR}
-          width={64}
-          height={64}
-          className="w-16 h-16 rounded-full object-cover ring-2 ring-[#565FA1]/40 shrink-0"
+          width={56}
+          height={56}
+          className="w-11 h-11 sm:w-14 sm:h-14 rounded-full object-cover ring-2 ring-[#565FA1]/40 shrink-0"
           style={{ objectPosition: "50% 18%" }}
           onError={(e) => {
             (e.currentTarget as HTMLImageElement).src = PROFILE_FALLBACK;
           }}
         />
-        <div>
-          <div className="font-bold text-gray-900 leading-tight">
+        <div className="min-w-0 flex-1">
+          <div className="font-bold text-gray-900 text-sm sm:text-base leading-tight truncate">
             {AUTHOR_NAME_AR}
           </div>
-          <div dir="ltr" className="text-sm text-[#565FA1] text-right">
+          <div dir="ltr" className="text-xs sm:text-sm text-[#565FA1] text-right">
             @{AUTHOR_HANDLE}
           </div>
         </div>
@@ -62,20 +62,22 @@ const CardBody = ({
 
       {/* Title */}
       {piece.title && (
-        <h3 className="text-2xl font-bold text-gray-900 mb-3">{piece.title}</h3>
+        <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-2 sm:mb-3 leading-snug">
+          {piece.title}
+        </h3>
       )}
 
-      {/* Text */}
-      <div className={scrollable ? "max-h-[40vh] overflow-y-auto pl-1" : ""}>
-        <p className="text-gray-700 leading-9 text-[15px] whitespace-pre-line">
+      {/* Text Content */}
+      <div className={scrollable ? "max-h-[38vh] sm:max-h-[44vh] overflow-y-auto pl-1 custom-scrollbar" : ""}>
+        <p className="text-gray-700 leading-7 sm:leading-8 text-xs sm:text-sm md:text-[15px] whitespace-pre-line font-arabic">
           {fullText}
         </p>
       </div>
 
       {/* Footer */}
-      <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-100">
-        <span className="text-xs text-gray-400">{piece.date}</span>
-        <span dir="ltr" className="text-xs font-semibold text-[#565FA1]">
+      <div className="flex flex-wrap items-center justify-between gap-2 mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-gray-100">
+        <span className="text-[11px] sm:text-xs text-gray-400">{piece.date}</span>
+        <span dir="ltr" className="text-[11px] sm:text-xs font-semibold text-[#565FA1]">
           ahmedosamadev.vercel.app
         </span>
       </div>
@@ -225,7 +227,7 @@ const ShareCardModal: React.FC<ShareCardModalProps> = ({
           position: "fixed",
           left: "-10000px",
           top: 0,
-          width: "640px",
+          width: "600px",
           pointerEvents: "none",
         }}
       >
@@ -238,25 +240,25 @@ const ShareCardModal: React.FC<ShareCardModalProps> = ({
         {open && (
           <motion.div
             dir="rtl"
-            className="fixed inset-0 z-[100] flex items-start sm:items-center justify-center p-4 bg-black/60 backdrop-blur-sm overflow-y-auto"
+            className="fixed inset-0 z-[250] flex items-center justify-center p-3 sm:p-4 md:p-6 bg-black/60 backdrop-blur-sm overflow-y-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
           >
             <motion.div
-              className="relative w-full max-w-md my-8"
-              initial={{ scale: 0.92, opacity: 0, y: 20 }}
+              className="relative w-full max-w-lg my-auto py-2"
+              initial={{ scale: 0.94, opacity: 0, y: 16 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.92, opacity: 0, y: 20 }}
-              transition={{ type: "spring", stiffness: 260, damping: 24 }}
+              exit={{ scale: 0.94, opacity: 0, y: 16 }}
+              transition={{ type: "spring", stiffness: 280, damping: 26 }}
               onClick={(e: React.MouseEvent) => e.stopPropagation()}
             >
-              {/* Close */}
+              {/* Close Button — Safely positioned inside mobile padding, outside on desktop */}
               <button
                 onClick={onClose}
                 aria-label="إغلاق"
-                className="absolute -top-3 -left-3 z-10 w-9 h-9 rounded-full bg-white text-gray-700 shadow-lg flex items-center justify-center hover:bg-gray-100"
+                className="absolute top-4 left-4 sm:-top-3 sm:-left-3 z-30 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-gray-700 shadow-md flex items-center justify-center hover:bg-gray-100 transition-colors text-sm font-bold border border-gray-200"
               >
                 ✕
               </button>
@@ -265,11 +267,11 @@ const ShareCardModal: React.FC<ShareCardModalProps> = ({
               <CardBody piece={piece} fullText={fullText} scrollable />
 
               {/* Controls */}
-              <div className="mt-4 rounded-2xl bg-white shadow-2xl p-4">
-                <p className="text-sm font-semibold text-gray-600 mb-3 text-center">
+              <div className="mt-3 sm:mt-4 rounded-2xl bg-white shadow-xl border border-gray-100 p-3 sm:p-4">
+                <p className="text-xs sm:text-sm font-semibold text-gray-600 mb-2.5 sm:mb-3 text-center">
                   مشاركة هذا النص
                 </p>
-                <div className="flex items-center justify-center gap-3 flex-wrap">
+                <div className="flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
                   {shareLinks.map((s) => (
                     <a
                       key={s.name}
@@ -278,10 +280,10 @@ const ShareCardModal: React.FC<ShareCardModalProps> = ({
                       rel="noopener noreferrer"
                       aria-label={s.name}
                       title={s.name}
-                      className="w-11 h-11 rounded-full bg-gray-50 hover:bg-gray-100 border border-gray-200 flex items-center justify-center transition"
+                      className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-gray-50 hover:bg-gray-100 border border-gray-200 flex items-center justify-center transition active:scale-95"
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={s.icon} alt={s.name} className="w-5 h-5" />
+                      <img src={s.icon} alt={s.name} className="w-4 h-4 sm:w-5 sm:h-5" />
                     </a>
                   ))}
 
@@ -289,9 +291,9 @@ const ShareCardModal: React.FC<ShareCardModalProps> = ({
                     onClick={handleNativeShare}
                     aria-label="مشاركة"
                     title="مشاركة"
-                    className="w-11 h-11 rounded-full bg-gray-50 hover:bg-gray-100 border border-gray-200 flex items-center justify-center transition"
+                    className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-gray-50 hover:bg-gray-100 border border-gray-200 flex items-center justify-center transition active:scale-95"
                   >
-                    <svg viewBox="0 0 24 24" className="w-5 h-5 fill-[#565FA1]">
+                    <svg viewBox="0 0 24 24" className="w-4 h-4 sm:w-5 sm:h-5 fill-[#565FA1]">
                       <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z" />
                     </svg>
                   </button>
@@ -300,30 +302,30 @@ const ShareCardModal: React.FC<ShareCardModalProps> = ({
                     onClick={handleCopy}
                     aria-label="نسخ الرابط"
                     title="نسخ الرابط"
-                    className="w-11 h-11 rounded-full bg-gray-50 hover:bg-gray-100 border border-gray-200 flex items-center justify-center transition"
+                    className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-gray-50 hover:bg-gray-100 border border-gray-200 flex items-center justify-center transition active:scale-95"
                   >
                     {copied ? (
-                      <span className="text-[#16a34a] text-lg">✓</span>
+                      <span className="text-[#16a34a] text-base sm:text-lg">✓</span>
                     ) : (
-                      <svg viewBox="0 0 24 24" className="w-5 h-5 fill-[#565FA1]">
+                      <svg viewBox="0 0 24 24" className="w-4 h-4 sm:w-5 sm:h-5 fill-[#565FA1]">
                         <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z" />
                       </svg>
                     )}
                   </button>
                 </div>
 
-                <div className="flex gap-3 mt-4">
+                <div className="flex gap-2 sm:gap-3 mt-3 sm:mt-4">
                   <button
                     onClick={downloadImage}
                     disabled={busy !== null}
-                    className="flex-1 py-2.5 rounded-lg bg-[#565FA1] text-white font-semibold hover:bg-[#4A5390] transition disabled:opacity-60"
+                    className="flex-1 py-2 sm:py-2.5 px-2 rounded-lg bg-[#565FA1] text-white text-xs sm:text-sm font-semibold hover:bg-[#4A5390] transition disabled:opacity-60"
                   >
                     {busy === "image" ? "...جارٍ" : "تحميل كصورة"}
                   </button>
                   <button
                     onClick={downloadPdf}
                     disabled={busy !== null}
-                    className="flex-1 py-2.5 rounded-lg border-2 border-[#565FA1] text-[#565FA1] font-semibold hover:bg-[#565FA1]/5 transition disabled:opacity-60"
+                    className="flex-1 py-2 sm:py-2.5 px-2 rounded-lg border-2 border-[#565FA1] text-[#565FA1] text-xs sm:text-sm font-semibold hover:bg-[#565FA1]/5 transition disabled:opacity-60"
                   >
                     {busy === "pdf" ? "...جارٍ" : "تحميل PDF"}
                   </button>

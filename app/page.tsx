@@ -1,36 +1,16 @@
 "use client";
 
-import HomeDescription from "@/Components/home/HomeDescription";
-import HomeImage from "@/Components/home/HomeImage";
-import HomeStats from "@/Components/home/HomeStats";
+import HeroSection from "@/Components/home/HeroSection";
 import MotionPageWrapper from "@/Components/motionPageWrapper";
-import { globalPX } from "./constants";
-import SocialMediaLinks from "@/Components/navbar/SocialMediaLinks";
-import { socialMedia } from "@/data/navbar";
 
 export default function Home() {
   return (
-    <MotionPageWrapper>
+    <MotionPageWrapper className="min-h-full w-full flex flex-col justify-start sm:justify-center items-center overflow-x-hidden overflow-y-auto">
       <div
-        className={`flex flex-col gap-8 md:gap-12 py-4 md:py-8 px-4 ${globalPX} relative max-w-7xl mx-auto`}
+        className="w-full flex-1 flex flex-col items-center justify-start sm:justify-center pt-1 sm:pt-2 pb-3 px-3 sm:px-6 md:px-8 relative max-w-5xl mx-auto"
       >
-        {/* Hero Section: Split Portrait Image + Narrative Description */}
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12 w-full">
-          {/* Image Container with Left (Programmer) and Right (Writer) Callouts */}
-          <HomeImage />
-
-          {/* Text & CTAs Container */}
-          <HomeDescription />
-        </div>
-
-        {/* Mobile Social Media Links */}
-        <SocialMediaLinks
-          socialMedia={socialMedia}
-          className="flex min-[980px]:hidden items-center justify-center w-full my-1"
-        />
-
-        {/* Live Numbers & Stats Component (Projects, Tech Blog, Literature Writings, Analytics) */}
-        <HomeStats />
+        {/* Full Single-Page Hero with PNG Portrait, Title, Social Icons, and Expressive Stats */}
+        <HeroSection />
       </div>
     </MotionPageWrapper>
   );

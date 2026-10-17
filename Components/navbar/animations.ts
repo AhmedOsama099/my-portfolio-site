@@ -13,17 +13,20 @@ export const menuAnimations = {
     opened: { rotate: -45, backgroundColor: "rgb(255,255,255)" },
   },
   list: {
-    closed: { x: "100vw" },
+    closed: { opacity: 0, x: "100%" },
     opened: {
+      opacity: 1,
       x: 0,
       transition: {
+        duration: 0.25,
+        ease: "easeOut",
         when: "beforeChildren",
-        staggerChildren: 0.2,
+        staggerChildren: 0.06,
       },
     },
   },
   listItem: {
-    closed: { x: -10, opacity: 0 },
-    opened: { x: 0, opacity: 1 },
+    closed: { y: 12, opacity: 0 },
+    opened: { y: 0, opacity: 1, transition: { duration: 0.2 } },
   },
 };
