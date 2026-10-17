@@ -3,35 +3,27 @@
 import React, { useRef, useState, useLayoutEffect, useEffect } from "react";
 import NavLink from "./navLink";
 import { DesktopNavLinksProps } from "@/types/navbar";
-import { usePathname } from "next/navigation";
-import { stripLocale } from "@/lib/i18n/config";
 
 const useIsomorphicLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 const DesktopNavLinks: React.FC<DesktopNavLinksProps> = ({ links }) => {
-  const pathname = usePathname();
-  const currentPath = stripLocale(pathname);
-
-  // Determine active link index
-  let activeIndex = links.findIndex(
-    (link) =>
-      currentPath === link.url ||
-      (link.url !== "/" && currentPath.startsWith(link.url))
-  );
-  if (activeIndex === -1) activeIndex = 0;
-
-  const leftLinks = links.slice(0, activeIndex);
-  const activeLink = links[activeIndex];
-  const rightLinks = links.slice(activeIndex + 1);
+  const leftLinks = [
+    links.find((l) => l.url === "/about") || { url: "/about", title: "About" },
+    links.find((l) => l.url === "/portfolio") || { url: "/portfolio", title: "Portfolio" },
+  ];
+  const centerLink =
+    links.find((l) => l.url === "/") || { url: "/", title: "Home" };
+  const rightLinks = [
+    links.find((l) => l.url === "/tech-blog") || { url: "/tech-blog", title: "Tech Blog" },
+    links.find((l) => l.url === "/blog") || { url: "/blog", title: "Arabic Writings" },
+  ];
 
   const leftInnerRef = useRef<HTMLDivElement>(null);
   const rightInnerRef = useRef<HTMLDivElement>(null);
   const centerRef = useRef<HTMLDivElement>(null);
 
-  // Initial estimate to avoid layout shift
-  const maxCount = Math.max(leftLinks.length, rightLinks.length);
-  const [wingWidth, setWingWidth] = useState<number>(() => maxCount * 80);
+  const [wingWidth, setWingWidth] = useState<number>(0);
 
   // Measure exact widths and balance left & right wings equally
   useIsomorphicLayoutEffect(() => {
@@ -41,7 +33,7 @@ const DesktopNavLinks: React.FC<DesktopNavLinksProps> = ({ links }) => {
       const maxW = Math.ceil(Math.max(leftW, rightW));
 
       if (typeof window !== "undefined") {
-        const centerW = centerRef.current?.getBoundingClientRect().width || 80;
+        const centerW = centerRef.current?.getBoundingClientRect().width || 75;
         // Ensure wings do not force navbar beyond viewport width
         const safeMax = Math.max(
           0,
@@ -54,10 +46,7 @@ const DesktopNavLinks: React.FC<DesktopNavLinksProps> = ({ links }) => {
       }
     };
 
-    // Initial measure
     measureAndBalance();
-
-    // Re-measure after slight tick to ensure fonts/DOM metrics are ready
     const timer = setTimeout(measureAndBalance, 50);
 
     window.addEventListener("resize", measureAndBalance);
@@ -65,13 +54,13 @@ const DesktopNavLinks: React.FC<DesktopNavLinksProps> = ({ links }) => {
       clearTimeout(timer);
       window.removeEventListener("resize", measureAndBalance);
     };
-  }, [pathname, activeIndex, links]);
+  }, [links]);
 
   return (
     <nav
       className="hidden min-[680px]:inline-flex items-center justify-center rounded-full text-xs sm:text-sm xl:text-base whitespace-nowrap flex-nowrap transition-all duration-300 bg-white/80 backdrop-blur-xl border border-white/80 shadow-md shadow-indigo-950/5 px-3 sm:px-4 py-1.5 sm:py-2 select-none"
     >
-      {/* Left Wing (Links before Active Page) - Aligned towards center */}
+      {/* Left Wing: About & Portfolio (aligned towards center Home) */}
       <div
         style={{ width: wingWidth ? `${wingWidth}px` : undefined }}
         className="flex items-center justify-end transition-[width] duration-300 min-w-0"
@@ -86,15 +75,15 @@ const DesktopNavLinks: React.FC<DesktopNavLinksProps> = ({ links }) => {
         </div>
       </div>
 
-      {/* Center Active Page - Exactly at 50% Center of Navbar and Page */}
+      {/* Center Anchor: Home (always centered to navbar and page) */}
       <div
         ref={centerRef}
         className="shrink-0 px-1 sm:px-1.5 flex items-center justify-center"
       >
-        {activeLink && <NavLink link={activeLink} key={activeLink.title} />}
+        <NavLink link={centerLink} key={centerLink.title} />
       </div>
 
-      {/* Right Wing (Links after Active Page) - Aligned towards center */}
+      {/* Right Wing: Tech Blog & Arabic Writings (aligned towards center Home) */}
       <div
         style={{ width: wingWidth ? `${wingWidth}px` : undefined }}
         className="flex items-center justify-start transition-[width] duration-300 min-w-0"

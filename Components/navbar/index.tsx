@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import DesktopNavLinks from "./DesktopNavLinks";
 import NavLogo from "./NavLogo";
 import MobileMenu from "./MobileMenu";
-import { navLinks } from "@/data/navbar";
+import { navLinks, mobileNavLinks } from "@/data/navbar";
 
 const Navbar: React.FC = () => {
   const [open, setOpen] = useState(false);
@@ -19,7 +19,7 @@ const Navbar: React.FC = () => {
 
         {/* Mobile Creative Circular Trigger (shown only when tabs wrap) */}
         <div className="min-[680px]:hidden">
-          <MobileMenu open={open} toggleMenu={toggleMenu} links={navLinks} />
+          <MobileMenu open={open} toggleMenu={toggleMenu} links={mobileNavLinks} />
         </div>
       </div>
 
