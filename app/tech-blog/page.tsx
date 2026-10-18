@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import MotionPageWrapper from "@/Components/motionPageWrapper";
 import LocaleLink from "@/Components/LocaleLink";
 import { useLocalizedHref } from "@/hooks/useLocalizedHref";
+import { useTechAuth } from "@/Components/techBlog/TechAuthContext";
 
 export interface TechCategory {
   id: string;
@@ -14,10 +15,11 @@ export interface TechCategory {
   defaultHref: string;
   isUpcoming?: boolean;
   isHighlighted?: boolean;
+  requiresAuth?: boolean;
   icon: (props: { className?: string }) => React.JSX.Element;
 }
 
-const CATEGORIES: TechCategory[] = [
+const CATEGORIES_DATA: TechCategory[] = [
   {
     id: "git",
     title: "Git & Version Control",
@@ -54,7 +56,7 @@ const CATEGORIES: TechCategory[] = [
     title: "Web Performance",
     description:
       "Core Web Vitals deep dives: TTFB, LCP, INP, and critical rendering path optimization for high-speed web apps.",
-    articlesCount: "5 Articles",
+    articlesCount: "1 Free · 4 Upcoming",
     defaultHref: "/tech-blog/performance/ttfb",
     icon: ({ className }) => (
       <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
@@ -67,8 +69,10 @@ const CATEGORIES: TechCategory[] = [
     title: "Web Accessibility",
     description:
       "WCAG 2.2 guidelines, ARIA landmark patterns, semantic HTML structures, and keyboard-first universal navigation UX.",
-    articlesCount: "1 Article",
+    articlesCount: "Upcoming Series",
     defaultHref: "/tech-blog/accessibility/general-tips",
+    requiresAuth: true,
+    isUpcoming: true,
     icon: ({ className }) => (
       <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
         <circle cx="12" cy="4.5" r="2.5" />
@@ -76,46 +80,15 @@ const CATEGORIES: TechCategory[] = [
       </svg>
     ),
   },
-  {
-    id: "architecture",
-    title: "Software Architecture",
-    description:
-      "Modular system design, clean abstractions, scalable API boundaries, component hierarchies, and resilient interfaces.",
-    articlesCount: "Upcoming Series",
-    defaultHref: "#",
-    isUpcoming: true,
-    icon: ({ className }) => (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-      </svg>
-    ),
-  },
-  {
-    id: "cloud",
-    title: "Cloud & Infrastructure",
-    description:
-      "Edge computing, CDN distribution networks, CI/CD automated deployment, and scalable cloud-native architectures.",
-    articlesCount: "Upcoming Series",
-    defaultHref: "#",
-    isUpcoming: true,
-    icon: ({ className }) => (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M3 15a4 4 0 004 4h11a3 3 0 00.8-5.9 4 4 0 00-6.8-3.1A4.5 4.5 0 003 15zm9-3v6m-3-3l3-3 3 3"
-        />
-      </svg>
-    ),
-  },
 ];
 
 export default function TechBlogPage() {
   const localize = useLocalizedHref();
+  const { isAuthenticated, openAuthModal } = useTechAuth();
 
   return (
     <MotionPageWrapper className="h-full overflow-y-auto custom-scrollbar py-6 sm:py-10 md:py-14 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto flex flex-col gap-6 sm:gap-8">
+      <div className="max-w-5xl mx-auto flex flex-col gap-6 sm:gap-8">
         {/* Header Section */}
         <header className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b border-slate-200/80 pb-5">
           <div>
@@ -131,15 +104,16 @@ export default function TechBlogPage() {
             </p>
           </div>
           <div className="text-xs font-semibold text-slate-400 self-start sm:self-auto shrink-0">
-            6 Specialized Domains
+            4 Core Domains
           </div>
         </header>
 
-        {/* Categories Grid (Matching reference screenshot: 3 columns x 2 rows) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-          {CATEGORIES.map((category, idx) => {
-            const isClickable = !category.isUpcoming && category.defaultHref !== "#";
+        {/* 2x2 Categories Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
+          {CATEGORIES_DATA.map((category, idx) => {
+            const isCategoryLocked = category.requiresAuth && !isAuthenticated;
             const isHighlighted = category.isHighlighted;
+            const targetUrl = localize(category.defaultHref);
 
             const cardContent = (
               <div
@@ -147,32 +121,39 @@ export default function TechBlogPage() {
                   isHighlighted
                     ? "border-2 border-[#565FA1] shadow-lg shadow-[#565FA1]/10 hover:shadow-xl hover:shadow-[#565FA1]/20 hover:border-[#3D4082]"
                     : "border-slate-200/90 hover:border-[#565FA1]/60 shadow-sm hover:shadow-xl hover:shadow-indigo-950/10"
-                } ${isClickable ? "hover:-translate-y-1.5 cursor-pointer" : "cursor-default opacity-90"}`}
+                } hover:-translate-y-1.5 cursor-pointer`}
               >
                 <div>
                   {/* Category Icon */}
                   <div className="mb-4 inline-flex items-center justify-center">
                     <category.icon
-                      className={`w-7 h-7 sm:w-8 sm:h-8 transition-transform duration-300 ${
-                        isClickable ? "group-hover:scale-110" : ""
-                      } ${
+                      className={`w-7 h-7 sm:w-8 sm:h-8 transition-transform duration-300 group-hover:scale-110 ${
                         isHighlighted
                           ? "text-[#3D4082]"
+                          : isCategoryLocked
+                          ? "text-slate-500 group-hover:text-[#EE3E54]"
                           : "text-[#565FA1] group-hover:text-[#EE3E54]"
                       }`}
                     />
                   </div>
 
                   {/* Category Title */}
-                  <h2
-                    className={`text-lg sm:text-xl font-bold tracking-tight transition-colors duration-200 ${
-                      isHighlighted
-                        ? "text-[#3D4082]"
-                        : "text-gray-900 group-hover:text-[#3D4082]"
-                    }`}
-                  >
-                    {category.title}
-                  </h2>
+                  <div className="flex items-center justify-between gap-2">
+                    <h2
+                      className={`text-lg sm:text-xl font-bold tracking-tight transition-colors duration-200 ${
+                        isHighlighted
+                          ? "text-[#3D4082]"
+                          : "text-gray-900 group-hover:text-[#3D4082]"
+                      }`}
+                    >
+                      {category.title}
+                    </h2>
+                    {isCategoryLocked && (
+                      <span className="text-xs px-2 py-0.5 rounded-md bg-amber-50 text-amber-700 border border-amber-200/80 font-medium shrink-0 flex items-center gap-1">
+                        🔒 Sign In
+                      </span>
+                    )}
+                  </div>
 
                   {/* Category Description */}
                   <p className="mt-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed">
@@ -183,19 +164,20 @@ export default function TechBlogPage() {
                 {/* Bottom Row (Article Count & Action) */}
                 <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
                   <span className="text-xs sm:text-sm font-semibold text-slate-500">
-                    {category.articlesCount}
+                    {isCategoryLocked ? "Upcoming Series" : category.articlesCount}
                   </span>
 
-                  {isClickable ? (
+                  {isCategoryLocked ? (
+                    <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200/80 group-hover:border-[#EE3E54]/40 group-hover:text-[#EE3E54] transition-colors flex items-center gap-1">
+                      <span>Preview</span>
+                      <span>→</span>
+                    </span>
+                  ) : (
                     <span className="text-xs sm:text-sm font-bold text-[#565FA1] group-hover:text-[#EE3E54] flex items-center gap-1 transition-colors">
                       Explore
                       <span className="transform transition-transform duration-300 group-hover:translate-x-1">
                         →
                       </span>
-                    </span>
-                  ) : (
-                    <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500 border border-slate-200/60">
-                      Coming Soon
                     </span>
                   )}
                 </div>
@@ -210,15 +192,22 @@ export default function TechBlogPage() {
                 transition={{ duration: 0.35, delay: idx * 0.06 }}
                 className="group h-full"
               >
-                {isClickable ? (
+                {isCategoryLocked ? (
+                  <button
+                    type="button"
+                    onClick={() => openAuthModal(targetUrl)}
+                    className="block w-full h-full text-start focus:outline-none focus-visible:ring-2 focus-visible:ring-[#565FA1] rounded-2xl"
+                    aria-label={`Unlock ${category.title} preview`}
+                  >
+                    {cardContent}
+                  </button>
+                ) : (
                   <LocaleLink
-                    href={localize(category.defaultHref)}
+                    href={targetUrl}
                     className="block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#565FA1] rounded-2xl"
                   >
                     {cardContent}
                   </LocaleLink>
-                ) : (
-                  cardContent
                 )}
               </motion.div>
             );

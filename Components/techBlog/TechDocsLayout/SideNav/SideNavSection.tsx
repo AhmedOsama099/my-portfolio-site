@@ -2,6 +2,7 @@ import { useCurrentURL } from "@/hooks/useCurrentURL";
 import { useLocalizedHref } from "@/hooks/useLocalizedHref";
 import { SectionProps } from "@/types/techBlog";
 import Link from "next/link";
+import { useTechAuth } from "@/Components/techBlog/TechAuthContext";
 
 export default function SideNavSection({
   title,
@@ -12,6 +13,7 @@ export default function SideNavSection({
 }: SectionProps & { parentKey?: string }) {
   const { currentURL } = useCurrentURL();
   const getHref = useLocalizedHref();
+  const { isItemLocked, openAuthModal } = useTechAuth();
 
   return (
     <div className="mb-6">
@@ -25,6 +27,32 @@ export default function SideNavSection({
           ? `/tech-blog/${parentKey}/${item.href}`
           : item.href;
         const isActive = currentURL === item.href;
+        const locked = isItemLocked(parentKey || "", item.href);
+
+        if (locked) {
+          return (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => {
+                if (isMobile) handleChangeNavState(false);
+                openAuthModal(getHref(fullPath));
+              }}
+              className="w-full text-start flex items-center justify-between px-3 py-2.5 sm:px-4 sm:py-3 text-sm rounded-xl transition-all duration-200 text-slate-500 hover:bg-slate-100 hover:text-slate-800 group"
+              title="Upcoming article — requires credentials to preview"
+            >
+              <div className="flex items-center min-w-0">
+                <span className="me-2 text-xs flex-shrink-0 text-slate-400 group-hover:text-amber-600 transition-colors">
+                  🔒
+                </span>
+                <span className="truncate">{item.title}</span>
+              </div>
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200/80 shrink-0">
+                Upcoming
+              </span>
+            </button>
+          );
+        }
 
         return (
           <Link

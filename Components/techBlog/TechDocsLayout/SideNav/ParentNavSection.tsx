@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { parentCategories } from "@/data/techBlog";
 import { useAppTranslation } from "@/hooks/useAppTranslation";
+import { useTechAuth } from "@/Components/techBlog/TechAuthContext";
 
 type ParentNavSectionProps = {
   activeParent: string;
@@ -23,6 +24,7 @@ export default function ParentNavSection({
   onSelectParent,
 }: ParentNavSectionProps) {
   const { t, isLTR, currentLanguage } = useAppTranslation();
+  const { isItemLocked } = useTechAuth();
   const langKey = currentLanguage === "ar" ? "ar" : "en";
 
   return (
@@ -54,6 +56,7 @@ export default function ParentNavSection({
       <div className="flex-1 overflow-y-auto p-1.5 md:p-2.5 space-y-2 md:space-y-1.5 custom-scrollbar">
         {parentCategories.map((cat) => {
           const isActive = activeParent === cat.id;
+          const isLocked = isItemLocked(cat.id);
           const fullCategoryName = t(`tech-blog.categories.${cat.id}`);
           const shortName =
             shortCategoryLabels[cat.id]?.[langKey] || fullCategoryName;
@@ -85,12 +88,20 @@ export default function ParentNavSection({
                   className="w-6.5 h-6.5 object-contain flex-shrink-0 transition-transform duration-200 group-hover:scale-110 drop-shadow-sm"
                 />
                 {/* Desktop Full Title */}
-                <span className="hidden md:inline text-xs sm:text-sm font-medium truncate">
-                  {fullCategoryName}
-                </span>
+                <div className="hidden md:flex items-center gap-1.5 truncate">
+                  <span className="text-xs sm:text-sm font-medium truncate">
+                    {fullCategoryName}
+                  </span>
+                  {isLocked && (
+                    <span className="text-[10px] text-amber-300 shrink-0">
+                      🔒
+                    </span>
+                  )}
+                </div>
                 {/* Mobile Compact Title */}
-                <span className="md:hidden text-[10px] font-medium mt-1 text-center truncate max-w-full leading-tight">
-                  {shortName}
+                <span className="md:hidden text-[10px] font-medium mt-1 text-center truncate max-w-full leading-tight flex items-center gap-0.5">
+                  <span>{shortName}</span>
+                  {isLocked && <span className="text-[9px] text-amber-300">🔒</span>}
                 </span>
               </div>
 
