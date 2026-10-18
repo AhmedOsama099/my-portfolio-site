@@ -28,9 +28,14 @@ const NavLink: React.FC<NavLinkProps> = ({ link }) => {
     four4: "bg-[#8889B9]",
   };
 
+  const isKhawatir = link.url === "/blog" || link.title === "خواطر";
+  const fontStyle = isKhawatir
+    ? "font-khawatir text-sm sm:text-base font-normal tracking-wide px-2.5 sm:px-3"
+    : "font-semibold px-2.5 sm:px-3.5";
+
   return (
     <LocaleLink
-      className={`rounded-full font-semibold px-2.5 sm:px-3.5 py-1 sm:py-1.5 text-[#3D4082] relative transition-all duration-300 hover:scale-105 active:scale-95 ${isActive} ${isHovered} `}
+      className={`rounded-full ${fontStyle} py-1 sm:py-1.5 text-[#3D4082] relative transition-all duration-300 hover:scale-105 active:scale-95 ${isActive} ${isHovered} `}
       key={link.title}
       href={link.url}
     >

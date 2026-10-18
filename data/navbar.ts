@@ -5,7 +5,7 @@ export const navLinks: NavLinkType[] = [
   { url: "/about", title: "About" },
   { url: "/portfolio", title: "Portfolio" },
   { url: "/tech-blog", title: "Tech Blog" },
-  { url: "/blog", title: "Arabic Writings" },
+  { url: "/blog", title: "خواطر" },
 ];
 
 export const mobileNavLinks: NavLinkType[] = [
@@ -13,7 +13,7 @@ export const mobileNavLinks: NavLinkType[] = [
   { url: "/about", title: "About" },
   { url: "/portfolio", title: "Portfolio" },
   { url: "/tech-blog", title: "Tech Blog" },
-  { url: "/blog", title: "Arabic Writings" },
+  { url: "/blog", title: "خواطر" },
 ];
 
 export const programmerLinks: NavLinkType[] = navLinks;

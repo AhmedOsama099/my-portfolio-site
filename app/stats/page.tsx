@@ -631,6 +631,15 @@ export default function StatsPage() {
             </button>
 
             <Link
+              href="/notifications"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700/80 transition"
+              title="Open Notifications Feed"
+            >
+              <span>Notifications</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            </Link>
+
+            <Link
               href="/"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700/80 transition"
             >
@@ -845,7 +854,7 @@ export default function StatsPage() {
                 id: "notifications",
                 label: `Notifications & Comments (${comments.length})`,
               },
-              { id: "literature", label: `Arabic Writings (${literatureVisits.length} visits)` },
+              { id: "literature", label: `خواطر (${literatureVisits.length} visits)` },
               { id: "geo", label: "Geographic Insights (From Where)" },
               { id: "interactions", label: `Interactions & Events (${filteredData.events.length})` },
               { id: "devices", label: "Devices & Tech Stack" },
@@ -1085,6 +1094,18 @@ export default function StatsPage() {
                   </svg>
                   <span>{loadingComments ? "Syncing..." : "Refresh"}</span>
                 </button>
+
+                {/* Notifications Page link */}
+                <Link
+                  href="/notifications"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-gradient-to-r from-[#565FA1] to-[#EE3E54] hover:opacity-95 text-white transition shadow-sm"
+                  title="Open Dedicated Notifications Page"
+                >
+                  <span>Notifications Page</span>
+                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </Link>
               </div>
             </div>
 
@@ -1104,7 +1125,7 @@ export default function StatsPage() {
                     },
                     {
                       id: "literature",
-                      label: `Arabic Writings (${comments.filter((c) => c.article_type === "literature").length})`,
+                      label: `خواطر (${comments.filter((c) => c.article_type === "literature").length})`,
                     },
                     {
                       id: "hidden",
@@ -1536,7 +1557,7 @@ export default function StatsPage() {
                     href="/blog"
                     className="text-xs text-rose-400 hover:text-rose-300 font-semibold transition flex items-center gap-1"
                   >
-                    <span>Visit Arabic Writings</span>
+                    <span>Visit خواطر</span>
                     <span>↗</span>
                   </Link>
                 </div>
@@ -1668,7 +1689,7 @@ export default function StatsPage() {
               <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs font-medium">
                 {[
                   { id: "all", label: "All Events" },
-                  { id: "literature", label: "Arabic Writings (نصوص)" },
+                  { id: "literature", label: "خواطر (نصوص وتأملات)" },
                   { id: "article_read", label: "Tech Articles" },
                   { id: "lang_switch", label: "Translations" },
                   { id: "social_click", label: "Socials" },

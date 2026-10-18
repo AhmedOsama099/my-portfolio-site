@@ -1,6 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.font-khawatir {
+  font-family: var(--font-khawatir), 'Aref Ruqaa', 'Amiri', 'Traditional Arabic', serif;
+}
 
 html,
 body {

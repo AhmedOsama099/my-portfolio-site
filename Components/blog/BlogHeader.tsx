@@ -12,9 +12,9 @@ const BlogHeader: React.FC = () => {
       transition={{ duration: 0.5 }}
       dir="rtl"
     >
-      {/* Main Gradient Title */}
-      <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-[#3A4184] via-[#565FA1] to-[#EE3E54] bg-clip-text text-transparent mb-4 !leading-normal !sm:leading-relaxed">
-        نصوصٌ وخواطِر
+      {/* Main Title */}
+      <h1 className="font-khawatir text-5xl sm:text-6xl md:text-7xl font-bold bg-gradient-to-r from-[#3A4184] via-[#565FA1] to-[#EE3E54] bg-clip-text text-transparent mb-3 !leading-relaxed">
+        خواطِر
       </h1>
 
       {/* Literary Quote / Subtitle */}

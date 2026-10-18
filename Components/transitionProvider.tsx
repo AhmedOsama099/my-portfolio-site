@@ -26,7 +26,7 @@ const getRouteLabel = (path: string): string => {
   if (clean.startsWith("/about")) return "about";
   if (clean.startsWith("/portfolio")) return "portfolio";
   if (clean.startsWith("/tech-blog")) return "tech blog";
-  if (clean.startsWith("/blog")) return "arabic writings";
+  if (clean.startsWith("/blog")) return "خواطر";
   if (clean.startsWith("/contact")) return "contact";
   if (clean.startsWith("/stats")) return "stats";
   const last = clean.split("/").filter(Boolean).pop() || "home";

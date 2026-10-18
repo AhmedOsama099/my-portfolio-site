@@ -50,7 +50,11 @@ const MobileMenuContent: React.FC<MobileMenuContentProps> = ({
               <LocaleLink
                 onClick={toggleMenu}
                 href={link.url}
-                className="block py-2.5 px-6 rounded-2xl hover:bg-white/10 text-white hover:text-[#EE3E54] transition-all font-black tracking-tight text-center text-2xl sm:text-3xl"
+                className={`block py-2.5 px-6 rounded-2xl hover:bg-white/10 text-white hover:text-[#EE3E54] transition-all tracking-tight text-center text-2xl sm:text-3xl ${
+                  link.url === "/blog" || link.title === "خواطر"
+                    ? "font-khawatir font-normal"
+                    : "font-black"
+                }`}
               >
                 {link.title}
               </LocaleLink>

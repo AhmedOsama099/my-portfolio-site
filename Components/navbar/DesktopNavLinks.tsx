@@ -22,28 +22,28 @@ const DesktopNavLinks: React.FC<DesktopNavLinksProps> = ({
 
   const rightLinks = [
     activeLinks.find((l) => l.url === "/tech-blog") || { url: "/tech-blog", title: "Tech Blog" },
-    activeLinks.find((l) => l.url === "/blog") || { url: "/blog", title: "Arabic Writings" },
+    activeLinks.find((l) => l.url === "/blog") || { url: "/blog", title: "خواطر" },
   ];
 
   return (
     <nav
-      className="hidden min-[680px]:flex items-center justify-center w-full max-w-[480px] sm:max-w-[530px] md:max-w-[560px] text-xs sm:text-sm xl:text-base whitespace-nowrap select-none relative"
+      className="hidden min-[680px]:flex items-center justify-center w-full max-w-[430px] sm:max-w-[475px] md:max-w-[500px] text-xs sm:text-sm xl:text-base whitespace-nowrap select-none relative"
       aria-label="Main Navigation"
     >
       {/* Left Wing: About & Portfolio */}
-      <div className="flex-1 h-11 sm:h-12 flex items-center justify-evenly ps-3 sm:ps-5 pe-4 sm:pe-6 rounded-s-full bg-white/80 backdrop-blur-xl border-y border-s border-white/80 shadow-md shadow-indigo-950/5 min-w-0 transition-all duration-300">
+      <div className="flex-1 h-11 sm:h-12 flex items-center justify-evenly ps-2.5 sm:ps-4 pe-3 sm:pe-4 rounded-s-full bg-white/80 backdrop-blur-xl border-y border-s border-white/80 shadow-md shadow-indigo-950/5 min-w-0 transition-all duration-300">
         {leftLinks.map((link) => (
           <NavLink link={link} key={link.title} />
         ))}
       </div>
 
-      {/* Center Stadium Oval / Capsule Medallion */}
-      <div className="shrink-0 -mx-3 sm:-mx-3.5 z-20 flex items-center justify-center">
-        <NavLogo isCenterPiece={true} imageClassName="w-11 sm:w-12 md:w-13 h-auto" />
+      {/* Center Circular Medallion */}
+      <div className="shrink-0 -mx-2.5 sm:-mx-3 z-20 flex items-center justify-center">
+        <NavLogo isCenterPiece={true} imageClassName="w-10 sm:w-11 md:w-12 h-auto" />
       </div>
 
-      {/* Right Wing: Tech Blog & Arabic Writings */}
-      <div className="flex-1 h-11 sm:h-12 flex items-center justify-evenly ps-4 sm:ps-6 pe-3 sm:pe-5 rounded-e-full bg-white/80 backdrop-blur-xl border-y border-e border-white/80 shadow-md shadow-indigo-950/5 min-w-0 transition-all duration-300">
+      {/* Right Wing: Tech Blog & خواطر */}
+      <div className="flex-1 h-11 sm:h-12 flex items-center justify-evenly ps-3 sm:ps-4 pe-2.5 sm:pe-4 rounded-e-full bg-white/80 backdrop-blur-xl border-y border-e border-white/80 shadow-md shadow-indigo-950/5 min-w-0 transition-all duration-300">
         {rightLinks.map((link) => (
           <NavLink link={link} key={link.title} />
         ))}

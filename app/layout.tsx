@@ -1,9 +1,16 @@
 import "./globals.css"; // Make sure this path is correct
-import { Cairo } from "next/font/google";
+import { Cairo, Aref_Ruqaa } from "next/font/google";
 
 const cairo = Cairo({
   weight: ["400", "700"],
   subsets: ["arabic", "latin"],
+  display: "swap",
+});
+
+const arefRuqaa = Aref_Ruqaa({
+  weight: ["400", "700"],
+  subsets: ["arabic"],
+  variable: "--font-khawatir",
   display: "swap",
 });
 import { Metadata } from "next";
@@ -87,7 +94,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
       {/* suppressHydrationWarning prop prevents React hydration warnings that occur when server and client content don't match exactly */}
-      <body suppressHydrationWarning className={`${cairo.className}`}>
+      <body suppressHydrationWarning className={`${cairo.className} ${arefRuqaa.variable}`}>
         <HtmlLangSync />
         <WebVitals />
         <AnalyticsTracker />

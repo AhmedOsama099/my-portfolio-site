@@ -71,7 +71,7 @@ const ContactForm = () => {
           form.current?.reset();
           setMessage("");
           setTimeout(() => {
-            router.push("/notifications");
+            router.push("/notifications?sent=true");
           }, 1500);
         } else {
           setError(true);
@@ -140,7 +140,7 @@ const ContactForm = () => {
           />
           <div className="flex justify-center">
             <Link
-              href="/notifications"
+              href="/notifications?sent=true"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#565FA1] to-[#EE3E54] text-white text-xs font-bold shadow-md hover:scale-105 active:scale-95 transition-all"
             >
               <span>View Notifications Page Now</span>
