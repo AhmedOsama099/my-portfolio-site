@@ -30,7 +30,7 @@ const NavLink: React.FC<NavLinkProps> = ({ link }) => {
 
   return (
     <LocaleLink
-      className={`rounded font-medium p-2 text-[#3D4082] relative ${isActive} ${isHovered} `}
+      className={`rounded-full font-semibold px-3 py-1.5 sm:px-4 sm:py-2 text-[#3D4082] relative transition-all duration-300 hover:scale-105 active:scale-95 ${isActive} ${isHovered} `}
       key={link.title}
       href={link.url}
     >

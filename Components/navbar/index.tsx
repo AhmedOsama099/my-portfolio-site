@@ -11,21 +11,14 @@ const Navbar: React.FC = () => {
   const toggleMenu = () => setOpen((prev) => !prev);
 
   return (
-    <header className="relative w-full z-40 flex flex-col items-center pt-2 sm:pt-3 pb-1 select-none shrink-0 px-4">
-      {/* 1. Creative Floating Glass Nav Pill or Circular Trigger (Centered at the top) */}
-      <div className="flex items-center justify-center">
-        {/* Desktop Navigation Pill (shown when tabs fit without wrapping) */}
-        <DesktopNavLinks links={navLinks} />
+    <header className="relative w-full z-40 flex flex-col items-center pt-3 sm:pt-4 pb-2.5 sm:pb-3 select-none shrink-0 px-4">
+      {/* Desktop Navigation: Wing-and-Circle Dock (matching user sketch) */}
+      <DesktopNavLinks links={navLinks} />
 
-        {/* Mobile Creative Circular Trigger (shown only when tabs wrap) */}
-        <div className="min-[680px]:hidden">
-          <MobileMenu open={open} toggleMenu={toggleMenu} links={mobileNavLinks} />
-        </div>
-      </div>
-
-      {/* 2. Signature Logo placed directly UNDER the Nav Bar */}
-      <div className="mt-1 sm:mt-1.5 transition-transform hover:scale-105">
-        <NavLogo />
+      {/* Mobile Streamlined Floating Glass Bar (logo on left, creative menu trigger on right) */}
+      <div className="min-[680px]:hidden w-full max-w-md flex items-center justify-between px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-xl border border-white/80 shadow-md shadow-indigo-950/5">
+        <NavLogo isCenterPiece={false} imageClassName="w-16 h-auto" />
+        <MobileMenu open={open} toggleMenu={toggleMenu} links={mobileNavLinks} />
       </div>
     </header>
   );
