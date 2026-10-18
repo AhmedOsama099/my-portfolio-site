@@ -20,10 +20,10 @@ const AboutPage: React.FC = () => {
   const isExperienceRefInView = useInView(experienceRef, { once: true });
 
   return (
-    <MotionPageWrapper className="h-full !overflow-hidden">
-      {/* Container */}
+    <MotionPageWrapper className="h-full overflow-hidden">
+      {/* Container — sole scroll owner */}
       <div
-        className="h-full overflow-y-auto lg:flex justify-between custom-scrollbar"
+        className="h-full overflow-y-auto custom-scrollbar lg:flex justify-between"
         ref={containerRef}
       >
         {/* Text Container*/}

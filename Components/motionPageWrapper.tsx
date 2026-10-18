@@ -1,7 +1,7 @@
 "use client";
 import React, { FC } from "react";
 import { motion } from "framer-motion";
-import clsx from "clsx";
+import { cn } from "@/lib/tailwind";
 
 const MotionPageWrapper: FC<{
   children: React.ReactNode;
@@ -9,7 +9,7 @@ const MotionPageWrapper: FC<{
 }> = ({ children, className }) => {
   return (
     <motion.div
-      className={clsx("h-full overflow-y-auto  custom-scrollbar", className)}
+      className={cn("h-full overflow-y-auto custom-scrollbar", className)}
       initial={{
         y: "-200vh",
       }}
