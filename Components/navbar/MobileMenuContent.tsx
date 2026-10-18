@@ -6,6 +6,8 @@ import LocaleLink from "@/Components/LocaleLink";
 import { motion, AnimatePresence } from "framer-motion";
 import { menuAnimations } from "./animations";
 import { MobileMenuContentProps } from "@/types/navbar";
+import NavModeSwitch from "./NavModeSwitch";
+import NavSocialLinks from "./NavSocialLinks";
 
 const MobileMenuContent: React.FC<MobileMenuContentProps> = ({
   links,
@@ -30,7 +32,7 @@ const MobileMenuContent: React.FC<MobileMenuContentProps> = ({
         initial="closed"
         animate="opened"
         exit="closed"
-        className="fixed inset-0 bg-black text-white flex items-center justify-center gap-7 text-2xl sm:text-3xl flex-col z-[250] p-6 select-none"
+        className="fixed inset-0 bg-black text-white flex items-center justify-center gap-6 text-2xl sm:text-3xl flex-col z-[250] p-6 select-none"
       >
         {/* Close button in top-right */}
         <button
@@ -44,19 +46,28 @@ const MobileMenuContent: React.FC<MobileMenuContentProps> = ({
         </button>
 
         {/* Nav links with high contrast on black background */}
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col items-center gap-3">
           {links.map((link) => (
             <motion.div variants={menuAnimations.listItem} key={link.title}>
               <LocaleLink
                 onClick={toggleMenu}
                 href={link.url}
-                className="block py-2.5 px-6 rounded-2xl hover:bg-white/10 text-white hover:text-[#EE3E54] transition-all font-black tracking-tight text-center text-2xl sm:text-3xl"
+                className="block py-2 px-6 rounded-2xl hover:bg-white/10 text-white hover:text-[#EE3E54] transition-all font-black tracking-tight text-center text-2xl sm:text-3xl"
               >
                 {link.title}
               </LocaleLink>
             </motion.div>
           ))}
         </div>
+
+        {/* Persona Switch and Social Media Links */}
+        <motion.div
+          variants={menuAnimations.listItem}
+          className="flex flex-col items-center gap-3 mt-4 pt-4 border-t border-white/15"
+        >
+          <NavModeSwitch />
+          <NavSocialLinks />
+        </motion.div>
       </motion.div>
     </AnimatePresence>,
     document.body
