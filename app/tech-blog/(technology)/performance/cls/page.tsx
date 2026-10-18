@@ -21,7 +21,7 @@ export async function generateMetadata() {
   const url =
     "https://ahmedosamadev.vercel.app/tech-blog/performance/cls";
   const image =
-    "https://ahmedosamadev.vercel.app/images/tech-blog/performance/cls-header.jpg";
+    "https://ahmedosamadev.vercel.app/images/tech-blog/performance/cls-og.jpg";
 
   return {
     title,

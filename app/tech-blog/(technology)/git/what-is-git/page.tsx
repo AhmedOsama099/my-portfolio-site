@@ -16,7 +16,7 @@ export async function generateMetadata() {
   const description =
     "A foundational guide to Git: why version control matters, distributed vs centralized architecture, snapshots vs deltas, and local collaboration advantages.";
   const url = "https://ahmedosamadev.vercel.app/tech-blog/git/what-is-git";
-  const image = "https://ahmedosamadev.vercel.app/images/tech-blog/git/what-is-git-header.jpg";
+  const image = "https://ahmedosamadev.vercel.app/images/tech-blog/git/what-is-git-og.jpg";
 
   return {
     title,

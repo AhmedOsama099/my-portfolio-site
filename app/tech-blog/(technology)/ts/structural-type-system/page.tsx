@@ -20,7 +20,7 @@ export async function generateMetadata() {
   const url =
     "https://ahmedosamadev.vercel.app/tech-blog/ts/structural-type-system";
   const image =
-    "https://ahmedosamadev.vercel.app/images/tech-blog/ts/structural-type-system-header.jpg";
+    "https://ahmedosamadev.vercel.app/images/tech-blog/ts/structural-type-system-og.jpg";
 
   return {
     title,

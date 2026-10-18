@@ -19,7 +19,7 @@ export async function generateMetadata() {
   const description =
     "A comprehensive engineering guide to TTFB (Time to First Byte): full lifecycle breakdown from navigation to first byte, measurement APIs, benchmarks, root causes, optimization strategies, and Core Web Vitals impact.";
   const url = "https://ahmedosamadev.vercel.app/tech-blog/performance/ttfb";
-  const image = "https://ahmedosamadev.vercel.app/images/tech-blog/performance/ttfb-header.jpg";
+  const image = "https://ahmedosamadev.vercel.app/images/tech-blog/performance/ttfb-og.jpg";
 
   return {
     title,

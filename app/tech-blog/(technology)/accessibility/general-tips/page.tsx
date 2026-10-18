@@ -15,7 +15,7 @@ export async function generateMetadata() {
   const description =
     "دليل هندسي شامل لإمكانية الوصول على الويب: المبادئ الأساسية، المعايير العالمية WCAG، التوافق مع قارئات الشاشة، والتصميم الشامل لكافة المستخدمين.";
   const url = "https://ahmedosamadev.vercel.app/tech-blog/accessibility/general-tips";
-  const image = "https://ahmedosamadev.vercel.app/images/tech-blog/accessibility-header.jpg";
+  const image = "https://ahmedosamadev.vercel.app/images/tech-blog/accessibility-og.jpg";
 
   return {
     title,

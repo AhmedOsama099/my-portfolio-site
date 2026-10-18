@@ -20,7 +20,7 @@ export async function generateMetadata() {
   const url =
     "https://ahmedosamadev.vercel.app/tech-blog/ts/index-signature";
   const image =
-    "https://ahmedosamadev.vercel.app/images/tech-blog/ts/index-signature-header.jpg";
+    "https://ahmedosamadev.vercel.app/images/tech-blog/ts/index-signature-og.jpg";
 
   return {
     title,
