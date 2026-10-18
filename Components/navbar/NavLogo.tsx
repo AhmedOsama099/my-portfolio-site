@@ -35,7 +35,7 @@ const NavLogo: React.FC<NavLogoProps> = ({
         aria-label="Ahmed Osama - Home"
         className={`group relative flex items-center justify-center ${
           isCenterPiece
-            ? "w-[62px] h-[62px] sm:w-[70px] sm:h-[70px] md:w-[76px] md:h-[76px] rounded-full bg-white/95 backdrop-blur-2xl border-2 sm:border-[2.5px] border-[#3D4082]/35 hover:border-[#3D4082]/70 shadow-lg shadow-indigo-950/15 hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300"
+            ? "w-[62px] h-[62px] sm:w-[70px] sm:h-[70px] md:w-[76px] md:h-[76px] rounded-full bg-[#3D4082] border-2 sm:border-[2.5px] border-white/85 hover:border-white shadow-lg shadow-[#3D4082]/30 hover:shadow-xl hover:shadow-[#3D4082]/40 hover:scale-105 active:scale-95 transition-all duration-300"
             : "px-2 py-1 rounded-full hover:scale-105 active:scale-95 transition-all duration-300"
         }`}
       >
@@ -61,7 +61,7 @@ const NavLogo: React.FC<NavLogoProps> = ({
           alt="Ahmed Osama logo"
           width={110}
           height={38}
-          className={`${imageClassName} drop-shadow-sm transition-transform duration-300 group-hover:scale-105`}
+          className={`${imageClassName} ${isCenterPiece ? "brightness-0 invert" : ""} drop-shadow-sm transition-transform duration-300 group-hover:scale-105`}
           priority
         />
       </LocaleLink>
