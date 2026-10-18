@@ -15,7 +15,7 @@ export async function generateMetadata() {
   const description =
     "دليل هندسي شامل لإمكانية الوصول على الويب: المبادئ الأساسية، المعايير العالمية WCAG، التوافق مع قارئات الشاشة، والتصميم الشامل لكافة المستخدمين.";
   const url = "https://ahmedosamadev.vercel.app/tech-blog/accessibility/general-tips";
-  const image = "/images/tech-blog/accessibility-header.svg";
+  const image = "https://ahmedosamadev.vercel.app/images/tech-blog/accessibility-header.jpg";
 
   return {
     title,
@@ -26,11 +26,14 @@ export async function generateMetadata() {
       url,
       title,
       description,
+      siteName: "Ahmed Osama Portfolio",
       images: [
         {
           url: image,
+          secureUrl: image,
           width: 1200,
           height: 630,
+          type: "image/jpeg",
           alt: "Web Accessibility (A11y) Guide",
         },
       ],

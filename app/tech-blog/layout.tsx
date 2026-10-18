@@ -18,9 +18,11 @@ export const metadata: Metadata = {
     siteName: "Ahmed Osama Portfolio",
     images: [
       {
-        url: "/images/tech-blog/performance/ttfb-header.svg",
+        url: "https://ahmedosamadev.vercel.app/images/tech-blog/performance/ttfb-header.jpg",
+        secureUrl: "https://ahmedosamadev.vercel.app/images/tech-blog/performance/ttfb-header.jpg",
         width: 1200,
         height: 630,
+        type: "image/jpeg",
         alt: "Ahmed Osama Tech Blog",
       },
     ],
@@ -30,7 +32,7 @@ export const metadata: Metadata = {
     title: "Engineering Tech Blog — Software Architecture, Web Performance & Systems",
     description:
       "In-depth technical articles, architecture deep dives, Web Performance (Core Web Vitals), TypeScript typing systems, Git internals, and Web Accessibility by Ahmed Osama.",
-    images: ["/images/tech-blog/performance/ttfb-header.svg"],
+    images: ["https://ahmedosamadev.vercel.app/images/tech-blog/performance/ttfb-header.jpg"],
   },
 };
 

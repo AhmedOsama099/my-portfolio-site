@@ -20,6 +20,8 @@ export async function generateMetadata() {
     "A deep-dive guide into CLS (Cumulative Layout Shift): the Impact & Distance fraction calculus, Session Windows, hadRecentInput 500ms rule, scroll-triggered shifts, and zero-shift layout engineering.";
   const url =
     "https://ahmedosamadev.vercel.app/tech-blog/performance/cls";
+  const image =
+    "https://ahmedosamadev.vercel.app/images/tech-blog/performance/cls-header.jpg";
 
   return {
     title,
@@ -30,11 +32,14 @@ export async function generateMetadata() {
       url,
       title,
       description,
+      siteName: "Ahmed Osama Portfolio",
       images: [
         {
-          url: "/images/tech-blog/performance/cls-header.svg",
+          url: image,
+          secureUrl: image,
           width: 1200,
-          height: 480,
+          height: 630,
+          type: "image/jpeg",
           alt: "CLS Core Web Vitals Visual Stability Guide",
         },
       ],
@@ -43,7 +48,7 @@ export async function generateMetadata() {
       card: "summary_large_image",
       title,
       description,
-      images: ["/images/tech-blog/performance/cls-header.svg"],
+      images: [image],
     },
   };
 }

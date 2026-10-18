@@ -20,6 +20,8 @@ export async function generateMetadata() {
     "A deep-dive guide into INP (Interaction to Next Paint): replacing FID, the 3 latency phases (Input Delay, Processing, Presentation), eliminating Layout Thrashing, and sub-200ms optimization.";
   const url =
     "https://ahmedosamadev.vercel.app/tech-blog/performance/inp";
+  const image =
+    "https://ahmedosamadev.vercel.app/images/tech-blog/performance/inp-header.jpg";
 
   return {
     title,
@@ -30,11 +32,14 @@ export async function generateMetadata() {
       url,
       title,
       description,
+      siteName: "Ahmed Osama Portfolio",
       images: [
         {
-          url: "/images/tech-blog/performance/inp-header.svg",
+          url: image,
+          secureUrl: image,
           width: 1200,
-          height: 480,
+          height: 630,
+          type: "image/jpeg",
           alt: "INP Core Web Vitals Responsiveness Guide",
         },
       ],
@@ -43,7 +48,7 @@ export async function generateMetadata() {
       card: "summary_large_image",
       title,
       description,
-      images: ["/images/tech-blog/performance/inp-header.svg"],
+      images: [image],
     },
   };
 }

@@ -18,7 +18,7 @@ export async function generateMetadata() {
   const description =
     "Discover why Git is 100% offline-first, the difference between Git and GitHub, and how transfer protocols (Local, HTTP, SSH, Git) power remote synchronization.";
   const url = "https://ahmedosamadev.vercel.app/tech-blog/git/online-offline-git";
-  const image = "/images/tech-blog/git/online-offline-git-header.svg";
+  const image = "https://ahmedosamadev.vercel.app/images/tech-blog/git/online-offline-git-header.jpg";
 
   return {
     title,
@@ -29,11 +29,14 @@ export async function generateMetadata() {
       url,
       title,
       description,
+      siteName: "Ahmed Osama Portfolio",
       images: [
         {
           url: image,
+          secureUrl: image,
           width: 1200,
           height: 630,
+          type: "image/jpeg",
           alt: "Does Git Need Internet — Offline Architecture & Protocols",
         },
       ],

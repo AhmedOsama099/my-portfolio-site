@@ -20,6 +20,8 @@ export async function generateMetadata() {
     "A comprehensive guide to FCP (First Contentful Paint): FP vs FCP vs LCP, the Critical Rendering Path, Render-Blocking CSS, Web Font strategies (FOIT/FOUT), and sub-second optimization.";
   const url =
     "https://ahmedosamadev.vercel.app/tech-blog/performance/fcp";
+  const image =
+    "https://ahmedosamadev.vercel.app/images/tech-blog/performance/fcp-header.jpg";
 
   return {
     title,
@@ -30,11 +32,14 @@ export async function generateMetadata() {
       url,
       title,
       description,
+      siteName: "Ahmed Osama Portfolio",
       images: [
         {
-          url: "/images/tech-blog/performance/fcp-header.svg",
+          url: image,
+          secureUrl: image,
           width: 1200,
-          height: 480,
+          height: 630,
+          type: "image/jpeg",
           alt: "FCP Web Performance Guide",
         },
       ],
@@ -43,7 +48,7 @@ export async function generateMetadata() {
       card: "summary_large_image",
       title,
       description,
-      images: ["/images/tech-blog/performance/fcp-header.svg"],
+      images: [image],
     },
   };
 }

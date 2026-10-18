@@ -20,6 +20,8 @@ export async function generateMetadata() {
     "A deep-dive guide into LCP (Largest Contentful Paint): eligible vs excluded elements, 4 subparts breakdown, fetchpriority='high', modern image formats (AVIF/WebP), and render-delay elimination.";
   const url =
     "https://ahmedosamadev.vercel.app/tech-blog/performance/lcp";
+  const image =
+    "https://ahmedosamadev.vercel.app/images/tech-blog/performance/lcp-header.jpg";
 
   return {
     title,
@@ -30,11 +32,14 @@ export async function generateMetadata() {
       url,
       title,
       description,
+      siteName: "Ahmed Osama Portfolio",
       images: [
         {
-          url: "/images/tech-blog/performance/lcp-header.svg",
+          url: image,
+          secureUrl: image,
           width: 1200,
-          height: 480,
+          height: 630,
+          type: "image/jpeg",
           alt: "LCP Core Web Vitals Performance Guide",
         },
       ],
@@ -43,7 +48,7 @@ export async function generateMetadata() {
       card: "summary_large_image",
       title,
       description,
-      images: ["/images/tech-blog/performance/lcp-header.svg"],
+      images: [image],
     },
   };
 }

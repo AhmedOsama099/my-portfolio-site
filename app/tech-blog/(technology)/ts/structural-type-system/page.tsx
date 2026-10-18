@@ -19,7 +19,8 @@ export async function generateMetadata() {
     "Explore how TypeScript’s Structural Type System works — its logic, benefits, and how it differs from Nominal Typing with real examples.";
   const url =
     "https://ahmedosamadev.vercel.app/tech-blog/ts/structural-type-system";
-  const image = "/images/tech-blog/ts/structural-type-system-header.svg";
+  const image =
+    "https://ahmedosamadev.vercel.app/images/tech-blog/ts/structural-type-system-header.jpg";
 
   return {
     title,
@@ -30,11 +31,14 @@ export async function generateMetadata() {
       url,
       title,
       description,
+      siteName: "Ahmed Osama Portfolio",
       images: [
         {
           url: image,
+          secureUrl: image,
           width: 1200,
           height: 630,
+          type: "image/jpeg",
           alt: "Structural Type System in TypeScript",
         },
       ],

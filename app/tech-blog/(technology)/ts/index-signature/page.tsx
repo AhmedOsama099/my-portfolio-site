@@ -19,7 +19,8 @@ export async function generateMetadata() {
     "تعرف على TypeScript Index Signatures وكيف تمكنك من التعامل مع الكائنات ذات الهياكل الديناميكية والمفاتيح غير المعروفة مسبقًا";
   const url =
     "https://ahmedosamadev.vercel.app/tech-blog/ts/index-signature";
-  const image = "/images/tech-blog/ts/index-signature-header-card.svg";
+  const image =
+    "https://ahmedosamadev.vercel.app/images/tech-blog/ts/index-signature-header.jpg";
 
   return {
     title,
@@ -30,11 +31,14 @@ export async function generateMetadata() {
       url,
       title,
       description,
+      siteName: "Ahmed Osama Portfolio",
       images: [
         {
           url: image,
+          secureUrl: image,
           width: 1200,
           height: 630,
+          type: "image/jpeg",
           alt: "TypeScript Index Signatures Guide",
         },
       ],
