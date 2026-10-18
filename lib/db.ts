@@ -5,7 +5,7 @@ export interface Comment {
   parent_id?: number | null;
   article_id: string;
   article_title: string;
-  article_type: "tech-blog" | "literature";
+  article_type: "tech-blog" | "literature" | "contact";
   page_path: string;
   author_name: string;
   author_email?: string;
@@ -238,7 +238,7 @@ export async function insertComment(data: {
   parent_id?: number | null;
   article_id: string;
   article_title: string;
-  article_type: "tech-blog" | "literature";
+  article_type: "tech-blog" | "literature" | "contact";
   page_path: string;
   author_name: string;
   author_email?: string;

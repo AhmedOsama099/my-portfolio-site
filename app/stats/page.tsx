@@ -47,7 +47,7 @@ export default function StatsPage() {
   const [comments, setComments] = useState<Comment[]>([]);
   const [loadingComments, setLoadingComments] = useState<boolean>(false);
   const [dbConfigured, setDbConfigured] = useState<boolean>(false);
-  const [commentFilter, setCommentFilter] = useState<"all" | "tech-blog" | "literature" | "hidden">("all");
+  const [commentFilter, setCommentFilter] = useState<"all" | "contact" | "tech-blog" | "literature" | "hidden">("all");
   const [replyTargetId, setReplyTargetId] = useState<number | null>(null);
   const [adminReplyText, setAdminReplyText] = useState<string>("");
   const [isSubmittingReply, setIsSubmittingReply] = useState<boolean>(false);
@@ -201,6 +201,13 @@ export default function StatsPage() {
     if (sessionAuth === "true" || localAuth === "true") {
       setIsAuthenticated(true);
     }
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const tabParam = params.get("tab") as ActiveTab;
+      if (tabParam && ["overview", "notifications", "literature", "pages", "geo", "interactions", "devices"].includes(tabParam)) {
+        setActiveTab(tabParam);
+      }
+    } catch {}
   }, []);
 
   // Load analytics data and comment notifications once authenticated
@@ -1086,7 +1093,11 @@ export default function StatsPage() {
               <div className="flex items-center gap-1.5 bg-slate-900/90 p-1 rounded-xl border border-slate-800 text-xs font-semibold overflow-x-auto">
                 {(
                   [
-                    { id: "all", label: `All Comments (${comments.length})` },
+                    { id: "all", label: `All Activity (${comments.length})` },
+                    {
+                      id: "contact",
+                      label: `Contact Inquiries (${comments.filter((c) => c.article_type === "contact").length})`,
+                    },
                     {
                       id: "tech-blog",
                       label: `Tech Blog (${comments.filter((c) => c.article_type === "tech-blog").length})`,
@@ -1155,12 +1166,20 @@ export default function StatsPage() {
                       <div className="flex items-center gap-3">
                         <div
                           className={`w-11 h-11 rounded-xl flex items-center justify-center text-sm font-extrabold text-white shadow-md ${
-                            item.article_type === "literature"
-                              ? "bg-gradient-to-tr from-rose-500 to-amber-500"
-                              : "bg-gradient-to-tr from-indigo-500 to-purple-500"
+                            item.article_type === "contact"
+                              ? "bg-gradient-to-tr from-emerald-500 to-teal-500 shadow-emerald-500/20"
+                              : item.article_type === "literature"
+                              ? "bg-gradient-to-tr from-rose-500 to-amber-500 shadow-rose-500/20"
+                              : "bg-gradient-to-tr from-indigo-500 to-purple-500 shadow-indigo-500/20"
                           }`}
                         >
-                          {item.author_name.charAt(0).toUpperCase()}
+                          {item.article_type === "contact" ? (
+                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                          ) : (
+                            item.author_name.charAt(0).toUpperCase()
+                          )}
                         </div>
                         <div>
                           <div className="flex items-center gap-2 flex-wrap">
@@ -1172,12 +1191,18 @@ export default function StatsPage() {
                             )}
                             <span
                               className={`text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md ${
-                                item.article_type === "literature"
+                                item.article_type === "contact"
+                                  ? "bg-emerald-500/10 text-emerald-300 border border-emerald-500/20"
+                                  : item.article_type === "literature"
                                   ? "bg-rose-500/10 text-rose-300 border border-rose-500/20"
                                   : "bg-indigo-500/10 text-indigo-300 border border-indigo-500/20"
                               }`}
                             >
-                              {item.article_type === "literature" ? "Arabic Writing (نص أدبي)" : "Tech Blog Article"}
+                              {item.article_type === "contact"
+                                ? "Direct Contact Inquiry"
+                                : item.article_type === "literature"
+                                ? "Arabic Writing (نص أدبي)"
+                                : "Tech Blog Article"}
                             </span>
 
                             {/* Visibility Badge */}

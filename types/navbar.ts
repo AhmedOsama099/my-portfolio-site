@@ -21,7 +21,7 @@ export interface MenuButtonProps {
 }
 
 export interface DesktopNavLinksProps {
-  links: NavLinkType[];
+  links?: NavLinkType[];
 }
 
 export interface ExtendedMobileMenuProps extends MobileMenuProps {

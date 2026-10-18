@@ -1,12 +1,25 @@
+import React from "react";
 import { motion } from "framer-motion";
 
-const DownloadCVButton = () => {
+interface DownloadCVButtonProps {
+  className?: string;
+  isFixed?: boolean;
+}
+
+const DownloadCVButton: React.FC<DownloadCVButtonProps> = ({
+  className = "",
+  isFixed = false,
+}) => {
   return (
     <motion.div
-      className="fixed z-50 md:bottom-8 md:right-8 bottom-6 right-6"
-      initial={{ opacity: 0, y: 20 }}
+      className={
+        isFixed
+          ? `fixed z-50 md:bottom-8 md:right-8 bottom-6 right-6 ${className}`
+          : className
+      }
+      initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 1 }}
+      transition={{ delay: 0.6 }}
     >
       <a
         href="/docs/Ahmed%20Osama%20Senior%20Software%20Engineer.pdf"

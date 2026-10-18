@@ -53,11 +53,12 @@ export async function POST(req: NextRequest) {
       content,
     } = body;
 
+    const isContactSubmission = articleType === "contact";
     const resolvedParentId = parentId || parent_id ? Number(parentId || parent_id) : null;
-    const resolvedArticleId = (articleId || articleSlug || "").trim();
+    const resolvedArticleId = (articleId || articleSlug || (isContactSubmission ? "direct-contact" : "")).trim();
     const resolvedAuthorName = (authorName || name || "").trim();
     const resolvedEmail = (authorEmail || email || "").trim();
-    const resolvedTitle = (articleTitle || "Article").trim();
+    const resolvedTitle = (articleTitle || (isContactSubmission ? "Direct Contact Message" : "Article")).trim();
     const resolvedContent = (content || "").trim();
 
     // Validation
@@ -65,7 +66,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          error: "articleId, authorName, and content are required.",
+          error: "authorName, content, and valid destination are required.",
         },
         { status: 400 }
       );
@@ -89,8 +90,12 @@ export async function POST(req: NextRequest) {
       parent_id: resolvedParentId,
       article_id: resolvedArticleId,
       article_title: resolvedTitle,
-      article_type: articleType === "literature" ? "literature" : "tech-blog",
-      page_path: String(pagePath || "/").trim(),
+      article_type: isContactSubmission
+        ? "contact"
+        : articleType === "literature"
+        ? "literature"
+        : "tech-blog",
+      page_path: String(pagePath || (isContactSubmission ? "/contact" : "/")).trim(),
       author_name: resolvedAuthorName,
       author_email: resolvedEmail || undefined,
       content: resolvedContent,

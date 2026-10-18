@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/about",
     "/portfolio",
     "/contact",
+    "/notifications",
     "/blog",
   ];
 
@@ -25,6 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/tech-blog/performance/lcp",
     "/tech-blog/performance/cls",
     "/tech-blog/performance/inp",
+    "/tech-blog/accessibility/general-tips",
   ];
 
   const mainEntries: MetadataRoute.Sitemap = mainRoutes.map((route) => ({
