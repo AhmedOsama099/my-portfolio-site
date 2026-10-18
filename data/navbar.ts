@@ -1,18 +1,18 @@
 import { NavLinkType, SocialMediaType } from "@/types/navbar";
 
-// Navigation links data - Logo centered between About/Portfolio on left and Tech Blog/Arabic Writings on right
+// Navigation links data - Tech Blog, About on left; Logo in center; Portfolio, خواطر on right
 export const navLinks: NavLinkType[] = [
+  { url: "/tech-blog", title: "Tech Blog" },
   { url: "/about", title: "About" },
   { url: "/portfolio", title: "Portfolio" },
-  { url: "/tech-blog", title: "Tech Blog" },
   { url: "/blog", title: "خواطر" },
 ];
 
 export const mobileNavLinks: NavLinkType[] = [
   { url: "/", title: "Home" },
+  { url: "/tech-blog", title: "Tech Blog" },
   { url: "/about", title: "About" },
   { url: "/portfolio", title: "Portfolio" },
-  { url: "/tech-blog", title: "Tech Blog" },
   { url: "/blog", title: "خواطر" },
 ];
 

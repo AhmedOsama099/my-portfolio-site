@@ -5,27 +5,28 @@ import LocaleLink from "@/Components/LocaleLink";
 import { usePathname } from "next/navigation";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { stripLocale } from "@/lib/i18n/config";
 
 export default function FloatingContactButton() {
   const [mounted, setMounted] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const pathname = usePathname();
-  const isAboutPage = pathname?.includes("/about");
+  const cleanPath = pathname ? stripLocale(pathname) : "";
+  const isAboutPage = cleanPath.startsWith("/about");
+  const isContactPage = cleanPath.startsWith("/contact");
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null;
+  if (!mounted || isAboutPage || isContactPage) return null;
 
   return createPortal(
     <motion.div
       initial={{ opacity: 0, scale: 0.6, y: 20 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.3 }}
-      className={`fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-50 flex items-center gap-3 ${
-        isAboutPage ? "lg:hidden" : ""
-      }`}
+      className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-50 flex items-center gap-3"
       style={{ position: "fixed", bottom: "1.5rem", right: "1.5rem" }}
     >
       <LocaleLink
