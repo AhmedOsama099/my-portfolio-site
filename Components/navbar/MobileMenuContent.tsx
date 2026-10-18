@@ -6,8 +6,6 @@ import LocaleLink from "@/Components/LocaleLink";
 import { motion, AnimatePresence } from "framer-motion";
 import { menuAnimations } from "./animations";
 import { MobileMenuContentProps } from "@/types/navbar";
-import NavModeSwitch from "./NavModeSwitch";
-import SocialMediaLinks from "./SocialMediaLinks";
 
 const MobileMenuContent: React.FC<MobileMenuContentProps> = ({
   links,
@@ -46,28 +44,19 @@ const MobileMenuContent: React.FC<MobileMenuContentProps> = ({
         </button>
 
         {/* Nav links with high contrast on black background */}
-        <div className="flex flex-col items-center gap-3">
+        <div className="flex flex-col items-center gap-4">
           {links.map((link) => (
             <motion.div variants={menuAnimations.listItem} key={link.title}>
               <LocaleLink
                 onClick={toggleMenu}
                 href={link.url}
-                className="block py-2 px-6 rounded-2xl hover:bg-white/10 text-white hover:text-[#EE3E54] transition-all font-black tracking-tight text-center text-2xl sm:text-3xl"
+                className="block py-2.5 px-6 rounded-2xl hover:bg-white/10 text-white hover:text-[#EE3E54] transition-all font-black tracking-tight text-center text-2xl sm:text-3xl"
               >
                 {link.title}
               </LocaleLink>
             </motion.div>
           ))}
         </div>
-
-        {/* Persona Switch and Social Media Links */}
-        <motion.div
-          variants={menuAnimations.listItem}
-          className="flex flex-col items-center gap-3 mt-4 pt-4 border-t border-white/15"
-        >
-          <NavModeSwitch />
-          <SocialMediaLinks />
-        </motion.div>
       </motion.div>
     </AnimatePresence>,
     document.body

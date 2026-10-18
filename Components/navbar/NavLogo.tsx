@@ -14,7 +14,7 @@ interface NavLogoProps {
 
 const NavLogo: React.FC<NavLogoProps> = ({
   className = "",
-  imageClassName = "w-16 sm:w-20 md:w-22 h-auto",
+  imageClassName = "w-13 sm:w-15 md:w-16 h-auto",
   isCenterPiece = true,
 }) => {
   const pathName = usePathname();
@@ -35,7 +35,7 @@ const NavLogo: React.FC<NavLogoProps> = ({
         aria-label="Ahmed Osama - Home"
         className={`group relative flex items-center justify-center ${
           isCenterPiece
-            ? "w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-full bg-white/95 backdrop-blur-2xl border-[3px] border-white shadow-xl shadow-indigo-950/15 hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300"
+            ? "w-18 h-18 sm:w-20 sm:h-20 md:w-22 md:h-22 rounded-full bg-white/95 backdrop-blur-2xl border-[2.5px] border-white shadow-lg shadow-indigo-950/15 hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300"
             : "px-2 py-1 rounded-full hover:scale-105 active:scale-95 transition-all duration-300"
         }`}
       >
@@ -49,10 +49,10 @@ const NavLogo: React.FC<NavLogoProps> = ({
         {/* Active status dots when on Home */}
         {isHomeActive && isCenterPiece && (
           <div className="absolute inset-0 pointer-events-none z-10">
-            <span className={`absolute w-2 h-2 ${dotsColors.one} rounded-full -top-1 left-4 sm:left-5 animate-pulse`} />
-            <span className={`absolute w-2 h-2 ${dotsColors.two} rounded-full -bottom-1 right-4 sm:right-5 animate-pulse`} />
-            <span className={`absolute w-1.5 h-1.5 ${dotsColors.four} rounded-full top-1/2 -right-1.5 animate-pulse`} />
-            <span className={`absolute w-1.5 h-1.5 ${dotsColors.three} rounded-full top-1/2 -left-1.5 animate-pulse`} />
+            <span className={`absolute w-1.5 h-1.5 ${dotsColors.one} rounded-full -top-1 left-3.5 sm:left-4 animate-pulse`} />
+            <span className={`absolute w-1.5 h-1.5 ${dotsColors.two} rounded-full -bottom-1 right-3.5 sm:right-4 animate-pulse`} />
+            <span className={`absolute w-1 h-1 ${dotsColors.four} rounded-full top-1/2 -right-1 animate-pulse`} />
+            <span className={`absolute w-1 h-1 ${dotsColors.three} rounded-full top-1/2 -left-1 animate-pulse`} />
           </div>
         )}
 
