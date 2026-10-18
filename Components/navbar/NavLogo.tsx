@@ -14,7 +14,7 @@ interface NavLogoProps {
 
 const NavLogo: React.FC<NavLogoProps> = ({
   className = "",
-  imageClassName = "w-10 sm:w-11 md:w-12 h-auto",
+  imageClassName = "w-11 sm:w-12 md:w-14 h-auto",
   isCenterPiece = true,
 }) => {
   const pathName = usePathname();
@@ -35,7 +35,7 @@ const NavLogo: React.FC<NavLogoProps> = ({
         aria-label="Ahmed Osama - Home"
         className={`group relative flex items-center justify-center ${
           isCenterPiece
-            ? "w-13 h-13 sm:w-14 sm:h-14 md:w-15 md:h-15 rounded-full bg-white/95 backdrop-blur-2xl border-2 sm:border-[2.5px] border-white shadow-lg shadow-indigo-950/15 hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300"
+            ? "w-[62px] h-[62px] sm:w-[70px] sm:h-[70px] md:w-[76px] md:h-[76px] rounded-full bg-white/95 backdrop-blur-2xl border-2 sm:border-[2.5px] border-white shadow-lg shadow-indigo-950/15 hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300"
             : "px-2 py-1 rounded-full hover:scale-105 active:scale-95 transition-all duration-300"
         }`}
       >

@@ -1,8 +1,6 @@
 "use client";
 
 import { FormEvent, useRef, useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
 import FormInput from "./FormInput";
 import MessageTextarea from "./MessageTextarea";
 import SubmitButton from "./SubmitButton";
@@ -15,7 +13,6 @@ const ContactForm = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [isValidMessage, setIsValidMessage] = useState(false);
-  const router = useRouter();
 
   const { t } = useTranslation();
 
@@ -70,9 +67,6 @@ const ContactForm = () => {
           setLoading(false);
           form.current?.reset();
           setMessage("");
-          setTimeout(() => {
-            router.push("/notifications?sent=true");
-          }, 1500);
         } else {
           setError(true);
           setLoading(false);
@@ -133,32 +127,11 @@ const ContactForm = () => {
       />
 
       {success && (
-        <div className="space-y-3 pt-2">
+        <div className="pt-2">
           <StatusMessage
             type="success"
-            message="Your message has been sent to the notifications page! Redirecting..."
+            message={t("contact.successMessage") || "Your message has been sent successfully! Thank you for reaching out."}
           />
-          <div className="flex justify-center">
-            <Link
-              href="/notifications?sent=true"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#565FA1] to-[#EE3E54] text-white text-xs font-bold shadow-md hover:scale-105 active:scale-95 transition-all"
-            >
-              <span>View Notifications Page Now</span>
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M14 5l7 7m0 0l-7 7m7-7H3"
-                />
-              </svg>
-            </Link>
-          </div>
         </div>
       )}
 

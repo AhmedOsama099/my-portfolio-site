@@ -38,8 +38,8 @@ const DesktopNavLinks: React.FC<DesktopNavLinksProps> = ({
       </div>
 
       {/* Center Circular Medallion */}
-      <div className="shrink-0 -mx-2.5 sm:-mx-3 z-20 flex items-center justify-center">
-        <NavLogo isCenterPiece={true} imageClassName="w-10 sm:w-11 md:w-12 h-auto" />
+      <div className="shrink-0 -mx-3 sm:-mx-3.5 z-20 flex items-center justify-center">
+        <NavLogo isCenterPiece={true} imageClassName="w-11 sm:w-12 md:w-14 h-auto" />
       </div>
 
       {/* Right Wing: Tech Blog & خواطر */}

@@ -630,14 +630,20 @@ export default function StatsPage() {
               <span>Reset</span>
             </button>
 
-            <Link
-              href="/notifications"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700/80 transition"
+            <button
+              onClick={() => setActiveTab("notifications")}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition ${
+                activeTab === "notifications"
+                  ? "bg-indigo-600 text-white"
+                  : "bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700/80"
+              }`}
               title="Open Notifications Feed"
             >
               <span>Notifications</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-            </Link>
+              {comments.length > 0 && (
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              )}
+            </button>
 
             <Link
               href="/"
@@ -1058,13 +1064,18 @@ export default function StatsPage() {
             <div className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
                 <div className="flex items-center gap-2.5">
-                  <h2 className="text-lg font-bold text-white">Comment Activity & Notifications Feed</h2>
+                  <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#565FA1] to-[#EE3E54] flex items-center justify-center text-white shadow-md">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                    </svg>
+                  </div>
+                  <h2 className="text-lg font-bold text-white">Notifications & Activity Feed</h2>
                   <span className="text-xs px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-mono font-semibold">
                     {comments.length} events
                   </span>
                 </div>
                 <p className="text-xs text-slate-400 mt-1">
-                  Track every reader comment, question, and feedback across Tech Blog and Arabic Writings in real time.
+                  Track direct contact inquiries, reader comments, questions, and discussions across your entire portfolio in real time.
                 </p>
               </div>
 
@@ -1094,19 +1105,61 @@ export default function StatsPage() {
                   </svg>
                   <span>{loadingComments ? "Syncing..." : "Refresh"}</span>
                 </button>
-
-                {/* Notifications Page link */}
-                <Link
-                  href="/notifications"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-gradient-to-r from-[#565FA1] to-[#EE3E54] hover:opacity-95 text-white transition shadow-sm"
-                  title="Open Dedicated Notifications Page"
-                >
-                  <span>Notifications Page</span>
-                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
-                </Link>
               </div>
+            </div>
+
+            {/* Quick Metrics Strip */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <button
+                onClick={() => setCommentFilter("all")}
+                className={`p-3.5 rounded-2xl text-left border transition ${
+                  commentFilter === "all"
+                    ? "bg-indigo-600/20 border-indigo-500/50"
+                    : "bg-slate-900/60 border-slate-800 hover:border-slate-700"
+                }`}
+              >
+                <div className="text-xs text-slate-400 font-medium">Total Activity</div>
+                <div className="text-xl font-bold text-white mt-0.5">{comments.length}</div>
+              </button>
+              <button
+                onClick={() => setCommentFilter("contact")}
+                className={`p-3.5 rounded-2xl text-left border transition ${
+                  commentFilter === "contact"
+                    ? "bg-emerald-500/20 border-emerald-500/50"
+                    : "bg-slate-900/60 border-slate-800 hover:border-slate-700"
+                }`}
+              >
+                <div className="text-xs text-emerald-300 font-medium">Contact Inquiries</div>
+                <div className="text-xl font-bold text-emerald-400 mt-0.5">
+                  {comments.filter((c) => c.article_type === "contact").length}
+                </div>
+              </button>
+              <button
+                onClick={() => setCommentFilter("tech-blog")}
+                className={`p-3.5 rounded-2xl text-left border transition ${
+                  commentFilter === "tech-blog"
+                    ? "bg-indigo-500/20 border-indigo-500/50"
+                    : "bg-slate-900/60 border-slate-800 hover:border-slate-700"
+                }`}
+              >
+                <div className="text-xs text-indigo-300 font-medium">Tech Blog</div>
+                <div className="text-xl font-bold text-indigo-400 mt-0.5">
+                  {comments.filter((c) => c.article_type === "tech-blog").length}
+                </div>
+              </button>
+              <button
+                onClick={() => setCommentFilter("literature")}
+                className={`p-3.5 rounded-2xl text-left border transition ${
+                  commentFilter === "literature"
+                    ? "bg-rose-500/20 border-rose-500/50"
+                    : "bg-slate-900/60 border-slate-800 hover:border-slate-700"
+                }`}
+              >
+                <div className="text-xs text-rose-300 font-medium">خواطر</div>
+                <div className="text-xl font-bold text-rose-400 mt-0.5">
+                  {comments.filter((c) => c.article_type === "literature").length}
+                </div>
+              </button>
             </div>
 
             {/* Filter Pills */}
@@ -1329,15 +1382,35 @@ export default function StatsPage() {
                           <span>🗑️ Delete</span>
                         </button>
 
-                        {/* Jump to comment on page */}
-                        <Link
-                          href={`${item.page_path}#comment-${item.id}`}
-                          target="_blank"
-                          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl font-semibold bg-indigo-600 hover:bg-indigo-500 text-white shadow-md shadow-indigo-500/20 transition"
-                        >
-                          <span>View on Page</span>
-                          <span aria-hidden>↗</span>
-                        </Link>
+                        {/* Reply via Email Button (if email present) */}
+                        {item.author_email && (
+                          <a
+                            href={`mailto:${item.author_email}?subject=${encodeURIComponent(
+                              item.article_type === "contact"
+                                ? "Re: Contact Inquiry - Ahmed Osama"
+                                : `Re: ${item.article_title}`
+                            )}`}
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-semibold bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 transition text-xs"
+                            title={`Send direct email to ${item.author_email}`}
+                          >
+                            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            <span>Reply via Email</span>
+                          </a>
+                        )}
+
+                        {/* Jump to comment on page (for articles) */}
+                        {item.article_type !== "contact" && (
+                          <Link
+                            href={`${item.page_path}#comment-${item.id}`}
+                            target="_blank"
+                            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl font-semibold bg-indigo-600 hover:bg-indigo-500 text-white shadow-md shadow-indigo-500/20 transition"
+                          >
+                            <span>View on Page</span>
+                            <span aria-hidden>↗</span>
+                          </Link>
+                        )}
                       </div>
                     </div>
 
