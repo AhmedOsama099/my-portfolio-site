@@ -18,7 +18,8 @@ export async function generateMetadata() {
   const description =
     "تعرف على TypeScript Index Signatures وكيف تمكنك من التعامل مع الكائنات ذات الهياكل الديناميكية والمفاتيح غير المعروفة مسبقًا";
   const url =
-    "https://my-portfolio-site.ahmedeng099.workers.dev/tech-blog/ts/index-signatures";
+    "https://ahmedosamadev.vercel.app/tech-blog/ts/index-signature";
+  const image = "/images/tech-blog/ts/index-signature-header-card.svg";
 
   return {
     title,
@@ -31,8 +32,9 @@ export async function generateMetadata() {
       description,
       images: [
         {
+          url: image,
           width: 1200,
-          height: 627,
+          height: 630,
           alt: "TypeScript Index Signatures Guide",
         },
       ],
@@ -41,6 +43,7 @@ export async function generateMetadata() {
       card: "summary_large_image",
       title,
       description,
+      images: [image],
     },
   };
 }

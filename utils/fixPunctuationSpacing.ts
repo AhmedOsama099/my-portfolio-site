@@ -29,7 +29,35 @@ function fixMixedTextSpacing(text: string) {
     .join("");
 }
 
+/**
+ * Breaks sentences onto new lines after full stops/periods, so any continuing
+ * text starts on the next line (as requested: if text is ended with a period, continuing text starts from the next line).
+ * Preserves decimal numbers (e.g. 1.3, 0.8), common abbreviations, and HTML tags.
+ */
+function breakSentencesOnPeriod(html: string): string {
+  // If the string contains HTML, process text outside tags
+  return html
+    .split(/(<[^>]+>)/g)
+    .map((part) => {
+      if (part.startsWith("<") && part.endsWith(">")) {
+        return part;
+      }
+
+      // Match a full stop (.) followed by whitespace and a new sentence start
+      // Lookbehind ensures we don't break on numbers like 1.3, 2.1, or www.example.com
+      // We replace ". " with ".<br class='sentence-break' />" or "<br />"
+      return part.replace(
+        /(?<!\d|[A-Za-z]\.[A-Za-z]|e\.g|i\.e)\.\s+(?=[^\s\d])/g,
+        ".<br class='my-1.5 block' />"
+      );
+    })
+    .join("");
+}
+
 // Wrapper حوالين parse
 export function parseWithSpacing(text: string) {
-  return parse(fixMixedTextSpacing(text));
+  if (!text) return text;
+  const spaced = fixMixedTextSpacing(text);
+  const sentenceBroken = breakSentencesOnPeriod(spaced);
+  return parse(sentenceBroken);
 }

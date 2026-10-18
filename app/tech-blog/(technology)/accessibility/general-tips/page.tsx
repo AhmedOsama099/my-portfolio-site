@@ -10,6 +10,40 @@ import ContentSimpleParagraph from "@/Components/techBlog/DocsUtils/ContentSimpl
 import SectionTitle from "@/Components/techBlog/DocsUtils/SectionTitle";
 import SectionList from "@/Components/techBlog/DocsUtils/SectionList";
 
+export async function generateMetadata() {
+  const title = "Web Accessibility (A11y) — دليل إمكانية الوصول الشامل";
+  const description =
+    "دليل هندسي شامل لإمكانية الوصول على الويب: المبادئ الأساسية، المعايير العالمية WCAG، التوافق مع قارئات الشاشة، والتصميم الشامل لكافة المستخدمين.";
+  const url = "https://ahmedosamadev.vercel.app/tech-blog/accessibility/general-tips";
+  const image = "/images/tech-blog/accessibility-header.svg";
+
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      url,
+      title,
+      description,
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 630,
+          alt: "Web Accessibility (A11y) Guide",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [image],
+    },
+  };
+}
+
 export default async function GeneralTipsPage() {
   const { t } = await getServerTranslation("");
   return (

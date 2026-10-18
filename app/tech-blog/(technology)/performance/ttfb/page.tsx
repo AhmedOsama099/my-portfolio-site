@@ -103,6 +103,11 @@ export default async function TTFBPage() {
           {parseWithSpacing(t("ttfb.lifecycle.p4"))}
         </ContentSimpleParagraph>
 
+        {/* Overview Lifecycle Diagram — placed right after Section 2 and before 2.1 */}
+        <DocsImage
+          src={`/images/tech-blog/performance/ttfb-lifecycle-${lang}.svg`}
+        />
+
         {/* 2.1 DNS Resolution */}
         <SectionTitle className="text-xl mt-6">
           {parseWithSpacing(t("ttfb.lifecycle.dns.title"))}
@@ -180,10 +185,6 @@ export default async function TTFBPage() {
           {parseWithSpacing(t("ttfb.lifecycle.processing.p7"))}
           {parseWithSpacing(t("ttfb.lifecycle.processing.p8"))}
         </ContentSimpleParagraph>
-
-        <DocsImage
-          src={`/images/tech-blog/performance/ttfb-lifecycle-${lang}.svg`}
-        />
       </SectionWrapper>
 
       {/* Section 3: What Is a Good TTFB? */}
@@ -195,6 +196,11 @@ export default async function TTFBPage() {
           {parseWithSpacing(t("ttfb.scoring.p3"))}
           {parseWithSpacing(t("ttfb.scoring.p4"))}
         </ContentSimpleParagraph>
+
+        {/* Section 3 Visual Diagram */}
+        <DocsImage
+          src={`/images/tech-blog/performance/ttfb-scoring-${lang}.svg`}
+        />
 
         {/* Why Field Data Matters */}
         <SectionTitle className="text-xl mt-6">
@@ -215,6 +221,11 @@ export default async function TTFBPage() {
           {parseWithSpacing(t("ttfb.causes.intro1"))}
           {parseWithSpacing(t("ttfb.causes.intro2"))}
         </ContentSimpleParagraph>
+
+        {/* Section 4 Visual Causes Diagram */}
+        <DocsImage
+          src={`/images/tech-blog/performance/ttfb-causes-${lang}.svg`}
+        />
 
         {/* 4.1 DNS & Connection */}
         <SectionTitle className="text-xl mt-6">
@@ -289,6 +300,11 @@ export default async function TTFBPage() {
           {parseWithSpacing(t("ttfb.optimizations.intro1"))}
           {parseWithSpacing(t("ttfb.optimizations.intro2"))}
         </ContentSimpleParagraph>
+
+        {/* Section 5 Visual Optimization Checklist Diagram */}
+        <DocsImage
+          src={`/images/tech-blog/performance/ttfb-optimization-${lang}.svg`}
+        />
 
         {/* 5.1 Network & Connection */}
         <SectionTitle className="text-xl mt-6">

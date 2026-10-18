@@ -9,7 +9,42 @@ import SectionWrapper from "@/Components/techBlog/DocsUtils/SectionWrapper";
 import WriterDate from "@/Components/techBlog/DocsUtils/Writer&Date";
 import { formatDateLang } from "@/utils/formatDateLang";
 import { getServerTranslation } from "@/utils/getServerTranslation";
-import parse from "html-react-parser";
+import { parseWithSpacing } from "@/utils/fixPunctuationSpacing";
+
+export async function generateMetadata() {
+  const title = "What is Git? — Distributed Version Control System Guide";
+  const description =
+    "A foundational guide to Git: why version control matters, distributed vs centralized architecture, snapshots vs deltas, and local collaboration advantages.";
+  const url = "https://ahmedosamadev.vercel.app/tech-blog/git/what-is-git";
+  const image = "/images/tech-blog/git/what-is-git-header.svg";
+
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      url,
+      title,
+      description,
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 630,
+          alt: "What is Git — Distributed Version Control System",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [image],
+    },
+  };
+}
+
 export default async function WhatIsGITPage() {
   const { t, lang } = await getServerTranslation("what-is-git");
 
@@ -24,35 +59,35 @@ export default async function WhatIsGITPage() {
       <SectionWrapper id="getting-started">
         {/* What is git? */}
         <ContentSimpleParagraph>
-          {parse(t("whatIsGit.p1"))}
-          {parse(t("whatIsGit.p2"))}
+          {parseWithSpacing(t("whatIsGit.p1"))}
+          {parseWithSpacing(t("whatIsGit.p2"))}
         </ContentSimpleParagraph>
         <DocsImage src={`/images/tech-blog/git/what-is-git-${lang}-1.svg`} />
       </SectionWrapper>
       {/* Why git is a Version Control? */}
       <SectionWrapper id="why-version-control">
-        <SectionTitle>{parse(t("whyVersionControl.title"))}</SectionTitle>
+        <SectionTitle>{parseWithSpacing(t("whyVersionControl.title"))}</SectionTitle>
         <ContentSimpleParagraph>
-          {parse(t("whyVersionControl.p1"))}
-          {parse(t("whyVersionControl.p2"))}
-          {parse(t("whyVersionControl.p3"))}
-          {parse(t("whyVersionControl.p4"))}
+          {parseWithSpacing(t("whyVersionControl.p1"))}
+          {parseWithSpacing(t("whyVersionControl.p2"))}
+          {parseWithSpacing(t("whyVersionControl.p3"))}
+          {parseWithSpacing(t("whyVersionControl.p4"))}
         </ContentSimpleParagraph>
         <DocsImage src={`/images/tech-blog/git/what-is-git-${lang}-2.svg`} />
       </SectionWrapper>
 
       {/* Why git is a Distributed? */}
       <SectionWrapper id="why-distributed">
-        <SectionTitle>{parse(t("whyDistributed.title"))}</SectionTitle>
+        <SectionTitle>{parseWithSpacing(t("whyDistributed.title"))}</SectionTitle>
         <ContentSimpleParagraph>
-          {parse(t("whyDistributed.p1"))}
-          {parse(t("whyDistributed.p2"))}
-          {parse(t("whyDistributed.p3"))}
+          {parseWithSpacing(t("whyDistributed.p1"))}
+          {parseWithSpacing(t("whyDistributed.p2"))}
+          {parseWithSpacing(t("whyDistributed.p3"))}
         </ContentSimpleParagraph>
         <SectionList>
-          {parse(t("whyDistributed.list.speed"))}
-          {parse(t("whyDistributed.list.reliability"))}
-          {parse(t("whyDistributed.list.collaboration"))}
+          {parseWithSpacing(t("whyDistributed.list.speed"))}
+          {parseWithSpacing(t("whyDistributed.list.reliability"))}
+          {parseWithSpacing(t("whyDistributed.list.collaboration"))}
         </SectionList>
         <DocsImage src={`/images/tech-blog/git/what-is-git-${lang}-3.svg`} />
       </SectionWrapper>

@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 360" width="1000" height="360" dir="rtl">
+  <defs>
+    <linearGradient id="optBgAr" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="360" rx="16" fill="#0b0f19" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- Title -->
+  <text x="500" y="42" text-anchor="middle" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="22" font-weight="800" fill="#f8fafc">
+    استراتيجيات تسريع وتحسين TTFB (Engineering Checklist)
+  </text>
+  <text x="500" y="68" text-anchor="middle" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="13" font-weight="500" fill="#94a3b8">
+    خطوات عملية لتقليل زمن استجابة السيرفر والوصول لأقل من 800ms
+  </text>
+
+  <!-- 4 Pillars of Optimization -->
+  <!-- Pillar 1: Edge & CDN (Rightmost in RTL) -->
+  <g transform="translate(740, 95)">
+    <rect width="220" height="230" rx="12" fill="url(#optBgAr)" stroke="#22c55e" stroke-width="1.5"/>
+    <circle cx="110" cy="38" r="22" fill="#14532d"/>
+    <text x="110" y="44" text-anchor="middle" font-family="system-ui" font-size="16">🚀</text>
+    <text x="110" y="82" text-anchor="middle" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="15" font-weight="800" fill="#86efac">1. شبكات الـ Edge</text>
+    <line x1="20" y1="98" x2="200" y2="98" stroke="#334155" stroke-width="1"/>
+    
+    <text x="200" y="125" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">✓ نشر CDN قريب جغرافيًا</text>
+    <text x="200" y="150" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">✓ تفعيل HTTP/3 و 0-RTT</text>
+    <text x="200" y="175" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">✓ استئناف جلسات TLS 1.3</text>
+    <text x="200" y="200" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">✓ Early Hints (103 Preload)</text>
+  </g>
+
+  <!-- Pillar 2: Multitier Caching -->
+  <g transform="translate(500, 95)">
+    <rect width="220" height="230" rx="12" fill="url(#optBgAr)" stroke="#38bdf8" stroke-width="1.5"/>
+    <circle cx="110" cy="38" r="22" fill="#0369a1"/>
+    <text x="110" y="44" text-anchor="middle" font-family="system-ui" font-size="16">💾</text>
+    <text x="110" y="82" text-anchor="middle" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="15" font-weight="800" fill="#7dd3fc">2. التخزين المؤقت</text>
+    <line x1="20" y1="98" x2="200" y2="98" stroke="#334155" stroke-width="1"/>
+    
+    <text x="200" y="125" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">✓ كاش الـ HTML على الـ Edge</text>
+    <text x="200" y="150" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">✓ stale-while-revalidate</text>
+    <text x="200" y="175" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">✓ Redis لاستعلامات الداتابيز</text>
+    <text x="200" y="200" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">✓ كاش الـ Microservices الداخلي</text>
+  </g>
+
+  <!-- Pillar 3: Database & Backend -->
+  <g transform="translate(260, 95)">
+    <rect width="220" height="230" rx="12" fill="url(#optBgAr)" stroke="#f59e0b" stroke-width="1.5"/>
+    <circle cx="110" cy="38" r="22" fill="#78350f"/>
+    <text x="110" y="44" text-anchor="middle" font-family="system-ui" font-size="16">⚙️</text>
+    <text x="110" y="82" text-anchor="middle" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="15" font-weight="800" fill="#fde68a">3. استعلامات السيرفر</text>
+    <line x1="20" y1="98" x2="200" y2="98" stroke="#334155" stroke-width="1"/>
+    
+    <text x="200" y="125" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">✓ بناء الفهارس Database Indexes</text>
+    <text x="200" y="150" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">✓ تشغيل الطلبات بالتوازي Promise.all</text>
+    <text x="200" y="175" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">✓ Connection Pooling للاتصال</text>
+    <text x="200" y="200" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">✓ جلب الحقول المطلوبة فقط</text>
+  </g>
+
+  <!-- Pillar 4: Modern Rendering -->
+  <g transform="translate(20, 95)">
+    <rect width="220" height="230" rx="12" fill="url(#optBgAr)" stroke="#c084fc" stroke-width="1.5"/>
+    <circle cx="110" cy="38" r="22" fill="#581c87"/>
+    <text x="110" y="44" text-anchor="middle" font-family="system-ui" font-size="16">✨</text>
+    <text x="110" y="82" text-anchor="middle" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="15" font-weight="800" fill="#e9d5ff">4. تقنيات العرض الحديثة</text>
+    <line x1="20" y1="98" x2="200" y2="98" stroke="#334155" stroke-width="1"/>
+    
+    <text x="200" y="125" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">✓ Streaming SSR (إرسال بايتات فورًا)</text>
+    <text x="200" y="150" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">✓ استخدام React Suspense</text>
+    <text x="200" y="175" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">✓ التوليد الثابت SSG / ISR</text>
+    <text x="200" y="200" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">✓ تأجيل المكونات غير الحرجة</text>
+  </g>
+</svg>

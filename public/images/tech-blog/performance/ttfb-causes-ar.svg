@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 360" width="1000" height="360" dir="rtl">
+  <defs>
+    <linearGradient id="cardBg4Ar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="360" rx="16" fill="#0b0f19" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- Title -->
+  <text x="500" y="42" text-anchor="middle" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="22" font-weight="800" fill="#f8fafc">
+    الأسباب الرئيسية لبطء زمن الاستجابة (High TTFB)
+  </text>
+  <text x="500" y="68" text-anchor="middle" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="13" font-weight="500" fill="#94a3b8">
+    تتوزع أسباب التأخير بين الشبكة، ومعالجة السيرفر، وغياب الكاش الفعّال
+  </text>
+
+  <!-- Col 1: Network & DNS (Rightmost in RTL) -->
+  <g transform="translate(740, 95)">
+    <rect width="220" height="230" rx="12" fill="url(#cardBg4Ar)" stroke="#38bdf8" stroke-width="1.5"/>
+    <circle cx="110" cy="40" r="22" fill="#0369a1"/>
+    <text x="110" y="46" text-anchor="middle" font-family="system-ui" font-size="16">🌐</text>
+    <text x="110" y="85" text-anchor="middle" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="15" font-weight="800" fill="#7dd3fc">الشبكة والـ DNS</text>
+    <line x1="20" y1="102" x2="200" y2="102" stroke="#334155" stroke-width="1"/>
+    
+    <text x="200" y="130" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">• بطء استجابة مزود DNS</text>
+    <text x="200" y="155" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">• بعد السيرفر جغرافيًا</text>
+    <text x="200" y="180" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">• مصافحة TLS مكررة</text>
+    <text x="200" y="205" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">• غياب شبكة CDN قريبة</text>
+  </g>
+
+  <!-- Col 2: Database & Backend -->
+  <g transform="translate(500, 95)">
+    <rect width="220" height="230" rx="12" fill="url(#cardBg4Ar)" stroke="#f59e0b" stroke-width="1.5"/>
+    <circle cx="110" cy="40" r="22" fill="#78350f"/>
+    <text x="110" y="46" text-anchor="middle" font-family="system-ui" font-size="16">🗄️</text>
+    <text x="110" y="85" text-anchor="middle" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="15" font-weight="800" fill="#fde68a">قواعد البيانات</text>
+    <line x1="20" y1="102" x2="200" y2="102" stroke="#334155" stroke-width="1"/>
+    
+    <text x="200" y="130" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">• استعلامات بدون Indexes</text>
+    <text x="200" y="155" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">• استدعاءات متسلسلة N+1</text>
+    <text x="200" y="180" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">• قفل الجداول Table Locks</text>
+    <text x="200" y="205" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">• انتظار خدمات خارجية بطيئة</text>
+  </g>
+
+  <!-- Col 3: SSR & Rendering -->
+  <g transform="translate(260, 95)">
+    <rect width="220" height="230" rx="12" fill="url(#cardBg4Ar)" stroke="#a855f7" stroke-width="1.5"/>
+    <circle cx="110" cy="40" r="22" fill="#581c87"/>
+    <text x="110" y="46" text-anchor="middle" font-family="system-ui" font-size="16">⚡</text>
+    <text x="110" y="85" text-anchor="middle" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="15" font-weight="800" fill="#d8b4fe">معالجة SSR المتزامنة</text>
+    <line x1="20" y1="102" x2="200" y2="102" stroke="#334155" stroke-width="1"/>
+    
+    <text x="200" y="130" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">• حظر الـ Render لجلب الداتا</text>
+    <text x="200" y="155" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">• عدم تفعيل Streaming SSR</text>
+    <text x="200" y="180" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">• معالجة عمليات ثقيلة بالـ CPU</text>
+    <text x="200" y="205" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">• حجم كود كبير داخل السيرفر</text>
+  </g>
+
+  <!-- Col 4: Caching Deficiencies -->
+  <g transform="translate(20, 95)">
+    <rect width="220" height="230" rx="12" fill="url(#cardBg4Ar)" stroke="#ef4444" stroke-width="1.5"/>
+    <circle cx="110" cy="40" r="22" fill="#7f1d1d"/>
+    <text x="110" y="46" text-anchor="middle" font-family="system-ui" font-size="16">🚫</text>
+    <text x="110" y="85" text-anchor="middle" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="15" font-weight="800" fill="#fca5a5">غياب الكاش المؤقت</text>
+    <line x1="20" y1="102" x2="200" y2="102" stroke="#334155" stroke-width="1"/>
+    
+    <text x="200" y="130" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">• توليد HTML من الصفر دائمًا</text>
+    <text x="200" y="155" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">• Cache-Control غير مضبوط</text>
+    <text x="200" y="180" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">• تكرار طلبات لنفس البيانات</text>
+    <text x="200" y="205" text-anchor="end" font-family="system-ui, 'Segoe UI', Tahoma, sans-serif" font-size="12" fill="#cbd5e1">• عدم استغلال Edge Caching</text>
+  </g>
+</svg>

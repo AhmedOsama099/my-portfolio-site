@@ -13,6 +13,40 @@ import { formatDateLang } from "@/utils/formatDateLang";
 
 import { getServerTranslation } from "@/utils/getServerTranslation";
 
+export async function generateMetadata() {
+  const title = "Does Git Need the Internet? Understanding Git Protocols";
+  const description =
+    "Discover why Git is 100% offline-first, the difference between Git and GitHub, and how transfer protocols (Local, HTTP, SSH, Git) power remote synchronization.";
+  const url = "https://ahmedosamadev.vercel.app/tech-blog/git/online-offline-git";
+  const image = "/images/tech-blog/git/online-offline-git-header.svg";
+
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      url,
+      title,
+      description,
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 630,
+          alt: "Does Git Need Internet — Offline Architecture & Protocols",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [image],
+    },
+  };
+}
+
 export default async function OnlineOfflineGITPage() {
   const { t, lang } = await getServerTranslation("online-offline-git");
 
