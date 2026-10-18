@@ -24,10 +24,12 @@ function formatRelativeTime(dateString: string): string {
   }
 }
 
+type FilterCategory = "all" | "contact" | "tech-blog" | "literature";
+
 export default function NotificationsPage() {
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [filter, setFilter] = useState<"all" | "contact" | "tech-blog" | "literature">("all");
+  const [filter, setFilter] = useState<FilterCategory>("all");
   const [dbConfigured, setDbConfigured] = useState<boolean>(false);
 
   const fetchNotifications = async () => {
@@ -165,15 +167,15 @@ export default function NotificationsPage() {
 
       {/* Filter Tabs */}
       <div className="flex items-center gap-2 mb-6 overflow-x-auto pb-2 scrollbar-none">
-        {[
+        {([
           { id: "all", label: `All (${comments.length})` },
           { id: "contact", label: `Contact Inquiries (${contactCount})` },
           { id: "tech-blog", label: `Tech Blog (${techCount})` },
           { id: "literature", label: `Arabic Writings (${litCount})` },
-        ].map((t) => (
+        ] as { id: FilterCategory; label: string }[]).map((t) => (
           <button
             key={t.id}
-            onClick={() => setFilter(t.id as any)}
+            onClick={() => setFilter(t.id)}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
               filter === t.id
                 ? "bg-gradient-to-r from-[#565FA1] to-[#EE3E54] text-white shadow-md shadow-[#565FA1]/25 scale-105"
