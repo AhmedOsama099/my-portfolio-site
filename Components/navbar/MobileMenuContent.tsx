@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { menuAnimations } from "./animations";
 import { MobileMenuContentProps } from "@/types/navbar";
 import NavModeSwitch from "./NavModeSwitch";
-import NavSocialLinks from "./NavSocialLinks";
+import SocialMediaLinks from "./SocialMediaLinks";
 
 const MobileMenuContent: React.FC<MobileMenuContentProps> = ({
   links,
@@ -66,7 +66,7 @@ const MobileMenuContent: React.FC<MobileMenuContentProps> = ({
           className="flex flex-col items-center gap-3 mt-4 pt-4 border-t border-white/15"
         >
           <NavModeSwitch />
-          <NavSocialLinks />
+          <SocialMediaLinks />
         </motion.div>
       </motion.div>
     </AnimatePresence>,

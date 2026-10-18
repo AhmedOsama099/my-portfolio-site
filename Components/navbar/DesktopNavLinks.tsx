@@ -4,7 +4,7 @@ import React from "react";
 import NavLink from "./navLink";
 import NavLogo from "./NavLogo";
 import NavModeSwitch from "./NavModeSwitch";
-import NavSocialLinks from "./NavSocialLinks";
+import SocialMediaLinks from "./SocialMediaLinks";
 import { DesktopNavLinksProps } from "@/types/navbar";
 
 const DesktopNavLinks: React.FC<DesktopNavLinksProps> = ({ links }) => {
@@ -57,7 +57,7 @@ const DesktopNavLinks: React.FC<DesktopNavLinksProps> = ({ links }) => {
         <span className="w-px h-4 sm:h-5 bg-slate-200/90 shrink-0 hidden min-[840px]:block" />
 
         {/* Social Media Links (GitHub, LinkedIn, WhatsApp) */}
-        <NavSocialLinks />
+        <SocialMediaLinks />
       </div>
     </nav>
   );
