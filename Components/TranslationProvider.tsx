@@ -14,7 +14,11 @@ export default function TranslationProvider({
 
   return (
     <I18nextProvider i18n={i18n}>
-      <div lang={currentLanguage} dir={currentDirection}>
+      <div
+        lang={currentLanguage}
+        dir={currentDirection}
+        className="w-full h-full min-h-full min-h-[100dvh] flex flex-col"
+      >
         {children}
       </div>
     </I18nextProvider>

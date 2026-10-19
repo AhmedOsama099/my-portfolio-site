@@ -8,7 +8,7 @@ const Biography: React.FC = () => {
 
       {/* Biography Description*/}
       <p className="text-gl">
-        It&apos;s Ahmed Osama El-Daoushy, a Senior Software Engineer with over 4
+        It&apos;s Ahmed Osama El-Daoushy, a Senior Software Engineer with over 6
         years of experience developing robust, scalable web applications. My
         work spans building performant websites, architecting APIs. I&apos;ve
         contributed to projects across startups and enterprise environments,

@@ -26,12 +26,9 @@ const AboutPage: React.FC = () => {
   }, []);
 
   return (
-    <MotionPageWrapper className="h-full overflow-hidden">
-      {/* Container — sole scroll owner */}
-      <div
-        className="h-full overflow-y-auto custom-scrollbar lg:flex justify-between"
-        ref={containerRef}
-      >
+    <MotionPageWrapper ref={containerRef}>
+      {/* Container */}
+      <div className="min-h-full lg:flex justify-between">
         {/* Text Container*/}
         <div className="p-4 sm:p-8 md:p-12 xl:p-24 flex flex-col gap-24 md:gap-32 lg:gap-52 lg:w-2/3 xl:w-[57.5%] pb-36 lg:pb-24">
           {/* Biography Container*/}
@@ -52,7 +49,7 @@ const AboutPage: React.FC = () => {
         </div>
 
         {/* Desktop Right Column: Interactive Brain with Contact Icon and Resume Button below */}
-        <div className="hidden lg:flex flex-col items-center justify-between w-1/3 xl:w-[42.5%] sticky top-0 h-full z-30 pt-4 pb-8 px-4 select-none">
+        <div className="hidden lg:flex flex-col items-center justify-between w-1/3 xl:w-[42.5%] sticky top-0 h-[calc(100vh-6rem)] z-30 pt-4 pb-8 px-4 select-none self-start">
           {/* Animated Brain */}
           <div className="w-full flex-1 flex items-center justify-center min-h-0">
             <Brain scrollYProgress={scrollYProgress} />
