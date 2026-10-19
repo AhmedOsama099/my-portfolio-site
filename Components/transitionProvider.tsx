@@ -7,6 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import clsx from "clsx";
 import { stripLocale } from "@/lib/i18n/config";
 import FloatingContactButton from "./contact/FloatingContactButton";
+import ScrollToTopButton from "./ScrollToTopButton";
 
 interface TransitionContextType {
   navigateWithTransition: (href: string) => void;
@@ -164,6 +165,7 @@ const TransitionProvider: FC<{
           {children}
         </div>
         <FloatingContactButton />
+        <ScrollToTopButton />
       </div>
     </TransitionContext.Provider>
   );

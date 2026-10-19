@@ -16,7 +16,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   const title =
-    "TTFB (Time to First Byte) — The Real Foundation of Web Performance";
+    "Time To First Byte (TTFB) — The Real Foundation of Web Performance and Loading Speed";
 
   const description =
     "A comprehensive engineering guide to TTFB (Time to First Byte): full lifecycle breakdown from navigation to first byte, measurement APIs, benchmarks, root causes, optimization strategies, and Core Web Vitals impact.";
@@ -51,7 +51,7 @@ export async function generateMetadata(): Promise<Metadata> {
           width: 1200,
           height: 630,
           type: "image/jpeg",
-          alt: "TTFB (Time to First Byte) — The Real Foundation of Web Performance",
+          alt: "Time To First Byte (TTFB) — The Real Foundation of Web Performance and Loading Speed",
         },
       ],
     },
@@ -87,6 +87,9 @@ export default async function TTFBPage() {
           {parseWithSpacing(t("ttfb.intro.p3"))}
         </ContentSimpleParagraph>
       </SectionWrapper>
+
+      {/* Overview Lifecycle Diagram / Previous Main Image */}
+      <DocsImage src="/images/tech-blog/performance/ttfb-header.svg" />
 
       {/* Section 1: What is TTFB */}
       <SectionWrapper id="what-is-ttfb">

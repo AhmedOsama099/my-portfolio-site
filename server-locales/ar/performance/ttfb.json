@@ -1,6 +1,6 @@
 {
   "ttfb": {
-    "title": "دليلك الشامل لـ TTFB — الأساس الحقيقي لأداء الويب وسرعة التحميل",
+    "title": "Time To First Byte TTFB — الأساس الحقيقي لأداء الويب وسرعة التحميل",
     "intro": {
       "title": "مقدمة",
       "p1": "<span>أول ما بنفكر كـ <strong>Frontend Developers</strong> أو مهندسين برمجيات في تحسين أداء الويب <strong>Web Performance</strong>، غالبًا بيكون تفكيرنا متجه لتقليل حجم ملفات <strong>JavaScript Bundles</strong>، أو ضغط الصور باستخدام صيغ حديثة زي <strong>WebP</strong> و <strong>AVIF</strong>، أو تقليل الموارد اللي بتعطّل عرض الصفحة. وكل دي خطوات مهمة، لكن الاستفادة منها ممكن تتأثر بتأخر بدء استجابة الصفحة من الخادم <strong>Server</strong>.</span>",
