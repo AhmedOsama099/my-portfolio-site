@@ -25,6 +25,9 @@ export async function generateMetadata() {
     title,
     description,
     alternates: { canonical: url },
+    other: {
+      image: image,
+    },
     openGraph: {
       type: "article",
       url,
@@ -37,8 +40,8 @@ export async function generateMetadata() {
         {
           url: image,
           secureUrl: image,
-          width: 1376,
-          height: 768,
+          width: 1200,
+          height: 628,
           type: "image/jpeg",
           alt: "TTFB (Time to First Byte) — Web Performance Guide",
         },
