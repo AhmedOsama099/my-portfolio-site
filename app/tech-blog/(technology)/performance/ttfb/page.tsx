@@ -16,18 +16,26 @@ import { getServerTranslation } from "@/utils/getServerTranslation";
 export async function generateMetadata() {
   const title =
     "TTFB (Time to First Byte) — The Real Foundation of Web Performance";
+
   const description =
     "A comprehensive engineering guide to TTFB (Time to First Byte): full lifecycle breakdown from navigation to first byte, measurement APIs, benchmarks, root causes, optimization strategies, and Core Web Vitals impact.";
-  const url = "https://ahmedosamadev.vercel.app/tech-blog/performance/ttfb";
-  const image = "https://ahmedosamadev.vercel.app/images/tech-blog/performance/ttfb-og.jpg";
+
+  const url =
+    "https://ahmedosamadev.vercel.app/tech-blog/performance/ttfb";
+
+  const image =
+    "https://ahmedosamadev.vercel.app/images/tech-blog/performance/ttfb-og.jpg";
 
   return {
     title,
     description,
-    alternates: { canonical: url },
-    other: {
-      image: image,
+
+    metadataBase: new URL("https://ahmedosamadev.vercel.app"),
+
+    alternates: {
+      canonical: url,
     },
+
     openGraph: {
       type: "article",
       url,
@@ -43,15 +51,19 @@ export async function generateMetadata() {
           width: 1200,
           height: 628,
           type: "image/jpeg",
-          alt: "TTFB (Time to First Byte) — Web Performance Guide",
+          alt: "TTFB (Time to First Byte) — The Real Foundation of Web Performance",
         },
       ],
     },
+
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [image],
+      images: {
+        url: image,
+        alt: "TTFB (Time to First Byte) — The Real Foundation of Web Performance",
+      },
     },
   };
 }
