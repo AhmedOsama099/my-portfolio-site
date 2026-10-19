@@ -178,7 +178,7 @@ export default function ArticleShareButton() {
                   animate={{ scale: 1, opacity: 1, y: 0 }}
                   exit={{ scale: 0.94, opacity: 0, y: 15 }}
                   transition={{ type: "spring", duration: 0.35, bounce: 0.15 }}
-                  onClick={(e) => e.stopPropagation()}
+                  onClick={(e: React.MouseEvent) => e.stopPropagation()}
                 >
                   {/* Decorative ambient gradient */}
                   <div className="absolute -top-24 -right-24 w-48 h-48 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
