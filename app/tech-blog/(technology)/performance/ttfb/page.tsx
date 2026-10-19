@@ -31,12 +31,14 @@ export async function generateMetadata() {
       title,
       description,
       siteName: "Ahmed Osama Portfolio",
+      publishedTime: "2026-09-29T00:00:00.000Z",
+      authors: ["Ahmed Osama"],
       images: [
         {
           url: image,
           secureUrl: image,
-          width: 1200,
-          height: 630,
+          width: 1376,
+          height: 768,
           type: "image/jpeg",
           alt: "TTFB (Time to First Byte) — Web Performance Guide",
         },
@@ -62,7 +64,7 @@ export default async function TTFBPage() {
       </PageHeader>
 
       {/* Header Banner */}
-      <DocsImage src="/images/tech-blog/performance/ttfb-header.svg" />
+      <DocsImage src="/images/tech-blog/performance/ttfb-header.jpg" />
 
       {/* Introduction */}
       <SectionWrapper id="introduction">
