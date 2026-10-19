@@ -12,8 +12,9 @@ import WriterDate from "@/Components/techBlog/DocsUtils/Writer&Date";
 import { parseWithSpacing } from "@/utils/fixPunctuationSpacing";
 import { formatDateLang } from "@/utils/formatDateLang";
 import { getServerTranslation } from "@/utils/getServerTranslation";
+import type { Metadata } from "next";
 
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
   const title =
     "TTFB (Time to First Byte) — The Real Foundation of Web Performance";
 
@@ -65,13 +66,6 @@ export async function generateMetadata() {
         alt: "TTFB (Time to First Byte) — The Real Foundation of Web Performance",
       },
     },
-    linkedIn: {
-      title,
-      description,
-      url,
-      images: image,
-    },
-
   };
 }
 
