@@ -27,11 +27,12 @@ const DesktopNavLinks: React.FC<DesktopNavLinksProps> = ({
 
   return (
     <nav
+      dir="ltr"
       className="hidden min-[680px]:flex items-center justify-center w-full max-w-[430px] sm:max-w-[475px] md:max-w-[500px] text-xs sm:text-sm xl:text-base whitespace-nowrap select-none relative"
       aria-label="Main Navigation"
     >
       {/* Left Wing: Tech Blog & About */}
-      <div className="flex-1 h-11 sm:h-12 flex items-center justify-evenly ps-2.5 sm:ps-4 pe-3 sm:pe-4 rounded-s-full bg-white/80 backdrop-blur-xl border-y border-s border-white/80 shadow-md shadow-indigo-950/5 min-w-0 transition-all duration-300">
+      <div className="flex-1 h-11 sm:h-12 flex items-center justify-evenly pl-2.5 sm:pl-4 pr-3 sm:pr-4 rounded-l-full bg-white/80 backdrop-blur-xl border-y border-l border-white/80 shadow-md shadow-indigo-950/5 min-w-0 transition-all duration-300">
         {leftLinks.map((link) => (
           <NavLink link={link} key={link.title} />
         ))}
@@ -43,7 +44,7 @@ const DesktopNavLinks: React.FC<DesktopNavLinksProps> = ({
       </div>
 
       {/* Right Wing: Portfolio & خواطر */}
-      <div className="flex-1 h-11 sm:h-12 flex items-center justify-evenly ps-3 sm:ps-4 pe-2.5 sm:pe-4 rounded-e-full bg-white/80 backdrop-blur-xl border-y border-e border-white/80 shadow-md shadow-indigo-950/5 min-w-0 transition-all duration-300">
+      <div className="flex-1 h-11 sm:h-12 flex items-center justify-evenly pl-3 sm:pl-4 pr-2.5 sm:pr-4 rounded-r-full bg-white/80 backdrop-blur-xl border-y border-r border-white/80 shadow-md shadow-indigo-950/5 min-w-0 transition-all duration-300">
         {rightLinks.map((link) => (
           <NavLink link={link} key={link.title} />
         ))}

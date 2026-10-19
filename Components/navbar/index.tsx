@@ -11,7 +11,10 @@ const Navbar: React.FC = () => {
   const toggleMenu = () => setOpen((prev) => !prev);
 
   return (
-    <header className="relative w-full z-40 flex flex-col items-center pt-3 sm:pt-4 pb-2.5 sm:pb-3 select-none shrink-0 px-3 sm:px-4">
+    <header
+      dir="ltr"
+      className="relative w-full z-40 flex flex-col items-center pt-3 sm:pt-4 pb-2.5 sm:pb-3 select-none shrink-0 px-3 sm:px-4"
+    >
       {/* Desktop Navigation: Wing-and-Circle Dock with Center Medallion */}
       <DesktopNavLinks links={navLinks} />
 
