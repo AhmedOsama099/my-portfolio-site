@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const url =
     "https://ahmedosamadev.vercel.app/tech-blog/performance/ttfb";
 
-  const image = "/images/tech-blog/performance/ttfb-og.jpg";
+  
 
   return {
     title,
@@ -46,10 +46,12 @@ export async function generateMetadata(): Promise<Metadata> {
       authors: ["Ahmed Osama"],
       images: [
         {
-          url: image,
+          url: "images/tech-blog/performance/ttfb-og.jpg",
+          secureUrl: "/images/tech-blog/performance/ttfb-og.jpg",
           width: 1200,
-          height: 630,
-          alt: title,
+          height: 628,
+          type: "image/jpeg",
+          alt: "TTFB (Time to First Byte) — The Real Foundation of Web Performance",
         },
       ],
     },
@@ -58,7 +60,10 @@ export async function generateMetadata(): Promise<Metadata> {
       card: "summary_large_image",
       title,
       description,
-      images: [image],
+      images: {
+        url: "/images/tech-blog/performance/ttfb-og.jpg",
+        alt: "TTFB (Time to First Byte) — The Real Foundation of Web Performance",
+      },
     },
   };
 }
