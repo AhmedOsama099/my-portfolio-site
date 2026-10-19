@@ -65,6 +65,13 @@ export async function generateMetadata() {
         alt: "TTFB (Time to First Byte) — The Real Foundation of Web Performance",
       },
     },
+    linkedIn: {
+      title,
+      description,
+      url,
+      images: image,
+    },
+
   };
 }
 
