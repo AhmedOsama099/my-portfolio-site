@@ -91,9 +91,9 @@ export default function HeroSection() {
             <Image
               src={item.imageURL}
               alt={item.alt}
-              width={32}
-              height={32}
-              className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 object-contain"
+              width={36}
+              height={36}
+              className="w-8 h-8 sm:w-8.5 sm:h-8.5 md:w-9 md:h-9 object-contain"
             />
           </a>
         ))}
