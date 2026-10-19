@@ -96,7 +96,7 @@ const TransitionProvider: FC<{
     <TransitionContext.Provider value={{ navigateWithTransition, isTransitioning }}>
       <div
         className={clsx(
-          "w-full max-w-full h-screen min-w-56 flex flex-col bg-gradient-to-b from-blue-100 to-red-100",
+          "w-full max-w-full h-full h-[100dvh] max-h-[100dvh] min-w-56 flex flex-col bg-gradient-to-b from-blue-100 to-red-100",
           isStats ? "overflow-y-auto" : "overflow-hidden"
         )}
       >

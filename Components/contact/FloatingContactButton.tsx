@@ -27,7 +27,11 @@ export default function FloatingContactButton() {
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.3 }}
       className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-50 flex items-center gap-3"
-      style={{ position: "fixed", bottom: "1.5rem", right: "1.5rem" }}
+      style={{
+        position: "fixed",
+        bottom: "max(1.5rem, calc(1rem + env(safe-area-inset-bottom, 0px)))",
+        right: "max(1.5rem, calc(1rem + env(safe-area-inset-right, 0px)))",
+      }}
     >
       <LocaleLink
         href="/contact"

@@ -10,6 +10,42 @@
 
 html,
 body {
+  width: 100%;
   max-width: 100vw;
-  overflow-x: hidden;
+  height: 100%;
+  height: 100dvh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
 }
+
+/* Touch-optimized and smooth custom scrollbar */
+.custom-scrollbar {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 0.5rem;
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.custom-scrollbar:hover::-webkit-scrollbar-thumb,
+.custom-scrollbar:active::-webkit-scrollbar-thumb {
+  background-color: rgba(155, 155, 155, 0.5);
+}
+
+.custom-scrollbar:hover,
+.custom-scrollbar:active {
+  scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
+}
+

@@ -12,9 +12,9 @@ const ContactPage = () => {
 
   return (
     <MotionPageWrapper>
-      <div className="h-full  flex gap-48 lg:gap-0 flex-col lg:flex-row px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48 ">
+      <div className="min-h-full flex gap-10 sm:gap-16 lg:gap-0 flex-col lg:flex-row px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48 py-6 sm:py-10 lg:py-0 pb-16 lg:pb-0">
         {/* Text Container */}
-        <div className="h-1/2 lg:h-full lg:w-1/2 flex items-center justify-center">
+        <div className="lg:h-full lg:w-1/2 flex items-center justify-center">
           <div className="relative">
             <AnimatedHeading text={t("contact.sayHello")} />
             <motion.div
@@ -37,7 +37,7 @@ const ContactPage = () => {
 
         {/* FORM CONTAINER */}
         <motion.div
-          className="h-1/2 lg:h-full lg:w-1/2 flex items-center justify-center py-8 "
+          className="lg:h-full lg:w-1/2 flex items-center justify-center py-4 lg:py-8"
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
